@@ -1,30 +1,28 @@
-// import { GlobalStyle } from './styles/globalStyle';
 import styled from 'styled-components';
-import React from 'react';
 
-const Header = styled.div`
+export const Header = styled.div`
   display: flex;
   width: 100%;
   height: 130px;
   background-color: blue;
 `;
-const Loginbody = styled.div`
+export const Loginbody = styled.div`
   width: 100%;
   height: 300px;
   align-items: center;
   justify-content: center;
   /* background-color: aqua; */
 `;
-const LoginTextMain = styled.div`
+export const LoginTextMain = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   /* width: 20%; */
-  padding: 10.4px;
+  padding: 10px;
   margin: 4px;
   font-size: 30px;
 `;
-const SignupQuest = styled.div`
+export const SignupQuest = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,7 +30,7 @@ const SignupQuest = styled.div`
   margin-left: 20px;
   padding-right: 10px;
 `;
-const SignupButton = styled.button`
+export const SignupButton = styled.button`
   /* display: flex; */
   align-items: center;
   justify-content: center;
@@ -40,10 +38,10 @@ const SignupButton = styled.button`
   color: #ffa8a8;
   padding-left: 10px;
 `;
-const LoginInform = styled.div`
+export const LoginInform = styled.div`
   /* background-color: pink; */
 `;
-const EmailText = styled.div`
+export const EmailText = styled.div`
   display: flex;
   font-size: 17px;
   align-items: center;
@@ -51,11 +49,11 @@ const EmailText = styled.div`
   margin-right: 100px;
   padding: 5px;
 `;
-const EmailInput = styled.input`
+export const EmailInput = styled.input`
   display: flex;
   margin: auto;
 `;
-const PassWordText = styled.div`
+export const PassWordText = styled.div`
   display: flex;
   font-size: 17px;
   align-items: center;
@@ -63,11 +61,11 @@ const PassWordText = styled.div`
   margin-right: 90px;
   padding: 5px;
 `;
-const PassWordInput = styled.input`
+export const PassWordInput = styled.input`
   display: flex;
   margin: auto;
 `;
-const FindPassWordButton = styled.button`
+export const FindPassWordButton = styled.button`
   display: flex;
   font-size: 17px;
   align-items: center;
@@ -76,7 +74,7 @@ const FindPassWordButton = styled.button`
   padding-top: 5px;
   padding-right: 60px;
 `;
-const LoginButton = styled.button`
+export const LoginButton = styled.button`
   display: flex;
   width: 320px;
   height: 30px;
@@ -87,7 +85,7 @@ const LoginButton = styled.button`
   justify-content: center;
   margin-left: 40px;
 `;
-const SocialLoginText = styled.button`
+export const SocialLoginText = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -95,7 +93,7 @@ const SocialLoginText = styled.button`
   padding: 10px;
   margin: auto;
 `;
-const SocialLogin = styled.button`
+export const SocialLogin = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -104,40 +102,10 @@ const SocialLogin = styled.button`
   margin: auto;
   border-radius: 5px;
 `;
-const GoogleLogin = styled(SocialLogin)``;
-const FacebookLogin = styled(SocialLogin)``;
-const Footer = styled.div`
+export const GoogleLogin = styled(SocialLogin)``;
+export const FacebookLogin = styled(SocialLogin)``;
+export const Footer = styled.div`
   width: 100%;
   height: 320px;
   background-color: red;
 `;
-
-function LoginPage() {
-  return (
-    <>
-      <Header></Header>
-      <Loginbody>
-        <LoginTextMain>로그인</LoginTextMain>
-        <SignupQuest>
-          아직 계정이 없으신가요? <SignupButton>회원가입</SignupButton>
-        </SignupQuest>
-        <LoginInform>
-          <EmailText>이메일</EmailText>
-          <EmailInput></EmailInput>
-          <PassWordText>비밀번호</PassWordText>
-          <PassWordInput></PassWordInput>
-        </LoginInform>
-        <FindPassWordButton>비밀번호찾기</FindPassWordButton>
-        <SocialLoginText>다음 계정으로 로그인하기 </SocialLoginText>
-        <SocialLogin>
-          <LoginButton>로그인</LoginButton>
-          <GoogleLogin></GoogleLogin>
-          <FacebookLogin></FacebookLogin>
-        </SocialLogin>
-      </Loginbody>
-      <Footer></Footer>
-    </>
-  );
-}
-
-export default LoginPage;
