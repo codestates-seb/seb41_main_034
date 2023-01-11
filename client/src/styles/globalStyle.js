@@ -29,7 +29,7 @@ export const GlobalStyle = createGlobalStyle`
   textarea {
     padding: 0;
     outline: none;
-    border: 1px solid #000000;
+    border: none;
     border-radius: 0;
     box-shadow: none;
   }
