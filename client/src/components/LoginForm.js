@@ -14,7 +14,7 @@ import {
   Footer
 } from '../styles/loginStyle';
 
-function LoginPage() {
+function LoginForm() {
   return (
     <>
       <Header></Header>
@@ -37,4 +37,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default LoginForm;
