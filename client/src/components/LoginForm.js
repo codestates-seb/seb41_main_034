@@ -6,15 +6,11 @@ import {
   LoginInform,
   SignupQuest,
   SignupButton,
-  EmailInput,
-  EmailText,
+  IdInput,
+  IdText,
   PassWordInput,
   PassWordText,
   FindPassWordButton,
-  SocialLoginText,
-  SocialLogin,
-  GoogleLogin,
-  FacebookLogin,
   Footer
 } from '../styles/loginStyle';
 
@@ -28,18 +24,13 @@ function LoginPage() {
           아직 계정이 없으신가요? <SignupButton>회원가입</SignupButton>
         </SignupQuest>
         <LoginInform>
-          <EmailText>이메일</EmailText>
-          <EmailInput></EmailInput>
+          <IdText>아이디</IdText>
+          <IdInput></IdInput>
           <PassWordText>비밀번호</PassWordText>
           <PassWordInput></PassWordInput>
         </LoginInform>
         <FindPassWordButton>비밀번호찾기</FindPassWordButton>
-        <SocialLoginText>다음 계정으로 로그인하기 </SocialLoginText>
-        <SocialLogin>
-          <LoginButton>로그인</LoginButton>
-          <GoogleLogin></GoogleLogin>
-          <FacebookLogin></FacebookLogin>
-        </SocialLogin>
+        <LoginButton>로그인</LoginButton>
       </Loginbody>
       <Footer></Footer>
     </>
