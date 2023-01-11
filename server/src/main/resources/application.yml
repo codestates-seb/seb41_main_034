@@ -16,7 +16,3 @@ spring:
         hbm2ddl:
           # import.sql에서 하나의 쿼리문을 여러 줄로 나눠서 써도 인식하도록 하는 설정
           import_files_sql_extractor: org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor
-
-server:
-  servlet:
-    context-path: /api

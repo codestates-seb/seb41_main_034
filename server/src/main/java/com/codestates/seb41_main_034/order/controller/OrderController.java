@@ -20,7 +20,7 @@ import javax.validation.constraints.Positive;
 @AllArgsConstructor
 @Validated
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/api/orders")
 public class OrderController {
 
     private final OrderService orderService;
