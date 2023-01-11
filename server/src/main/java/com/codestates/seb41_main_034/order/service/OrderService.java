@@ -1,25 +1,28 @@
 package com.codestates.seb41_main_034.order.service;
 
+import com.codestates.seb41_main_034.common.dto.PaginatedResponseDto;
 import com.codestates.seb41_main_034.common.exception.BusinessLogicException;
 import com.codestates.seb41_main_034.common.exception.BusinessLogicException.ExceptionCode;
 import com.codestates.seb41_main_034.common.jpa.Address;
 import com.codestates.seb41_main_034.order.dto.OrderPostDto;
 import com.codestates.seb41_main_034.order.dto.OrderProductPostDto;
-import com.codestates.seb41_main_034.order.dto.OrderProductResponseDto;
 import com.codestates.seb41_main_034.order.dto.OrderResponseDto;
 import com.codestates.seb41_main_034.order.entity.Order;
 import com.codestates.seb41_main_034.order.entity.OrderProduct;
+import com.codestates.seb41_main_034.order.mapper.OrderMapper;
 import com.codestates.seb41_main_034.order.repository.OrderRepository;
 import com.codestates.seb41_main_034.product.entity.Product;
 import com.codestates.seb41_main_034.product.service.ProductService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -29,6 +32,8 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
 
+    private final OrderMapper mapper;
+
     private final ProductService productService;
 
     public OrderResponseDto createOrder(OrderPostDto postDto) {
@@ -37,16 +42,14 @@ public class OrderService {
                 .map(OrderProductPostDto::getProductId)
                 .distinct()
                 .collect(Collectors.toList());
-
-        List<Product> products = productService.getVerifiedProducts(productIds);
+        Map<Integer, Product> productMap = productService.getVerifiedProducts(productIds);
 
         Order order = new Order();
-        order.setOrderProducts(
-                postDto.getProducts()
-                        .stream()
-                        .map(dto -> new OrderProduct(order, dto.getProductId(), dto.getQuantity()))
-                        .collect(Collectors.toList())
-        );
+        List<OrderProduct> orderProducts = postDto.getProducts()
+                .stream()
+                .map(dto -> new OrderProduct(order, dto.getProductId(), dto.getQuantity()))
+                .collect(Collectors.toList());
+        order.setOrderProducts(orderProducts);
         Address address = new Address(
                 postDto.getRecipient(),
                 postDto.getZonecode(),
@@ -67,7 +70,7 @@ public class OrderService {
                         ))
         );
 
-        return orderToOrderResponseDto(createdOrder, products);
+        return mapper.orderToResponseDto(createdOrder, productMap);
     }
 
     @Transactional(readOnly = true)
@@ -75,54 +78,40 @@ public class OrderService {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ORDER_NOT_FOUND));
 
-        List<Product> products = productService.getVerifiedProducts(
-                order.getOrderProducts()
-                        .stream()
-                        .map(OrderProduct::getProductId)
-                        .distinct()
-                        .collect(Collectors.toList())
-        );
+        List<Integer> productIds = order.getOrderProducts()
+                .stream()
+                .map(OrderProduct::getProductId)
+                .collect(Collectors.toList());
+        Map<Integer, Product> productMap = productService.getVerifiedProducts(productIds);
 
-        return orderToOrderResponseDto(order, products);
+        return mapper.orderToResponseDto(order, productMap);
     }
 
     @Transactional(readOnly = true)
-    private OrderResponseDto orderToOrderResponseDto(Order order, List<Product> products) {
-        Address address = order.getAddress();
+    public PaginatedResponseDto<OrderResponseDto> readOrders(int createdBy, Integer year, Pageable pageable) {
+        int yearToFind = Optional.ofNullable(year).orElse(LocalDate.now().getYear());
 
-        Map<Integer, Product> productMap = products.stream()
-                .collect(Collectors.toMap(Product::getId, Function.identity()));
+        Page<Long> orderIdPage = orderRepository.findIdByCreatedByAndYear(createdBy, yearToFind, pageable);
 
-        return new OrderResponseDto(
-                order.getId(),
-                order.getOrderProducts()
-                        .stream()
-                        .map(orderProduct -> {
-                            int id = orderProduct.getProductId();
-                            Product product = Optional.ofNullable(productMap.get(id))
-                                    .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
+        List<Order> orders = orderRepository.findAllById(orderIdPage.getContent(), pageable.getSort());
 
-                            return new OrderProductResponseDto(
-                                    id,
-                                    product.getName(),
-                                    product.getImageUrl(),
-                                    product.getPrice(),
-                                    orderProduct.getQuantity(),
-                                    orderProduct.getStatus(),
-                                    orderProduct.getCreatedAt(),
-                                    orderProduct.getModifiedAt()
-                            );
-                        })
-                        .collect(Collectors.toList()),
-                address.getRecipient(),
-                address.getZonecode(),
-                address.getAddress(),
-                address.getDetailAddress(),
-                address.getPhone(),
-                order.getCreatedBy(),
-                order.getModifiedBy(),
-                order.getCreatedAt(),
-                order.getModifiedAt()
+        List<Integer> productIds = orders.stream()
+                .flatMap(order -> order.getOrderProducts().stream())
+                .map(OrderProduct::getProductId)
+                .collect(Collectors.toList());
+        Map<Integer, Product> productMap = productService.getVerifiedProducts(productIds);
+
+        List<OrderResponseDto> orderResponseDtos =
+                orders.stream()
+                        .map(order -> mapper.orderToResponseDto(order, productMap))
+                        .collect(Collectors.toList());
+
+        return new PaginatedResponseDto<>(
+                orderResponseDtos,
+                orderIdPage.getNumber(),
+                orderIdPage.getSize(),
+                orderIdPage.getTotalPages(),
+                orderIdPage.getTotalElements()
         );
     }
 
