@@ -1,6 +1,5 @@
 package com.codestates.seb41_main_034.common.config;
 
-import com.codestates.seb41_main_034.user.entity.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
@@ -14,6 +13,7 @@ public class AuditingConfig {
 
     @Bean
     public AuditorAware<Integer> auditorProvider() {
-        return () -> Optional.of(new User()).map(User::getId);
+        // TODO: 인증된 principal로부터 유저 ID를 받아와야 한다.
+        return () -> Optional.of(1);
     }
 }

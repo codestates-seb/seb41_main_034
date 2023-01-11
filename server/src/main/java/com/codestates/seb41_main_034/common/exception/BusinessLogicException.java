@@ -17,7 +17,8 @@ public class BusinessLogicException extends RuntimeException {
     @Getter
     @AllArgsConstructor
     public enum ExceptionCode {
-
+        USER_NOT_FOUND(HttpStatus.NOT_FOUND, "회원을 찾을 수 없습니다."),
+        PRODUCT_NOT_FOUND(HttpStatus.NOT_FOUND, "제품을 찾을 수 없습니다."),
         ORDER_NOT_FOUND(HttpStatus.NOT_FOUND, "주문을 찾을 수 없습니다."),
         NOT_ENOUGH_STOCK(HttpStatus.FORBIDDEN, "재고가 부족합니다.");
 

@@ -1,5 +1,7 @@
 package com.codestates.seb41_main_034.order.service;
 
+import com.codestates.seb41_main_034.common.exception.BusinessLogicException;
+import com.codestates.seb41_main_034.common.exception.BusinessLogicException.ExceptionCode;
 import com.codestates.seb41_main_034.common.jpa.Address;
 import com.codestates.seb41_main_034.order.dto.OrderPostDto;
 import com.codestates.seb41_main_034.order.dto.OrderProductPostDto;
@@ -16,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -35,10 +38,7 @@ public class OrderService {
                 .distinct()
                 .collect(Collectors.toList());
 
-        Map<Integer, Product> productMap =
-                productService.getVerifiedProducts(productIds)
-                        .stream()
-                        .collect(Collectors.toMap(Product::getId, Function.identity()));
+        List<Product> products = productService.getVerifiedProducts(productIds);
 
         Order order = new Order();
         order.setOrderProducts(
@@ -67,11 +67,31 @@ public class OrderService {
                         ))
         );
 
-        return orderToOrderResponseDto(createdOrder, productMap);
+        return orderToOrderResponseDto(createdOrder, products);
     }
 
-    private OrderResponseDto orderToOrderResponseDto(Order order, Map<Integer, Product> productMap) {
+    @Transactional(readOnly = true)
+    public OrderResponseDto readOrder(long id) {
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ORDER_NOT_FOUND));
+
+        List<Product> products = productService.getVerifiedProducts(
+                order.getOrderProducts()
+                        .stream()
+                        .map(OrderProduct::getProductId)
+                        .distinct()
+                        .collect(Collectors.toList())
+        );
+
+        return orderToOrderResponseDto(order, products);
+    }
+
+    @Transactional(readOnly = true)
+    private OrderResponseDto orderToOrderResponseDto(Order order, List<Product> products) {
         Address address = order.getAddress();
+
+        Map<Integer, Product> productMap = products.stream()
+                .collect(Collectors.toMap(Product::getId, Function.identity()));
 
         return new OrderResponseDto(
                 order.getId(),
@@ -79,7 +99,8 @@ public class OrderService {
                         .stream()
                         .map(orderProduct -> {
                             int id = orderProduct.getProductId();
-                            Product product = productMap.get(id);
+                            Product product = Optional.ofNullable(productMap.get(id))
+                                    .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
 
                             return new OrderProductResponseDto(
                                     id,
@@ -104,4 +125,5 @@ public class OrderService {
                 order.getModifiedAt()
         );
     }
+
 }

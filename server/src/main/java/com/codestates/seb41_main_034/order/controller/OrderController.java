@@ -7,23 +7,27 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 
 @AllArgsConstructor
 @Validated
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/orders")
 public class OrderController {
 
     private final OrderService orderService;
 
     @PostMapping
-    public ResponseEntity<OrderResponseDto> postOrder(@Valid OrderPostDto postDto) {
+    public ResponseEntity<OrderResponseDto> postOrder(@Valid @RequestBody OrderPostDto postDto) {
         return new ResponseEntity<>(orderService.createOrder(postDto), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{orderId}")
+    public ResponseEntity<OrderResponseDto> getOrder(@Positive @PathVariable("orderId") long id) {
+        return new ResponseEntity<>(orderService.readOrder(id), HttpStatus.OK);
     }
 
 }

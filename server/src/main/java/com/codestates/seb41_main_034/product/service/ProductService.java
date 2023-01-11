@@ -13,7 +13,7 @@ public class ProductService {
 
     public List<Product> getVerifiedProducts(Iterable<Integer> ids) {
         // TODO: 모든 id에 해당하는 제품이 존재하는지 확인 필요
-        // 입력받은 id 개수와 findAllById(ids) 결과의 개수를 비교하는 것도 괜찮을 것 같음
+        //       입력받은 id 개수와 productRepository.findAllById(ids) 결과의 개수를 비교하는 것도 괜찮을 것 같음
         return Streamable.of(ids)
                 .stream()
                 .map(id -> {
