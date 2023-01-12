@@ -16,3 +16,9 @@ spring:
         hbm2ddl:
           # import.sql?? ??? ???? ?? ?? ??? ?? ????? ?? ??
           import_files_sql_extractor: org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor
+
+#jwt 시스템 환경 변수 설정 필요
+jwt:
+  secret-key: ${JWT_SECRET_KEY}
+  access-token-expiration-minutes: 30
+  refresh-token-expiration-minutes: 420
