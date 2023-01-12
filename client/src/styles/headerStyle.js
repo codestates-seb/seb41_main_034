@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const HeaderWrapper = styled.header`
     width: 100%;
@@ -24,7 +25,7 @@ export const HeaderContainer = styled.header`
     max-width: 1024px;
     border-bottom: 1px solid ${((props)=>props.theme.grayColor)};
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
     padding: 0 64px;
     position: relative;
@@ -37,12 +38,13 @@ export const HeaderContainer = styled.header`
 
 export const Logo = styled.img`
     width: 100px;
-    height: 50px;
+    height: 28px;
     margin-right: 50px;
     //tablet
     @media ${(props)=>props.theme.tablet} {
         width: 80px;
-        height: 40px;
+        height: 28px;
+        margin-right: 20px;
     }
     @media ${(props)=> props.theme.mobile} {
         width: 80px;
@@ -51,11 +53,12 @@ export const Logo = styled.img`
     }
 `
 export const SearchContainer = styled.div`
-    width: 40%;
+    width: 50%;
     height: 40px;
     display: flex;
     align-items: center;
     border: 1px solid black;
+    margin: 0 72px 0 118px;
     @media ${(props)=>props.theme.tablet} {
         width: 30%;
         height: 40px;
@@ -81,7 +84,7 @@ export const ButtonContainer = styled.div`
     height: 50px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     // pixel margin
     /* padding-left: 200px; */
     @media ${(props)=>props.theme.tablet} {
@@ -89,17 +92,24 @@ export const ButtonContainer = styled.div`
         height: 40px;
     }
     @media ${(props)=>props.theme.mobile} {
-        width: 20%;
+        width: 90%;
         height: 15px;
+        justify-content: end;
+        align-items: center;
     }
 `
 
+
 export const Button = styled.button`
-    width: 100px;
+    width: 68px;
     height: 21px;
-    font-size: 15px;
+    font-size: 18px;
+    margin-right: 8px;
+    &:hover {
+        color: ${(props)=> props.theme.hoverColor}
+    }
     @media ${(props)=>props.theme.tablet} {
-        width: 100px;
+        width: 120px;
         height: 30px;
         font-size: 13px;
     }
@@ -109,12 +119,24 @@ export const Button = styled.button`
 `
 
 export const Img = styled.img`
-    width: 20px;
-    height: 20px;
-    margin-right: 8px;
+    width: 24px;
+    height: 24px;
+    margin: 0 8px 0 8px;
     @media ${(props)=>props.theme.tablet} {
-        width: 15px;
-        height: 15px;
+        width: 24px;
+        height: 24px;
+    }
+`
+export const UserImg = styled.img`
+    width: 24px;
+    height: 24px;
+    margin: 0 8px 0 8px;
+    @media ${(props)=>props.theme.tablet} {
+        width: 24px;
+        height: 24px;
+    }
+    @media ${(props)=>props.theme.mobile} {
+        display: none;
     }
 `
 
@@ -124,10 +146,10 @@ export const MobileListImg = styled.img`
         display: none;
     }
     @media ${(props)=> props.theme.mobile} {
-        display: block;
-        width: 30px;
-        height: 30px;
-        margin-left: 10px;
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        margin-left: 4px;
     }
 `
 
@@ -178,4 +200,9 @@ export const MobileSearchImg = styled.img`
         width: 10px;
         height: 10px;
     }
+`
+
+export const LinkContainer = styled(Link)`
+    display: flex;
+    align-items: center;
 `
