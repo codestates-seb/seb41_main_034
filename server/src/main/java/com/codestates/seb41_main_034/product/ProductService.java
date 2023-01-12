@@ -1,6 +1,5 @@
-package com.codestates.seb41_main_034.product.service;
+package com.codestates.seb41_main_034.product;
 
-import com.codestates.seb41_main_034.product.entity.Product;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +19,7 @@ public class ProductService {
                 .map(id -> {
                     Product product = new Product();
                     product.setId(id);
+                    product.setPrice(id * 1000);
 
                     return product;
                 })

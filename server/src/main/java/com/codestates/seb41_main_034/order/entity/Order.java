@@ -1,7 +1,7 @@
 package com.codestates.seb41_main_034.order.entity;
 
-import com.codestates.seb41_main_034.common.jpa.Address;
-import com.codestates.seb41_main_034.common.jpa.Auditable;
+import com.codestates.seb41_main_034.common.Address;
+import com.codestates.seb41_main_034.common.auditing.entity.Auditable;
 import lombok.Getter;
 import lombok.Setter;
 

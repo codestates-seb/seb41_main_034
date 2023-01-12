@@ -1,4 +1,4 @@
-package com.codestates.seb41_main_034.common.config;
+package com.codestates.seb41_main_034.common.auditing;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,6 +1,6 @@
 package com.codestates.seb41_main_034.order.entity;
 
-import com.codestates.seb41_main_034.common.jpa.DateAuditable;
+import com.codestates.seb41_main_034.common.auditing.entity.DateAuditable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,6 +25,9 @@ public class OrderProduct extends DateAuditable {
     private int productId;
 
     @Column(nullable = false)
+    private int price;
+
+    @Column(nullable = false)
     private int quantity;
 
     @Column(nullable = false)
@@ -34,9 +37,10 @@ public class OrderProduct extends DateAuditable {
     @Column(nullable = false)
     private boolean isDeleted = false;
 
-    public OrderProduct(Order order, int productId, int quantity) {
+    public OrderProduct(Order order, int productId, int price, int quantity) {
         this.order = order;
         this.productId = productId;
+        this.price = price;
         this.quantity = quantity;
     }
 

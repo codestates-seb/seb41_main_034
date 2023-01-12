@@ -13,6 +13,9 @@ public class OrderProductPostDto {
     private int productId;
 
     @Positive
+    private int price;
+
+    @Positive
     private int quantity;
 
 }

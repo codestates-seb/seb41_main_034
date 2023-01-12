@@ -1,4 +1,4 @@
-package com.codestates.seb41_main_034.product.entity;
+package com.codestates.seb41_main_034.product;
 
 import lombok.Getter;
 import lombok.Setter;

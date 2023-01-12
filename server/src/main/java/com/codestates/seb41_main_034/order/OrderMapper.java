@@ -1,11 +1,11 @@
-package com.codestates.seb41_main_034.order.mapper;
+package com.codestates.seb41_main_034.order;
 
-import com.codestates.seb41_main_034.common.jpa.Address;
+import com.codestates.seb41_main_034.common.Address;
 import com.codestates.seb41_main_034.order.dto.OrderProductResponseDto;
 import com.codestates.seb41_main_034.order.dto.OrderResponseDto;
 import com.codestates.seb41_main_034.order.entity.Order;
 import com.codestates.seb41_main_034.order.entity.OrderProduct;
-import com.codestates.seb41_main_034.product.entity.Product;
+import com.codestates.seb41_main_034.product.Product;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -48,7 +48,7 @@ public class OrderMapper {
                 id,
                 product.getName(),
                 product.getImageUrl(),
-                product.getPrice(),
+                orderProduct.getPrice(),
                 orderProduct.getQuantity(),
                 orderProduct.getStatus(),
                 orderProduct.getCreatedAt(),

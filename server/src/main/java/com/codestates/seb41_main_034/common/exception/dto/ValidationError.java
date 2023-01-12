@@ -1,4 +1,4 @@
-package com.codestates.seb41_main_034.common.exception;
+package com.codestates.seb41_main_034.common.exception.dto;
 
 import lombok.Getter;
 import org.springframework.validation.BindingResult;

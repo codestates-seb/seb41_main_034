@@ -1,4 +1,4 @@
-package com.codestates.seb41_main_034.common.dto;
+package com.codestates.seb41_main_034.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

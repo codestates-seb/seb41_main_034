@@ -1,4 +1,4 @@
-package com.codestates.seb41_main_034.common.jpa;
+package com.codestates.seb41_main_034.common.auditing.entity;
 
 import lombok.Getter;
 import lombok.Setter;

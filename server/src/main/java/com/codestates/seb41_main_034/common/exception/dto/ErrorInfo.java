@@ -1,4 +1,4 @@
-package com.codestates.seb41_main_034.common.exception;
+package com.codestates.seb41_main_034.common.exception.dto;
 
 import com.codestates.seb41_main_034.common.exception.BusinessLogicException.ExceptionCode;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -14,7 +14,7 @@ import java.util.Set;
 @Getter
 @RequiredArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ErrorResponse {
+public class ErrorInfo {
 
     private final int status;
 
@@ -22,26 +22,26 @@ public class ErrorResponse {
 
     private List<ValidationError> validationErrors;
 
-    private ErrorResponse(final List<ValidationError> validationErrors) {
+    private ErrorInfo(final List<ValidationError> validationErrors) {
         this.status = HttpStatus.BAD_REQUEST.value();
         this.message = HttpStatus.BAD_REQUEST.getReasonPhrase();
         this.validationErrors = validationErrors;
     }
 
-    public static ErrorResponse of(BindingResult bindingResult) {
-        return new ErrorResponse(ValidationError.of(bindingResult));
+    public static ErrorInfo of(BindingResult bindingResult) {
+        return new ErrorInfo(ValidationError.of(bindingResult));
     }
 
-    public static ErrorResponse of(Set<ConstraintViolation<?>> violations) {
-        return new ErrorResponse(ValidationError.of(violations));
+    public static ErrorInfo of(Set<ConstraintViolation<?>> violations) {
+        return new ErrorInfo(ValidationError.of(violations));
     }
 
-    public static ErrorResponse of(ExceptionCode exceptionCode) {
-        return new ErrorResponse(exceptionCode.getHttpStatus().value(), exceptionCode.getMessage());
+    public static ErrorInfo of(ExceptionCode exceptionCode) {
+        return new ErrorInfo(exceptionCode.getHttpStatus().value(), exceptionCode.getMessage());
     }
 
-    public static ErrorResponse of(HttpStatus httpStatus) {
-        return new ErrorResponse(httpStatus.value(), httpStatus.getReasonPhrase());
+    public static ErrorInfo of(HttpStatus httpStatus) {
+        return new ErrorInfo(httpStatus.value(), httpStatus.getReasonPhrase());
     }
 
 }
