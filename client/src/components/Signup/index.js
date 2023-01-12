@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   SignupContainer,
   SignupHeader,
@@ -14,8 +15,7 @@ import {
 import Id from './Id';
 import Password from './Password';
 import Address from './Address';
-import Phone from './Phone';
-import { signupAPI } from '../../api/signup';
+// import { signupAPI } from '../../api/signup';
 
 const SignupForm = () => {
   const [id, setId] = useState('');
@@ -24,7 +24,6 @@ const SignupForm = () => {
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [addressDetail, setAddressDetail] = useState('');
-  const [phone, setPhone] = useState('');
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -44,8 +43,10 @@ const SignupForm = () => {
     <SignupContainer onSubmit={onSubmit}>
       <SignupHeader>
         <SignupTitle>회원가입</SignupTitle>
-        <ToLoginSpan>이미 계정이 있습니까?</ToLoginSpan>
-        <ToLogin aria-label="로그인 페이지로 이동">로그인</ToLogin>
+        <ToLoginSpan>이미 계정이 있으신가요?</ToLoginSpan>
+        <Link to="/login">
+          <ToLogin aria-label="로그인 페이지로 이동">로그인</ToLogin>
+        </Link>
       </SignupHeader>
       <SignupList>
         <Id id={id} setId={setId} />
@@ -65,6 +66,7 @@ const SignupForm = () => {
             aria-label="이름을 입력하세요."
             onChange={(e) => setName(e.target.value)}
             value={name || ''}
+            required
           />
         </SignupItem>
 
@@ -74,8 +76,6 @@ const SignupForm = () => {
           setAddress={setAddress}
           setAddressDetail={setAddressDetail}
         />
-
-        <Phone phone={phone} setPhone={setPhone} />
       </SignupList>
       <SignupButton type="submit">가입하기</SignupButton>
     </SignupContainer>

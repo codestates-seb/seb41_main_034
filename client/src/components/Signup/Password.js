@@ -16,6 +16,9 @@ const Password = ({
           aria-label="비밀번호를 입력하세요."
           onChange={(e) => setPassword(e.target.value)}
           value={password || ''}
+          required
+          maxLength={12}
+          minLength={4}
         />
       </SignupItem>
 
@@ -27,6 +30,9 @@ const Password = ({
           aria-label="비밀번호를 한번 더 입력하세요."
           onChange={(e) => setPasswordConfirm(e.target.value)}
           value={passwordConfirm || ''}
+          required
+          maxLength={12}
+          minLength={4}
         />
       </SignupItem>
     </>

@@ -27,6 +27,7 @@ const ToLoginSpan = styled.span`
 const ToLogin = styled(ToLoginSpan)`
   margin-left: 4px;
   color: ${(props) => props.theme.primaryColor};
+  transition: color 0.5s;
 
   &:hover {
     color: ${(props) => props.theme.hoverColor};
@@ -95,6 +96,43 @@ const SignupButton = styled.button`
   }
 `;
 
+const ModalBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+`;
+
+const AddressModal = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -80%);
+  width: 100%;
+  max-width: 768px;
+  z-index: 20;
+`;
+
+const CloseModal = styled.button`
+  position: absolute;
+  top: -24px;
+  right: 12px;
+  z-index: 30;
+
+  svg {
+    transition: fill 0.5s;
+  }
+
+  &:hover {
+    svg {
+      fill: ${(props) => props.theme.hoverColor};
+    }
+  }
+`;
+
 export {
   SignupContainer,
   SignupHeader,
@@ -106,5 +144,8 @@ export {
   SignupLabel,
   SignupInput,
   ConfirmButton,
-  SignupButton
+  SignupButton,
+  ModalBackground,
+  AddressModal,
+  CloseModal
 };

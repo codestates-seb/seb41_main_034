@@ -15,6 +15,9 @@ const Id = ({ id, setId }) => {
         aria-label="아이디를 입력하세요."
         onChange={(e) => setId(e.target.value)}
         value={id || ''}
+        required
+        maxLength={12}
+        minLength={4}
       />
       <ConfirmButton>중복확인</ConfirmButton>
     </SignupItem>
