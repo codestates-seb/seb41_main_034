@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
 const SignupContainer = styled.form`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 320px;
+  max-width: 300px;
   border-radius: 4px;
 `;
 
@@ -63,7 +64,7 @@ const SignupInput = styled.input`
   }
 `;
 
-const IdCheckButton = styled.button`
+const ConfirmButton = styled.button`
   position: absolute;
   top: -10px;
   right: 0;
@@ -104,6 +105,6 @@ export {
   SignupItem,
   SignupLabel,
   SignupInput,
-  IdCheckButton,
+  ConfirmButton,
   SignupButton
 };
