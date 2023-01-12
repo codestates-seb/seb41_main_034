@@ -1,5 +1,6 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
-  Header,
   LoginContainer,
   LoginHeader,
   LoginTitle,
@@ -9,41 +10,67 @@ import {
   ToSignupSpan,
   ToSignup,
   Input,
-  TextLabel,
-  FindPassWordButton
+  TextLabel
 } from '../styles/loginStyle';
-// import Footer from '../styles/footerStyle';
+// import { loginAPI } from '../api/sign';
 
 function LoginForm() {
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    // const body = JSON.stringify({
+    //   id: id,
+    //   password: password
+    // });
+
+    // loginAPI(body);
+  };
+
   return (
     <>
-      <Header></Header>
-      <LoginContainer>
+      <LoginContainer onSubmit={onSubmit}>
         <LoginHeader>
           <LoginTitle>로그인</LoginTitle>
           <ToSignupSpan>
             아직 계정이 없으신가요?{' '}
-            <ToSignup aria-label="회원가입 페이지로 이동">회원가입</ToSignup>
+            <Link to="/signup">
+              <ToSignup aria-label="회원가입 페이지로 이동">회원가입</ToSignup>
+            </Link>
           </ToSignupSpan>
         </LoginHeader>
         <LoginList>
           <LoginItem>
             <TextLabel htmlFor="id">아이디</TextLabel>
-            <Input type="text" id="id" aria-label="아이디를 입력하세요." />
+            <Input
+              type="text"
+              id="id"
+              aria-label="아이디를 입력하세요."
+              required
+              maxLength={12}
+              minLength={4}
+              onChange={(e) => setId(e.target.value)}
+              value={id || ''}
+            />
           </LoginItem>
           <LoginItem>
             <TextLabel htmlFor="id">비밀번호</TextLabel>
             <Input
-              type="text"
+              type="password"
               id="password"
               aria-label="비밀번호를 입력하세요."
+              required
+              maxLength={12}
+              minLength={4}
+              onChange={(e) => setPassword(e.target.value)}
+              value={password || ''}
             />
           </LoginItem>
         </LoginList>
-        <FindPassWordButton>비밀번호찾기</FindPassWordButton>
         <LoginButton type="submit">로그인</LoginButton>
       </LoginContainer>
-      {/* <Footer></Footer> */}
     </>
   );
 }
