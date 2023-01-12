@@ -1,6 +1,7 @@
 package com.codestates.seb41_main_034.order;
 
 import com.codestates.seb41_main_034.common.Address;
+import com.codestates.seb41_main_034.order.dto.OrderAddressResponseDto;
 import com.codestates.seb41_main_034.order.dto.OrderProductResponseDto;
 import com.codestates.seb41_main_034.order.dto.OrderResponseDto;
 import com.codestates.seb41_main_034.order.entity.Order;
@@ -18,15 +19,16 @@ public class OrderMapper {
     public OrderResponseDto orderToResponseDto(Order order, Map<Integer, Product> productMap) {
         Address address = order.getAddress();
 
-        List<OrderProductResponseDto> products =
+        List<OrderProductResponseDto> orderProducts =
                 order.getOrderProducts()
                         .stream()
-                        .map(orderProduct -> orderProductToResponseDto(orderProduct, productMap))
+                        .map(orderProduct ->
+                                orderProductToResponseDto(orderProduct, productMap.get(orderProduct.getProductId())))
                         .collect(Collectors.toList());
 
         return new OrderResponseDto(
                 order.getId(),
-                products,
+                orderProducts,
                 address.getRecipient(),
                 address.getZonecode(),
                 address.getAddress(),
@@ -40,12 +42,13 @@ public class OrderMapper {
     }
 
     public OrderProductResponseDto orderProductToResponseDto(
-            OrderProduct orderProduct, Map<Integer, Product> productMap) {
-        int id = orderProduct.getProductId();
-        Product product = productMap.get(id);
+            OrderProduct orderProduct, Product product) {
+        if (orderProduct.getProductId() != product.getId()) {
+            throw new IllegalArgumentException("제품 ID가 일치하지 않습니다.");
+        }
 
         return new OrderProductResponseDto(
-                id,
+                product.getId(),
                 product.getName(),
                 product.getImageUrl(),
                 orderProduct.getPrice(),
@@ -56,4 +59,20 @@ public class OrderMapper {
         );
     }
 
+    public OrderAddressResponseDto orderToAddressResponseDto(Order order) {
+        Address address = order.getAddress();
+
+        return new OrderAddressResponseDto(
+                order.getId(),
+                address.getRecipient(),
+                address.getZonecode(),
+                address.getAddress(),
+                address.getDetailAddress(),
+                address.getPhone(),
+                order.getCreatedBy(),
+                order.getModifiedBy(),
+                order.getCreatedAt(),
+                order.getModifiedAt()
+        );
+    }
 }

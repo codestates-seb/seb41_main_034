@@ -1,8 +1,7 @@
 package com.codestates.seb41_main_034.order;
 
 import com.codestates.seb41_main_034.common.PaginatedResponseDto;
-import com.codestates.seb41_main_034.order.dto.OrderPostDto;
-import com.codestates.seb41_main_034.order.dto.OrderResponseDto;
+import com.codestates.seb41_main_034.order.dto.*;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -52,6 +51,26 @@ public class OrderController {
         int createdBy = 1;
 
         PaginatedResponseDto<OrderResponseDto> responseDto = orderService.readOrders(createdBy, from, to, pageable);
+
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+    @PatchMapping("/ordering/{orderId}/address")
+    public ResponseEntity<OrderAddressResponseDto> patchOrderAddress(
+            @Positive @PathVariable("orderId") long id,
+            @Valid @RequestBody OrderAddressPatchDto patchDto
+    ) {
+        OrderAddressResponseDto addressResponseDto = orderService.updateOrderAddress(id, patchDto);
+
+        return new ResponseEntity<>(addressResponseDto, HttpStatus.OK);
+    }
+
+    @PatchMapping("/ordering/{orderId}/cancel")
+    public ResponseEntity<OrderResponseDto> patchOrderCancel(
+            @Positive @PathVariable("orderId") long id,
+            @Valid @RequestBody OrderCancelDto cancelDto
+    ) {
+        OrderResponseDto responseDto = orderService.cancelOrder(id, cancelDto);
 
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }

@@ -85,6 +85,9 @@ public class ExceptionHandlingAdvice {
     public ErrorResponseDto handleException(Exception e) {
         log.error("예외가 발생했습니다.", e);
 
-        return new ErrorResponseDto(new ErrorInfo(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage()));
+        return new ErrorResponseDto(new ErrorInfo(
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                e.getMessage() == null ? HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase() : e.getMessage()
+        ));
     }
 }

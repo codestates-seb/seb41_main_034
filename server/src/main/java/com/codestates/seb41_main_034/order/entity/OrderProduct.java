@@ -32,7 +32,7 @@ public class OrderProduct extends DateAuditable {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private OrderProductStatus status = OrderProductStatus.AWAITING_PAYMENT;
+    private OrderProductStatus status = OrderProductStatus.WAITING_FOR_PAYMENT;
 
     @Column(nullable = false)
     private boolean isDeleted = false;
@@ -46,11 +46,12 @@ public class OrderProduct extends DateAuditable {
 
     public enum OrderProductStatus {
         // 결제 대기, 배송 준비 중, 배송 중, 배송 완료, 취소 대기, 취소 완료
-        AWAITING_PAYMENT,
-        PREPAIRING_FOR_DELIVERY,
+        WAITING_FOR_PAYMENT,
+        PAYMENT_FINISHED,
+        PREPARING_FOR_DELIVERY,
         SHIPPING,
         DELIVERED,
-        AWAITING_CANCELLATION,
+        WAITING_FOR_CANCELLATION,
         CANCELED
     }
 
