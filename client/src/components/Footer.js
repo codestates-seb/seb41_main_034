@@ -1,4 +1,4 @@
-import { FooterBlock, FooterContainer, FooterWrapper, Text1, Text2 } from '../../styles/footerStyle'
+import { FooterBlock, FooterContainer, FooterWrapper, Text1, Text2 } from '../styles/footerStyle'
 
 const Footer = () => {
     return (

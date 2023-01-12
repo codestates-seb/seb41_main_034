@@ -35,7 +35,7 @@ export const FooterBlock = styled.div`
         padding-left: 0px;
     }
     @media ${(props)=> props.theme.mobile}{
-        padding-left: 30px;
+        /* padding-left: 30px; */
     }
 `
 

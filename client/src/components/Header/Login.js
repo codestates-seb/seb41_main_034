@@ -1,23 +1,31 @@
-import { Button, ButtonContainer, HeaderContainer, HeaderWrapper, Logo, SearchContainer, SearchInput, Img, MobileListImg, MobileInput, MobileSearchImg, MobileContainer, MobileFlex } from "../../styles/headerStyle";
-import CartImg from './../../assets/icons/shopping-cart.png';
-import SearchImg from './../../assets/icons/search.png';
-import ListImage from './../../assets/icons/list.png';
+import { Button, ButtonContainer, HeaderContainer, HeaderWrapper, Logo, SearchContainer, SearchInput, UserImg, MobileListImg, MobileInput, MobileSearchImg, MobileContainer,Img, MobileFlex, LinkContainer} from "../../styles/headerStyle";
+import CartImg from './../../assets/icons/shopping-cart.svg';
+import SearchImg from './../../assets/icons/search.svg';
+import ListImage from './../../assets/icons/list.svg';
+import LogoImg from './../../assets/icons/foodmeet.svg'
+import UserImage from './../../assets/icons/user.svg'
+import { Link } from "react-router-dom";
+import { CatagoryButton, CatagoryContainer, CatagoryWrapper } from "../../styles/catagoryStyle";
 
 const Login = () => {
     return (
         <>
             <HeaderWrapper>
                 <HeaderContainer>
-                    <Logo />
+                    <Link to='/'>
+                      <Logo src={LogoImg}/>
+                    </Link>
                     <SearchContainer>
                         <SearchInput />
                         <Img src={SearchImg} alt="검색"/>
                     </SearchContainer>
                     <ButtonContainer>
-                        <Button>로그인</Button>
-                        <Button>회원가입</Button>
+                        <Button>로그아웃</Button>
+                        <UserImg src={UserImage}/>
                         <Img src={CartImg}/>
-                        <MobileListImg src={ListImage}/>
+                        <LinkContainer to='mobilemenu'>
+                            <MobileListImg src={ListImage}/>
+                        </LinkContainer>
                     </ButtonContainer>
                 </HeaderContainer>
             </HeaderWrapper>
@@ -27,6 +35,14 @@ const Login = () => {
                     <MobileSearchImg src={SearchImg}/>
                 </MobileContainer>
             </MobileFlex>
+            <CatagoryWrapper>
+                <CatagoryContainer>
+                    <CatagoryButton>카테고리</CatagoryButton>
+                    <CatagoryButton>카테고리</CatagoryButton>
+                    <CatagoryButton>카테고리</CatagoryButton>
+                    <CatagoryButton>카테고리</CatagoryButton>
+                </CatagoryContainer>
+            </CatagoryWrapper>
         </>
     )
 };
