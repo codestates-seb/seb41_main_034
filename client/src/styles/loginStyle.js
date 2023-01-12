@@ -5,87 +5,86 @@ export const Header = styled.div`
   width: 100%;
   height: 130px;
 `;
-export const Loginbody = styled.div`
+export const LoginContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  height: 300px;
   align-items: center;
   justify-content: center;
+  max-width: 300px;
 `;
-export const LoginTextMain = styled.div`
+export const LoginHeader = styled.div`
+  text-align: center;
+  margin-bottom: 48px;
+`;
+export const LoginTitle = styled.h2`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* width: 20%; */
   padding: 10px;
   margin: 4px;
-  font-size: 30px;
+  font-size: 32px;
 `;
-export const SignupQuest = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+export const ToSignupSpan = styled.span`
   font-size: 15px;
-  margin-left: 20px;
-  padding-right: 10px;
 `;
-export const SignupButton = styled.button`
+export const ToSignup = styled(ToSignupSpan)`
   /* display: flex; */
   align-items: center;
   justify-content: center;
   font-size: 17px;
   color: ${(props) => props.theme.primaryColor};
+  &:hover {
+    color: ${(props) => props.theme.hoverColor};
+  }
   padding-left: 10px;
 `;
-export const LoginInform = styled.div``;
-export const IdText = styled.div`
-  display: flex;
-  font-size: 17px;
-  align-items: center;
-  justify-content: center;
-  margin-right: 170px;
-  margin-top: 30px;
-  padding: 10px;
+export const LoginList = styled.ul`
+  width: 100%;
+  margin-bottom: 24px;
 `;
-export const IdInput = styled.input`
-  width: 230px;
+export const LoginItem = styled.li`
+  position: relative;
   display: flex;
-  margin: auto;
-  border-left-width: 0;
-  border-right-width: 0;
-  border-top-width: 0;
+  flex-direction: column;
+
+  &:not(:last-child) {
+    margin-bottom: 36px;
+  }
 `;
-export const PassWordText = styled.div`
-  display: flex;
-  font-size: 17px;
-  align-items: center;
-  justify-content: center;
-  margin-right: 170px;
-  margin-top: 30px;
-  padding: 10px;
+export const Input = styled.input`
+  width: 100%;
+  padding: 4px;
+  font-size: 14px;
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
+  &:focus {
+    border: 1px solid ${(props) => props.theme.borderColor};
+  }
 `;
-export const PassWordInput = styled.input`
-  width: 230px;
-  display: flex;
-  margin: auto;
-  border-left-width: 0px;
-  border-right-width: 0px;
-  border-top-width: 0px;
+export const TextLabel = styled.label`
+  font-size: 14px;
+  margin-bottom: 4px;
 `;
+
 export const FindPassWordButton = styled.button`
   display: flex;
-  font-size: 17px;
+  width: 100%;
+  font-size: 16px;
   align-items: center;
   justify-content: center;
-  margin: auto;
-  padding-top: 25px;
-  padding-right: 140px;
-  padding-bottom: 10px;
+  padding: 4px 0;
+  &:hover {
+    color: ${(props) => props.theme.hoverColor};
+  }
 `;
 export const LoginButton = styled.button`
   display: flex;
   width: 230px;
   height: 30px;
   background-color: ${(props) => props.theme.primaryColor};
+  &:hover {
+    background-color: ${(props) => props.theme.hoverColor};
+  }
   border-radius: 5px;
   font-size: 15px;
   align-items: center;
@@ -93,8 +92,8 @@ export const LoginButton = styled.button`
   margin: auto;
 `;
 
-export const Footer = styled.div`
-  width: 100%;
-  height: 320px;
-  /* background-color: red; */
-`;
+// export const Footer = styled.div`
+//   width: 100%;
+//   height: 320px;
+//   /* background-color: red; */
+// `;
