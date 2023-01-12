@@ -1,0 +1,21 @@
+import axios from 'axios';
+
+const BASE_URL =
+  'http://ec2-3-34-193-217.ap-northeast-2.compute.amazonaws.com/api';
+
+const token = localStorage.getItem('jwt_token');
+
+export const baseAPI = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    'Content-Type': 'application/json'
+  }
+});
+
+export const authAPI = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `bearer ${token}`
+  }
+});
