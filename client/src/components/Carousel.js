@@ -6,7 +6,7 @@ import {
 } from '../styles/carouselStyle';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
-import Carousel1 from '../assets/icons/Carousel.svg';
+import Carousel1 from '../assets/icons/carousel.svg';
 
 function CarouselComponent() {
   return (

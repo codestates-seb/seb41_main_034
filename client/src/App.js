@@ -4,17 +4,19 @@ import { GlobalStyle } from './styles/globalStyle';
 import theme from './styles/theme';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import CarouselComponent from './components/Carousel';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
+      <Header />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>
-      <CarouselComponent />
+      <Footer />
     </ThemeProvider>
   );
 }
