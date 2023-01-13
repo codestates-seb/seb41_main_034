@@ -58,6 +58,7 @@ export const SearchContainer = styled.div`
     display: flex;
     align-items: center;
     border: 1px solid black;
+    border-radius: 4px;
     margin: 0 72px 0 118px;
     @media ${(props)=>props.theme.tablet} {
         width: 30%;
