@@ -1,96 +1,148 @@
-import styled from "styled-components";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 export const CatagoryWrapper = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: center;
-`
+  position: fixed;
+  top: 72px;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: ${(props) => props.theme.whiteColor};
+  z-index: 97;
+
+  @media ${(props) => props.theme.mobile} {
+    display: none;
+  }
+`;
 
 export const CatagoryContainer = styled.div`
-    width: 100%;
-    max-width: 1024px;
-    display: flex;
-    border-bottom: 1px solid ${(props)=> props.theme.grayColor};
-    @media ${(props)=> props.theme.mobile} {
-        display: none;
-    }
-`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 1024px;
+  padding: 0 64px;
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
+`;
 
 export const CatagoryButton = styled.button`
-    width: 68px;
-    height: 57px;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 32px;
-    &:hover {
-        color: ${(props)=> props.theme.hoverColor};
-    }
-    @media ${(props)=> props.theme.tablet} {
-        font-size: 13px;
-        height: 45px;
-    }
-    @media ${(props)=> props.theme.mobile} {
-        display: none;
-    }
-`
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 0;
+
+  &:not(:last-child) {
+    margin-right: 24px;
+  }
+
+  &:hover {
+    color: ${(props) => props.theme.hoverColor};
+  }
+
+  @media ${(props) => props.theme.tablet} {
+    font-size: 12px;
+  }
+`;
 
 export const MobileMenuWrapper = styled.div`
-    width: 100%;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    position: absolute;
-    background-color: white;
-`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  padding: 90px 0 0 64px;
+  background-color: ${(props) => props.theme.whiteColor};
+  z-index: 97;
 
-export const MobileImgContainer = styled.div`
-    width: 95%;
-    display: flex;
-    justify-content: flex-end;
-`
-export const MobileBackImg = styled.img`
+  @media ${(props) => props.theme.tablet} {
+    display: none;
+  }
+
+  @media ${(props) => props.theme.desktop} {
+    display: none;
+  }
+`;
+
+export const MobileMenuCancle = styled.button`
+  position: absolute;
+  top: 24px;
+  right: 32px;
+  z-index: 99;
+
+  svg {
+    fill: ${(props) => props.theme.blackColor};
     width: 24px;
     height: 24px;
-    margin: 20px 32px 0 0;
-`
+  }
+
+  &:hover {
+    svg {
+      fill: ${(props) => props.theme.hoverColor};
+    }
+  }
+`;
+
 export const MobileButtonContainer = styled.div`
-    width: 95%;
-    display: flex;
-    margin: 40px 0 0 64px;
-`
-export const MobileButton = styled.button`
-    width: 70px;
-    height: 28px;
-    font-size: 20px;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    margin: 0 12px 0 0;
-    &:hover {
-        color: ${(props)=> props.theme.hoverColor}
-    }
-`
+  display: flex;
+  margin-bottom: 50px;
+`;
+
+export const MobileLink = styled(Link)`
+  font-size: 20px;
+
+  &:first-child {
+    margin-right: 12px;
+  }
+
+  &:hover {
+    color: ${(props) => props.theme.hoverColor};
+  }
+`;
+
 export const MobileCategoryContainer = styled.div`
-    width: 95%;
-    margin: 40px 0 0 64px;
-    display: grid;
-`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+`;
+
 export const MobileCategoryButton = styled.button`
-    width: 74px;
-    height: 24px;
-    font-size: 18px;
-    margin: 24px 0 0 0;
-    display: flex;
-    justify-content: left;
-    &:hover {
-        color: ${(props)=> props.theme.hoverColor}
-    }
-`
+  font-size: 18px;
+
+  &:not(:last-child) {
+    margin-bottom: 24px;
+  }
+
+  &:hover {
+    color: ${(props) => props.theme.hoverColor};
+  }
+`;
+
 export const MobileMyImg = styled.img`
-    width: 28px;
-    height: 28px;
-    margin: 0 20px 0 0;
-`
+  width: 28px;
+  height: 28px;
+  margin: 0 20px 0 0;
+`;
+
+export const MobileButton = styled.button`
+  font-size: 20px;
+
+  &:hover {
+    color: ${(props) => props.theme.hoverColor};
+  }
+`;
+
+export const MobileMyPageLink = styled(Link)`
+  margin-right: 12px;
+
+  svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  &:hover {
+    svg {
+      fill: ${(props) => props.theme.hoverColor};
+    }
+  }
+`;
