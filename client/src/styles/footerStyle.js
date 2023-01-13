@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const FooterWrapper = styled.footer`
     width: 100%;
-    position: absolute;
-    bottom: 0;
+    /* bottom: 0; */
+    /* position: fixed; */
     display: grid;
     justify-items: center;
     @media ${(props)=> props.theme.tablet}{
