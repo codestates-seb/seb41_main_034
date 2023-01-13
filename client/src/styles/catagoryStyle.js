@@ -43,6 +43,7 @@ export const MobileMenuWrapper = styled.div`
     right: 0;
     left: 0;
     position: absolute;
+    background-color: white;
 `
 
 export const MobileImgContainer = styled.div`
