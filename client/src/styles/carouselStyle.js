@@ -20,6 +20,7 @@ export const CarouselOuter = styled.div`
   /* background-color: red; */
   //Desktop
   width: 1024px;
+  height: 716px;
   margin: auto;
   //Tablet
   @media ${(props) => props.theme.tablet} {
@@ -55,11 +56,17 @@ export const CarouselView = styled.div`
     height: 500px;
     margin: auto;
   }
-  //Mobile
+  //Mobilei
   @media ${(props) => props.theme.mobile} {
     width: 90%;
     margin: auto;
   }
+`;
+export const Img = styled.div`
+  background-image: url('../assets/icons/Carousel.svg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
 export const Footer = styled.div`
   width: 100%;
