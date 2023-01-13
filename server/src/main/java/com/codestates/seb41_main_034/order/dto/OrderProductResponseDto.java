@@ -22,6 +22,10 @@ public class OrderProductResponseDto {
 
     private OrderProductStatus status;
 
+    private int createdBy;
+
+    private int modifiedBy;
+
     private LocalDateTime createdAt;
 
     private LocalDateTime modifiedAt;

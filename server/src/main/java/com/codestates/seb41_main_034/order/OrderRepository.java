@@ -16,6 +16,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     Page<Long> findIdByCreatedByAndYear(int createdBy, LocalDate from, LocalDate to, Pageable pageable);
 
     @Query("select distinct o from Order o left join fetch o.orderProducts where o.id in ?1")
-    List<Order> findAllById(List<Long> ids, Sort sort);
+    List<Order> findAllById(Iterable<Long> ids, Sort sort);
 
 }

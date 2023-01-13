@@ -8,8 +8,8 @@ import com.codestates.seb41_main_034.order.dto.*;
 import com.codestates.seb41_main_034.order.entity.Order;
 import com.codestates.seb41_main_034.order.entity.OrderProduct;
 import com.codestates.seb41_main_034.order.entity.OrderProduct.OrderProductStatus;
-import com.codestates.seb41_main_034.product.Product;
-import com.codestates.seb41_main_034.product.ProductService;
+import com.codestates.seb41_main_034.order.mock.product.Product;
+import com.codestates.seb41_main_034.order.mock.product.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -266,8 +266,7 @@ public class OrderService {
                         productIdCanceledMap.merge(productId, quantity, Integer::sum);
                         quantity = 0;
                     }
-                    // 배송 준비 중인 경우 취소 대기 처리
-                } else {
+                } else { // 배송 준비 중인 경우 취소 대기 처리
                     // 취소 요청 수량보다 OrderProduct의 구매 수량이 적거나 같으면 전체를 취소 대기 처리한다.
                     if (orderProduct.getQuantity() <= quantity) {
                         orderProduct.setStatus(OrderProductStatus.WAITING_FOR_CANCELLATION);

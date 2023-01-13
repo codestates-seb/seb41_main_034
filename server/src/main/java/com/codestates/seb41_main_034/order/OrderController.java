@@ -22,6 +22,12 @@ import java.time.LocalDate;
 @Validated
 @RestController
 @RequestMapping("/api/v1")
+@CrossOrigin(
+        originPatterns = "*",
+        allowedHeaders = "*",
+        allowCredentials = "true",
+        exposedHeaders = {"Authorization", "refreshToken"}
+)
 public class OrderController {
 
     private final OrderService orderService;

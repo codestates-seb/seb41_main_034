@@ -1,6 +1,6 @@
 package com.codestates.seb41_main_034.order.entity;
 
-import com.codestates.seb41_main_034.common.auditing.entity.DateAuditable;
+import com.codestates.seb41_main_034.common.auditing.entity.Auditable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Entity
-public class OrderProduct extends DateAuditable {
+public class OrderProduct extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

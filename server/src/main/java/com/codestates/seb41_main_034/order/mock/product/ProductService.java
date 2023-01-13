@@ -1,4 +1,4 @@
-package com.codestates.seb41_main_034.product;
+package com.codestates.seb41_main_034.order.mock.product;
 
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
