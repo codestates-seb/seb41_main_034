@@ -1,14 +1,11 @@
-import { Link } from "react-router-dom";
 import { MobileBackImg, MobileButton, MobileButtonContainer, MobileCategoryButton, MobileCategoryContainer, MobileImgContainer, MobileMenuWrapper} from "../../../styles/catagoryStyle";
 import BackImg from './../../../assets/icons/BackImg.svg'
 
-const MobileLogoutMenu = () => {
+const MobileLogoutMenu = ({MobileMenuClose}) => {
     return (
         <MobileMenuWrapper>
             <MobileImgContainer>
-                <Link to='/'>
-                    <MobileBackImg src={BackImg}/>
-                </Link>
+                <MobileBackImg src={BackImg} onClick={MobileMenuClose}/>
             </MobileImgContainer>
             <MobileButtonContainer>
                 <MobileButton>로그인</MobileButton>

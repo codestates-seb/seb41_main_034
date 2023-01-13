@@ -14,6 +14,9 @@ const Logout = () => {
     const MobileMenuOpen = () => {
         setIsMobile(true);
     }
+    const MobileMenuClose = () => {
+        setIsMobile(false);
+    }
     return (
         <>
             <HeaderWrapper>
@@ -48,7 +51,7 @@ const Logout = () => {
                     <CatagoryButton>카테고리</CatagoryButton>
                 </CatagoryContainer>
             </CatagoryWrapper>
-            {isMobile === true && (<MobileLogoutMenu />)}
+            {isMobile === true && (<MobileLogoutMenu MobileMenuClose={MobileMenuClose}/>)}
         </>
     )
 };
