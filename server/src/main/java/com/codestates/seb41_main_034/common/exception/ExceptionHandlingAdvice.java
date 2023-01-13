@@ -66,14 +66,14 @@ public class ExceptionHandlingAdvice {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponseDto handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
-        log.error("요청에 필요한 파라미터가 없습니다: " + e.getMessage(), e);
+        log.error("요청에 필요한 파라미터가 없습니다", e);
 
         return new ErrorResponseDto(new ErrorInfo(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
     }
 
     @ExceptionHandler
     public ResponseEntity<ErrorResponseDto> handleBusinessLogicException(BusinessLogicException e) {
-        log.error("비즈니스 로직에서 예외가 발생했습니다: " + e.getMessage(), e);
+        log.error("비즈니스 로직에서 예외가 발생했습니다", e);
 
         ExceptionCode exceptionCode = e.getExceptionCode();
 
