@@ -6,6 +6,11 @@ export const LoginContainer = styled.form`
   align-items: center;
   width: 100%;
   max-width: 300px;
+  margin-bottom: 240px;
+
+  @media ${(props) => props.theme.mobile} {
+    margin-bottom: 120px;
+  }
 `;
 
 export const LoginHeader = styled.div`

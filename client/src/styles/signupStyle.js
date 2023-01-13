@@ -8,6 +8,11 @@ const SignupContainer = styled.form`
   width: 100%;
   max-width: 300px;
   border-radius: 4px;
+  margin-bottom: 240px;
+
+  @media ${(props) => props.theme.mobile} {
+    margin-bottom: 120px;
+  }
 `;
 
 const SignupHeader = styled.div`
@@ -103,24 +108,24 @@ const ModalBackground = styled.div`
   width: 100%;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 10;
+  z-index: 98;
 `;
 
 const AddressModal = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -80%);
+  transform: translate(-50%, -50%);
   width: 100%;
   max-width: 768px;
-  z-index: 20;
+  z-index: 99;
 `;
 
 const CloseModal = styled.button`
   position: absolute;
   top: -24px;
   right: 12px;
-  z-index: 30;
+  z-index: 99;
 
   svg {
     transition: fill 0.5s;

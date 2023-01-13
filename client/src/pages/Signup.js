@@ -1,22 +1,12 @@
-import styled from 'styled-components';
 import SignupForm from '../components/Signup';
+import { Container } from '../styles/contentStyle';
 
 const Signup = () => {
   return (
-    <>
-      <TestBox>
-        <SignupForm />
-      </TestBox>
-    </>
+    <Container>
+      <SignupForm />
+    </Container>
   );
 };
-
-const TestBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100vh;
-`;
 
 export default Signup;

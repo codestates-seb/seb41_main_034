@@ -1,5 +1,5 @@
 const color = {
-  primary: '#FF3B30',
+  primary: '#F03E3E',
   secondary: '#FF6B6B',
   hover: '#FFA8A8',
   active: '#C92A2A',
