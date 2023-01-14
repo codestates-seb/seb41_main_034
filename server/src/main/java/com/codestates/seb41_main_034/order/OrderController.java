@@ -62,7 +62,22 @@ public class OrderController {
             @Positive @PathVariable long orderId,
             @Valid @RequestBody OrderCancelDto cancelDto
     ) {
-        return new ResponseEntity<>(orderService.cancelOrder(orderId, cancelDto), HttpStatus.OK);
+        return new ResponseEntity<>(orderService.updateOrderCancel(orderId, cancelDto), HttpStatus.OK);
+    }
+
+    @PatchMapping("/ordering/{orderId}/prepare")
+    public ResponseEntity<OrderResponseDto> patchOrderPrepare(@Positive @PathVariable long orderId) {
+        return new ResponseEntity<>(orderService.updateOrderPrepare(orderId), HttpStatus.OK);
+    }
+
+    @PatchMapping("/ordering/{orderId}/ship")
+    public ResponseEntity<OrderResponseDto> patchOrderShip(@Positive @PathVariable long orderId) {
+        return new ResponseEntity<>(orderService.updateOrderShip(orderId), HttpStatus.OK);
+    }
+
+    @PatchMapping("/ordering/{orderId}/confirm-cancellation")
+    public ResponseEntity<OrderResponseDto> patchOrderConfirmCancellation(@Positive @PathVariable long orderId) {
+        return new ResponseEntity<>(orderService.updateOrderConfirmCancellation(orderId), HttpStatus.OK);
     }
 
 }

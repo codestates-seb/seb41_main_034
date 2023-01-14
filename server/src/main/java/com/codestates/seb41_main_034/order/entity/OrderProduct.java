@@ -47,8 +47,8 @@ public class OrderProduct extends Auditable {
     public enum OrderProductStatus {
         WAITING_FOR_PAYMENT,
         PAYMENT_FINISHED,
-        PREPARING_FOR_DELIVERY,
-        SHIPPING,
+        PREPARING_FOR_SHIPMENT,
+        SHIPPED,
         DELIVERED,
         WAITING_FOR_CANCELLATION,
         CANCELED
