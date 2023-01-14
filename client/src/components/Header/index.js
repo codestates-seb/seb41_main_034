@@ -27,7 +27,7 @@ import Category from '../Category';
 
 const Header = () => {
   const [isLogin, setIsLogin] = useState(false);
-  const [IsOpenMenu, setIsOpenMenu] = useState(false);
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
 
   const token = localStorage.getItem('jwt_token');
 
@@ -40,12 +40,13 @@ const Header = () => {
       <HeaderWrapper>
         <HeaderContainer>
           <HeaderLeft>
-            <Link to="/">
-              <Logo>
+            <Logo>
+              <Link to="/">
                 <LogoIcon />
-              </Logo>
-            </Link>
+              </Link>
+            </Logo>
           </HeaderLeft>
+
           <SearchContainer>
             <SearchInput
               type="text"
@@ -56,6 +57,7 @@ const Header = () => {
               <SearchIcon />
             </SearchLabel>
           </SearchContainer>
+
           <HeaderRight>
             <ButtonContainer>
               {isLogin ? (
@@ -75,23 +77,26 @@ const Header = () => {
                 <CartIcon />
                 <CartCount>2</CartCount>
               </CartButton>
-              <MobileMenu
-                type="button"
-                aria-label="메뉴 열기"
-                onClick={() => setIsOpenMenu(!IsOpenMenu)}
-              >
-                <MenuIcon />
-              </MobileMenu>
             </ButtonContainer>
           </HeaderRight>
+
+          <MobileMenu
+            type="button"
+            aria-label="메뉴 열기"
+            onClick={() => setIsOpenMenu(!isOpenMenu)}
+          >
+            <MenuIcon />
+          </MobileMenu>
         </HeaderContainer>
       </HeaderWrapper>
 
       <Category />
 
-      {IsOpenMenu && (
-        <MobileMenuModal isLogin={isLogin} setIsOpenMenu={setIsOpenMenu} />
-      )}
+      <MobileMenuModal
+        isLogin={isLogin}
+        isOpenMenu={isOpenMenu}
+        setIsOpenMenu={setIsOpenMenu}
+      />
     </>
   );
 };
