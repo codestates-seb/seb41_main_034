@@ -14,7 +14,11 @@ import { ReactComponent as MyPageIcon } from '../../assets/icons/myPageIcon.svg'
 const MobileMenuModal = ({ isLogin, setIsOpenMenu }) => {
   return (
     <MobileMenuWrapper>
-      <MobileMenuCancle type="button" onClick={() => setIsOpenMenu(false)}>
+      <MobileMenuCancle
+        type="button"
+        aria-label="메뉴 닫기"
+        onClick={() => setIsOpenMenu(false)}
+      >
         <CancleIcon />
       </MobileMenuCancle>
       <MobileButtonContainer>

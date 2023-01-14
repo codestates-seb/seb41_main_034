@@ -71,11 +71,15 @@ const Header = () => {
                   <SignLink to="/signup">회원가입</SignLink>
                 </>
               )}
-              <CartButton>
+              <CartButton type="button" aria-label="장바구니 보기">
                 <CartIcon />
                 <CartCount>2</CartCount>
               </CartButton>
-              <MobileMenu onClick={() => setIsOpenMenu(!IsOpenMenu)}>
+              <MobileMenu
+                type="button"
+                aria-label="메뉴 열기"
+                onClick={() => setIsOpenMenu(!IsOpenMenu)}
+              >
                 <MenuIcon />
               </MobileMenu>
             </ButtonContainer>
