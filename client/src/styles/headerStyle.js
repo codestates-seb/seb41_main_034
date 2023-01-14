@@ -148,6 +148,7 @@ export const LogoutButton = styled.button`
 `;
 
 export const CartButton = styled.button`
+  position: relative;
   margin-right: 8px;
 
   svg {
@@ -159,6 +160,18 @@ export const CartButton = styled.button`
       }
     }
   }
+`;
+
+export const CartCount = styled.div`
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  padding: 2px 4px;
+  border: 1px solid ${(props) => props.theme.whiteColor};
+  border-radius: 50px;
+  font-size: 8px;
+  color: ${(props) => props.theme.whiteColor};
+  background-color: ${(props) => props.theme.primaryColor};
 `;
 
 export const MyPageLink = styled(Link)`

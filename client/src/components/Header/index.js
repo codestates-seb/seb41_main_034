@@ -12,6 +12,7 @@ import {
   SearchLabel,
   SignLink,
   CartButton,
+  CartCount,
   MobileMenu,
   LogoutButton,
   MyPageLink
@@ -63,25 +64,20 @@ const Header = () => {
                   <MyPageLink>
                     <MyPageIcon />
                   </MyPageLink>
-                  <CartButton>
-                    <CartIcon />
-                  </CartButton>
-                  <MobileMenu onClick={() => setIsOpenMenu(!IsOpenMenu)}>
-                    <MenuIcon />
-                  </MobileMenu>
                 </>
               ) : (
                 <>
                   <SignLink to="/login">로그인</SignLink>
                   <SignLink to="/signup">회원가입</SignLink>
-                  <CartButton>
-                    <CartIcon />
-                  </CartButton>
-                  <MobileMenu onClick={() => setIsOpenMenu(!IsOpenMenu)}>
-                    <MenuIcon />
-                  </MobileMenu>
                 </>
               )}
+              <CartButton>
+                <CartIcon />
+                <CartCount>2</CartCount>
+              </CartButton>
+              <MobileMenu onClick={() => setIsOpenMenu(!IsOpenMenu)}>
+                <MenuIcon />
+              </MobileMenu>
             </ButtonContainer>
           </HeaderRight>
         </HeaderContainer>
