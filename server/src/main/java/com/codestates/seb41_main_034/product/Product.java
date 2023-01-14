@@ -55,7 +55,7 @@ public class Product extends Auditable {
     public enum ProductStatus {
         DRAFT,
         ACTIVE,
-        ARCHIVED
+        UNAVAILABLE
     }
 
     public enum ProductCategory {
