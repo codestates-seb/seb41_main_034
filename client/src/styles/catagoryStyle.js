@@ -36,8 +36,10 @@ const CatagoryButton = styled.button`
     margin-right: 24px;
   }
 
-  &:hover {
-    color: ${(props) => props.theme.hoverColor};
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      color: ${(props) => props.theme.hoverColor};
+    }
   }
 
   @media ${(props) => props.theme.tablet} {
@@ -46,41 +48,33 @@ const CatagoryButton = styled.button`
 `;
 
 const MobileMenuWrapper = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  padding: 90px 0 0 64px;
-  background-color: ${(props) => props.theme.whiteColor};
-  z-index: 97;
+  display: none;
 
-  @media ${(props) => props.theme.tablet} {
-    display: none;
-  }
-
-  @media ${(props) => props.theme.desktop} {
-    display: none;
+  @media ${(props) => props.theme.mobile} {
+    display: ${(props) => (props.isOpenMenu ? 'block' : 'none')};
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 97;
   }
 `;
 
-const MobileMenuCancle = styled.button`
-  position: absolute;
-  top: 24px;
-  right: 32px;
-  z-index: 99;
-
-  svg {
-    fill: ${(props) => props.theme.blackColor};
-    width: 24px;
-    height: 24px;
-  }
-
-  &:hover {
-    svg {
-      fill: ${(props) => props.theme.hoverColor};
-    }
-  }
+const MobileMenuContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 270px;
+  height: 100vh;
+  padding: 24px 0 0 24px;
+  background-color: ${(props) => props.theme.whiteColor};
+  overflow-y: auto;
+  transition: transform 0.5s;
+  transform: ${(props) =>
+    props.isOpenMenu ? 'translateX(0)' : 'translateX(-270px)'};
+  z-index: 98;
 `;
 
 const MobileButtonContainer = styled.div`
@@ -89,14 +83,10 @@ const MobileButtonContainer = styled.div`
 `;
 
 const MobileLink = styled(Link)`
-  font-size: 20px;
+  font-size: 16px;
 
   &:first-child {
     margin-right: 12px;
-  }
-
-  &:hover {
-    color: ${(props) => props.theme.hoverColor};
   }
 `;
 
@@ -107,14 +97,10 @@ const MobileCategoryContainer = styled.div`
 `;
 
 const MobileCategoryButton = styled.button`
-  font-size: 18px;
+  font-size: 14px;
 
   &:not(:last-child) {
     margin-bottom: 24px;
-  }
-
-  &:hover {
-    color: ${(props) => props.theme.hoverColor};
   }
 `;
 
@@ -126,10 +112,6 @@ const MobileMyImg = styled.img`
 
 const MobileButton = styled.button`
   font-size: 20px;
-
-  &:hover {
-    color: ${(props) => props.theme.hoverColor};
-  }
 `;
 
 const MobileMyPageLink = styled(Link)`
@@ -152,7 +134,7 @@ export {
   CatagoryContainer,
   CatagoryButton,
   MobileMenuWrapper,
-  MobileMenuCancle,
+  MobileMenuContainer,
   MobileButtonContainer,
   MobileLink,
   MobileCategoryContainer,

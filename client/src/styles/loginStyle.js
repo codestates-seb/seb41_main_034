@@ -32,8 +32,10 @@ const ToSignup = styled(ToSignupSpan)`
   color: ${(props) => props.theme.primaryColor};
   transition: color 0.5s;
 
-  &:hover {
-    color: ${(props) => props.theme.hoverColor};
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      color: ${(props) => props.theme.hoverColor};
+    }
   }
 `;
 

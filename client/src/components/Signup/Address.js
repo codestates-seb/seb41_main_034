@@ -6,25 +6,20 @@ import {
   SignupInput,
   ConfirmButton,
   ModalBackground,
-  AddressModal,
-  CloseModal
+  AddressModal
 } from '../../styles/signupStyle';
-import { ReactComponent as CancleIcon } from '../../assets/icons/cancleIcon.svg';
 
 const Address = ({ address, addressDetail, setAddress, setAddressDetail }) => {
   const [isOpenPost, setIsOpenPost] = useState(false);
 
-  const onChangeOpenPost = () => {
+  const onChangeOpenPost = (e) => {
+    e.preventDefault();
     setIsOpenPost(!isOpenPost);
   };
 
   const onCompletePost = (data) => {
     setAddress(data.address);
     setIsOpenPost(false);
-  };
-
-  const postCodeStyle = {
-    width: '100%'
   };
 
   return (
@@ -64,12 +59,9 @@ const Address = ({ address, addressDetail, setAddress, setAddressDetail }) => {
       )}
 
       {isOpenPost && (
-        <ModalBackground>
+        <ModalBackground onClick={() => setIsOpenPost(false)}>
           <AddressModal>
-            <CloseModal onClick={(e) => setIsOpenPost(false)}>
-              <CancleIcon />
-            </CloseModal>
-            <DaumPostcode style={postCodeStyle} onComplete={onCompletePost} />
+            <DaumPostcode onComplete={onCompletePost} />
           </AddressModal>
         </ModalBackground>
       )}

@@ -34,8 +34,10 @@ const ToLogin = styled(ToLoginSpan)`
   color: ${(props) => props.theme.primaryColor};
   transition: color 0.5s;
 
-  &:hover {
-    color: ${(props) => props.theme.hoverColor};
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      color: ${(props) => props.theme.hoverColor};
+    }
   }
 `;
 
@@ -81,9 +83,11 @@ const ConfirmButton = styled.button`
   border-radius: 4px;
   transition: color 0.5s, border 0.5s;
 
-  &:hover {
-    color: ${(props) => props.theme.hoverColor};
-    border: 1px solid ${(props) => props.theme.hoverColor};
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      color: ${(props) => props.theme.hoverColor};
+      border: 1px solid ${(props) => props.theme.hoverColor};
+    }
   }
 `;
 
@@ -96,8 +100,10 @@ const SignupButton = styled.button`
   background-color: ${(props) => props.theme.primaryColor};
   transition: background-color 0.5s;
 
-  &:hover {
-    background-color: ${(props) => props.theme.hoverColor};
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      background-color: ${(props) => props.theme.hoverColor};
+    }
   }
 `;
 
@@ -121,23 +127,6 @@ const AddressModal = styled.div`
   z-index: 99;
 `;
 
-const CloseModal = styled.button`
-  position: absolute;
-  top: -24px;
-  right: 12px;
-  z-index: 99;
-
-  svg {
-    transition: fill 0.5s;
-  }
-
-  &:hover {
-    svg {
-      fill: ${(props) => props.theme.hoverColor};
-    }
-  }
-`;
-
 export {
   SignupContainer,
   SignupHeader,
@@ -151,6 +140,5 @@ export {
   ConfirmButton,
   SignupButton,
   ModalBackground,
-  AddressModal,
-  CloseModal
+  AddressModal
 };

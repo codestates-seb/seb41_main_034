@@ -2,14 +2,14 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const HeaderWrapper = styled.header`
-  width: 100%;
-  height: 72px;
   position: fixed;
   top: 0;
   left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 72px;
   background-color: ${(props) => props.theme.whiteColor};
   z-index: 96;
 
@@ -21,13 +21,13 @@ const HeaderWrapper = styled.header`
 
 const HeaderContainer = styled.header`
   position: relative;
-  width: 100%;
-  height: 100%;
-  max-width: 1024px;
-  border-bottom: 1px solid ${(props) => props.theme.borderColor};
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  max-width: 1024px;
+  height: 100%;
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
   padding: 0 64px;
 
   @media ${(props) => props.theme.mobile} {
@@ -38,12 +38,21 @@ const HeaderContainer = styled.header`
 
 const HeaderLeft = styled.div`
   margin-right: 16px;
+
+  @media ${(props) => props.theme.mobile} {
+    margin-right: 0;
+    order: 2;
+  }
 `;
 
 const HeaderRight = styled.div`
   display: flex;
   align-items: center;
   flex-shrink: 0;
+
+  @media ${(props) => props.theme.mobile} {
+    order: 3;
+  }
 `;
 
 const Logo = styled.h1`
@@ -65,12 +74,17 @@ const SearchContainer = styled.div`
   max-width: 398px;
   margin-right: 16px;
 
+  @media ${(props) => props.theme.tablet} {
+    margin-right: 8px;
+  }
+
   @media ${(props) => props.theme.mobile} {
     position: absolute;
     top: 73px;
     left: 0;
-    z-index: 998;
+    margin-right: 0;
     padding: 0 32px;
+    z-index: 998;
   }
 `;
 
@@ -90,6 +104,10 @@ const SearchInput = styled.input`
       }
     }
   }
+
+  @media ${(props) => props.theme.tablet} {
+    border: none;
+  }
 `;
 
 const SearchLabel = styled.label`
@@ -101,6 +119,14 @@ const SearchLabel = styled.label`
     width: 16px;
     height: 16px;
     fill: ${(props) => props.theme.grayColor};
+  }
+
+  @media ${(props) => props.theme.tablet} {
+    cursor: pointer;
+
+    svg {
+      fill: ${(props) => props.theme.blackColor};
+    }
   }
 
   @media ${(props) => props.theme.mobile} {
@@ -117,8 +143,10 @@ const SignLink = styled(Link)`
   font-size: 14px;
   margin-right: 8px;
 
-  &:hover {
-    color: ${(props) => props.theme.hoverColor};
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      color: ${(props) => props.theme.hoverColor};
+    }
   }
 
   @media ${(props) => props.theme.tablet} {
@@ -134,8 +162,10 @@ const LogoutButton = styled.button`
   font-size: 14px;
   margin-right: 8px;
 
-  &:hover {
-    color: ${(props) => props.theme.hoverColor};
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      color: ${(props) => props.theme.hoverColor};
+    }
   }
 
   @media ${(props) => props.theme.tablet} {
@@ -151,14 +181,20 @@ const CartButton = styled.button`
   position: relative;
   margin-right: 8px;
 
-  svg {
-    &:hover {
-      g {
+  @media ${(props) => props.theme.desktop} {
+    svg {
+      &:hover {
         g {
-          stroke: ${(props) => props.theme.hoverColor};
+          g {
+            stroke: ${(props) => props.theme.hoverColor};
+          }
         }
       }
     }
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    margin-right: 0;
   }
 `;
 
@@ -194,71 +230,18 @@ const MyPageLink = styled(Link)`
 `;
 
 const MobileMenu = styled.button`
-  svg {
-    width: 22px;
-    height: 22px;
-  }
+  display: none;
 
-  &:hover {
+  @media ${(props) => props.theme.mobile} {
+    position: relative;
+    top: 6px;
+    display: block;
+    order: 1;
+
     svg {
-      fill: ${(props) => props.theme.hoverColor};
+      width: 22px;
+      height: 22px;
     }
-  }
-
-  @media ${(props) => props.theme.tablet} {
-    display: none;
-  }
-  @media ${(props) => props.theme.desktop} {
-    display: none;
-  }
-`;
-
-const MobileFlex = styled.div`
-  display: flex;
-  width: 100%;
-  @media ${(props) => props.theme.mobile} {
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-  }
-`;
-
-const MobileContainer = styled.div`
-  display: none;
-  @media ${(props) => props.theme.tablet} {
-    display: none;
-  }
-  @media ${(props) => props.theme.mobile} {
-    width: 80%;
-    height: 31px;
-    display: flex;
-    align-items: center;
-    border: 1px solid black;
-  }
-`;
-
-const MobileInput = styled.input`
-  display: none;
-  @media ${(props) => props.theme.tablet} {
-    display: none;
-  }
-  @media ${(props) => props.theme.mobile} {
-    display: block;
-    width: 90%;
-    height: 29px;
-    border: none;
-  }
-`;
-
-const MobileSearchImg = styled.img`
-  display: none;
-  @media ${(props) => props.theme.tablet} {
-    display: none;
-  }
-  @media ${(props) => props.theme.mobile} {
-    display: block;
-    width: 10px;
-    height: 10px;
   }
 `;
 
@@ -277,9 +260,5 @@ export {
   CartButton,
   CartCount,
   MyPageLink,
-  MobileMenu,
-  MobileFlex,
-  MobileContainer,
-  MobileInput,
-  MobileSearchImg
+  MobileMenu
 };

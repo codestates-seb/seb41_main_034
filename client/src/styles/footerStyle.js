@@ -15,6 +15,10 @@ const FooterContainer = styled.dl`
   height: 320px;
   padding: 0 0 40px 64px;
   border-top: 1px solid ${(props) => props.theme.borderColor};
+
+  @media ${(props) => props.theme.mobile} {
+    padding-left: 32px;
+  }
 `;
 
 const Info = styled.div``;
