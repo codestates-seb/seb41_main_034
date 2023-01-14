@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 
-export const CarouselOuter = styled.div`
+const CarouselOuter = styled.div`
   width: 100%;
   max-width: 1024px;
 `;
 
-export const CarouselContainer = styled.div`
+const CarouselContainer = styled.div`
   width: 100%;
 `;
 
-export const CarouselView = styled.div`
+const CarouselView = styled.div`
   width: 100%;
   height: 700px;
   background-image: url(${(props) => props.image});
@@ -25,3 +25,5 @@ export const CarouselView = styled.div`
     height: 256px;
   }
 `;
+
+export { CarouselOuter, CarouselContainer, CarouselView };

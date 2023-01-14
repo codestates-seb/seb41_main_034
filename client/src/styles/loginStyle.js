@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const LoginContainer = styled.form`
+const LoginContainer = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,21 +13,21 @@ export const LoginContainer = styled.form`
   }
 `;
 
-export const LoginHeader = styled.div`
+const LoginHeader = styled.div`
   text-align: center;
   margin-bottom: 48px;
 `;
 
-export const LoginTitle = styled.h2`
+const LoginTitle = styled.h2`
   font-size: 32px;
   margin-bottom: 12px;
 `;
 
-export const ToSignupSpan = styled.span`
+const ToSignupSpan = styled.span`
   font-size: 16px;
 `;
 
-export const ToSignup = styled(ToSignupSpan)`
+const ToSignup = styled(ToSignupSpan)`
   margin-left: 4px;
   color: ${(props) => props.theme.primaryColor};
   transition: color 0.5s;
@@ -37,12 +37,12 @@ export const ToSignup = styled(ToSignupSpan)`
   }
 `;
 
-export const LoginList = styled.ul`
+const LoginList = styled.ul`
   width: 100%;
   margin-bottom: 24px;
 `;
 
-export const LoginItem = styled.li`
+const LoginItem = styled.li`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -52,7 +52,7 @@ export const LoginItem = styled.li`
   }
 `;
 
-export const Input = styled.input`
+const Input = styled.input`
   padding: 8px;
   border-radius: 4px;
   font-size: 14px;
@@ -63,12 +63,12 @@ export const Input = styled.input`
   }
 `;
 
-export const TextLabel = styled.label`
+const TextLabel = styled.label`
   font-size: 14px;
   margin-bottom: 4px;
 `;
 
-export const LoginButton = styled.button`
+const LoginButton = styled.button`
   width: 100%;
   padding: 16px 0;
   font-size: 16px;
@@ -81,3 +81,16 @@ export const LoginButton = styled.button`
     background-color: ${(props) => props.theme.hoverColor};
   }
 `;
+
+export {
+  LoginContainer,
+  LoginHeader,
+  LoginTitle,
+  ToSignupSpan,
+  ToSignup,
+  LoginList,
+  LoginItem,
+  Input,
+  TextLabel,
+  LoginButton
+};

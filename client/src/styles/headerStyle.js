@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-export const HeaderWrapper = styled.header`
+const HeaderWrapper = styled.header`
   width: 100%;
   height: 72px;
   position: fixed;
@@ -19,7 +19,7 @@ export const HeaderWrapper = styled.header`
   }
 `;
 
-export const HeaderContainer = styled.header`
+const HeaderContainer = styled.header`
   position: relative;
   width: 100%;
   height: 100%;
@@ -36,17 +36,17 @@ export const HeaderContainer = styled.header`
   }
 `;
 
-export const HeaderLeft = styled.div`
+const HeaderLeft = styled.div`
   margin-right: 16px;
 `;
 
-export const HeaderRight = styled.div`
+const HeaderRight = styled.div`
   display: flex;
   align-items: center;
   flex-shrink: 0;
 `;
 
-export const Logo = styled.h1`
+const Logo = styled.h1`
   position: relative;
 
   svg {
@@ -59,7 +59,7 @@ export const Logo = styled.h1`
   }
 `;
 
-export const SearchContainer = styled.div`
+const SearchContainer = styled.div`
   position: relative;
   width: 100%;
   max-width: 398px;
@@ -74,7 +74,7 @@ export const SearchContainer = styled.div`
   }
 `;
 
-export const SearchInput = styled.input`
+const SearchInput = styled.input`
   width: 100%;
   border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
@@ -92,7 +92,7 @@ export const SearchInput = styled.input`
   }
 `;
 
-export const SearchLabel = styled.label`
+const SearchLabel = styled.label`
   position: absolute;
   top: 10px;
   right: 8px;
@@ -108,12 +108,12 @@ export const SearchLabel = styled.label`
   }
 `;
 
-export const ButtonContainer = styled.div`
+const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
 `;
 
-export const SignLink = styled(Link)`
+const SignLink = styled(Link)`
   font-size: 14px;
   margin-right: 8px;
 
@@ -130,7 +130,7 @@ export const SignLink = styled(Link)`
   }
 `;
 
-export const LogoutButton = styled.button`
+const LogoutButton = styled.button`
   font-size: 14px;
   margin-right: 8px;
 
@@ -147,7 +147,7 @@ export const LogoutButton = styled.button`
   }
 `;
 
-export const CartButton = styled.button`
+const CartButton = styled.button`
   position: relative;
   margin-right: 8px;
 
@@ -162,7 +162,7 @@ export const CartButton = styled.button`
   }
 `;
 
-export const CartCount = styled.div`
+const CartCount = styled.div`
   position: absolute;
   top: -2px;
   right: -2px;
@@ -174,7 +174,7 @@ export const CartCount = styled.div`
   background-color: ${(props) => props.theme.primaryColor};
 `;
 
-export const MyPageLink = styled(Link)`
+const MyPageLink = styled(Link)`
   margin-right: 8px;
 
   svg {
@@ -193,7 +193,7 @@ export const MyPageLink = styled(Link)`
   }
 `;
 
-export const MobileMenu = styled.button`
+const MobileMenu = styled.button`
   svg {
     width: 22px;
     height: 22px;
@@ -213,7 +213,7 @@ export const MobileMenu = styled.button`
   }
 `;
 
-export const MobileFlex = styled.div`
+const MobileFlex = styled.div`
   display: flex;
   width: 100%;
   @media ${(props) => props.theme.mobile} {
@@ -223,7 +223,7 @@ export const MobileFlex = styled.div`
   }
 `;
 
-export const MobileContainer = styled.div`
+const MobileContainer = styled.div`
   display: none;
   @media ${(props) => props.theme.tablet} {
     display: none;
@@ -237,7 +237,7 @@ export const MobileContainer = styled.div`
   }
 `;
 
-export const MobileInput = styled.input`
+const MobileInput = styled.input`
   display: none;
   @media ${(props) => props.theme.tablet} {
     display: none;
@@ -250,7 +250,7 @@ export const MobileInput = styled.input`
   }
 `;
 
-export const MobileSearchImg = styled.img`
+const MobileSearchImg = styled.img`
   display: none;
   @media ${(props) => props.theme.tablet} {
     display: none;
@@ -261,3 +261,25 @@ export const MobileSearchImg = styled.img`
     height: 10px;
   }
 `;
+
+export {
+  HeaderWrapper,
+  HeaderContainer,
+  HeaderLeft,
+  HeaderRight,
+  Logo,
+  SearchContainer,
+  SearchInput,
+  SearchLabel,
+  ButtonContainer,
+  SignLink,
+  LogoutButton,
+  CartButton,
+  CartCount,
+  MyPageLink,
+  MobileMenu,
+  MobileFlex,
+  MobileContainer,
+  MobileInput,
+  MobileSearchImg
+};

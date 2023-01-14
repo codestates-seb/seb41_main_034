@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-export const CatagoryWrapper = styled.div`
+const CatagoryWrapper = styled.div`
   position: fixed;
   top: 72px;
   left: 0;
@@ -16,7 +16,7 @@ export const CatagoryWrapper = styled.div`
   }
 `;
 
-export const CatagoryContainer = styled.div`
+const CatagoryContainer = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
@@ -25,7 +25,7 @@ export const CatagoryContainer = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.borderColor};
 `;
 
-export const CatagoryButton = styled.button`
+const CatagoryButton = styled.button`
   font-size: 14px;
   display: flex;
   align-items: center;
@@ -45,7 +45,7 @@ export const CatagoryButton = styled.button`
   }
 `;
 
-export const MobileMenuWrapper = styled.div`
+const MobileMenuWrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -64,7 +64,7 @@ export const MobileMenuWrapper = styled.div`
   }
 `;
 
-export const MobileMenuCancle = styled.button`
+const MobileMenuCancle = styled.button`
   position: absolute;
   top: 24px;
   right: 32px;
@@ -83,12 +83,12 @@ export const MobileMenuCancle = styled.button`
   }
 `;
 
-export const MobileButtonContainer = styled.div`
+const MobileButtonContainer = styled.div`
   display: flex;
   margin-bottom: 50px;
 `;
 
-export const MobileLink = styled(Link)`
+const MobileLink = styled(Link)`
   font-size: 20px;
 
   &:first-child {
@@ -100,13 +100,13 @@ export const MobileLink = styled(Link)`
   }
 `;
 
-export const MobileCategoryContainer = styled.div`
+const MobileCategoryContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 `;
 
-export const MobileCategoryButton = styled.button`
+const MobileCategoryButton = styled.button`
   font-size: 18px;
 
   &:not(:last-child) {
@@ -118,13 +118,13 @@ export const MobileCategoryButton = styled.button`
   }
 `;
 
-export const MobileMyImg = styled.img`
+const MobileMyImg = styled.img`
   width: 28px;
   height: 28px;
   margin: 0 20px 0 0;
 `;
 
-export const MobileButton = styled.button`
+const MobileButton = styled.button`
   font-size: 20px;
 
   &:hover {
@@ -132,7 +132,7 @@ export const MobileButton = styled.button`
   }
 `;
 
-export const MobileMyPageLink = styled(Link)`
+const MobileMyPageLink = styled(Link)`
   margin-right: 12px;
 
   svg {
@@ -146,3 +146,18 @@ export const MobileMyPageLink = styled(Link)`
     }
   }
 `;
+
+export {
+  CatagoryWrapper,
+  CatagoryContainer,
+  CatagoryButton,
+  MobileMenuWrapper,
+  MobileMenuCancle,
+  MobileButtonContainer,
+  MobileLink,
+  MobileCategoryContainer,
+  MobileCategoryButton,
+  MobileMyImg,
+  MobileButton,
+  MobileMyPageLink
+};
