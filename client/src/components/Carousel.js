@@ -1,5 +1,4 @@
 import {
-  Container,
   CarouselOuter,
   CarouselContainer,
   CarouselView
@@ -11,21 +10,19 @@ import Carousel1 from '../assets/icons/carousel.svg';
 function CarouselComponent() {
   return (
     <>
-      <Container>
-        <CarouselOuter>
-          <Carousel>
-            <CarouselContainer>
-              <CarouselView image={Carousel1} />
-            </CarouselContainer>
-            <CarouselContainer>
-              <CarouselView image={Carousel1} />
-            </CarouselContainer>
-            <CarouselContainer>
-              <CarouselView image={Carousel1} />
-            </CarouselContainer>
-          </Carousel>
-        </CarouselOuter>
-      </Container>
+      <CarouselOuter>
+        <Carousel>
+          <CarouselContainer>
+            <CarouselView image={Carousel1} />
+          </CarouselContainer>
+          <CarouselContainer>
+            <CarouselView image={Carousel1} />
+          </CarouselContainer>
+          <CarouselContainer>
+            <CarouselView image={Carousel1} />
+          </CarouselContainer>
+        </Carousel>
+      </CarouselOuter>
     </>
   );
 }
