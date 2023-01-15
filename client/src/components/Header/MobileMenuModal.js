@@ -1,6 +1,7 @@
 import {
   MobileLink,
   MobileButtonContainer,
+  MobileMenuHeader,
   MobileCategoryButton,
   MobileCategoryContainer,
   MobileMenuWrapper,
@@ -21,34 +22,52 @@ const MobileMenuModal = ({ isLogin, isOpenMenu, setIsOpenMenu }) => {
         isOpenMenu={isOpenMenu}
       />
       <MobileMenuContainer isOpenMenu={isOpenMenu}>
-        <Logo>
-          <Link to="/">
-            <LogoIcon />
-          </Link>
-        </Logo>
-        <MobileButtonContainer>
-          {isLogin ? (
-            <>
-              <MobileMyPageLink>
-                <MyPageIcon />
-              </MobileMyPageLink>
-              <MobileButton type="button" onClick={() => setIsOpenMenu(false)}>
-                로그아웃
-              </MobileButton>
-            </>
-          ) : (
-            <>
-              <MobileLink to="/login" onClick={() => setIsOpenMenu(false)}>
-                로그인
-              </MobileLink>
-              <MobileLink to="/signup" onClick={() => setIsOpenMenu(false)}>
-                회원가입
-              </MobileLink>
-            </>
-          )}
-        </MobileButtonContainer>
+        <MobileMenuHeader>
+          <Logo>
+            <Link to="/">
+              <LogoIcon />
+            </Link>
+          </Logo>
+          <MobileButtonContainer>
+            {isLogin ? (
+              <>
+                <MobileMyPageLink>
+                  <MyPageIcon />
+                </MobileMyPageLink>
+                <MobileButton
+                  type="button"
+                  onClick={() => setIsOpenMenu(false)}
+                >
+                  로그아웃
+                </MobileButton>
+              </>
+            ) : (
+              <>
+                <MobileLink to="/login" onClick={() => setIsOpenMenu(false)}>
+                  로그인
+                </MobileLink>
+                <MobileLink to="/signup" onClick={() => setIsOpenMenu(false)}>
+                  회원가입
+                </MobileLink>
+              </>
+            )}
+          </MobileButtonContainer>
+        </MobileMenuHeader>
 
         <MobileCategoryContainer>
+          <MobileCategoryButton>카테고리</MobileCategoryButton>
+          <MobileCategoryButton>카테고리</MobileCategoryButton>
+          <MobileCategoryButton>카테고리</MobileCategoryButton>
+          <MobileCategoryButton>카테고리</MobileCategoryButton>
+          <MobileCategoryButton>카테고리</MobileCategoryButton>
+          <MobileCategoryButton>카테고리</MobileCategoryButton>
+          <MobileCategoryButton>카테고리</MobileCategoryButton>
+          <MobileCategoryButton>카테고리</MobileCategoryButton>
+          <MobileCategoryButton>카테고리</MobileCategoryButton>
+          <MobileCategoryButton>카테고리</MobileCategoryButton>
+          <MobileCategoryButton>카테고리</MobileCategoryButton>
+          <MobileCategoryButton>카테고리</MobileCategoryButton>
+          <MobileCategoryButton>카테고리</MobileCategoryButton>
           <MobileCategoryButton>카테고리</MobileCategoryButton>
           <MobileCategoryButton>카테고리</MobileCategoryButton>
           <MobileCategoryButton>카테고리</MobileCategoryButton>

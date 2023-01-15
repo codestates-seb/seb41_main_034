@@ -23,6 +23,7 @@ const CatagoryContainer = styled.div`
   max-width: 1024px;
   padding: 0 64px;
   border-bottom: 1px solid ${(props) => props.theme.borderColor};
+  overflow-x: auto;
 `;
 
 const CatagoryButton = styled.button`
@@ -30,6 +31,7 @@ const CatagoryButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   padding: 12px 0;
 
   &:not(:last-child) {
@@ -63,23 +65,33 @@ const MobileMenuWrapper = styled.div`
 `;
 
 const MobileMenuContainer = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 270px;
-  height: 100vh;
-  padding: 24px 0 0 24px;
-  background-color: ${(props) => props.theme.whiteColor};
-  overflow-y: auto;
-  transition: transform 0.5s;
-  transform: ${(props) =>
-    props.isOpenMenu ? 'translateX(0)' : 'translateX(-270px)'};
-  z-index: 98;
+  display: none;
+
+  @media ${(props) => props.theme.mobile} {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 270px;
+    height: 100vh;
+    padding: 24px 16px 24px 16px;
+    background-color: ${(props) => props.theme.whiteColor};
+    overflow-y: auto;
+    transition: transform 0.5s;
+    transform: ${(props) =>
+      props.isOpenMenu ? 'translateX(0)' : 'translateX(-270px)'};
+    z-index: 98;
+  }
+`;
+
+const MobileMenuHeader = styled.header`
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
 `;
 
 const MobileButtonContainer = styled.div`
   display: flex;
-  margin-bottom: 50px;
 `;
 
 const MobileLink = styled(Link)`
@@ -135,6 +147,7 @@ export {
   CatagoryButton,
   MobileMenuWrapper,
   MobileMenuContainer,
+  MobileMenuHeader,
   MobileButtonContainer,
   MobileLink,
   MobileCategoryContainer,

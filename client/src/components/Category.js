@@ -12,6 +12,13 @@ const Category = () => {
         <CatagoryButton>카테고리</CatagoryButton>
         <CatagoryButton>카테고리</CatagoryButton>
         <CatagoryButton>카테고리</CatagoryButton>
+        <CatagoryButton>카테고리</CatagoryButton>
+        <CatagoryButton>카테고리</CatagoryButton>
+        <CatagoryButton>카테고리</CatagoryButton>
+        <CatagoryButton>카테고리</CatagoryButton>
+        <CatagoryButton>카테고리</CatagoryButton>
+        <CatagoryButton>카테고리</CatagoryButton>
+        <CatagoryButton>카테고리</CatagoryButton>
       </CatagoryContainer>
     </CatagoryWrapper>
   );
