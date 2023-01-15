@@ -24,10 +24,12 @@ import { ReactComponent as MenuIcon } from '../../assets/icons/menuIcon.svg';
 import { ReactComponent as MyPageIcon } from '../../assets/icons/myPageIcon.svg';
 import MobileMenuModal from './MobileMenuModal';
 import Category from '../Category';
+import ShoppingCart from '../ShoppingCart';
 
 const Header = () => {
   const [isLogin, setIsLogin] = useState(false);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
+  const [isOpenCart, setIsOpenCart] = useState(false);
 
   const token = localStorage.getItem('jwt_token');
 
@@ -73,7 +75,11 @@ const Header = () => {
                   <SignLink to="/signup">회원가입</SignLink>
                 </>
               )}
-              <CartButton type="button" aria-label="장바구니 보기">
+              <CartButton
+                type="button"
+                aria-label="장바구니 보기"
+                onClick={() => setIsOpenCart(!isOpenCart)}
+              >
                 <CartIcon />
                 <CartCount>2</CartCount>
               </CartButton>
@@ -91,6 +97,8 @@ const Header = () => {
       </HeaderWrapper>
 
       <Category />
+
+      <ShoppingCart isOpenCart={isOpenCart} />
 
       <MobileMenuModal
         isLogin={isLogin}
