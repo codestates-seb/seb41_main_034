@@ -55,23 +55,15 @@ const MobileMenuModal = ({ isLogin, isOpenMenu, setIsOpenMenu }) => {
         </MobileMenuHeader>
 
         <MobileCategoryContainer>
-          <MobileCategoryButton>카테고리</MobileCategoryButton>
-          <MobileCategoryButton>카테고리</MobileCategoryButton>
-          <MobileCategoryButton>카테고리</MobileCategoryButton>
-          <MobileCategoryButton>카테고리</MobileCategoryButton>
-          <MobileCategoryButton>카테고리</MobileCategoryButton>
-          <MobileCategoryButton>카테고리</MobileCategoryButton>
-          <MobileCategoryButton>카테고리</MobileCategoryButton>
-          <MobileCategoryButton>카테고리</MobileCategoryButton>
-          <MobileCategoryButton>카테고리</MobileCategoryButton>
-          <MobileCategoryButton>카테고리</MobileCategoryButton>
-          <MobileCategoryButton>카테고리</MobileCategoryButton>
-          <MobileCategoryButton>카테고리</MobileCategoryButton>
-          <MobileCategoryButton>카테고리</MobileCategoryButton>
-          <MobileCategoryButton>카테고리</MobileCategoryButton>
-          <MobileCategoryButton>카테고리</MobileCategoryButton>
-          <MobileCategoryButton>카테고리</MobileCategoryButton>
-          <MobileCategoryButton>카테고리</MobileCategoryButton>
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((el, idx) => (
+            <MobileCategoryButton
+              to={`/products/${el}`}
+              key={idx}
+              onClick={() => setIsOpenMenu(false)}
+            >
+              카테고리
+            </MobileCategoryButton>
+          ))}
         </MobileCategoryContainer>
       </MobileMenuContainer>
     </>

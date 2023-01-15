@@ -13,10 +13,10 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   max-width: 1024px;
-  padding: 0 32px;
+  padding: 0 16px;
 
-  @media ${(props) => props.theme.mobile} {
-    padding: 0 16px;
+  @media ${(props) => props.theme.desktop} {
+    padding: 0 32px;
   }
 `;
 

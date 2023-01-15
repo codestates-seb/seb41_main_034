@@ -30,7 +30,7 @@ const CatagoryContainer = styled.div`
   }
 `;
 
-const CatagoryButton = styled.button`
+const CatagoryButton = styled(Link)`
   font-size: 14px;
   font-weight: 700;
   display: flex;
@@ -113,7 +113,7 @@ const MobileCategoryContainer = styled.div`
   align-items: flex-start;
 `;
 
-const MobileCategoryButton = styled.button`
+const MobileCategoryButton = styled(Link)`
   font-size: 14px;
   font-weight: 700;
 
