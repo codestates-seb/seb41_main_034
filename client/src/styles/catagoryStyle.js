@@ -8,6 +8,7 @@ const CatagoryWrapper = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
   background-color: ${(props) => props.theme.whiteColor};
   z-index: 97;
 
@@ -22,7 +23,6 @@ const CatagoryContainer = styled.div`
   width: 100%;
   max-width: 1024px;
   padding: 0 64px;
-  border-bottom: 1px solid ${(props) => props.theme.borderColor};
   overflow-x: auto;
 `;
 

@@ -10,6 +10,7 @@ const HeaderWrapper = styled.header`
   align-items: center;
   width: 100%;
   height: 72px;
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
   background-color: ${(props) => props.theme.whiteColor};
   z-index: 96;
 
@@ -27,7 +28,6 @@ const HeaderContainer = styled.header`
   width: 100%;
   max-width: 1024px;
   height: 100%;
-  border-bottom: 1px solid ${(props) => props.theme.borderColor};
   padding: 0 64px;
 
   @media ${(props) => props.theme.mobile} {

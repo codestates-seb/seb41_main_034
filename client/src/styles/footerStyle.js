@@ -4,6 +4,7 @@ const FooterWrapper = styled.footer`
   display: flex;
   justify-content: center;
   width: 100%;
+  border-top: 1px solid ${(props) => props.theme.borderColor};
 `;
 
 const FooterContainer = styled.dl`
@@ -14,7 +15,6 @@ const FooterContainer = styled.dl`
   max-width: 1024px;
   height: 320px;
   padding: 0 0 40px 64px;
-  border-top: 1px solid ${(props) => props.theme.borderColor};
 
   @media ${(props) => props.theme.mobile} {
     padding-left: 32px;
