@@ -1,12 +1,7 @@
 import SignupForm from '../components/Signup';
-import { Container } from '../styles/contentStyle';
 
 const Signup = () => {
-  return (
-    <Container>
-      <SignupForm />
-    </Container>
-  );
+  return <SignupForm />;
 };
 
 export default Signup;

@@ -22,12 +22,17 @@ const CatagoryContainer = styled.div`
   align-items: center;
   width: 100%;
   max-width: 1024px;
-  padding: 0 64px;
+  padding: 0 32px;
   overflow-x: auto;
+
+  @media ${(props) => props.theme.tablet} {
+    padding: 0 16px;
+  }
 `;
 
 const CatagoryButton = styled.button`
   font-size: 14px;
+  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -110,6 +115,7 @@ const MobileCategoryContainer = styled.div`
 
 const MobileCategoryButton = styled.button`
   font-size: 14px;
+  font-weight: 700;
 
   &:not(:last-child) {
     margin-bottom: 24px;

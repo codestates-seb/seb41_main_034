@@ -1,12 +1,7 @@
-import ProductItem from '../components/ProductItem';
-import { Container } from '../styles/contentStyle';
+import ProductList from '../components/ProductList';
 
 const Home = () => {
-  return (
-    <Container>
-      <ProductItem />
-    </Container>
-  );
+  return <ProductList />;
 };
 
 export default Home;

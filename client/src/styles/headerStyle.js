@@ -28,11 +28,15 @@ const HeaderContainer = styled.header`
   width: 100%;
   max-width: 1024px;
   height: 100%;
-  padding: 0 64px;
+  padding: 0 32px;
+
+  @media ${(props) => props.theme.tablet} {
+    padding: 0 16px;
+  }
 
   @media ${(props) => props.theme.mobile} {
     align-items: flex-start;
-    padding: 24px 32px;
+    padding: 24px 16px 0 16px;
   }
 `;
 

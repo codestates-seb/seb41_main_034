@@ -14,10 +14,14 @@ const FooterContainer = styled.dl`
   width: 100%;
   max-width: 1024px;
   height: 320px;
-  padding: 0 0 40px 64px;
+  padding: 0 0 40px 32px;
+
+  @media ${(props) => props.theme.tablet} {
+    padding-left: 16px;
+  }
 
   @media ${(props) => props.theme.mobile} {
-    padding-left: 32px;
+    padding-left: 16px;
   }
 `;
 

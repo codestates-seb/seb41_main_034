@@ -1,10 +1,23 @@
 import styled from 'styled-components';
 
-const Container = styled.main`
-  width: 100%;
+const Main = styled.main`
   display: flex;
   justify-content: center;
+  width: 100%;
   margin-top: 116px;
 `;
 
-export { Container };
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1024px;
+  padding: 0 32px;
+
+  @media ${(props) => props.theme.mobile} {
+    padding: 0 16px;
+  }
+`;
+
+export { Main, Container };
