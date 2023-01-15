@@ -8,6 +8,7 @@ const SignupContainer = styled.form`
   width: 100%;
   max-width: 300px;
   border-radius: 4px;
+  margin-top: 120px;
   margin-bottom: 240px;
 
   @media ${(props) => props.theme.mobile} {
