@@ -7,7 +7,7 @@ import {
   ProductName,
   ProductPrice,
   ProductReview
-} from '../../styles/productItemStyle';
+} from '../../styles/productStyle';
 
 const ProductItem = () => {
   return (

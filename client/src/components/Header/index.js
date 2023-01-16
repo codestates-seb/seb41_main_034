@@ -98,7 +98,7 @@ const Header = () => {
 
       <Category />
 
-      <ShoppingCart isOpenCart={isOpenCart} />
+      <ShoppingCart isOpenCart={isOpenCart} setIsOpenCart={setIsOpenCart} />
 
       <MobileMenuModal
         isLogin={isLogin}

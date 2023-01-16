@@ -1,7 +1,7 @@
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
-export const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle`
   ${reset}
 
   * {
@@ -43,3 +43,25 @@ export const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
 `;
+
+const Main = styled.main`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 116px;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1024px;
+  padding: 0 16px;
+
+  @media ${(props) => props.theme.desktop} {
+    padding: 0 32px;
+  }
+`;
+
+export { GlobalStyle, Main, Container };

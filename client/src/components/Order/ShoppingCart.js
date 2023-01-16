@@ -4,9 +4,9 @@ import {
   CartHeader,
   CartContent,
   CartFooter
-} from '../../styles/shoppingCartStyle';
+} from '../../styles/order';
 
-const ShoppingCart = ({ isOpenCart }) => {
+const ShoppingCart = ({ isOpenCart, setIsOpenCart }) => {
   return (
     <CartContainer isOpenCart={isOpenCart}>
       <CartHeader>
@@ -14,7 +14,9 @@ const ShoppingCart = ({ isOpenCart }) => {
       </CartHeader>
       <CartContent></CartContent>
       <CartFooter>
-        <Link to="/order">주문하기</Link>
+        <Link to="/order" onClick={() => setIsOpenCart(false)}>
+          주문하기
+        </Link>
       </CartFooter>
     </CartContainer>
   );

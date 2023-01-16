@@ -2,7 +2,7 @@ import {
   CatagoryButton,
   CatagoryContainer,
   CatagoryWrapper
-} from '../../styles/catagoryStyle';
+} from '../../styles/headerStyle';
 
 const Category = () => {
   return (

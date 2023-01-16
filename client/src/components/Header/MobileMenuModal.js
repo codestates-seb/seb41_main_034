@@ -8,7 +8,7 @@ import {
   MobileMenuContainer,
   MobileButton,
   MobileMyPageLink
-} from '../../styles/catagoryStyle';
+} from '../../styles/headerStyle';
 import { Logo } from '../../styles/headerStyle';
 import { ReactComponent as LogoIcon } from '../../assets/icons/foodmeet.svg';
 import { ReactComponent as MyPageIcon } from '../../assets/icons/myPageIcon.svg';
