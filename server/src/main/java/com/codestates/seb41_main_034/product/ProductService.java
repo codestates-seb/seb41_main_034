@@ -1,5 +1,6 @@
 package com.codestates.seb41_main_034.product;
 
+import com.codestates.seb41_main_034.common.ImageStorageService;
 import com.codestates.seb41_main_034.common.PaginatedResponseDto;
 import com.codestates.seb41_main_034.common.exception.BusinessLogicException;
 import com.codestates.seb41_main_034.common.exception.BusinessLogicException.ExceptionCode;
@@ -17,8 +18,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -29,22 +32,21 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
+    private final ImageStorageService imageStorageService;
+
     private final ObjectMapper mapper;
 
-    public ProductResponseDto createProduct(ProductPostDto postDto) {
+    public ProductResponseDto createProduct(
+            ProductPostDto postDto, List<MultipartFile> images, List<MultipartFile> detailImages) {
         // 엔티티 객체 생성
-        Product product = new Product(postDto.getName(), postDto.getPrice(), postDto.getStock(), postDto.getBody());
+        Product product = new Product(postDto.getName(), postDto.getPrice(), postDto.getStock());
+
+        // 이미지가 요청에 포함된 경우 이미지 파일 저장 및 주소 입력
+        saveImagesAndUrls(product, images, detailImages);
 
         // 선택 항목 처리
         Optional.ofNullable(postDto.getStatus()).ifPresent(product::setStatus);
         Optional.ofNullable(postDto.getCategory()).ifPresent(product::setCategory);
-        Optional.ofNullable(postDto.getImageUrls()).ifPresent(imageUrls -> {
-            try {
-                product.setImageUrls(mapper.writeValueAsString(imageUrls));
-            } catch (JsonProcessingException e) {
-                throw new BusinessLogicException(ExceptionCode.PRODUCT_CANNOT_WRITE_IMAGE_URLS);
-            }
-        });
 
         // 엔티티 DB에 저장
         Product createdProduct = productRepository.save(product);
@@ -80,10 +82,14 @@ public class ProductService {
         );
     }
 
-    public ProductResponseDto updateProduct(int productId, ProductPatchDto patchDto) {
+    public ProductResponseDto updateProduct(
+            int productId, ProductPatchDto patchDto, List<MultipartFile> images, List<MultipartFile> detailImages) {
         // DB에서 제품 조회, 없는 경우 예외 발생
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
+
+        // 이미지가 요청에 포함된 경우 이미지 파일 저장 및 주소 입력
+        saveImagesAndUrls(product, images, detailImages);
 
         // DTO에 입력된 값으로 변경
         Optional.ofNullable(patchDto.getName()).ifPresent(product::setName);
@@ -91,14 +97,6 @@ public class ProductService {
         Optional.ofNullable(patchDto.getStock()).ifPresent(product::setStock);
         Optional.ofNullable(patchDto.getStatus()).ifPresent(product::setStatus);
         Optional.ofNullable(patchDto.getCategory()).ifPresent(product::setCategory);
-        Optional.ofNullable(patchDto.getImageUrls()).ifPresent(imageUrls -> {
-            try {
-                product.setImageUrls(mapper.writeValueAsString(imageUrls));
-            } catch (JsonProcessingException e) {
-                throw new BusinessLogicException(ExceptionCode.PRODUCT_CANNOT_WRITE_IMAGE_URLS);
-            }
-        });
-        Optional.ofNullable(patchDto.getBody()).ifPresent(product::setBody);
 
         // 수정된 부분을 DB에 저장한다.
         productRepository.flush();
@@ -148,6 +146,28 @@ public class ProductService {
         product.setStock(updatedStock);
     }
 
+    private void saveImagesAndUrls(Product product, List<MultipartFile> images, List<MultipartFile> detailImages) {
+        // 요청에 이미지 파일이 있는 경우 이미지 서버에 저장 및 이미지 주소 엔티티에 저장
+        List<String> imageUrls = images.stream().map(imageStorageService::store)
+                .filter(Objects::nonNull).collect(Collectors.toList());
+        if (!imageUrls.isEmpty()) {
+            try {
+                product.setImageUrls(mapper.writeValueAsString(imageUrls));
+            } catch (JsonProcessingException e) {
+                throw new BusinessLogicException(ExceptionCode.PRODUCT_CANNOT_WRITE_IMAGE_URLS);
+            }
+        }
+        List<String> detailImageUrls = detailImages.stream().map(imageStorageService::store)
+                .filter(Objects::nonNull).collect(Collectors.toList());
+        if (!detailImageUrls.isEmpty()) {
+            try {
+                product.setDetailImageUrls(mapper.writeValueAsString(detailImageUrls));
+            } catch (JsonProcessingException e) {
+                throw new BusinessLogicException(ExceptionCode.PRODUCT_CANNOT_WRITE_IMAGE_URLS);
+            }
+        }
+    }
+
     private ProductResponseDto productToDto(Product product) {
         // Product -> DTO 매핑
         try {
@@ -159,7 +179,7 @@ public class ProductService {
                     product.getStatus(),
                     product.getCategory(),
                     mapper.readValue(product.getImageUrls(), new TypeReference<>() {}),
-                    product.getBody(),
+                    mapper.readValue(product.getDetailImageUrls(), new TypeReference<>() {}),
                     product.getCreatedBy(),
                     product.getModifiedBy(),
                     product.getCreatedAt(),

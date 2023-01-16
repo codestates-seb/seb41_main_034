@@ -7,7 +7,6 @@ import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PositiveOrZero;
-import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -25,10 +24,5 @@ public class ProductPostDto {
     private ProductStatus status;
 
     private ProductCategory category;
-
-    private List<@NotBlank String> imageUrls;
-
-    @NotBlank
-    private String body;
 
 }

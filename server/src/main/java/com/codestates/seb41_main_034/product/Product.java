@@ -36,20 +36,20 @@ public class Product extends Auditable {
     private ProductCategory category = ProductCategory.NO_CATEGORY;
 
     @Column(nullable = false)
+    @Type(type = "text")
     private String imageUrls = "[]";
 
     @Column(nullable = false)
     @Type(type = "text")
-    private String body;
+    private String detailImageUrls = "[]";
 
     @Column(nullable = false)
     private boolean isDeleted = false;
 
-    public Product(String name, int price, int stock, String body) {
+    public Product(String name, int price, int stock) {
         this.name = name;
         this.price = price;
         this.stock = stock;
-        this.body = body;
     }
 
     public enum ProductStatus {

@@ -440,7 +440,8 @@ public class OrderService {
                     return new OrderProductResponseDto(
                             orderProduct.getProductId(),
                             productDto.map(ProductResponseDto::getName).orElse(null),
-                            productDto.map(ProductResponseDto::getImageUrls).map(map -> map.get(0)).orElse(null),
+                            productDto.map(ProductResponseDto::getImageUrls)
+                                    .map(urls -> urls.isEmpty() ? null : urls.get(0)).orElse(null),
                             orderProduct.getPrice(),
                             orderProduct.getQuantity(),
                             orderProduct.getStatus(),
