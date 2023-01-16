@@ -22,7 +22,7 @@ const ModalContainer = styled.div`
 const MiddleText = styled.div`
   display: flex;
   justify-content: center;
-  margin: 28px;
+  margin: 4px 0 28px 0;
   font-size: 28px;
 `;
 
@@ -70,6 +70,18 @@ const CompletButton = styled.button`
   color: ${(props) => props.theme.whiteColor};
 `;
 
+const CancleImg = styled.img`
+  width: 28px;
+  height: 28px;
+  margin: 32px 36px 0 0;
+`;
+
+const CancleImgContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: end;
+`;
+
 export {
   CompletButton,
   BigInput,
@@ -79,5 +91,7 @@ export {
   LeftTextContainer,
   MiddleText,
   ModalContainer,
-  ModalWrapper
+  ModalWrapper,
+  CancleImg,
+  CancleImgContainer
 };

@@ -7,13 +7,23 @@ import {
   LeftTextContainer,
   MiddleText,
   ModalContainer,
-  ModalWrapper
+  ModalWrapper,
+  CancleImgContainer
 } from '../../styles/questionmodalStyle';
+// import CancleIcon from '../../assets/icons/cancel.svg';
+import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
 
-const QuestionModal = () => {
+const QuestionModal = ({ setIsQuestion }) => {
+  const handleQuestionClose = () => {
+    setIsQuestion(false);
+  };
+
   return (
     <ModalWrapper>
       <ModalContainer>
+        <CancleImgContainer>
+          <CancelIcon onClick={handleQuestionClose} />
+        </CancleImgContainer>
         <MiddleText>문의하기</MiddleText>
         <LeftTextContainer>
           <LeftText>제목</LeftText>
