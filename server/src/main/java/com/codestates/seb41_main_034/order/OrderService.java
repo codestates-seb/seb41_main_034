@@ -8,8 +8,8 @@ import com.codestates.seb41_main_034.order.dto.*;
 import com.codestates.seb41_main_034.order.entity.Order;
 import com.codestates.seb41_main_034.order.entity.OrderProduct;
 import com.codestates.seb41_main_034.order.entity.OrderProduct.OrderProductStatus;
-import com.codestates.seb41_main_034.order.mock.product.Product;
-import com.codestates.seb41_main_034.order.mock.product.ProductService;
+import com.codestates.seb41_main_034.product.ProductService;
+import com.codestates.seb41_main_034.product.dto.ProductResponseDto;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,32 +28,30 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
 
-    private final OrderMapper mapper;
-
     private final ProductService productService;
 
     public OrderResponseDto createOrder(OrderPostDto postDto) {
-        // 입력 받은 제품 ID가 유효한지 확인 및 제품 정보 조회
+        // 입력 받은 상 ID가 유효하고 주문 가능한지 확인 및 상 정보 조회
         List<Integer> productIds = postDto.getProducts()
                 .stream()
                 .map(OrderProductPostDto::getProductId)
                 .collect(Collectors.toList());
-        Map<Integer, Product> productMap = productService.getVerifiedProducts(productIds)
+        Map<Integer, ProductResponseDto> productDtoMap = productService.getOrderableProducts(productIds)
                 .stream()
-                .collect(Collectors.toMap(Product::getId, Function.identity()));
+                .collect(Collectors.toMap(ProductResponseDto::getId, Function.identity()));
 
         // Order 생성
         Order order = new Order();
 
         // OrderProduct 생성
-        // DTO에 중복된 제품 ID가 있는 경우 수량을 합쳐서 하나의 OrderProduct 엔티티로 처리
+        // DTO에 중복된 상 ID가 있는 경우 수량을 합쳐서 하나의 OrderProduct 엔티티로 처리
         Map<Integer, OrderProduct> orderProductMap = new HashMap<>();
         for (OrderProductPostDto dto : postDto.getProducts()) {
             int productId = dto.getProductId();
 
             // 상품 주문 가격과 상품 가격이 불일치하는 경우 예외 발생
-            if (dto.getPrice() != productMap.get(productId).getPrice()) {
-                throw new BusinessLogicException(ExceptionCode.MISMATCHED_PRICE);
+            if (dto.getPrice() != productDtoMap.get(productId).getPrice()) {
+                throw new BusinessLogicException(ExceptionCode.ORDER_MISMATCHED_PRICE);
             }
 
             orderProductMap.compute(
@@ -85,32 +83,39 @@ public class OrderService {
         Order createdOrder = orderRepository.save(order);
 
         // 주문한 만큼 재고 감소
-        Map<Integer, Integer> idDeltaMap = createdOrder.getOrderProducts()
-                .stream()
-                .collect(Collectors.toMap(OrderProduct::getProductId, orderProduct -> -orderProduct.getQuantity()));
-        productService.updateProductsStock(idDeltaMap);
+        for (OrderProduct orderProduct : createdOrder.getOrderProducts()) {
+            productService.updateProductStock(orderProduct.getProductId(), -orderProduct.getQuantity());
+        }
+
+        // 결제 완료 처리, DB에 반영
+        // TODO: 결제 정보를 확인한 후에 결제 완료로 변경하도록 수정해야한다.
+        //       EventListener 등을 사용하여 비동기적으로 해결해야할 것 같다.
+        for (OrderProduct orderProduct : createdOrder.getOrderProducts()) {
+            orderProduct.setStatus(OrderProductStatus.PAYMENT_FINISHED);
+        }
+        orderRepository.flush();
 
         // 응답 DTO로 매핑 후 반환
-        return mapper.orderToResponseDto(createdOrder, productMap);
+        return orderToDto(createdOrder, productDtoMap);
     }
 
     @Transactional(readOnly = true)
-    public OrderResponseDto readOrder(long id) {
+    public OrderResponseDto readOrder(long orderId) {
         // DB에서 주문 조회, 없는 경우 예외 발생
-        Order order = orderRepository.findById(id)
+        Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ORDER_NOT_FOUND));
 
-        // 주문한 제품 정보 조회
+        // 주문한 상 정보 조회
         List<Integer> productIds = order.getOrderProducts()
                 .stream()
                 .map(OrderProduct::getProductId)
                 .collect(Collectors.toList());
-        Map<Integer, Product> productMap = productService.getVerifiedProducts(productIds)
+        Map<Integer, ProductResponseDto> productDtoMap = productService.getOrderableProducts(productIds)
                 .stream()
-                .collect(Collectors.toMap(Product::getId, Function.identity()));
+                .collect(Collectors.toMap(ProductResponseDto::getId, Function.identity()));
 
         // 응답 DTO로 매핑 후 반환
-        return mapper.orderToResponseDto(order, productMap);
+        return orderToDto(order, productDtoMap);
     }
 
     @Transactional(readOnly = true)
@@ -128,24 +133,18 @@ public class OrderService {
         // 주문 ID Page를 사용하여 fetch join된 주문 목록 조회
         List<Order> orders = orderRepository.findAllById(orderIdPage.getContent(), pageable.getSort());
 
-        // 주문 목록에 있는 제품을 한 번에 조회
+        // 주문 목록에 있는 상을 한 번에 조회
         List<Integer> productIds = orders.stream()
                 .flatMap(order -> order.getOrderProducts().stream())
                 .map(OrderProduct::getProductId)
                 .collect(Collectors.toList());
-        Map<Integer, Product> productMap = productService.getVerifiedProducts(productIds)
+        Map<Integer, ProductResponseDto> productDtoMap = productService.getOrderableProducts(productIds)
                 .stream()
-                .collect(Collectors.toMap(Product::getId, Function.identity()));
-
-        // DTO로 매핑
-        List<OrderResponseDto> orderResponseDtos =
-                orders.stream()
-                        .map(order -> mapper.orderToResponseDto(order, productMap))
-                        .collect(Collectors.toList());
+                .collect(Collectors.toMap(ProductResponseDto::getId, Function.identity()));
 
         // 페이지네이션 응답 DTO로 반환
         return new PaginatedResponseDto<>(
-                orderResponseDtos,
+                orders.stream().map(order -> orderToDto(order, productDtoMap)).collect(Collectors.toList()),
                 orderIdPage.getNumber(),
                 orderIdPage.getSize(),
                 orderIdPage.getTotalPages(),
@@ -153,28 +152,29 @@ public class OrderService {
         );
     }
 
-    public OrderAddressResponseDto updateOrderAddress(long id, OrderAddressPatchDto addressPatchDto) {
+    public OrderAddressResponseDto updateOrderAddress(long orderId, OrderAddressPatchDto addressPatchDto) {
         // DB에서 주문 조회, 없는 경우 예외 발생
-        Order order = orderRepository.findById(id)
+        Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ORDER_NOT_FOUND));
 
-        // 배송 진행중인 상품이 없고 결제 대기중, 결제 완료 상태인 상품이 있을 때만 주소 수정 가능
+        // 배송 진행중인 상품이 없고 결제 대기중, 결제 완료 상태인 상품만 있을 때 주소 수정 가능
         order.getOrderProducts()
                 .stream()
                 .map(OrderProduct::getStatus)
                 .distinct()
                 .peek(status -> {
-                    if (status == OrderProductStatus.PREPARING_FOR_DELIVERY
-                            || status == OrderProductStatus.SHIPPING
+                    if (status == OrderProductStatus.PREPARING_FOR_SHIPMENT
+                            || status == OrderProductStatus.SHIPPED
                             || status == OrderProductStatus.DELIVERED) {
-                        throw new BusinessLogicException(ExceptionCode.CANNOT_UPDATE_ORDER_ADDRESS);
+                        throw new BusinessLogicException(ExceptionCode.ORDER_CANNOT_UPDATE_ADDRESS);
                     }
                 })
-                .filter(status ->
-                        status == OrderProductStatus.WAITING_FOR_PAYMENT
-                                || status == OrderProductStatus.PAYMENT_FINISHED)
-                .findAny()
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.CANNOT_UPDATE_ORDER_ADDRESS));
+                .forEach(status -> {
+                    if (status != OrderProductStatus.WAITING_FOR_PAYMENT
+                            && status != OrderProductStatus.PAYMENT_FINISHED) {
+                        throw new BusinessLogicException(ExceptionCode.ORDER_CANNOT_UPDATE_ADDRESS);
+                    }
+                });
 
         // DTO에 입력된 값으로 주소 수정
         Address address = order.getAddress();
@@ -184,29 +184,41 @@ public class OrderService {
         Optional.ofNullable(addressPatchDto.getDetailAddress()).ifPresent(address::setDetailAddress);
         Optional.ofNullable(addressPatchDto.getPhone()).ifPresent(address::setPhone);
 
+        // 수정된 부분을 DB에 저장한다.
+        orderRepository.flush();
+
         // 응답 DTO로 매핑 후 반환
-        return mapper.orderToAddressResponseDto(order);
+        return new OrderAddressResponseDto(
+                order.getId(),
+                address.getRecipient(),
+                address.getZonecode(),
+                address.getAddress(),
+                address.getDetailAddress(),
+                address.getPhone(),
+                order.getCreatedBy(),
+                order.getModifiedBy(),
+                order.getCreatedAt(),
+                order.getModifiedAt()
+        );
     }
 
-    public OrderResponseDto cancelOrder(long id, OrderCancelDto cancelDto) {
+    public OrderResponseDto updateOrderCancel(long orderId, OrderCancelDto cancelDto) {
         // DB에서 주문 조회, 없는 경우 예외 발생
-        Order order = orderRepository.findById(id)
+        Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ORDER_NOT_FOUND));
 
-        // 주문한 제품 ID Set 생성
-        Set<Integer> productIds = order.getOrderProducts()
-                .stream()
-                .map(OrderProduct::getProductId)
-                .collect(Collectors.toSet());
+        // 주문한 상 ID Set 생성
+        Set<Integer> productIds = order.getOrderProducts().stream()
+                .map(OrderProduct::getProductId).collect(Collectors.toSet());
 
         // DTO를 Map<productId, quantity>로 만든다. DTO에 중복된 ID가 있는 경우 quantity를 더한다.
-        // 취소하려는 제품 ID가 주문한 제품 ID에 없는 경우 예외 발생
+        // 취소하려는 상 ID가 주문한 상 ID에 없는 경우 예외 발생
         Map<Integer, Integer> cancelMap = new HashMap<>();
         for (OrderProductCancelDto dto : cancelDto.getProducts()) {
             int productId = dto.getProductId();
 
             if (!productIds.contains(productId)) {
-                throw new BusinessLogicException(ExceptionCode.CANNOT_CANCEL_ORDER);
+                throw new BusinessLogicException(ExceptionCode.ORDER_CANNOT_CANCEL);
             }
 
             cancelMap.merge(productId, dto.getQuantity(), Integer::sum);
@@ -221,16 +233,16 @@ public class OrderService {
 
                     return status == OrderProductStatus.WAITING_FOR_PAYMENT
                             || status == OrderProductStatus.PAYMENT_FINISHED
-                            || status == OrderProductStatus.PREPARING_FOR_DELIVERY;
+                            || status == OrderProductStatus.PREPARING_FOR_SHIPMENT;
                 })
                 .collect(Collectors.toList());
 
-        // 취소 완료된 수량 집계, 제품 재고를 수정하는 데에 사용
-        Map<Integer, Integer> productIdCanceledMap = new HashMap<>();
+        // 취소 완료된 수량 집계, 상 재고를 수정하는 데에 사용
+        Map<Integer, Integer> productIdDeltaMap = new HashMap<>();
 
         // 취소 처리 진행
         cancelMap.forEach((productId, quantity) -> {
-            // 제품 ID에 해당하는 OrderProduct만 분리
+            // 상 ID에 해당하는 OrderProduct만 분리
             List<OrderProduct> orderProducts = cancelableOrderProducts.stream()
                     .filter(orderProduct -> orderProduct.getProductId() == productId)
                     .collect(Collectors.toList());
@@ -240,7 +252,7 @@ public class OrderService {
                     .mapToInt(OrderProduct::getQuantity)
                     .sum();
             if (cancelableQuantity < quantity) {
-                throw new BusinessLogicException(ExceptionCode.CANNOT_CANCEL_ORDER);
+                throw new BusinessLogicException(ExceptionCode.ORDER_CANNOT_CANCEL);
             }
 
             // OrderProduct를 하나씩 취소 처리
@@ -254,7 +266,7 @@ public class OrderService {
                     if (orderProduct.getQuantity() <= quantity) {
                         orderProduct.setStatus(OrderProductStatus.CANCELED);
                         quantity -= orderProduct.getQuantity();
-                        productIdCanceledMap.merge(productId, orderProduct.getQuantity(), Integer::sum);
+                        productIdDeltaMap.merge(productId, orderProduct.getQuantity(), Integer::sum);
                         // 취소 요청 수량보다 OrderProduct의 구매 수량이 많으면 취소 요청 수량만큼 구매 수량을 줄인다.
                         // 취소된 수량 만큼 새로운 OrderProduct를 만들어서 기록해준다.
                     } else {
@@ -263,7 +275,7 @@ public class OrderService {
                                 new OrderProduct(order, productId, orderProduct.getPrice(), quantity);
                         canceledOrderProduct.setStatus(OrderProductStatus.CANCELED);
                         order.getOrderProducts().add(canceledOrderProduct);
-                        productIdCanceledMap.merge(productId, quantity, Integer::sum);
+                        productIdDeltaMap.merge(productId, quantity, Integer::sum);
                         quantity = 0;
                     }
                 } else { // 배송 준비 중인 경우 취소 대기 처리
@@ -290,19 +302,170 @@ public class OrderService {
             }
         });
 
-        // 취소한 만큼 재고 증가
-        productService.updateProductsStock(productIdCanceledMap);
+        // 취소 완료된 만큼 재고 증가
+        productIdDeltaMap.forEach(productService::updateProductStock);
 
-        // OrderProduct가 추가된 부분을 DB에 저장한다.
+        // DB에 주문 수정 사항 저장
         orderRepository.flush();
 
-        // 제품 정보 조회
-        Map<Integer, Product> productMap = productService.getVerifiedProducts(productIds)
-                .stream()
-                .collect(Collectors.toMap(Product::getId, Function.identity()));
+        // 상 정보 조회
+        Map<Integer, ProductResponseDto> productDtoMap = productService.getOrderableProducts(productIds).stream()
+                .collect(Collectors.toMap(ProductResponseDto::getId, Function.identity()));
 
         // 응답 DTO로 매핑 후 반환
-        return mapper.orderToResponseDto(order, productMap);
+        return orderToDto(order, productDtoMap);
     }
+
+    public OrderResponseDto updateOrderPrepare(long orderId) {
+        // DB에서 주문 조회, 없는 경우 예외 발생
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ORDER_NOT_FOUND));
+
+        // 결제 완료된 OrderProduct List 생성
+        List<OrderProduct> orderProducts = order.getOrderProducts().stream()
+                .filter(orderProduct -> orderProduct.getStatus() == OrderProductStatus.PAYMENT_FINISHED)
+                .collect(Collectors.toList());
+
+        // 배송 준비할 상품이 없는 경우 예외 발생
+        if (orderProducts.isEmpty()) {
+            throw new BusinessLogicException(ExceptionCode.ORDER_NO_PRODUCTS_TO_PREPARE);
+        }
+
+        // 결제 완료된 주문에 대해서 배송 준비 중으로 변경
+        for (OrderProduct orderProduct : orderProducts) {
+            orderProduct.setStatus(OrderProductStatus.PREPARING_FOR_SHIPMENT);
+        }
+
+        // DB에 주문 수정 사항 저장
+        orderRepository.flush();
+
+        // DTO에 매핑 후 반환
+        return orderToDto(order, null);
+    }
+
+    public OrderResponseDto updateOrderShip(long orderId) {
+        // DB에서 주문 조회, 없는 경우 예외 발생
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ORDER_NOT_FOUND));
+
+        // 배송 준비, 취소 대기 상태인 OrderProduct List 생성
+        List<OrderProduct> orderProducts = order.getOrderProducts().stream()
+                .filter(orderProduct -> orderProduct.getStatus() == OrderProductStatus.PREPARING_FOR_SHIPMENT
+                        || orderProduct.getStatus() == OrderProductStatus.WAITING_FOR_CANCELLATION)
+                .collect(Collectors.toList());
+
+        // 배송할 상품이 없는 경우 예외 발생
+        if (orderProducts.isEmpty()) {
+            throw new BusinessLogicException(ExceptionCode.ORDER_NO_PRODUCTS_TO_SHIP);
+        }
+
+        // 배송 준비, 취소 대기 상태인 상품 ID Set 생성
+        Set<Integer> productIds = orderProducts.stream().map(OrderProduct::getProductId).collect(Collectors.toSet());
+
+        // 상품 ID마다 하나의 OrderProduct로 수량을 합치고 배송 중으로 변경
+        for (int productId : productIds) {
+            // 상품 ID로 OrderProduct 필터
+            List<OrderProduct> orderProductsByProductId = orderProducts.stream()
+                    .filter(orderProduct -> orderProduct.getProductId() == productId)
+                    .collect(Collectors.toList());
+
+            // 총 배송 수량 집계
+            int quantity = orderProductsByProductId.stream().mapToInt(OrderProduct::getQuantity).sum();
+
+            // 하나의 OrderProduct의 수량을 총 배송 수량으로 바꾸고 배송 중 상태로 변경
+            OrderProduct orderProduct = orderProductsByProductId.get(0);
+            orderProduct.setQuantity(quantity);
+            orderProduct.setStatus(OrderProductStatus.SHIPPED);
+
+            // 나머지 OrderProduct는 삭제 처리 (soft delete)
+            for (int i = 1; i < orderProductsByProductId.size(); i++) {
+                orderProductsByProductId.get(i).setDeleted(true);
+            }
+        }
+
+        // DB에 주문 수정 사항 저장
+        orderRepository.flush();
+
+        // 삭제 처리된 OrderProduct 정리
+        order.setOrderProducts(order.getOrderProducts().stream()
+                .filter(orderProduct -> !orderProduct.isDeleted()).collect(Collectors.toList()));
+
+        // DTO에 매핑 후 반환
+        return orderToDto(order, null);
+    }
+
+    public OrderResponseDto updateOrderConfirmCancellation(long orderId) {
+        // DB에서 주문 조회, 없는 경우 예외 발생
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ORDER_NOT_FOUND));
+
+        // 취소 대기 중인 OrderProduct List 생성
+        List<OrderProduct> orderProducts = order.getOrderProducts().stream()
+                .filter(orderProduct -> orderProduct.getStatus() == OrderProductStatus.WAITING_FOR_CANCELLATION)
+                .collect(Collectors.toList());
+
+        // 취소 완료할 상품이 없는 경우 예외 발생
+        if (orderProducts.isEmpty()) {
+            throw new BusinessLogicException(ExceptionCode.ORDER_NO_PRODUCTS_TO_CONFIRM_CANCELLATION);
+        }
+
+        // 취소 완료된 수량 집계, 상품 재고를 수정하는 데에 사용
+        Map<Integer, Integer> productIdDeltaMap = new HashMap<>();
+
+        // 취소 대기 중인 상품을 취소 완료로 변경
+        for (OrderProduct orderProduct : orderProducts) {
+            productIdDeltaMap.merge(orderProduct.getProductId(), orderProduct.getQuantity(), Integer::sum);
+
+            orderProduct.setStatus(OrderProductStatus.CANCELED);
+        }
+
+        // 취소 완료된 만큼 재고 증가
+        productIdDeltaMap.forEach(productService::updateProductStock);
+
+        // DB에 주문 수정 사항 저장
+        orderRepository.flush();
+
+        // DTO에 매핑 후 반환
+        return orderToDto(order, null);
+    }
+
+    private OrderResponseDto orderToDto(Order order, Map<Integer, ProductResponseDto> productDtoMap) {
+        Address address = order.getAddress();
+
+        List<OrderProductResponseDto> orderProducts = order.getOrderProducts().stream()
+                .map(orderProduct -> {
+                    Optional<ProductResponseDto> productDto = Optional.ofNullable(productDtoMap)
+                            .map(map -> map.get(orderProduct.getProductId()));
+
+                    return new OrderProductResponseDto(
+                            orderProduct.getProductId(),
+                            productDto.map(ProductResponseDto::getName).orElse(null),
+                            productDto.map(ProductResponseDto::getImageUrls).map(map -> map.get(0)).orElse(null),
+                            orderProduct.getPrice(),
+                            orderProduct.getQuantity(),
+                            orderProduct.getStatus(),
+                            orderProduct.getCreatedBy(),
+                            orderProduct.getModifiedBy(),
+                            orderProduct.getCreatedAt(),
+                            orderProduct.getModifiedAt()
+                    );
+                }).collect(Collectors.toList());
+
+        return new OrderResponseDto(
+                order.getId(),
+                orderProducts,
+                address.getRecipient(),
+                address.getZonecode(),
+                address.getAddress(),
+                address.getDetailAddress(),
+                address.getPhone(),
+                order.getCreatedBy(),
+                order.getModifiedBy(),
+                order.getCreatedAt(),
+                order.getModifiedAt()
+        );
+    }
+
+    // TODO: 주문 조회, 수정 시 인증된 회원에게만 인가되어야 하는데 그 부분을 처리해줄 메서드 필요
 
 }

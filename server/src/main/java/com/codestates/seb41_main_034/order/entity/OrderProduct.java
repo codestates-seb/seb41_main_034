@@ -15,7 +15,7 @@ public class OrderProduct extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(nullable = false)
@@ -45,11 +45,10 @@ public class OrderProduct extends Auditable {
     }
 
     public enum OrderProductStatus {
-        // 결제 대기, 배송 준비 중, 배송 중, 배송 완료, 취소 대기, 취소 완료
         WAITING_FOR_PAYMENT,
         PAYMENT_FINISHED,
-        PREPARING_FOR_DELIVERY,
-        SHIPPING,
+        PREPARING_FOR_SHIPMENT,
+        SHIPPED,
         DELIVERED,
         WAITING_FOR_CANCELLATION,
         CANCELED

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.validation.ConstraintViolationException;
+import java.util.Optional;
 
 import static com.codestates.seb41_main_034.common.exception.BusinessLogicException.ExceptionCode;
 
@@ -56,11 +57,15 @@ public class ExceptionHandlingAdvice {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponseDto handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
-        log.error("요청에 필요한 body가 없습니다.", e);
+        String logMessage = "HTTP 요청을 읽을 수 없습니다.";
 
-        return new ErrorResponseDto(
-                new ErrorInfo(HttpStatus.BAD_REQUEST.value(), "Required request body is missing")
-        );
+        log.error(logMessage, e);
+
+        String responseMessage = Optional.ofNullable(e.getMessage())
+                .map(s -> s.split(";")[0])
+                .orElse(logMessage);
+
+        return new ErrorResponseDto(new ErrorInfo(HttpStatus.BAD_REQUEST.value(), responseMessage));
     }
 
     @ExceptionHandler
