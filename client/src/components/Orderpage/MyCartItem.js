@@ -1,24 +1,26 @@
-import BackImg from './../../assets/icons/BackImg.svg';
+import CancelImg from '../../styles/cancelSVG';
+// import { useState } from 'react';
 import {
   ItemFlex,
   ItemFlex2,
   ItemImg,
   ItemRow,
   ItemText,
-  DeleteImg,
   PlusMinusBox,
   PlusMinusButton,
   PlusMinusNum
 } from '../../styles/itemStyle';
 
 const Item = () => {
+  // const [item, setItem] = useState(null);
+
   return (
     <ItemFlex>
       <ItemImg />
       <ItemRow>
         <ItemFlex2>
           <ItemText>상품명</ItemText>
-          <DeleteImg src={BackImg} />
+          <CancelImg />
         </ItemFlex2>
         <ItemText>10,000원</ItemText>
         <PlusMinusBox>

@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
-const ItemRow = styled.div`
+export const ItemRow = styled.div`
   width: 378px;
   padding: 16px 0 16px 0;
+
   @media ${(props) => props.theme.tablet} {
     /* width: 321px; */
     width: 65%;
@@ -11,11 +12,16 @@ const ItemRow = styled.div`
     width: 65%;
   }
 `;
-const ItemFlex2 = styled.div`
+
+export const ItemFlex2 = styled.div`
   display: flex;
   justify-content: space-between;
+  svg {
+    fill: ${(props) => props.theme.blackColor};
+  }
 `;
-const ItemText = styled.div`
+
+export const ItemText = styled.div`
   width: 124px;
   height: 18px;
   font-size: 14px;
@@ -27,7 +33,8 @@ const ItemText = styled.div`
     font-size: 10px;
   }
 `;
-const PlusMinusBox = styled.div`
+
+export const PlusMinusBox = styled.div`
   width: 94px;
   height: 26px;
   border: 1px solid black;
@@ -43,10 +50,12 @@ const PlusMinusBox = styled.div`
     height: 18px;
   }
 `;
-const PlusMinusButton = styled.button`
+
+export const PlusMinusButton = styled.button`
   width: 26px;
   height: 26px;
   font-size: 14px;
+
   @media ${(props) => props.theme.tablet} {
     width: 22px;
     height: 22px;
@@ -58,7 +67,8 @@ const PlusMinusButton = styled.button`
     font-size: 10px;
   }
 `;
-const PlusMinusNum = styled.div`
+
+export const PlusMinusNum = styled.div`
   width: 42px;
   height: 24px;
   font-size: 14px;
@@ -76,16 +86,12 @@ const PlusMinusNum = styled.div`
     font-size: 10px;
   }
 `;
-const DeleteImg = styled.img`
-  width: 12px;
-  height: 16px;
-  margin-right: 8px;
-`;
-const ItemFlex = styled.div`
+
+export const ItemFlex = styled.div`
   display: flex;
 `;
 
-const ItemImg = styled.img`
+export const ItemImg = styled.img`
   width: 106px;
   height: 85px;
   border: 1px solid black;
@@ -99,15 +105,3 @@ const ItemImg = styled.img`
     height: 74px;
   }
 `;
-
-export {
-  ItemRow,
-  ItemFlex2,
-  ItemText,
-  PlusMinusBox,
-  PlusMinusButton,
-  PlusMinusNum,
-  DeleteImg,
-  ItemFlex,
-  ItemImg
-};
