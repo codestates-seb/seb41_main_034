@@ -1,5 +1,4 @@
 import CancelImg from '../../styles/cancelSVG';
-// import { useState } from 'react';
 import {
   ItemFlex,
   ItemFlex2,
@@ -12,8 +11,6 @@ import {
 } from '../../styles/itemStyle';
 
 const Item = () => {
-  // const [item, setItem] = useState(null);
-
   return (
     <ItemFlex>
       <ItemImg />

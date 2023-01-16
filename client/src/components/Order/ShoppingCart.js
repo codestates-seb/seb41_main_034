@@ -4,7 +4,7 @@ import {
   CartHeader,
   CartContent,
   CartFooter
-} from '../styles/shoppingCartStyle';
+} from '../../styles/shoppingCartStyle';
 
 const ShoppingCart = ({ isOpenCart }) => {
   return (

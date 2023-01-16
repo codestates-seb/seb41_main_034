@@ -23,8 +23,8 @@ import { ReactComponent as CartIcon } from '../../assets/icons/cartIcon.svg';
 import { ReactComponent as MenuIcon } from '../../assets/icons/menuIcon.svg';
 import { ReactComponent as MyPageIcon } from '../../assets/icons/myPageIcon.svg';
 import MobileMenuModal from './MobileMenuModal';
-import Category from '../Category';
-import ShoppingCart from '../ShoppingCart';
+import Category from './Category';
+import ShoppingCart from '../Order/ShoppingCart';
 
 const Header = () => {
   const [isLogin, setIsLogin] = useState(false);
