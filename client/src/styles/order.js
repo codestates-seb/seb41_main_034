@@ -63,14 +63,43 @@ const CartContent = styled.div`
   overflow-y: auto;
 `;
 
+const OrderAmount = styled.strong`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 16px;
+  font-size: 16px;
+  border-top: 1px solid ${(props) => props.theme.borderColor};
+  background-color: ${(props) => props.theme.whiteColor};
+
+  @media ${(props) => props.theme.tablet} {
+    padding: 16px 12px;
+    font-size: 14px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    padding: 12px 8px;
+    font-size: 12px;
+  }
+`;
+
 const CartFooter = styled.footer`
   a {
     display: block;
-    padding: 12px 48px;
+    padding: 16px 48px;
     background-color: ${(props) => props.theme.primaryColor};
     font-size: 16px;
     text-align: center;
     color: ${(props) => props.theme.whiteColor};
+    transition: background-color 0.5s;
+  }
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      a {
+        background-color: ${(props) => props.theme.hoverColor};
+      }
+    }
   }
 
   @media ${(props) => props.theme.tablet} {
@@ -88,20 +117,28 @@ const CartFooter = styled.footer`
   }
 `;
 
-const CartItemContainer = styled.article`
+const CartItemContainer = styled.li`
   position: relative;
   display: flex;
-  justify-content: space-between;
   padding: 16px;
 
   &:not(:last-child) {
     border-bottom: 1px solid ${(props) => props.theme.borderColor};
   }
+
+  @media ${(props) => props.theme.tablet} {
+    padding: 8px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    padding: 4px;
+  }
 `;
 
 const CartItemImage = styled.div`
-  width: 120px;
-  height: 120px;
+  width: 90px;
+  height: 90px;
+  margin-right: 12px;
   border-radius: 4px;
   overflow: hidden;
 
@@ -109,6 +146,18 @@ const CartItemImage = styled.div`
     display: block;
     width: 100%;
     height: 100%;
+  }
+
+  @media ${(props) => props.theme.tablet} {
+    width: 76px;
+    height: 76px;
+    margin-right: 8px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    width: 56px;
+    height: 56px;
+    margin-right: 4px;
   }
 `;
 
@@ -132,6 +181,7 @@ const CartItemInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  width: 40%;
 `;
 
 const ProductName = styled.h3`
@@ -158,7 +208,7 @@ const ProductName = styled.h3`
 
   @media ${(props) => props.theme.mobile} {
     a {
-      font-size: 12px;
+      font-size: 8px;
     }
   }
 `;
@@ -174,20 +224,24 @@ const ProductPrice = styled.strong`
   }
 
   @media ${(props) => props.theme.mobile} {
-    font-size: 12px;
+    font-size: 8px;
   }
 `;
 
 const ProductCount = styled.div`
   display: flex;
   width: 100%;
-  max-width: 80px;
+  max-width: 76px;
   border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
 `;
 
 const CountButton = styled.button`
   padding: 4px 8px;
+
+  @media ${(props) => props.theme.mobile} {
+    padding: 2px 4px;
+  }
 `;
 
 const Count = styled.input`
@@ -196,15 +250,13 @@ const Count = styled.input`
   max-width: 32px;
   font-size: 16px;
   text-align: center;
-  -webkit-appearance: none;
-  margin: 0;
 
   @media ${(props) => props.theme.tablet} {
     font-size: 14px;
   }
 
   @media ${(props) => props.theme.mobile} {
-    font-size: 12px;
+    font-size: 8px;
   }
 `;
 
@@ -224,12 +276,33 @@ const DeleteButton = styled.button`
       }
     }
   }
+
+  @media ${(props) => props.theme.tablet} {
+    top: 8px;
+    right: 8px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    top: 4px;
+    right: 8px;
+
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
 `;
 
 export {
   CartContainer,
   CartHeader,
   CartContent,
+  OrderAmount,
   CartFooter,
   CartItemContainer,
   CartItemImage,

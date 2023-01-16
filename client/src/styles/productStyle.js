@@ -19,7 +19,7 @@ const ProductImage = styled.div`
   transition: transform 0.3s;
 `;
 
-const ProductContainer = styled.article`
+const ProductContainer = styled.li`
   position: relative;
   width: calc(25% - 12px);
 

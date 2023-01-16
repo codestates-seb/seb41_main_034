@@ -32,12 +32,16 @@ const MyCartTitle = styled.h2`
   font-size: 24px;
 `;
 
-const MyCartContent = styled.section`
-  height: 500px;
+const MyCartContent = styled.ul`
+  height: 540px;
   overflow-y: auto;
 
+  @media ${(props) => props.theme.tablet} {
+    height: 400px;
+  }
+
   @media ${(props) => props.theme.mobile} {
-    height: 240px;
+    height: 280px;
   }
 `;
 

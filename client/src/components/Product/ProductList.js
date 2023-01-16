@@ -11,7 +11,7 @@ const ProductList = () => {
   );
 };
 
-const ProductWrapper = styled.div`
+const ProductWrapper = styled.ul`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
