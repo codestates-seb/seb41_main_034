@@ -34,6 +34,11 @@ const GlobalStyle = createGlobalStyle`
     box-shadow: none;
   }
 
+  input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+  }
+
   button {
     padding: 0;
     border: none;
@@ -56,7 +61,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 1024px;
+  max-width: 1200px;
   padding: 0 16px;
 
   @media ${(props) => props.theme.desktop} {

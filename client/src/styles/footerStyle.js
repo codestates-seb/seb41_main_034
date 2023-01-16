@@ -12,7 +12,7 @@ const FooterContainer = styled.dl`
   flex-direction: column;
   justify-content: flex-end;
   width: 100%;
-  max-width: 1024px;
+  max-width: 1200px;
   height: 320px;
   padding: 0 0 40px 32px;
 

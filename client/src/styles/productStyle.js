@@ -66,6 +66,14 @@ const ProductName = styled.h3`
   font-size: 16px;
   font-weight: 700;
   transition: color 0.3s;
+
+  @media ${(props) => props.theme.tablet} {
+    font-size: 14px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 12px;
+  }
 `;
 
 const ProductPrice = styled.strong`
@@ -73,12 +81,28 @@ const ProductPrice = styled.strong`
   margin-bottom: 4px;
   font-size: 16px;
   font-weight: 700;
+
+  @media ${(props) => props.theme.tablet} {
+    font-size: 14px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 12px;
+  }
 `;
 
 const ProductReview = styled.p`
   margin-bottom: 4px;
   font-size: 12px;
   color: ${(props) => props.theme.grayColor};
+
+  @media ${(props) => props.theme.tablet} {
+    font-size: 10px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 8px;
+  }
 `;
 
 export {

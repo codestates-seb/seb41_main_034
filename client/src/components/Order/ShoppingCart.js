@@ -5,6 +5,7 @@ import {
   CartContent,
   CartFooter
 } from '../../styles/order';
+import MyCartItem from './MyCartItem';
 
 const ShoppingCart = ({ isOpenCart, setIsOpenCart }) => {
   return (
@@ -12,7 +13,11 @@ const ShoppingCart = ({ isOpenCart, setIsOpenCart }) => {
       <CartHeader>
         <h2>장바구니</h2>
       </CartHeader>
-      <CartContent></CartContent>
+      <CartContent>
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((el, idx) => (
+          <MyCartItem key={idx} />
+        ))}
+      </CartContent>
       <CartFooter>
         <Link to="/order" onClick={() => setIsOpenCart(false)}>
           주문하기

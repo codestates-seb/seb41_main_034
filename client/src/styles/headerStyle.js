@@ -26,7 +26,7 @@ const HeaderContainer = styled.header`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: 1024px;
+  max-width: 1200px;
   height: 100%;
   padding: 0 32px;
 
@@ -75,7 +75,7 @@ const Logo = styled.h1`
 const SearchContainer = styled.div`
   position: relative;
   width: 100%;
-  max-width: 398px;
+  max-width: 544px;
   margin-right: 16px;
 
   @media ${(props) => props.theme.tablet} {
@@ -87,7 +87,7 @@ const SearchContainer = styled.div`
     top: 73px;
     left: 0;
     margin-right: 0;
-    padding: 0 32px;
+    padding: 0 16px;
     z-index: 998;
   }
 `;
@@ -134,7 +134,7 @@ const SearchLabel = styled.label`
   }
 
   @media ${(props) => props.theme.mobile} {
-    right: 42px;
+    right: 32px;
   }
 `;
 
@@ -146,6 +146,7 @@ const ButtonContainer = styled.div`
 const SignLink = styled(Link)`
   font-size: 14px;
   margin-right: 8px;
+  flex-shrink: 0;
 
   @media ${(props) => props.theme.desktop} {
     &:hover {
@@ -269,7 +270,7 @@ const CatagoryContainer = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  max-width: 1024px;
+  max-width: 1200px;
   padding: 0 32px;
   overflow-x: auto;
 
@@ -325,7 +326,7 @@ const MobileMenuContainer = styled.div`
     top: 0;
     left: 0;
     display: block;
-    width: 270px;
+    width: 250px;
     height: 100vh;
     padding: 24px 16px 24px 16px;
     background-color: ${(props) => props.theme.whiteColor};
