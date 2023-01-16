@@ -24,7 +24,7 @@ const MobileMenuModal = ({ isLogin, isOpenMenu, setIsOpenMenu }) => {
       <MobileMenuContainer isOpenMenu={isOpenMenu}>
         <MobileMenuHeader>
           <Logo>
-            <Link to="/">
+            <Link to={'/'}>
               <LogoIcon />
             </Link>
           </Logo>
@@ -43,10 +43,10 @@ const MobileMenuModal = ({ isLogin, isOpenMenu, setIsOpenMenu }) => {
               </>
             ) : (
               <>
-                <MobileLink to="/login" onClick={() => setIsOpenMenu(false)}>
+                <MobileLink to={'/login'} onClick={() => setIsOpenMenu(false)}>
                   로그인
                 </MobileLink>
-                <MobileLink to="/signup" onClick={() => setIsOpenMenu(false)}>
+                <MobileLink to={'/signup'} onClick={() => setIsOpenMenu(false)}>
                   회원가입
                 </MobileLink>
               </>

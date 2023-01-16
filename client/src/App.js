@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Products from './pages/Products';
 import Order from './pages/Order';
+import MyPage from './pages/MyPage';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/products/:category" element={<Products />} />
             <Route path="/order" element={<Order />} />
+            <Route path="/mypage" element={<MyPage />} />
           </Routes>
         </Container>
       </Main>

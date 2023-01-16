@@ -43,7 +43,7 @@ const Header = () => {
         <HeaderContainer>
           <HeaderLeft>
             <Logo>
-              <Link to="/">
+              <Link to={'/'}>
                 <LogoIcon />
               </Link>
             </Logo>
@@ -65,7 +65,7 @@ const Header = () => {
               {isLogin ? (
                 <>
                   <LogoutButton>로그아웃</LogoutButton>
-                  <MyPageLink>
+                  <MyPageLink to={'/mypage'}>
                     <MyPageIcon />
                   </MyPageLink>
                 </>
