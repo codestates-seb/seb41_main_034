@@ -14,10 +14,10 @@ const FooterContainer = styled.dl`
   width: 100%;
   max-width: 1200px;
   height: 320px;
-  padding: 0 0 40px 32px;
+  padding: 0 0 40px 64px;
 
   @media ${(props) => props.theme.tablet} {
-    padding-left: 16px;
+    padding-left: 32px;
   }
 
   @media ${(props) => props.theme.mobile} {

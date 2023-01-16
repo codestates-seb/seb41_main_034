@@ -27,13 +27,15 @@ const ProductContainer = styled.article`
     display: block;
   }
 
-  &:hover {
-    ${ProductImage} {
-      transform: scale(1.1);
-    }
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      ${ProductImage} {
+        transform: scale(1.1);
+      }
 
-    h3 {
-      color: ${(props) => props.theme.hoverColor};
+      h3 {
+        color: ${(props) => props.theme.hoverColor};
+      }
     }
   }
 

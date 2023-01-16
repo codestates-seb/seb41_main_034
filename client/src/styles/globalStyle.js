@@ -62,10 +62,14 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   max-width: 1200px;
-  padding: 0 16px;
+  padding: 0 64px;
 
-  @media ${(props) => props.theme.desktop} {
+  @media ${(props) => props.theme.tablet} {
     padding: 0 32px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    padding: 0 16px;
   }
 `;
 

@@ -2,31 +2,31 @@ import styled from 'styled-components';
 
 const CartContainer = styled.div`
   position: fixed;
-  top: 50%;
+  top: 160px;
   right: 16px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 180px;
-  height: 480px;
+  width: 240px;
+  height: 600px;
   border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
   transition: transform 0.5s;
-  transform: translateY(-50%)
-    ${(props) => (props.isOpenCart ? 'translateX(0)' : 'translateX(200%)')};
+  transform: ${(props) =>
+    props.isOpenCart ? 'translateX(0)' : 'translateX(200%)'};
   overflow: hidden;
   z-index: 97;
 
   @media ${(props) => props.theme.tablet} {
     right: 12px;
-    width: 140px;
-    height: 400px;
+    width: 200px;
+    height: 560px;
   }
 
   @media ${(props) => props.theme.mobile} {
     right: 4px;
-    width: 100px;
-    height: 300px;
+    width: 150px;
+    height: 380px;
   }
 `;
 
@@ -91,15 +91,17 @@ const CartFooter = styled.footer`
 const CartItemContainer = styled.article`
   position: relative;
   display: flex;
+  justify-content: space-between;
   padding: 16px;
+
   &:not(:last-child) {
     border-bottom: 1px solid ${(props) => props.theme.borderColor};
   }
 `;
 
 const CartItemImage = styled.div`
-  width: 48px;
-  height: 48px;
+  width: 120px;
+  height: 120px;
   border-radius: 4px;
   overflow: hidden;
 
@@ -127,7 +129,9 @@ const CartItemImg = styled.div`
 `;
 
 const CartItemInfo = styled.div`
-  padding-top: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 `;
 
 const ProductName = styled.h3`

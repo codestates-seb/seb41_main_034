@@ -14,8 +14,8 @@ const ProductList = () => {
 const ProductWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   width: 100%;
-  gap: 12px;
   margin: 64px 0;
 `;
 

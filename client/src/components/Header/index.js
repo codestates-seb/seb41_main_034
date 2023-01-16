@@ -49,17 +49,18 @@ const Header = () => {
             </Logo>
           </HeaderLeft>
 
+          <SearchContainer>
+            <SearchInput
+              type="text"
+              id="search"
+              aria-label="검색어를 입력하세요."
+            />
+            <SearchLabel htmlFor="search">
+              <SearchIcon />
+            </SearchLabel>
+          </SearchContainer>
+
           <HeaderRight>
-            <SearchContainer>
-              <SearchInput
-                type="text"
-                id="search"
-                aria-label="검색어를 입력하세요."
-              />
-              <SearchLabel htmlFor="search">
-                <SearchIcon />
-              </SearchLabel>
-            </SearchContainer>
             <ButtonContainer>
               {isLogin ? (
                 <>

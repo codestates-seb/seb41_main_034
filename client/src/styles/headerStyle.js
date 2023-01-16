@@ -28,10 +28,10 @@ const HeaderContainer = styled.header`
   width: 100%;
   max-width: 1200px;
   height: 100%;
-  padding: 0 32px;
+  padding: 0 64px;
 
   @media ${(props) => props.theme.tablet} {
-    padding: 0 16px;
+    padding: 0 32px;
   }
 
   @media ${(props) => props.theme.mobile} {
@@ -41,7 +41,7 @@ const HeaderContainer = styled.header`
 `;
 
 const HeaderLeft = styled.div`
-  margin-right: 16px;
+  margin-right: 64px;
 
   @media ${(props) => props.theme.mobile} {
     margin-right: 0;
@@ -78,10 +78,6 @@ const SearchContainer = styled.div`
   max-width: 544px;
   margin-right: 16px;
 
-  @media ${(props) => props.theme.tablet} {
-    margin-right: 8px;
-  }
-
   @media ${(props) => props.theme.mobile} {
     position: absolute;
     top: 73px;
@@ -108,10 +104,6 @@ const SearchInput = styled.input`
       }
     }
   }
-
-  @media ${(props) => props.theme.tablet} {
-    border: none;
-  }
 `;
 
 const SearchLabel = styled.label`
@@ -125,14 +117,6 @@ const SearchLabel = styled.label`
     fill: ${(props) => props.theme.grayColor};
   }
 
-  @media ${(props) => props.theme.tablet} {
-    cursor: pointer;
-
-    svg {
-      fill: ${(props) => props.theme.blackColor};
-    }
-  }
-
   @media ${(props) => props.theme.mobile} {
     right: 32px;
   }
@@ -141,6 +125,7 @@ const SearchLabel = styled.label`
 const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 `;
 
 const SignLink = styled(Link)`
@@ -271,11 +256,11 @@ const CatagoryContainer = styled.div`
   align-items: center;
   width: 100%;
   max-width: 1200px;
-  padding: 0 32px;
+  padding: 0 64px;
   overflow-x: auto;
 
   @media ${(props) => props.theme.tablet} {
-    padding: 0 16px;
+    padding: 0 32px;
   }
 `;
 
@@ -326,7 +311,7 @@ const MobileMenuContainer = styled.div`
     top: 0;
     left: 0;
     display: block;
-    width: 250px;
+    width: 200px;
     height: 100vh;
     padding: 24px 16px 24px 16px;
     background-color: ${(props) => props.theme.whiteColor};
