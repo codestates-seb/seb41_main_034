@@ -31,7 +31,7 @@ public class BusinessLogicException extends RuntimeException {
         ORDER_CANNOT_CANCEL(HttpStatus.BAD_REQUEST, "주문을 취소할 수 없습니다."),
         ORDER_NO_PRODUCTS_TO_PREPARE(HttpStatus.BAD_REQUEST, "배송을 준비할 상품이 없습니다."),
         ORDER_NO_PRODUCTS_TO_SHIP(HttpStatus.BAD_REQUEST, "배송 시작할 상품이 없습니다."),
-        ORDER_NO_PRODUCTS_TO_CONFIRM_CANCELLATION(HttpStatus.BAD_REQUEST, "취소 완료할 상품이 없습니다."),;
+        ORDER_NO_PRODUCTS_TO_CONFIRM_CANCELLATION(HttpStatus.BAD_REQUEST, "취소 완료할 상품이 없습니다.");
 
         private final HttpStatus httpStatus;
 
