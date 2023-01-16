@@ -10,8 +10,8 @@ const color = {
 };
 
 const size = {
-  mobile: 425,
-  tablet: 768
+  mobile: 576,
+  tablet: 992
 };
 
 const theme = {
