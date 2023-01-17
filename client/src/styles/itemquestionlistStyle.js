@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 //ItemQuestionList
 const ListWrapper = styled.div`
-  width: 100%;
   display: flex;
+  width: 100%;
   justify-content: center;
 `;
+
 const ListContainer = styled.div`
   width: 100%;
   max-width: 1024px;
@@ -16,27 +17,30 @@ const ListContainer = styled.div`
 
 const TitleText = styled.div`
   width: 100%;
+  margin: 73px 0 0 16px;
   font-size: 30px;
-  margin: 73px 0 0 0;
-  margin-left: 16px;
 
   @media ${(props) => props.theme.tablet} {
     font-size: 26px;
   }
+
   @media ${(props) => props.theme.mobile} {
+    margin: 56px 0 0 4px;
     font-size: 22px;
   }
 `;
 
 const SubTitleText = styled.div`
-  font-size: 16px;
-  margin: 22px 0 21px 0;
-  margin-left: 16px;
+  margin: 22px 0 21px 16px;
+  font-size: 12px;
 
   @media ${(props) => props.theme.tablet} {
     font-size: 12px;
   }
+
   @media ${(props) => props.theme.mobile} {
+    display: none;
+    margin: 12px 0 12px 4px;
     font-size: 8px;
   }
 `;
@@ -44,37 +48,50 @@ const SubTitleText = styled.div`
 const QuestionContainer = styled.div`
   width: 100%;
   max-width: 1024px;
+  padding: 16px 0 16px 0;
 `;
 
 const FlexContainer = styled.div`
-  width: 100%;
   display: flex;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid ${(props) => props.theme.grayColor};
+
+  @media ${(props) => props.theme.mobile} {
+    justify-content: flex-end;
+  }
 `;
 
 const QuestionButton = styled.button`
+  display: flex;
   width: 131px;
   height: 43px;
-  border-radius: 8px;
-  display: flex;
+  margin-right: 4px;
   justify-content: center;
   align-items: center;
-  margin-right: 4px;
+  border-radius: 8px;
   color: ${(props) => props.theme.whiteColor};
   background-color: ${(props) => props.theme.primaryColor};
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      background-color: ${(props) => props.theme.hoverColor};
+      transition: 0.5s;
+    }
+  }
 
   @media ${(props) => props.theme.tablet} {
     width: 80px;
     height: 30px;
-    font-size: 12px;
+    font-size: 10px;
   }
+
   @media ${(props) => props.theme.mobile} {
     width: 52px;
     height: 15px;
+    margin: 0 16px 8px 0;
     font-size: 8px;
-    margin-right: 16px;
   }
 `;
 //ItemQuestion
@@ -83,7 +100,6 @@ const FlexContainer2 = styled.div`
   width: 100%;
   max-width: 1024px;
   align-items: center;
-  margin-left: 4px;
 `;
 
 const QAText = styled.div`
@@ -94,56 +110,56 @@ const QAText = styled.div`
   @media ${(props) => props.theme.tablet} {
     font-size: 12px;
   }
+
   @media ${(props) => props.theme.mobile} {
     font-size: 8px;
   }
 `;
 
 const ItemText = styled.div`
-  font-size: 16px;
-  margin: 8px 8px 8px 0;
+  margin: 8px 8px 0 8px;
+  font-size: 12px;
 
   @media ${(props) => props.theme.tablet} {
     font-size: 12px;
   }
+
   @media ${(props) => props.theme.mobile} {
     font-size: 8px;
   }
 `;
 
 const AnswerText = styled.div`
-  font-size: 16px;
-  margin: 8px 0 8px 24px;
+  margin: 20px 0 20px 24px;
+  font-size: 12px;
 
   @media ${(props) => props.theme.tablet} {
     font-size: 12px;
   }
+
   @media ${(props) => props.theme.mobile} {
     font-size: 8px;
   }
 `;
 
 const AnswerBox = styled.div`
-  width: 80px;
-  height: 22px;
+  padding: 2px 4px 2px 4px;
   background-color: ${(props) => props.theme.primaryColor};
-  border-radius: 8px;
+  border-radius: 4px;
   color: ${(props) => props.theme.whiteColor};
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  font-size: 8px;
 
   @media ${(props) => props.theme.tablet} {
-    width: 60px;
-    height: 16px;
-    font-size: 12px;
-  }
-  @media ${(props) => props.theme.mobile} {
-    width: 36px;
-    height: 12px;
     font-size: 4px;
   }
+
+  @media ${(props) => props.theme.mobile} {
+    padding: 1px;
+    font-size: 10px !important;
+    zoom: 0.8;
+  }
 `;
+
 export {
   QuestionButton,
   FlexContainer,

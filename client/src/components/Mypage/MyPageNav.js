@@ -1,88 +1,122 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import RightArrow from './../../assets/icons/rightArrow.svg';
+import { ReactComponent as RightArrow } from '../../assets/icons/rightArrow.svg';
 
 const MyPageNav = () => {
   return (
     <NavWrapper>
       <NavContainer>
-        <CatagoryBox to="">
-          회원정보
-          <Img src={RightArrow} />
-        </CatagoryBox>
-        <CatagoryBox to="">
-          회원정보 수정
-          <Img src={RightArrow} />
-        </CatagoryBox>
-        <CatagoryBox to="">
-          주소 관리
-          <Img src={RightArrow} />
-        </CatagoryBox>
-        <CatagoryBox to="">
-          주문목록
-          <Img src={RightArrow} />
-        </CatagoryBox>
-        <CatagoryBox to="">
-          나의 리뷰
-          <Img src={RightArrow} />
-        </CatagoryBox>
-        <CatagoryBox to="">
-          나의 문의
-          <Img src={RightArrow} />
-        </CatagoryBox>
+        <TopContainer>
+          <CatagoryBox to="">
+            회원정보
+            <RightArrow />
+          </CatagoryBox>
+          <CatagoryBox to="">
+            주소관리
+            <RightArrow />
+          </CatagoryBox>
+        </TopContainer>
+        <BottomContainer>
+          <CatagoryBox to="">
+            주문목록
+            <RightArrow />
+          </CatagoryBox>
+          <CatagoryBox to="">
+            나의리뷰
+            <RightArrow />
+          </CatagoryBox>
+          <CatagoryBox to="">
+            나의문의
+            <RightArrow />
+          </CatagoryBox>
+        </BottomContainer>
       </NavContainer>
     </NavWrapper>
   );
 };
 
 const NavWrapper = styled.div`
-  width: 100%;
   display: grid;
-  justify-items: center;
+  width: 100%;
   margin-top: 64px;
+  justify-items: center;
+
+  @media ${(props) => props.theme.mobile} {
+    padding: 0;
+  }
 `;
+
 const NavContainer = styled.div`
+  display: grid;
   width: 100%;
   max-width: 1024px;
-  display: grid;
+
   @media ${(props) => props.theme.mobile} {
-    max-width: 425px;
-    width: 80%;
+    display: flex;
   }
 `;
+
 const CatagoryBox = styled(Link)`
-  width: 237px;
-  height: 63px;
-  border: 1px solid ${(props) => props.theme.grayColor};
-  border-radius: 4px;
   display: flex;
-  align-items: center;
+  width: 100%;
+  max-width: 160px;
   padding: 16px;
   justify-content: space-between;
-  font-size: 18px;
-  &:hover {
-    background-color: ${(props) => props.theme.activeColor};
-    color: white;
+  align-items: center;
+  border: 1px solid ${(props) => props.theme.borderColor};
+  border-radius: 4px;
+  font-size: 10px;
+  background-color: ${(props) => props.theme.secondaryColor};
+
+  svg {
+    width: 10px;
+    height: 10px;
   }
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      background-color: ${(props) => props.theme.hoverColor};
+      color: ${(props) => props.theme.whiteColor};
+
+      svg {
+        fill: ${(props) => props.theme.whiteColor};
+      }
+    }
+  }
+
   @media ${(props) => props.theme.tablet} {
-    width: 158px;
-    height: 47px;
-    font-size: 12px;
-  }
-  @media ${(props) => props.theme.mobile} {
-    max-width: 425px;
-    width: 100%;
-    height: 40px;
+    width: 120px;
+    padding: 12px;
     font-size: 8px;
+
+    svg {
+      width: 8px;
+      height: 8px;
+    }
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    width: 100%;
+    max-width: 100%;
+    padding: 12px;
+    justify-content: center;
+    align-items: center;
+    font-size: 4px;
+
+    svg {
+      display: none;
+    }
   }
 `;
-const Img = styled.img`
-  width: 12px;
-  height: 12px;
-  @media ${(props) => props.theme.tablet} {
-    width: 8px;
-    height: 8px;
-  }
+
+const TopContainer = styled.div`
+  display: grid;
+  width: 100%;
+`;
+
+const BottomContainer = styled.div`
+  display: grid;
+  width: 100%;
 `;
 
 export default MyPageNav;
