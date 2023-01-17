@@ -1,4 +1,4 @@
-package com.codestates.seb41_main_034.user;
+package com.codestates.seb41_main_034.user.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,12 +34,6 @@ public class User {
     @Column(name = "LAST_MODIFIED_AT")
     private LocalDateTime modifiedAt = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
 
-    //status
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
-    //name?
-
-    //primary_address_id
-
-    //password_setted_at
 }
