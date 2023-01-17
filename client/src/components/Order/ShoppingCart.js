@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import {
   CartContainer,
   CartHeader,
-  CartContent,
+  CartList,
   OrderAmount,
   CartFooter
 } from '../../styles/orderStyle';
@@ -14,11 +14,11 @@ const ShoppingCart = ({ isOpenCart, setIsOpenCart }) => {
       <CartHeader>
         <h2>장바구니</h2>
       </CartHeader>
-      <CartContent>
+      <CartList>
         {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((el, idx) => (
           <CartItem key={idx} />
         ))}
-      </CartContent>
+      </CartList>
       <OrderAmount>주문금액: 108,000원</OrderAmount>
       <CartFooter>
         <Link to="/order" onClick={() => setIsOpenCart(false)}>

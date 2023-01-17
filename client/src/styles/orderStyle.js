@@ -57,7 +57,7 @@ const CartHeader = styled.header`
   }
 `;
 
-const CartContent = styled.div`
+const CartList = styled.ul`
   flex-grow: 1;
   background-color: ${(props) => props.theme.whiteColor};
   overflow-y: auto;
@@ -359,7 +359,7 @@ const OrderButton = styled.button`
 export {
   CartContainer,
   CartHeader,
-  CartContent,
+  CartList,
   OrderAmount,
   CartFooter,
   CartItemContainer,

@@ -6,7 +6,7 @@ import Header from './components/Layout/Header';
 import Footer from './components/Layout/Footer';
 import Home from './pages/Home';
 import Login from './pages/Login';
-import Signup from './components/Sign/Signup';
+import Signup from './pages/Signup';
 import Products from './pages/Products';
 import Order from './pages/Order';
 import MyPage from './pages/MyPage';

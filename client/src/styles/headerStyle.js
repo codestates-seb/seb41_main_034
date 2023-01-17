@@ -7,16 +7,15 @@ const HeaderWrapper = styled.header`
   left: 0;
   display: flex;
   justify-content: center;
-  align-items: center;
   width: 100%;
-  height: 72px;
+  height: 70px;
   border-bottom: 1px solid ${(props) => props.theme.borderColor};
   background-color: ${(props) => props.theme.whiteColor};
   z-index: 96;
 
   @media ${(props) => props.theme.mobile} {
     display: flex;
-    height: 128px;
+    height: 120px;
   }
 `;
 
@@ -237,11 +236,12 @@ const MobileMenuButton = styled.button`
 
 const CatagoryWrapper = styled.div`
   position: fixed;
-  top: 72px;
+  top: 70px;
   left: 0;
   display: flex;
   justify-content: center;
   width: 100%;
+  height: 50px;
   border-bottom: 1px solid ${(props) => props.theme.borderColor};
   background-color: ${(props) => props.theme.whiteColor};
   z-index: 97;
