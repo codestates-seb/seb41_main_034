@@ -4,7 +4,7 @@ import {
   RightContainer,
   LeftCotainer,
   Text
-} from '../../styles/myquestionlist';
+} from '../../styles/myPageStyle';
 
 const MyQuestionList = () => {
   return (

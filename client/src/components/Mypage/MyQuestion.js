@@ -4,7 +4,7 @@ import {
   LeftCotainer2,
   Text2,
   MarginSpace
-} from '../../styles/myquestionlist';
+} from '../../styles/myPageStyle';
 
 const MyQuestion = () => {
   return (

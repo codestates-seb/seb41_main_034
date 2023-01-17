@@ -11,7 +11,7 @@ import {
   CountButton,
   Count,
   DeleteButton
-} from '../../styles/order';
+} from '../../styles/orderStyle';
 import { ReactComponent as DeleteIcon } from '../../assets/icons/cancleIcon.svg';
 
 const MyCartItem = () => {

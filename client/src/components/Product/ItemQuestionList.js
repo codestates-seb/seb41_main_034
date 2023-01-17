@@ -6,7 +6,7 @@ import {
   TitleText,
   ListContainer,
   ListWrapper
-} from '../../styles/itemquestionlistStyle';
+} from '../../styles/productStyle';
 import ItemQuestion from './ItemQuestion';
 import { useState } from 'react';
 //useEffect

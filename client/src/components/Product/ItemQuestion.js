@@ -4,7 +4,7 @@ import {
   ItemText,
   AnswerText,
   AnswerBox
-} from '../../styles/itemquestionlistStyle';
+} from '../../styles/productStyle';
 
 const ItemQuestion = () => {
   // {Question}

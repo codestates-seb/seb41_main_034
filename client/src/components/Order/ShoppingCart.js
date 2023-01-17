@@ -5,7 +5,7 @@ import {
   CartContent,
   OrderAmount,
   CartFooter
-} from '../../styles/order';
+} from '../../styles/orderStyle';
 import MyCartItem from './MyCartItem';
 
 const ShoppingCart = ({ isOpenCart, setIsOpenCart }) => {
