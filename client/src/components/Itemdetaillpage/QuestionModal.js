@@ -10,44 +10,75 @@ import {
   ModalWrapper,
   CancleImgContainer
 } from '../../styles/questionmodalStyle';
-// import CancleIcon from '../../assets/icons/cancel.svg';
 import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
+// import { useState } from 'react';
+// import { questionPostAPI } from '../../api/question';
 
-const QuestionModal = ({ setIsQuestion }) => {
+const QuestionModal = ({ isOpenQuestion, setIsOpenQuestion }) => {
   const handleQuestionClose = () => {
-    setIsQuestion(false);
+    setIsOpenQuestion(false);
   };
 
+  // const [title, setTitle] = useState('');
+  // const [itemName, setItemName] = useState('');
+  // const [content, setConet] = useState('');
+  // // question add button call func
+  // const questionAdd = async () => {
+  //   const body = {
+  //     title: title,
+  //     itemName: itemName,
+  //     content: content
+  //   };
+  //   await questionPostAPI(body);
+  //   setIsQuestion(false); // modal false
+  // };
+
   return (
-    <ModalWrapper>
-      <ModalContainer>
+    <>
+      <ModalWrapper
+        onClick={handleQuestionClose}
+        isOpenQuestion={isOpenQuestion}
+      />
+      <ModalContainer isOpenQuestion={isOpenQuestion}>
         <CancleImgContainer>
           <CancelIcon onClick={handleQuestionClose} />
         </CancleImgContainer>
         <MiddleText>문의하기</MiddleText>
         <LeftTextContainer>
-          <LeftText>제목</LeftText>
+          <LeftText htmlFor="title">제목</LeftText>
         </LeftTextContainer>
         <MiddleContainer>
-          <SmallInput />
+          <SmallInput
+            id="title"
+            aria-label="제목을 입력하세요."
+            placeholder="제목을 입력하세요."
+          />
         </MiddleContainer>
         <LeftTextContainer>
-          <LeftText>상품명</LeftText>
+          <LeftText htmlFor="ItemName">상품명</LeftText>
         </LeftTextContainer>
         <MiddleContainer>
-          <SmallInput />
+          <SmallInput
+            id="ItemName"
+            aria-label="상품명을 입력하세요."
+            placeholder="상품명을 입력하세요."
+          />
         </MiddleContainer>
         <LeftTextContainer>
-          <LeftText>문의내용</LeftText>
+          <LeftText htmlFor="Question">문의내용</LeftText>
         </LeftTextContainer>
         <MiddleContainer>
-          <BigInput />
+          <BigInput
+            id="Question"
+            aria-label="문의내용을 입력하세요."
+            placeholder="문의내용을 입력하세요."
+          />
         </MiddleContainer>
         <MiddleContainer>
           <CompletButton>완료</CompletButton>
         </MiddleContainer>
       </ModalContainer>
-    </ModalWrapper>
+    </>
   );
 };
 

@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 //MyQuestionList
 const ListHeader = styled.div`
+  display: flex;
   width: 100%;
   max-width: 702px;
   padding: 12px 16px;
-  border: 1px solid ${(props) => props.theme.blackColor};
-  display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: ${(props) => props.theme.activeColor};
+  border: 1px solid ${(props) => props.theme.blackColor};
   border-radius: 4px;
+  background-color: ${(props) => props.theme.activeColor};
   color: ${(props) => props.theme.whiteColor};
 
   @media ${(props) => props.theme.tablet} {
@@ -43,28 +43,29 @@ const Text = styled.div`
 `;
 //MyQuestion
 const ListHeader2 = styled.div`
-  width: 702px;
-  border: 1px solid ${(props) => props.theme.blackColor};
   display: flex;
-  align-items: center;
-  border-radius: 4px;
+  width: 702px;
   padding: 12px 16px;
   justify-content: space-between;
+  align-items: center;
+  border: 1px solid ${(props) => props.theme.blackColor};
+  border-radius: 4px;
   color: ${(props) => props.theme.blackColor};
 
   @media ${(props) => props.theme.tablet} {
     width: 100%;
     max-width: 399px;
   }
+
   @media ${(props) => props.theme.mobile} {
     width: 100%;
   }
 `;
 
 const RightContainer2 = styled.div`
-  flex-grow: 1;
   display: flex;
   justify-content: space-between;
+  flex-grow: 1;
 `;
 
 const LeftCotainer2 = styled.div`
@@ -77,6 +78,7 @@ const Text2 = styled.div`
   @media ${(props) => props.theme.tablet} {
     font-size: 8px;
   }
+
   @media ${(props) => props.theme.mobile} {
     font-size: 4px;
   }
@@ -85,6 +87,7 @@ const Text2 = styled.div`
 const MarginSpace = styled.div`
   height: 8px;
 `;
+
 export {
   ListHeader,
   RightContainer,
