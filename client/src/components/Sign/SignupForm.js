@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  SignupContainer,
-  SignupHeader,
-  SignupTitle,
-  ToLoginSpan,
-  ToLogin,
-  SignupList,
-  SignupItem,
-  SignupLabel,
-  SignupInput,
-  SignupButton
-} from '../../styles/signupStyle';
+  SignContainer,
+  SignHeader,
+  SignTitle,
+  SignSpan,
+  ToSign,
+  SignList,
+  SignItem,
+  SignLabel,
+  SignInput,
+  SignButton
+} from '../../styles/signStyle';
 import Id from './Id';
 import Password from './Password';
 import Address from './Address';
@@ -40,15 +40,15 @@ const SignupForm = () => {
   };
 
   return (
-    <SignupContainer onSubmit={onSubmit}>
-      <SignupHeader>
-        <SignupTitle>회원가입</SignupTitle>
-        <ToLoginSpan>이미 계정이 있으신가요?</ToLoginSpan>
+    <SignContainer onSubmit={onSubmit}>
+      <SignHeader>
+        <SignTitle>회원가입</SignTitle>
+        <SignSpan>이미 계정이 있으신가요?</SignSpan>
         <Link to="/login">
-          <ToLogin aria-label="로그인 페이지로 이동">로그인</ToLogin>
+          <ToSign aria-label="로그인 페이지로 이동">로그인</ToSign>
         </Link>
-      </SignupHeader>
-      <SignupList>
+      </SignHeader>
+      <SignList>
         <Id id={id} setId={setId} />
 
         <Password
@@ -58,9 +58,9 @@ const SignupForm = () => {
           setPasswordConfirm={setPasswordConfirm}
         />
 
-        <SignupItem>
-          <SignupLabel htmlFor="name">이름</SignupLabel>
-          <SignupInput
+        <SignItem>
+          <SignLabel htmlFor="name">이름</SignLabel>
+          <SignInput
             type="text"
             id="name"
             aria-label="이름을 입력하세요."
@@ -68,7 +68,7 @@ const SignupForm = () => {
             value={name || ''}
             required
           />
-        </SignupItem>
+        </SignItem>
 
         <Address
           address={address}
@@ -76,9 +76,9 @@ const SignupForm = () => {
           setAddress={setAddress}
           setAddressDetail={setAddressDetail}
         />
-      </SignupList>
-      <SignupButton type="submit">가입하기</SignupButton>
-    </SignupContainer>
+      </SignList>
+      <SignButton type="submit">가입하기</SignButton>
+    </SignContainer>
   );
 };
 

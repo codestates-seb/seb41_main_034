@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  LoginContainer,
-  LoginHeader,
-  LoginTitle,
-  LoginButton,
-  LoginList,
-  LoginItem,
-  ToSignupSpan,
-  ToSignup,
-  Input,
-  TextLabel
-} from '../../styles/loginStyle';
+  SignContainer,
+  SignHeader,
+  SignTitle,
+  SignSpan,
+  ToSign,
+  SignList,
+  SignItem,
+  SignLabel,
+  SignInput,
+  SignButton
+} from '../../styles/signStyle';
 // import { loginAPI } from '../api/sign';
 
 function LoginForm() {
@@ -31,20 +31,20 @@ function LoginForm() {
 
   return (
     <>
-      <LoginContainer onSubmit={onSubmit}>
-        <LoginHeader>
-          <LoginTitle>로그인</LoginTitle>
-          <ToSignupSpan>
+      <SignContainer onSubmit={onSubmit}>
+        <SignHeader>
+          <SignTitle>로그인</SignTitle>
+          <SignSpan>
             아직 계정이 없으신가요?{' '}
             <Link to="/signup">
-              <ToSignup aria-label="회원가입 페이지로 이동">회원가입</ToSignup>
+              <ToSign aria-label="회원가입 페이지로 이동">회원가입</ToSign>
             </Link>
-          </ToSignupSpan>
-        </LoginHeader>
-        <LoginList>
-          <LoginItem>
-            <TextLabel htmlFor="id">아이디</TextLabel>
-            <Input
+          </SignSpan>
+        </SignHeader>
+        <SignList>
+          <SignItem>
+            <SignLabel htmlFor="id">아이디</SignLabel>
+            <SignInput
               type="text"
               id="id"
               aria-label="아이디를 입력하세요."
@@ -54,10 +54,10 @@ function LoginForm() {
               onChange={(e) => setId(e.target.value)}
               value={id || ''}
             />
-          </LoginItem>
-          <LoginItem>
-            <TextLabel htmlFor="id">비밀번호</TextLabel>
-            <Input
+          </SignItem>
+          <SignItem>
+            <SignLabel htmlFor="id">비밀번호</SignLabel>
+            <SignInput
               type="password"
               id="password"
               aria-label="비밀번호를 입력하세요."
@@ -67,10 +67,10 @@ function LoginForm() {
               onChange={(e) => setPassword(e.target.value)}
               value={password || ''}
             />
-          </LoginItem>
-        </LoginList>
-        <LoginButton type="submit">로그인</LoginButton>
-      </LoginContainer>
+          </SignItem>
+        </SignList>
+        <SignButton type="submit">로그인</SignButton>
+      </SignContainer>
     </>
   );
 }

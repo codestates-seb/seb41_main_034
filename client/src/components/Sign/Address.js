@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import DaumPostcode from 'react-daum-postcode';
 import {
-  SignupItem,
-  SignupLabel,
-  SignupInput,
+  SignItem,
+  SignLabel,
+  SignInput,
   ConfirmButton,
   ModalBackground,
   AddressModal
-} from '../../styles/signupStyle';
+} from '../../styles/signStyle';
 
 const Address = ({ address, addressDetail, setAddress, setAddressDetail }) => {
   const [isOpenPost, setIsOpenPost] = useState(false);
@@ -24,17 +24,17 @@ const Address = ({ address, addressDetail, setAddress, setAddressDetail }) => {
 
   return (
     <>
-      <SignupItem>
-        <SignupLabel htmlFor="address">주소</SignupLabel>
+      <SignItem>
+        <SignLabel htmlFor="address">주소</SignLabel>
         {address ? (
-          <SignupInput
+          <SignInput
             type="text"
             onChange={(e) => setAddress(e.target.value)}
             value={address}
             readOnly
           />
         ) : (
-          <SignupInput
+          <SignInput
             type="text"
             onChange={() => setAddress('')}
             value={''}
@@ -42,12 +42,12 @@ const Address = ({ address, addressDetail, setAddress, setAddressDetail }) => {
           />
         )}
         <ConfirmButton onClick={onChangeOpenPost}>주소 검색</ConfirmButton>
-      </SignupItem>
+      </SignItem>
 
       {address && (
-        <SignupItem>
-          <SignupLabel htmlFor="addressDetail">상세주소</SignupLabel>
-          <SignupInput
+        <SignItem>
+          <SignLabel htmlFor="addressDetail">상세주소</SignLabel>
+          <SignInput
             type="text"
             id="addressDetail"
             aria-label="상세주소를 입력하세요."
@@ -55,7 +55,7 @@ const Address = ({ address, addressDetail, setAddress, setAddressDetail }) => {
             value={addressDetail || ''}
             required
           />
-        </SignupItem>
+        </SignItem>
       )}
 
       {isOpenPost && (

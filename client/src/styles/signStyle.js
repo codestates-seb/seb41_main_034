@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const SignupContainer = styled.form`
+const SignContainer = styled.form`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -16,21 +16,21 @@ const SignupContainer = styled.form`
   }
 `;
 
-const SignupHeader = styled.div`
+const SignHeader = styled.div`
   text-align: center;
   margin-bottom: 48px;
 `;
 
-const SignupTitle = styled.h2`
+const SignTitle = styled.h2`
   font-size: 32px;
   margin-bottom: 12px;
 `;
 
-const ToLoginSpan = styled.span`
+const SignSpan = styled.span`
   font-size: 16px;
 `;
 
-const ToLogin = styled(ToLoginSpan)`
+const ToSign = styled(SignSpan)`
   margin-left: 4px;
   color: ${(props) => props.theme.primaryColor};
   transition: color 0.5s;
@@ -42,12 +42,12 @@ const ToLogin = styled(ToLoginSpan)`
   }
 `;
 
-const SignupList = styled.ul`
+const SignList = styled.ul`
   width: 100%;
   margin-bottom: 24px;
 `;
 
-const SignupItem = styled.li`
+const SignItem = styled.li`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -57,12 +57,12 @@ const SignupItem = styled.li`
   }
 `;
 
-const SignupLabel = styled.label`
+const SignLabel = styled.label`
   font-size: 14px;
   margin-bottom: 4px;
 `;
 
-const SignupInput = styled.input`
+const SignInput = styled.input`
   padding: 8px;
   border-radius: 4px;
   font-size: 14px;
@@ -92,7 +92,7 @@ const ConfirmButton = styled.button`
   }
 `;
 
-const SignupButton = styled.button`
+const SignButton = styled.button`
   width: 100%;
   padding: 16px 0;
   font-size: 16px;
@@ -129,17 +129,17 @@ const AddressModal = styled.div`
 `;
 
 export {
-  SignupContainer,
-  SignupHeader,
-  SignupTitle,
-  ToLoginSpan,
-  ToLogin,
-  SignupList,
-  SignupItem,
-  SignupLabel,
-  SignupInput,
+  SignContainer,
+  SignHeader,
+  SignTitle,
+  SignSpan,
+  ToSign,
+  SignList,
+  SignItem,
+  SignLabel,
+  SignInput,
   ConfirmButton,
-  SignupButton,
+  SignButton,
   ModalBackground,
   AddressModal
 };

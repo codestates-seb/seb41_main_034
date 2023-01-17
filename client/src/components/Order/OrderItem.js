@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const OrderItem = () => {
-  return <></>;
+  return <OrderItemContainer></OrderItemContainer>;
 };
 
 const OrderItemContainer = styled.li`
