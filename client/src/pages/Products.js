@@ -17,6 +17,7 @@ const ProductList = styled.ul`
   justify-content: space-between;
   width: 100%;
   margin: 64px 0;
+  row-gap: 48px;
 `;
 
 export default Products;
