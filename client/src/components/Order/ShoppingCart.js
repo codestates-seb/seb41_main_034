@@ -6,7 +6,7 @@ import {
   OrderAmount,
   CartFooter
 } from '../../styles/orderStyle';
-import MyCartItem from './MyCartItem';
+import CartItem from './CartItem';
 
 const ShoppingCart = ({ isOpenCart, setIsOpenCart }) => {
   return (
@@ -16,7 +16,7 @@ const ShoppingCart = ({ isOpenCart, setIsOpenCart }) => {
       </CartHeader>
       <CartContent>
         {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((el, idx) => (
-          <MyCartItem key={idx} />
+          <CartItem key={idx} />
         ))}
       </CartContent>
       <OrderAmount>주문금액: 108,000원</OrderAmount>

@@ -14,7 +14,7 @@ import { ReactComponent as LogoIcon } from '../../assets/icons/foodmeet.svg';
 import { ReactComponent as MyPageIcon } from '../../assets/icons/myPageIcon.svg';
 import { Link } from 'react-router-dom';
 
-const MobileMenuModal = ({ isLogin, isOpenMenu, setIsOpenMenu }) => {
+const MobileMenu = ({ isLogin, isOpenMenu, setIsOpenMenu }) => {
   return (
     <>
       <MobileMenuWrapper
@@ -70,4 +70,4 @@ const MobileMenuModal = ({ isLogin, isOpenMenu, setIsOpenMenu }) => {
   );
 };
 
-export default MobileMenuModal;
+export default MobileMenu;

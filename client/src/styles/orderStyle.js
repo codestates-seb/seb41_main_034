@@ -299,31 +299,18 @@ const DeleteButton = styled.button`
 `;
 
 const OrderContainer = styled.div`
-  width: 520px;
-  height: 416px;
-`;
-
-const OrderHeader = styled.div`
-  font-size: 30px;
-
-  @media ${(props) => props.theme.tablet} {
-  }
-  @media ${(props) => props.theme.mobile} {
-    display: none;
-  }
+  margin-top: 120px;
 `;
 
 const OrderSummaryComponent = styled.div`
-  width: 280px;
-  height: 170px;
-  border: 1px #dee2e6 solid;
-  border-radius: 10px;
+  position: sticky;
+  top: 120px;
+  border: 1px solid ${(props) => props.theme.borderColor};
+  border-radius: 4px;
   margin: 40px 0px;
 `;
 
 const OrderContentTop = styled.div`
-  width: 85%;
-  height: 110px;
   margin: auto;
   display: table;
   font-size: 15px;
@@ -350,8 +337,6 @@ const OrderContentTopDetailItem = styled.div`
 `;
 
 const OrderContentBottom = styled.div`
-  width: 85%;
-  height: 60px;
   margin: auto;
   display: flex;
   align-items: center;
@@ -365,8 +350,6 @@ const OrderContentTotalPrice = styled.div`
 `;
 
 const OrderButton = styled.button`
-  width: 268px;
-  height: 46px;
   color: ${(props) => props.theme.whiteColor};
   background-color: ${(props) => props.theme.primaryColor};
   border-radius: 10px;
@@ -390,7 +373,6 @@ export {
   Count,
   DeleteButton,
   OrderContainer,
-  OrderHeader,
   OrderSummaryComponent,
   OrderContentTop,
   OrderContentTopContainer,

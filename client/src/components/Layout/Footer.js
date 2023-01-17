@@ -9,7 +9,7 @@ import {
   Etc,
   EtcDt,
   EtcDd
-} from '../styles/footerStyle';
+} from '../../styles/footerStyle';
 
 const Footer = () => {
   return (

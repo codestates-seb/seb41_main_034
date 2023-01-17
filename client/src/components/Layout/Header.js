@@ -13,7 +13,7 @@ import {
   SignLink,
   CartButton,
   CartCount,
-  MobileMenu,
+  MobileMenuButton,
   LogoutButton,
   MyPageLink
 } from '../../styles/headerStyle';
@@ -22,8 +22,8 @@ import { ReactComponent as LogoIcon } from '../../assets/icons/foodmeet.svg';
 import { ReactComponent as CartIcon } from '../../assets/icons/cartIcon.svg';
 import { ReactComponent as MenuIcon } from '../../assets/icons/menuIcon.svg';
 import { ReactComponent as MyPageIcon } from '../../assets/icons/myPageIcon.svg';
-import MobileMenuModal from './MobileMenuModal';
-import Category from './Category';
+import Menu from '../Menu/Menu';
+import MobileMenu from '../Menu/MobileMenu';
 import ShoppingCart from '../Order/ShoppingCart';
 
 const Header = () => {
@@ -86,21 +86,21 @@ const Header = () => {
             </ButtonContainer>
           </HeaderRight>
 
-          <MobileMenu
+          <MobileMenuButton
             type="button"
             aria-label="메뉴 열기"
             onClick={() => setIsOpenMenu(!isOpenMenu)}
           >
             <MenuIcon />
-          </MobileMenu>
+          </MobileMenuButton>
         </HeaderContainer>
       </HeaderWrapper>
 
-      <Category />
+      <Menu />
 
       <ShoppingCart isOpenCart={isOpenCart} setIsOpenCart={setIsOpenCart} />
 
-      <MobileMenuModal
+      <MobileMenu
         isLogin={isLogin}
         isOpenMenu={isOpenMenu}
         setIsOpenMenu={setIsOpenMenu}

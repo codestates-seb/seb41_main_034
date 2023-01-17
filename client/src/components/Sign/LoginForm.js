@@ -11,7 +11,7 @@ import {
   ToSignup,
   Input,
   TextLabel
-} from '../styles/loginStyle';
+} from '../../styles/loginStyle';
 // import { loginAPI } from '../api/sign';
 
 function LoginForm() {

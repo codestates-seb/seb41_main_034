@@ -1,4 +1,4 @@
-import { ReactComponent as RightArrow } from '../../assets/icons/rightArrow.svg';
+import { ReactComponent as RightArrow } from '../../assets/icons/arrowIcon.svg';
 import {
   NavWrapper,
   NavContainer,

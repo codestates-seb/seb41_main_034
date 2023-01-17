@@ -4,7 +4,7 @@ import {
   CatagoryWrapper
 } from '../../styles/headerStyle';
 
-const Category = () => {
+const Menu = () => {
   return (
     <CatagoryWrapper>
       <CatagoryContainer>
@@ -18,4 +18,4 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default Menu;

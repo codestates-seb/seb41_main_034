@@ -219,7 +219,7 @@ const MyPageLink = styled(Link)`
   }
 `;
 
-const MobileMenu = styled.button`
+const MobileMenuButton = styled.button`
   display: none;
 
   @media ${(props) => props.theme.mobile} {
@@ -396,7 +396,7 @@ export {
   CartButton,
   CartCount,
   MyPageLink,
-  MobileMenu,
+  MobileMenuButton,
   CatagoryWrapper,
   CatagoryContainer,
   CatagoryButton,
