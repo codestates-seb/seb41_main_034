@@ -12,9 +12,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.util.List;
 
 @AllArgsConstructor
 @Validated
@@ -25,8 +27,12 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping
-    public ResponseEntity<ProductResponseDto> postProduct(@Valid @RequestBody ProductPostDto postDto) {
-        return new ResponseEntity<>(productService.createProduct(postDto), HttpStatus.CREATED);
+    public ResponseEntity<ProductResponseDto> postProduct(
+            @Valid @RequestPart("data-json") ProductPostDto postDto,
+            @RequestPart("images") List<MultipartFile> images,
+            @RequestPart("detail-images") List<MultipartFile> detailImages
+    ) {
+        return new ResponseEntity<>(productService.createProduct(postDto, images, detailImages), HttpStatus.CREATED);
     }
 
     @GetMapping("/{productId}")
@@ -43,9 +49,14 @@ public class ProductController {
     }
 
     @PatchMapping("/{productId}")
-    public ResponseEntity<ProductResponseDto> patchProduct(@Positive @PathVariable int productId,
-                                                           @Valid @RequestBody ProductPatchDto patchDto) {
-        return new ResponseEntity<>(productService.updateProduct(productId, patchDto), HttpStatus.OK);
+    public ResponseEntity<ProductResponseDto> patchProduct(
+            @Positive @PathVariable int productId,
+            @Valid @RequestPart("data-json") ProductPatchDto patchDto,
+            @RequestPart("images") List<MultipartFile> images,
+            @RequestPart("detail-images") List<MultipartFile> detailImages
+    ) {
+        return new ResponseEntity<>(
+                productService.updateProduct(productId, patchDto, images, detailImages), HttpStatus.OK);
     }
 
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import javax.validation.ConstraintViolationException;
 import java.util.Optional;
@@ -22,6 +23,7 @@ import static com.codestates.seb41_main_034.common.exception.BusinessLogicExcept
 @Slf4j
 @RestControllerAdvice
 public class ExceptionHandlingAdvice {
+
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponseDto handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
@@ -77,6 +79,14 @@ public class ExceptionHandlingAdvice {
     }
 
     @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponseDto handleMaxUploadSizeExceededException(MaxUploadSizeExceededException e) {
+        log.error("요청의 파일 크기가 제한을 넘었습니다.", e);
+
+        return new ErrorResponseDto(new ErrorInfo(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
+    }
+
+    @ExceptionHandler
     public ResponseEntity<ErrorResponseDto> handleBusinessLogicException(BusinessLogicException e) {
         log.error("비즈니스 로직에서 예외가 발생했습니다", e);
 
@@ -95,4 +105,5 @@ public class ExceptionHandlingAdvice {
                 e.getMessage() == null ? HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase() : e.getMessage()
         ));
     }
+
 }

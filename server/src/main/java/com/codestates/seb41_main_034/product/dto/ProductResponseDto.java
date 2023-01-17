@@ -25,7 +25,7 @@ public class ProductResponseDto {
 
     private List<String> imageUrls;
 
-    private String body;
+    private List<String> detailImageUrls;
 
     private int createdBy;
 
