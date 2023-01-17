@@ -396,6 +396,21 @@ const CancleImgContainer = styled.div`
   }
 `;
 
+const ReviewContainer = styled.div`
+  width: 520px;
+  height: 1205px;
+  margin: auto;
+  background-color: red;
+`;
+
+const ReviewHeader = styled.div`
+  font-size: 50px;
+`;
+
+const ReviewText = styled.div`
+  font-size: 20px;
+`;
+
 export {
   ProductContainer,
   ProductLink,
@@ -426,5 +441,8 @@ export {
   MiddleText,
   ModalContainer,
   ModalWrapper,
-  CancleImgContainer
+  CancleImgContainer,
+  ReviewContainer,
+  ReviewHeader,
+  ReviewText
 };

@@ -298,6 +298,81 @@ const DeleteButton = styled.button`
   }
 `;
 
+const OrderContainer = styled.div`
+  width: 520px;
+  height: 416px;
+`;
+
+const OrderHeader = styled.div`
+  font-size: 30px;
+
+  @media ${(props) => props.theme.tablet} {
+  }
+  @media ${(props) => props.theme.mobile} {
+    display: none;
+  }
+`;
+
+const OrderSummaryComponent = styled.div`
+  width: 280px;
+  height: 170px;
+  border: 1px #dee2e6 solid;
+  border-radius: 10px;
+  margin: 40px 0px;
+`;
+
+const OrderContentTop = styled.div`
+  width: 85%;
+  height: 110px;
+  margin: auto;
+  display: table;
+  font-size: 15px;
+  border-bottom: 1px #dee2e6 solid;
+`;
+
+const OrderContentTopContainer = styled.div`
+  width: 100%;
+  display: table-cell;
+  vertical-align: middle;
+`;
+
+const OrderContentTopDetail = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 15px;
+  margin-bottom: 15px;
+`;
+
+const OrderContentTopDetailItem = styled.div`
+  font-size: 15px;
+`;
+
+const OrderContentBottom = styled.div`
+  width: 85%;
+  height: 60px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 15px;
+`;
+
+const OrderContentTotalPrice = styled.div`
+  font-size: 20px;
+  font-weight: bold;
+`;
+
+const OrderButton = styled.button`
+  width: 268px;
+  height: 46px;
+  color: ${(props) => props.theme.whiteColor};
+  background-color: ${(props) => props.theme.primaryColor};
+  border-radius: 10px;
+  font-size: 20px;
+`;
+
 export {
   CartContainer,
   CartHeader,
@@ -313,5 +388,15 @@ export {
   ProductCount,
   CountButton,
   Count,
-  DeleteButton
+  DeleteButton,
+  OrderContainer,
+  OrderHeader,
+  OrderSummaryComponent,
+  OrderContentTop,
+  OrderContentTopContainer,
+  OrderContentTopDetail,
+  OrderContentTopDetailItem,
+  OrderContentBottom,
+  OrderContentTotalPrice,
+  OrderButton
 };
