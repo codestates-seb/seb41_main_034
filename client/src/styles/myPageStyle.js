@@ -89,18 +89,8 @@ const MarginSpace = styled.div`
   height: 8px;
 `;
 
-const NavWrapper = styled.div`
-  display: grid;
-  width: 100%;
-  margin-top: 64px;
-  justify-items: center;
-
-  @media ${(props) => props.theme.mobile} {
-    padding: 0;
-  }
-`;
-
 const NavContainer = styled.div`
+  position: relative;
   display: grid;
   width: 100%;
   max-width: 1024px;
@@ -119,8 +109,8 @@ const CatagoryBox = styled(Link)`
   align-items: center;
   border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
-  font-size: 10px;
-  background-color: ${(props) => props.theme.secondaryColor};
+  font-size: 12px;
+  background-color: ${(props) => props.theme.whiteColor};
 
   svg {
     width: 10px;
@@ -153,24 +143,16 @@ const CatagoryBox = styled(Link)`
     width: 100%;
     max-width: 100%;
     padding: 12px;
+    margin-top: 19px;
     justify-content: center;
     align-items: center;
     font-size: 4px;
+    zoom: 0.7;
 
     svg {
       display: none;
     }
   }
-`;
-
-const TopContainer = styled.div`
-  display: grid;
-  width: 100%;
-`;
-
-const BottomContainer = styled.div`
-  display: grid;
-  width: 100%;
 `;
 
 const Container = styled.div`
@@ -219,11 +201,8 @@ export {
   LeftCotainer2,
   Text2,
   MarginSpace,
-  NavWrapper,
   NavContainer,
   CatagoryBox,
-  TopContainer,
-  BottomContainer,
   Container,
   Title,
   SubTitle
