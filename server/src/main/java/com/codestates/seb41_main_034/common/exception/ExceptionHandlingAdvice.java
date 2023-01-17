@@ -23,6 +23,7 @@ import static com.codestates.seb41_main_034.common.exception.BusinessLogicExcept
 @Slf4j
 @RestControllerAdvice
 public class ExceptionHandlingAdvice {
+
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponseDto handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {

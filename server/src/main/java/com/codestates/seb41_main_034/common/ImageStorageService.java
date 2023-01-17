@@ -39,8 +39,9 @@ public class ImageStorageService {
         try (InputStream inputStream = multipartFile.getInputStream()) {
             Iterator<ImageReader> readerIterator = ImageIO.getImageReaders(ImageIO.createImageInputStream(inputStream));
             filename += readerIterator.next().getFormatName().toLowerCase().replace("jpeg", "jpg");
-
-        } catch (IOException | NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
+            throw new BusinessLogicException(ExceptionCode.IMAGE_NOT_SUPPORTED);
+        } catch (IOException e) {
             throw new BusinessLogicException(ExceptionCode.IMAGE_CANNOT_READ);
         }
 

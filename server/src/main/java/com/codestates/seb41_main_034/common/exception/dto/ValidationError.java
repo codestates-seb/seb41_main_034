@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 @Getter
 public class ValidationError {
+
     private final String descriptor;
     private final Object rejectedValue;
     private final String reason;
