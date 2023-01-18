@@ -182,11 +182,10 @@ const CartItemInfo = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   width: 40%;
+  row-gap: 4px;
 `;
 
 const ProductName = styled.h3`
-  margin-bottom: 4px;
-
   a {
     font-size: 16px;
     font-weight: 700;
@@ -215,7 +214,7 @@ const ProductName = styled.h3`
 
 const ProductPrice = styled.strong`
   display: block;
-  margin-bottom: 4px;
+  flex-shrink: 0;
   font-size: 16px;
   font-weight: 700;
 
@@ -260,11 +259,23 @@ const Count = styled.input`
   }
 `;
 
-const DeleteButton = styled.button`
+const CartItemDelete = styled.div`
   position: absolute;
   top: 16px;
   right: 16px;
 
+  @media ${(props) => props.theme.tablet} {
+    top: 8px;
+    right: 8px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    top: 4px;
+    right: 8px;
+  }
+`;
+
+const DeleteButton = styled.button`
   svg {
     fill: ${(props) => props.theme.blackColor};
   }
@@ -278,9 +289,6 @@ const DeleteButton = styled.button`
   }
 
   @media ${(props) => props.theme.tablet} {
-    top: 8px;
-    right: 8px;
-
     svg {
       width: 16px;
       height: 16px;
@@ -288,9 +296,6 @@ const DeleteButton = styled.button`
   }
 
   @media ${(props) => props.theme.mobile} {
-    top: 4px;
-    right: 8px;
-
     svg {
       width: 12px;
       height: 12px;
@@ -298,62 +303,134 @@ const DeleteButton = styled.button`
   }
 `;
 
-const OrderContainer = styled.div`
-  margin-top: 120px;
+const OrderItemContainer = styled.li`
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid ${(props) => props.theme.borderColor};
+  }
 `;
 
-const OrderSummaryComponent = styled.div`
-  position: sticky;
-  top: 120px;
+const OrderItemLeft = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const CheckBox = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const CheckInput = styled.input`
+  appearance: none;
+  width: 24px;
+  height: 24px;
   border: 1px solid ${(props) => props.theme.borderColor};
+  border-radius: 100px;
+  cursor: pointer;
+
+  &:checked {
+    border-color: transparent;
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-color: ${(props) => props.theme.primaryColor};
+  }
+`;
+
+const CheckLabel = styled.label`
+  margin-left: 8px;
+  font-size: 16px;
+  cursor: pointer;
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      color: ${(props) => props.theme.hoverColor};
+    }
+  }
+`;
+
+const CheckDelete = styled.button`
+  font-size: 16px;
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      color: ${(props) => props.theme.hoverColor};
+    }
+  }
+`;
+
+const OrderItemImage = styled.div`
+  width: 96px;
+  height: 96px;
+  margin-left: 24px;
   border-radius: 4px;
-  margin: 40px 0px;
+  overflow: hidden;
 `;
 
-const OrderContentTop = styled.div`
-  margin: auto;
-  display: table;
-  font-size: 15px;
-  border-bottom: 1px #dee2e6 solid;
-`;
-
-const OrderContentTopContainer = styled.div`
+const OrderItemImg = styled.div`
   width: 100%;
-  display: table-cell;
-  vertical-align: middle;
+  height: 100%;
+  background-image: url(${(props) => props.img});
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  transition: transform 0.3s;
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
 `;
 
-const OrderContentTopDetail = styled.div`
-  width: 100%;
+const OrderItemName = styled.h3`
+  margin-left: 12px;
+
+  a {
+    font-size: 16px;
+    font-weight: 700;
+    transition: color 0.3s;
+
+    @media ${(props) => props.theme.desktop} {
+      &:hover {
+        color: ${(props) => props.theme.hoverColor};
+      }
+    }
+  }
+`;
+
+const OrderItemRight = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  column-gap: 12px;
 `;
 
-const OrderContentTopDetailItem = styled.div`
-  font-size: 15px;
-`;
-
-const OrderContentBottom = styled.div`
-  margin: auto;
+const OrderContainer = styled.div`
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  font-size: 15px;
+  width: 100%;
+  margin: 60px 0;
+  gap: 20px;
 `;
 
-const OrderContentTotalPrice = styled.div`
-  font-size: 20px;
-  font-weight: bold;
+const OrderListContianer = styled.div`
+  width: 100%;
+  flex-grow: 1;
 `;
 
-const OrderButton = styled.button`
-  color: ${(props) => props.theme.whiteColor};
-  background-color: ${(props) => props.theme.primaryColor};
-  border-radius: 10px;
-  font-size: 20px;
+const OrderListHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+`;
+
+const OrderList = styled.ul`
+  border-top: 1px solid ${(props) => props.theme.blackColor};
+  border-bottom: 1px solid ${(props) => props.theme.blackColor};
 `;
 
 export {
@@ -366,19 +443,25 @@ export {
   CartItemImage,
   CartItemImg,
   CartItemInfo,
+  CartItemDelete,
   ProductName,
   ProductPrice,
   ProductCount,
   CountButton,
   Count,
   DeleteButton,
+  OrderItemContainer,
+  OrderItemLeft,
+  OrderItemRight,
+  CheckBox,
+  CheckInput,
+  CheckLabel,
+  CheckDelete,
+  OrderItemImage,
+  OrderItemImg,
+  OrderItemName,
   OrderContainer,
-  OrderSummaryComponent,
-  OrderContentTop,
-  OrderContentTopContainer,
-  OrderContentTopDetail,
-  OrderContentTopDetailItem,
-  OrderContentBottom,
-  OrderContentTotalPrice,
-  OrderButton
+  OrderList,
+  OrderListContianer,
+  OrderListHeader
 };
