@@ -13,7 +13,7 @@ import java.io.IOException;
 public class UserAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess
-            (HttpServletRequest request, HttpServletRequest response, Authentication authentication) throws IOException {
+            (HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         log.info("# Authenticated successfully!");
     }
 }
