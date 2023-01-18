@@ -5,6 +5,7 @@ import {
   LeftCotainer,
   Text
 } from '../../styles/myPageStyle';
+import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
 
 const MyQuestionList = () => {
   return (
@@ -16,6 +17,7 @@ const MyQuestionList = () => {
         <RightContainer>
           <Text>작성일</Text>
           <Text>답변상태</Text>
+          <CancelIcon />
         </RightContainer>
       </ListHeader>
       <MyQuestion />

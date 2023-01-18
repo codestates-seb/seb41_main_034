@@ -5,6 +5,7 @@ import {
   Text2,
   MarginSpace
 } from '../../styles/myPageStyle';
+import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
 
 const MyQuestion = () => {
   return (
@@ -17,6 +18,7 @@ const MyQuestion = () => {
       <RightContainer2>
         <Text2>2023.1.13</Text2>
         <Text2>답변완료</Text2>
+        <CancelIcon />
       </RightContainer2>
     </ListHeader2>
   );

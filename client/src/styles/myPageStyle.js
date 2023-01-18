@@ -24,12 +24,18 @@ const ListHeader = styled.div`
 
 const RightContainer = styled.div`
   display: flex;
-  flex-grow: 1;
+  width: 100%;
   justify-content: space-between;
+
+  svg {
+    width: 1px;
+    fill: ${(props) => props.theme.activeColor};
+  }
 `;
 
 const LeftCotainer = styled.div`
-  flex-grow: 1.5;
+  width: 100%;
+  max-width: 363px;
 `;
 
 const Text = styled.div`
@@ -65,15 +71,23 @@ const ListHeader2 = styled.div`
 
 const RightContainer2 = styled.div`
   display: flex;
+  width: 100%;
   justify-content: space-between;
-  flex-grow: 1;
+  align-items: center;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: ${(props) => props.theme.blackColor};
+  }
 `;
 
 const LeftCotainer2 = styled.div`
-  flex-grow: 1.3;
+  width: 100%;
+  max-width: 363px;
 `;
 
-const Text2 = styled.div`
+const Text2 = styled.button`
   font-size: 12px;
 
   @media ${(props) => props.theme.tablet} {
