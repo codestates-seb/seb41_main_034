@@ -1,5 +1,6 @@
 package com.codestates.seb41_main_034.question;
 
+import com.codestates.seb41_main_034.common.PaginatedResponseDto;
 import com.codestates.seb41_main_034.common.exception.BusinessLogicException;
 import com.codestates.seb41_main_034.common.exception.BusinessLogicException.ExceptionCode;
 import com.codestates.seb41_main_034.product.ProductService;
@@ -10,10 +11,14 @@ import com.codestates.seb41_main_034.question.dto.QuestionResponseDto;
 import com.codestates.seb41_main_034.question.entity.Answer;
 import com.codestates.seb41_main_034.question.entity.Question;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -28,7 +33,7 @@ public class QuestionService {
 
     public QuestionResponseDto createQuestion(QuestionPostDto questionPostDto) {
         // 상품 ID 검증 및 상품 정보 조회
-        ProductResponseDto productDto = productService.getVerifiedProduct(questionPostDto.getProductId());
+        ProductResponseDto productDto = productService.readProduct(questionPostDto.getProductId());
 
         // 엔티티 객체 생성 및 데이터 입력
         Question question = new Question();
@@ -49,12 +54,34 @@ public class QuestionService {
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
 
         // 상품 정보 조회
-        ProductResponseDto productDto = productService.getVerifiedProduct(question.getProductId());
+        ProductResponseDto productDto = productService.readProduct(question.getProductId());
 
         // DTO 매핑 후 반환
         return questionToDto(question, productDto);
     }
 
+    @Transactional(readOnly = true)
+    public PaginatedResponseDto<QuestionResponseDto> readProductQuestions(int productId, Pageable pageable) {
+        // 상품 ID 검증 및 상품 정보 조회
+        ProductResponseDto productDto = productService.readProduct(productId);
+
+        // 상품에 해당하는 문의 ID 목록 조회
+        Page<Long> questionIdPage = questionRepository.findIdByProductId(productId, pageable);
+
+        // 문의 ID 목록에 따른 문의 목록 조회
+        List<Question> questions = questionRepository.findAllById(questionIdPage.getContent(), pageable.getSort());
+
+        // DTO 매핑 후 반환
+        return new PaginatedResponseDto<>(
+                questions.stream().map(question -> questionToDto(question, productDto)).collect(Collectors.toList()),
+                questionIdPage.getNumber(),
+                questionIdPage.getSize(),
+                questionIdPage.getTotalPages(),
+                questionIdPage.getTotalElements()
+        );
+    }
+
+    @Transactional(readOnly = true)
     private QuestionResponseDto questionToDto(Question question, ProductResponseDto productDto) {
         List<String> imageUrls = productDto.getImageUrls();
 
@@ -64,7 +91,7 @@ public class QuestionService {
                 productDto.getName(),
                 imageUrls.isEmpty() ? null : imageUrls.get(0),
                 question.getBody(),
-                answerToDto(question.getAnswer()),
+                Optional.ofNullable(question.getAnswer()).map(this::answerToDto).orElse(null),
                 question.getCreatedBy(),
                 question.getModifiedBy(),
                 question.getCreatedAt(),

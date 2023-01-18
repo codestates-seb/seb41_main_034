@@ -61,6 +61,8 @@ public class ProductService {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
 
+        // TODO: 인증이 없거나 인증된 사용자가 관리자가 아닌 경우 DRAFT 상태인 상품은 PRODUCT_NOT_FOUND 처리해야 한다.
+
         // DTO로 매핑 후 반환
         return productToDto(product);
     }
@@ -100,16 +102,6 @@ public class ProductService {
 
         // 수정된 부분을 DB에 저장한다.
         productRepository.flush();
-
-        // DTO로 매핑 후 반환
-        return productToDto(product);
-    }
-
-    @Transactional(readOnly = true)
-    public ProductResponseDto getVerifiedProduct(int productId) {
-        // DB에서 상품 조회, 없는 경우 예외 발생
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
 
         // DTO로 매핑 후 반환
         return productToDto(product);
@@ -171,6 +163,7 @@ public class ProductService {
         }
     }
 
+    @Transactional(readOnly = true)
     private ProductResponseDto productToDto(Product product) {
         // Product -> DTO 매핑
         try {

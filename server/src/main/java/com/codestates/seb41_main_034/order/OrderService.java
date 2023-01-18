@@ -8,7 +8,6 @@ import com.codestates.seb41_main_034.order.dto.*;
 import com.codestates.seb41_main_034.order.entity.Order;
 import com.codestates.seb41_main_034.order.entity.OrderProduct;
 import com.codestates.seb41_main_034.order.entity.OrderProduct.OrderProductStatus;
-import com.codestates.seb41_main_034.product.Product.ProductStatus;
 import com.codestates.seb41_main_034.product.ProductService;
 import com.codestates.seb41_main_034.product.dto.ProductResponseDto;
 import lombok.AllArgsConstructor;
@@ -40,8 +39,11 @@ public class OrderService {
         Map<Integer, ProductResponseDto> productDtoMap = productService.getVerifiedProducts(productIds)
                 .stream()
                 .peek(productDto -> {
-                    if (productDto.getStatus() != ProductStatus.ACTIVE) {
-                        throw new BusinessLogicException(ExceptionCode.ORDER_PRODUCT_NOT_ACTIVE);
+                    switch (productDto.getStatus()) {
+                        case UNAVAILABLE:
+                            throw new BusinessLogicException(ExceptionCode.ORDER_PRODUCT_IS_UNAVAILABLE);
+                        case DRAFT:
+                            throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
                     }
                 })
                 .collect(Collectors.toMap(ProductResponseDto::getId, Function.identity()));
@@ -435,6 +437,7 @@ public class OrderService {
         return orderToDto(order, null);
     }
 
+    @Transactional(readOnly = true)
     private OrderResponseDto orderToDto(Order order, Map<Integer, ProductResponseDto> productDtoMap) {
         Address address = order.getAddress();
 
