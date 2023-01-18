@@ -34,9 +34,6 @@ public class OrderProduct extends Auditable {
     @Enumerated(EnumType.STRING)
     private OrderProductStatus status = OrderProductStatus.WAITING_FOR_PAYMENT;
 
-    @Column(nullable = false)
-    private boolean isDeleted = false;
-
     public OrderProduct(Order order, int productId, int price, int quantity) {
         this.order = order;
         this.productId = productId;

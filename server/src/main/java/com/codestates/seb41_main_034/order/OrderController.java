@@ -19,8 +19,8 @@ import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 
 @AllArgsConstructor
-@Validated
 @RestController
+@Validated
 @RequestMapping("/api/v1")
 public class OrderController {
 

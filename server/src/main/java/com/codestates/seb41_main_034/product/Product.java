@@ -43,9 +43,6 @@ public class Product extends Auditable {
     @Type(type = "text")
     private String detailImageUrls = "[]";
 
-    @Column(nullable = false)
-    private boolean isDeleted = false;
-
     public Product(String name, int price, int stock) {
         this.name = name;
         this.price = price;

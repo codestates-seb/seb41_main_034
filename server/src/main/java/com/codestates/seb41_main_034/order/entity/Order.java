@@ -24,7 +24,4 @@ public class Order extends Auditable {
     @Embedded
     private Address address;
 
-    @Column(nullable = false)
-    private boolean isDeleted = false;
-
 }

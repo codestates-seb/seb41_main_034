@@ -25,4 +25,7 @@ public abstract class DateAuditable {
     @Column(nullable = false)
     private LocalDateTime modifiedAt;
 
+    @Column(nullable = false)
+    private boolean isDeleted = false;
+
 }

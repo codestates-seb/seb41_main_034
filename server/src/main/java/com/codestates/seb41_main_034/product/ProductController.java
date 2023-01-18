@@ -7,6 +7,7 @@ import com.codestates.seb41_main_034.product.dto.ProductPostDto;
 import com.codestates.seb41_main_034.product.dto.ProductResponseDto;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +20,8 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 @AllArgsConstructor
-@Validated
 @RestController
+@Validated
 @RequestMapping("/api/v1/product")
 public class ProductController {
 
@@ -43,7 +44,7 @@ public class ProductController {
     @GetMapping
     public ResponseEntity<PaginatedResponseDto<ProductResponseDto>> getProducts(
             @RequestParam(required = false) ProductCategory category,
-            @PageableDefault Pageable pageable
+            @PageableDefault(sort = "id", direction = Direction.DESC) Pageable pageable
     ) {
         return new ResponseEntity<>(productService.readProducts(category, pageable), HttpStatus.OK);
     }

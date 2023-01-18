@@ -8,6 +8,7 @@ import com.codestates.seb41_main_034.order.dto.*;
 import com.codestates.seb41_main_034.order.entity.Order;
 import com.codestates.seb41_main_034.order.entity.OrderProduct;
 import com.codestates.seb41_main_034.order.entity.OrderProduct.OrderProductStatus;
+import com.codestates.seb41_main_034.product.Product.ProductStatus;
 import com.codestates.seb41_main_034.product.ProductService;
 import com.codestates.seb41_main_034.product.dto.ProductResponseDto;
 import lombok.AllArgsConstructor;
@@ -31,20 +32,25 @@ public class OrderService {
     private final ProductService productService;
 
     public OrderResponseDto createOrder(OrderPostDto postDto) {
-        // 입력 받은 상 ID가 유효하고 주문 가능한지 확인 및 상 정보 조회
+        // 입력 받은 상품 ID가 유효하고 주문 가능한지 확인 및 상품 정보 조회
         List<Integer> productIds = postDto.getProducts()
                 .stream()
                 .map(OrderProductPostDto::getProductId)
                 .collect(Collectors.toList());
-        Map<Integer, ProductResponseDto> productDtoMap = productService.getOrderableProducts(productIds)
+        Map<Integer, ProductResponseDto> productDtoMap = productService.getVerifiedProducts(productIds)
                 .stream()
+                .peek(productDto -> {
+                    if (productDto.getStatus() != ProductStatus.ACTIVE) {
+                        throw new BusinessLogicException(ExceptionCode.ORDER_PRODUCT_NOT_ACTIVE);
+                    }
+                })
                 .collect(Collectors.toMap(ProductResponseDto::getId, Function.identity()));
 
         // Order 생성
         Order order = new Order();
 
         // OrderProduct 생성
-        // DTO에 중복된 상 ID가 있는 경우 수량을 합쳐서 하나의 OrderProduct 엔티티로 처리
+        // DTO에 중복된 상품 ID가 있는 경우 수량을 합쳐서 하나의 OrderProduct 엔티티로 처리
         Map<Integer, OrderProduct> orderProductMap = new HashMap<>();
         for (OrderProductPostDto dto : postDto.getProducts()) {
             int productId = dto.getProductId();
@@ -89,7 +95,7 @@ public class OrderService {
 
         // 결제 완료 처리, DB에 반영
         // TODO: 결제 정보를 확인한 후에 결제 완료로 변경하도록 수정해야한다.
-        //       EventListener 등을 사용하여 비동기적으로 해결해야할 것 같다.
+        //       EventListener 등을 사용하여 비동기적으로 해결할 수도 있고 아니면 지금처럼 결제 완료가 되고 난 후 주문이 생성되게 할 수도 있다.
         for (OrderProduct orderProduct : createdOrder.getOrderProducts()) {
             orderProduct.setStatus(OrderProductStatus.PAYMENT_FINISHED);
         }
@@ -105,12 +111,12 @@ public class OrderService {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ORDER_NOT_FOUND));
 
-        // 주문한 상 정보 조회
+        // 주문한 상품 정보 조회
         List<Integer> productIds = order.getOrderProducts()
                 .stream()
                 .map(OrderProduct::getProductId)
                 .collect(Collectors.toList());
-        Map<Integer, ProductResponseDto> productDtoMap = productService.getOrderableProducts(productIds)
+        Map<Integer, ProductResponseDto> productDtoMap = productService.getVerifiedProducts(productIds)
                 .stream()
                 .collect(Collectors.toMap(ProductResponseDto::getId, Function.identity()));
 
@@ -133,12 +139,12 @@ public class OrderService {
         // 주문 ID Page를 사용하여 fetch join된 주문 목록 조회
         List<Order> orders = orderRepository.findAllById(orderIdPage.getContent(), pageable.getSort());
 
-        // 주문 목록에 있는 상을 한 번에 조회
+        // 주문 목록에 있는 상품을 한 번에 조회
         List<Integer> productIds = orders.stream()
                 .flatMap(order -> order.getOrderProducts().stream())
                 .map(OrderProduct::getProductId)
                 .collect(Collectors.toList());
-        Map<Integer, ProductResponseDto> productDtoMap = productService.getOrderableProducts(productIds)
+        Map<Integer, ProductResponseDto> productDtoMap = productService.getVerifiedProducts(productIds)
                 .stream()
                 .collect(Collectors.toMap(ProductResponseDto::getId, Function.identity()));
 
@@ -207,12 +213,12 @@ public class OrderService {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ORDER_NOT_FOUND));
 
-        // 주문한 상 ID Set 생성
+        // 주문한 상품 ID Set 생성
         Set<Integer> productIds = order.getOrderProducts().stream()
                 .map(OrderProduct::getProductId).collect(Collectors.toSet());
 
         // DTO를 Map<productId, quantity>로 만든다. DTO에 중복된 ID가 있는 경우 quantity를 더한다.
-        // 취소하려는 상 ID가 주문한 상 ID에 없는 경우 예외 발생
+        // 취소하려는 상품 ID가 주문한 상품 ID에 없는 경우 예외 발생
         Map<Integer, Integer> cancelMap = new HashMap<>();
         for (OrderProductCancelDto dto : cancelDto.getProducts()) {
             int productId = dto.getProductId();
@@ -237,7 +243,7 @@ public class OrderService {
                 })
                 .collect(Collectors.toList());
 
-        // 취소 완료된 수량 집계, 상 재고를 수정하는 데에 사용
+        // 취소 완료된 수량 집계, 상품 재고를 수정하는 데에 사용
         Map<Integer, Integer> productIdDeltaMap = new HashMap<>();
 
         // 취소 처리 진행
@@ -308,8 +314,8 @@ public class OrderService {
         // DB에 주문 수정 사항 저장
         orderRepository.flush();
 
-        // 상 정보 조회
-        Map<Integer, ProductResponseDto> productDtoMap = productService.getOrderableProducts(productIds).stream()
+        // 상품 정보 조회
+        Map<Integer, ProductResponseDto> productDtoMap = productService.getVerifiedProducts(productIds).stream()
                 .collect(Collectors.toMap(ProductResponseDto::getId, Function.identity()));
 
         // 응답 DTO로 매핑 후 반환

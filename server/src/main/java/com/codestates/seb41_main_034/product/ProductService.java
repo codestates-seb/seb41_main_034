@@ -57,7 +57,7 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public ProductResponseDto readProduct(int productId) {
-        // DB에서 제품 조회, 없는 경우 예외 발생
+        // DB에서 상품 조회, 없는 경우 예외 발생
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
 
@@ -84,7 +84,7 @@ public class ProductService {
 
     public ProductResponseDto updateProduct(
             int productId, ProductPatchDto patchDto, List<MultipartFile> images, List<MultipartFile> detailImages) {
-        // DB에서 제품 조회, 없는 경우 예외 발생
+        // DB에서 상품 조회, 없는 경우 예외 발생
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
 
@@ -106,31 +106,34 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public List<ProductResponseDto> getOrderableProducts(Iterable<Integer> productIds) {
+    public ProductResponseDto getVerifiedProduct(int productId) {
+        // DB에서 상품 조회, 없는 경우 예외 발생
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
+
+        // DTO로 매핑 후 반환
+        return productToDto(product);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ProductResponseDto> getVerifiedProducts(Iterable<Integer> productIds) {
         // 입력받은 ID 수 집계 (중복 제외)
         long idCount = Streamable.of(productIds).stream().distinct().count();
 
-        // 모든 ID에 해당하는 제품을 조회
+        // 모든 ID에 해당하는 상품을 조회
         List<Product> products = productRepository.findAllById(productIds);
 
-        // 조회된 제품 수가 ID 수보다 적으면 예외 발생
+        // 조회된 상품 수가 ID 수보다 적으면 예외 발생
         if (products.stream().distinct().count() != idCount) {
             throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
         }
-
-        // 조회된 제품 중 판매중이 아닌 상품이 있는 경우 예외 발생
-        products.forEach(product -> {
-            if (product.getStatus() != Product.ProductStatus.ACTIVE) {
-                throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_ORDERABLE);
-            }
-        });
 
         // DTO로 매핑 후 반환
         return products.stream().map(this::productToDto).collect(Collectors.toList());
     }
 
     public void updateProductStock(int productId, int delta) {
-        // DB에서 제품 조회, 없는 경우 예외 발생
+        // DB에서 상품 조회, 없는 경우 예외 발생
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
 

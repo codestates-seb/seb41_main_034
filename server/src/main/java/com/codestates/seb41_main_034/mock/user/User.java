@@ -1,4 +1,4 @@
-package com.codestates.seb41_main_034.order.mock.user;
+package com.codestates.seb41_main_034.mock.user;
 
 import lombok.Getter;
 import lombok.Setter;
