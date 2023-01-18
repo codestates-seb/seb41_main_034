@@ -204,7 +204,284 @@ const SubTitle = styled.div`
     display: none;
   }
 `;
+//UserInfo
+const UserWrapper = styled.div`
+  width: 100%;
+  max-width: 602px;
 
+  @media ${(props) => props.theme.tablet} {
+    width: 100%;
+    max-width: 393px;
+  }
+`;
+
+const UserInfoContainer = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  border: 1px solid ${(props) => props.theme.borderColor};
+  border-radius: 4px;
+`;
+
+const ImgContainer = styled.div`
+  display: flex;
+  width: 35%;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    width: 150px;
+    height: 150px;
+
+    @media ${(props) => props.theme.tablet} {
+      width: 102px;
+      height: 102px;
+    }
+
+    @media ${(props) => props.theme.mobile} {
+      width: 102px;
+      height: 102px;
+    }
+  }
+`;
+
+const InfoContainer = styled.div`
+  display: grid;
+  width: 65%;
+`;
+
+const NameText = styled.div`
+  display: flex;
+  padding: 12px 0 12px 0;
+  font-size: 24px;
+  align-items: center;
+
+  @media ${(props) => props.theme.tablet} {
+    font-size: 16px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 12px;
+  }
+`;
+
+const OtherText = styled.div`
+  display: flex;
+  font-size: 12px;
+  padding-bottom: 8px;
+  align-items: center;
+
+  @media ${(props) => props.theme.tablet} {
+    font-size: 8px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 8px;
+  }
+`;
+
+const EditButtonContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+`;
+
+const EditButton = styled.button`
+  width: 167px;
+  height: 41px;
+  margin: 12px 0 12px 0;
+  border-radius: 4px;
+  background-color: ${(props) => props.theme.primaryColor};
+  color: ${(props) => props.theme.whiteColor};
+  font-size: 12px;
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      background-color: ${(props) => props.theme.hoverColor};
+    }
+  }
+
+  @media ${(props) => props.theme.tablet} {
+    width: 96px;
+    height: 29px;
+    font-size: 8px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    width: 88px;
+    height: 28px;
+    font-size: 8px;
+  }
+`;
+//UserInfoEdit
+const UserEditWrapper = styled.div`
+  width: 100%;
+  max-width: 602px;
+
+  @media ${(props) => props.theme.tablet} {
+    width: 100%;
+    max-width: 393px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    width: 100%;
+  }
+`;
+
+const UserEditContainer = styled.div`
+  display: grid;
+  width: 100%;
+  align-items: center;
+  border: 1px solid ${(props) => props.theme.borderColor};
+  border-radius: 4px;
+`;
+
+const EditCotainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+`;
+
+const LeftBox = styled.div`
+  display: flex;
+  width: 100%;
+  max-width: 137px;
+  padding: 14px 0 14px 0;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid ${(props) => props.theme.borderColor};
+  border-radius: 4px;
+  font-size: 12px;
+  background-color: ${(props) => props.theme.primaryColor};
+  color: ${(props) => props.theme.whiteColor};
+
+  @media ${(props) => props.theme.tablet} {
+    max-width: 77px;
+    padding: 12px 0 12px 0;
+    font-size: 8px;
+  }
+`;
+
+const RightBox = styled.div`
+  display: grid;
+  width: 100%;
+  padding: 4px;
+  align-items: center;
+  border: 1px solid ${(props) => props.theme.borderColor};
+
+  @media ${(props) => props.theme.mobile} {
+    border: none;
+  }
+`;
+
+const InputBox = styled.input`
+  width: 100%;
+  padding: 12px;
+  margin: 2px;
+  border: 1px solid ${(props) => props.theme.borderColor};
+  border-radius: 4px;
+  font-size: 12px;
+
+  @media ${(props) => props.theme.tablet} {
+    padding: 8px;
+    font-size: 12px;
+    zoom: 0.9;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 8px;
+  }
+`;
+
+const PasswordContainer = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+`;
+
+const PasswordText = styled.div`
+  width: 60%;
+  padding: 4px;
+  font-size: 12px;
+
+  @media ${(props) => props.theme.tablet} {
+    font-size: 8px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 4px;
+  }
+`;
+
+const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+
+  @media ${(props) => props.theme.mobile} {
+    display: grid;
+    justify-content: center;
+  }
+`;
+
+const ConfirmButton = styled.button`
+  width: 98px;
+  height: 34px;
+  margin: 4px 0 0 4px;
+  color: ${(props) => props.theme.whiteColor};
+  background-color: ${(props) => props.theme.primaryColor};
+  border-radius: 4px;
+  font-size: 12px;
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      background-color: ${(props) => props.theme.hoverColor};
+    }
+  }
+
+  @media ${(props) => props.theme.tablet} {
+    width: 64px;
+    height: 24px;
+    font-size: 8px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    width: 220px;
+    height: 28px;
+    margin-top: 24px;
+    font-size: 8px;
+  }
+`;
+
+const UserOutButton = styled.button`
+  width: 98px;
+  height: 34px;
+  margin: 4px 0 0 4px;
+  border: 1px solid ${(props) => props.theme.borderColor};
+  border-radius: 4px;
+  color: ${(props) => props.theme.primaryColor};
+  background-color: ${(props) => props.theme.whiteColor};
+  font-size: 12px;
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      background-color: ${(props) => props.theme.hoverColor};
+      color: ${(props) => props.theme.whiteColor};
+    }
+  }
+
+  @media ${(props) => props.theme.tablet} {
+    width: 64px;
+    height: 24px;
+    font-size: 8px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    width: 220px;
+    height: 28px;
+    font-size: 8px;
+  }
+`;
 export {
   ListHeader,
   RightContainer,
@@ -219,5 +496,24 @@ export {
   CatagoryBox,
   Container,
   Title,
-  SubTitle
+  SubTitle,
+  UserWrapper,
+  UserInfoContainer,
+  ImgContainer,
+  InfoContainer,
+  NameText,
+  OtherText,
+  EditButtonContainer,
+  EditButton,
+  UserEditWrapper,
+  UserEditContainer,
+  EditCotainer,
+  LeftBox,
+  RightBox,
+  InputBox,
+  PasswordContainer,
+  PasswordText,
+  ButtonContainer,
+  ConfirmButton,
+  UserOutButton
 };
