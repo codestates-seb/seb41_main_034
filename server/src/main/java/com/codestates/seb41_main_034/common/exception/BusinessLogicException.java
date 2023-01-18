@@ -33,7 +33,11 @@ public class BusinessLogicException extends RuntimeException {
         ORDER_NO_PRODUCTS_TO_PREPARE(HttpStatus.BAD_REQUEST, "배송을 준비할 상품이 없습니다."),
         ORDER_NO_PRODUCTS_TO_SHIP(HttpStatus.BAD_REQUEST, "배송 시작할 상품이 없습니다."),
         ORDER_NO_PRODUCTS_TO_CONFIRM_CANCELLATION(HttpStatus.BAD_REQUEST, "취소 완료할 상품이 없습니다."),
-        QUESTION_NOT_FOUND(HttpStatus.NOT_FOUND, "문의를 찾을 수 없습니다.");
+        QUESTION_NOT_FOUND(HttpStatus.NOT_FOUND, "문의를 찾을 수 없습니다."),
+        QUESTION_CANNOT_UPDATE(HttpStatus.FORBIDDEN, "이미 답변된 문의는 수정할 수 없습니다."),
+        QUESTION_CANNOT_DELETE(HttpStatus.FORBIDDEN, "이미 답변된 문의는 삭제할 수 없습니다."),
+        QUESTION_CANNOT_ANSWER(HttpStatus.FORBIDDEN, "이미 답변된 문의에는 답변할 수 없습니다."),
+        QUESTION_ANSWER_NOT_FOUND(HttpStatus.NOT_FOUND, "답변을 찾을 수 없습니다.");
 
         private final HttpStatus httpStatus;
 

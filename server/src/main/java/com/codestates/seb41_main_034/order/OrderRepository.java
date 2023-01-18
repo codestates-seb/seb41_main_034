@@ -20,7 +20,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query("select o.id from Order o " +
             "where o.createdBy = ?1 and cast(o.createdAt as LocalDate) between ?2 and ?3 and o.isDeleted = false")
-    Page<Long> findIdByCreatedByAndYear(int createdBy, LocalDate from, LocalDate to, Pageable pageable);
+    Page<Long> findIdByCreatedByAndDateBetween(int createdBy, LocalDate from, LocalDate to, Pageable pageable);
 
     @Query("select distinct o from Order o left join fetch o.orderProducts op " +
             "where o.id in ?1 and o.isDeleted = false and op.isDeleted = false")

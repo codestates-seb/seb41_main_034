@@ -38,15 +38,11 @@ public class OrderController {
 
     @GetMapping("/order/order-history")
     public ResponseEntity<PaginatedResponseDto<OrderResponseDto>> getMyOrders(
-//            @AuthenticationPrincipal User user,
             @PastOrPresent @RequestParam(required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate from,
             @PastOrPresent @RequestParam(required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate to,
             @PageableDefault(sort = "id", direction = Direction.DESC) Pageable pageable
     ) {
-        // TODO: 인증된 principal로부터 유저 ID를 얻어야 한다.
-        int createdBy = 1;
-
-        return new ResponseEntity<>(orderService.readOrders(createdBy, from, to, pageable), HttpStatus.OK);
+        return new ResponseEntity<>(orderService.readOrders(from, to, pageable), HttpStatus.OK);
     }
 
     @PatchMapping("/ordering/{orderId}/address")

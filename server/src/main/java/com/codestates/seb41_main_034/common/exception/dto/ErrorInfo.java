@@ -13,13 +13,13 @@ import java.util.Set;
 
 @Getter
 @RequiredArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ErrorInfo {
 
     private final int status;
 
     private final String message;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<ValidationError> validationErrors;
 
     private ErrorInfo(final List<ValidationError> validationErrors) {

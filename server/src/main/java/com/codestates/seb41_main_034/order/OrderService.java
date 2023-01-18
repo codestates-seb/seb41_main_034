@@ -32,10 +32,8 @@ public class OrderService {
 
     public OrderResponseDto createOrder(OrderPostDto postDto) {
         // 입력 받은 상품 ID가 유효하고 주문 가능한지 확인 및 상품 정보 조회
-        List<Integer> productIds = postDto.getProducts()
-                .stream()
-                .map(OrderProductPostDto::getProductId)
-                .collect(Collectors.toList());
+        Set<Integer> productIds = postDto.getProducts().stream()
+                .map(OrderProductPostDto::getProductId).collect(Collectors.toSet());
         Map<Integer, ProductResponseDto> productDtoMap = productService.getVerifiedProducts(productIds)
                 .stream()
                 .peek(productDto -> {
@@ -114,10 +112,8 @@ public class OrderService {
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ORDER_NOT_FOUND));
 
         // 주문한 상품 정보 조회
-        List<Integer> productIds = order.getOrderProducts()
-                .stream()
-                .map(OrderProduct::getProductId)
-                .collect(Collectors.toList());
+        Set<Integer> productIds = order.getOrderProducts().stream()
+                .map(OrderProduct::getProductId).collect(Collectors.toSet());
         Map<Integer, ProductResponseDto> productDtoMap = productService.getVerifiedProducts(productIds)
                 .stream()
                 .collect(Collectors.toMap(ProductResponseDto::getId, Function.identity()));
@@ -127,32 +123,35 @@ public class OrderService {
     }
 
     @Transactional(readOnly = true)
-    public PaginatedResponseDto<OrderResponseDto> readOrders(int createdBy,
-                                                             LocalDate from,
+    public PaginatedResponseDto<OrderResponseDto> readOrders(LocalDate from,
                                                              LocalDate to,
                                                              Pageable pageable) {
+        // TODO: 인증된 회원의 ID를 가져와야 한다.
+        int createdBy = 1;
+
         // from, to 기본값 설정
         from = Optional.ofNullable(from).orElse(LocalDate.of(2023, 1, 1));
         to = Optional.ofNullable(to).orElse(LocalDate.now());
 
         // 페이지네이션 적용된 주문 ID 조회
-        Page<Long> orderIdPage = orderRepository.findIdByCreatedByAndYear(createdBy, from, to, pageable);
+        Page<Long> orderIdPage = orderRepository.findIdByCreatedByAndDateBetween(createdBy, from, to, pageable);
 
         // 주문 ID Page를 사용하여 fetch join된 주문 목록 조회
         List<Order> orders = orderRepository.findAllById(orderIdPage.getContent(), pageable.getSort());
 
         // 주문 목록에 있는 상품을 한 번에 조회
-        List<Integer> productIds = orders.stream()
-                .flatMap(order -> order.getOrderProducts().stream())
-                .map(OrderProduct::getProductId)
-                .collect(Collectors.toList());
+        Set<Integer> productIds = orders.stream().flatMap(order -> order.getOrderProducts().stream())
+                .map(OrderProduct::getProductId).collect(Collectors.toSet());
         Map<Integer, ProductResponseDto> productDtoMap = productService.getVerifiedProducts(productIds)
                 .stream()
                 .collect(Collectors.toMap(ProductResponseDto::getId, Function.identity()));
 
         // 페이지네이션 응답 DTO로 반환
+        List<OrderResponseDto> orderDtos =
+                orders.stream().map(order -> orderToDto(order, productDtoMap)).collect(Collectors.toList());
+
         return new PaginatedResponseDto<>(
-                orders.stream().map(order -> orderToDto(order, productDtoMap)).collect(Collectors.toList()),
+                orderDtos,
                 orderIdPage.getNumber(),
                 orderIdPage.getSize(),
                 orderIdPage.getTotalPages(),
@@ -220,17 +219,8 @@ public class OrderService {
                 .map(OrderProduct::getProductId).collect(Collectors.toSet());
 
         // DTO를 Map<productId, quantity>로 만든다. DTO에 중복된 ID가 있는 경우 quantity를 더한다.
-        // 취소하려는 상품 ID가 주문한 상품 ID에 없는 경우 예외 발생
-        Map<Integer, Integer> cancelMap = new HashMap<>();
-        for (OrderProductCancelDto dto : cancelDto.getProducts()) {
-            int productId = dto.getProductId();
-
-            if (!productIds.contains(productId)) {
-                throw new BusinessLogicException(ExceptionCode.ORDER_CANNOT_CANCEL);
-            }
-
-            cancelMap.merge(productId, dto.getQuantity(), Integer::sum);
-        }
+        Map<Integer, Integer> cancelMap = cancelDto.getProducts().stream().collect(Collectors.toMap(
+                OrderProductCancelDto::getProductId, OrderProductCancelDto::getQuantity, Integer::sum));
 
         // 취소 가능한 OrderProduct만 분리
         // 결제 대기, 결제 완료, 배송 준비 중일 때에만 취소 가능
@@ -250,7 +240,7 @@ public class OrderService {
 
         // 취소 처리 진행
         cancelMap.forEach((productId, quantity) -> {
-            // 상 ID에 해당하는 OrderProduct만 분리
+            // 상품 ID에 해당하는 OrderProduct만 분리
             List<OrderProduct> orderProducts = cancelableOrderProducts.stream()
                     .filter(orderProduct -> orderProduct.getProductId() == productId)
                     .collect(Collectors.toList());
@@ -423,7 +413,6 @@ public class OrderService {
         // 취소 대기 중인 상품을 취소 완료로 변경
         for (OrderProduct orderProduct : orderProducts) {
             productIdDeltaMap.merge(orderProduct.getProductId(), orderProduct.getQuantity(), Integer::sum);
-
             orderProduct.setStatus(OrderProductStatus.CANCELED);
         }
 
@@ -445,12 +434,14 @@ public class OrderService {
                 .map(orderProduct -> {
                     Optional<ProductResponseDto> productDto = Optional.ofNullable(productDtoMap)
                             .map(map -> map.get(orderProduct.getProductId()));
+                    String name = productDto.map(ProductResponseDto::getName).orElse(null);
+                    String imageUrl = productDto.map(ProductResponseDto::getImageUrls)
+                            .map(urls -> urls.isEmpty() ? null : urls.get(0)).orElse(null);
 
                     return new OrderProductResponseDto(
                             orderProduct.getProductId(),
-                            productDto.map(ProductResponseDto::getName).orElse(null),
-                            productDto.map(ProductResponseDto::getImageUrls)
-                                    .map(urls -> urls.isEmpty() ? null : urls.get(0)).orElse(null),
+                            name,
+                            imageUrl,
                             orderProduct.getPrice(),
                             orderProduct.getQuantity(),
                             orderProduct.getStatus(),

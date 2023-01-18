@@ -15,7 +15,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -108,9 +108,9 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public List<ProductResponseDto> getVerifiedProducts(Iterable<Integer> productIds) {
-        // 입력받은 ID 수 집계 (중복 제외)
-        long idCount = Streamable.of(productIds).stream().distinct().count();
+    public List<ProductResponseDto> getVerifiedProducts(Set<Integer> productIds) {
+        // 입력받은 ID 수 집계
+        long idCount = productIds.size();
 
         // 모든 ID에 해당하는 상품을 조회
         List<Product> products = productRepository.findAllById(productIds);

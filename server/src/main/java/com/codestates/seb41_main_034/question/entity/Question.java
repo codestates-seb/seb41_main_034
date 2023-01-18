@@ -22,7 +22,7 @@ public class Question extends Auditable {
     @Type(type = "text")
     private String body;
 
-    @OneToOne(mappedBy = "question")
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "question")
     private Answer answer;
 
 }

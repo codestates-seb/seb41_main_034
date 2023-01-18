@@ -9,8 +9,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class AnswerResponseDto {
 
-    private long questionId;
-
     private String body;
 
     private int createdBy;
