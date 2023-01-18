@@ -16,7 +16,7 @@ import {
   MobileMenuButton,
   LogoutButton,
   MyPageLink
-} from '../../styles/headerStyle';
+} from '../../styles/layoutStyle';
 import { ReactComponent as SearchIcon } from '../../assets/icons/searchIcon.svg';
 import { ReactComponent as LogoIcon } from '../../assets/icons/foodmeet.svg';
 import { ReactComponent as CartIcon } from '../../assets/icons/cartIcon.svg';

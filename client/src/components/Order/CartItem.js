@@ -1,22 +1,18 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   CartItemContainer,
   CartItemImage,
   CartItemImg,
   CartItemInfo,
+  CartItemDelete,
   ProductName,
   ProductPrice,
-  ProductCount,
-  CountButton,
-  Count,
   DeleteButton
 } from '../../styles/orderStyle';
 import { ReactComponent as DeleteIcon } from '../../assets/icons/cancleIcon.svg';
+import OrderCounter from './OrderCounter';
 
 const MyCartItem = () => {
-  const [count, setCount] = useState(1);
-
   return (
     <CartItemContainer>
       <CartItemImage>
@@ -33,44 +29,16 @@ const MyCartItem = () => {
         <ProductName>
           <Link>사과</Link>
         </ProductName>
-        <ProductPrice>
-          {`${(12000 * count).toLocaleString('ko-KR')}`}원
-        </ProductPrice>
-        <ProductCount>
-          {count <= 1 ? (
-            <CountButton disabled onClick={() => setCount(count - 1)}>
-              -
-            </CountButton>
-          ) : (
-            <CountButton onClick={() => setCount(count - 1)}>-</CountButton>
-          )}
-          <Count
-            type={'number'}
-            value={count}
-            min={'1'}
-            max={'40'}
-            onChange={(e) =>
-              setCount(
-                Number(e.target.value) <= 1 || ''
-                  ? ''
-                  : Number(e.target.value) >= 40
-                  ? 40
-                  : Number(e.target.value)
-              )
-            }
-          />
-          {count >= 40 ? (
-            <CountButton disabled onClick={() => setCount(count + 1)}>
-              +
-            </CountButton>
-          ) : (
-            <CountButton onClick={() => setCount(count + 1)}>+</CountButton>
-          )}
-        </ProductCount>
+
+        <ProductPrice>{`${(12000).toLocaleString('ko-KR')}`}원</ProductPrice>
+
+        <OrderCounter />
       </CartItemInfo>
-      <DeleteButton>
-        <DeleteIcon />
-      </DeleteButton>
+      <CartItemDelete>
+        <DeleteButton>
+          <DeleteIcon />
+        </DeleteButton>
+      </CartItemDelete>
     </CartItemContainer>
   );
 };

@@ -8,8 +8,8 @@ import {
   MobileMenuContainer,
   MobileButton,
   MobileMyPageLink
-} from '../../styles/headerStyle';
-import { Logo } from '../../styles/headerStyle';
+} from '../../styles/menuStyle';
+import { Logo } from '../../styles/layoutStyle';
 import { ReactComponent as LogoIcon } from '../../assets/icons/foodmeet.svg';
 import { ReactComponent as MyPageIcon } from '../../assets/icons/myPageIcon.svg';
 import { Link } from 'react-router-dom';
@@ -31,7 +31,7 @@ const MobileMenu = ({ isLogin, isOpenMenu, setIsOpenMenu }) => {
           <MobileButtonContainer>
             {isLogin ? (
               <>
-                <MobileMyPageLink>
+                <MobileMyPageLink to={'/mypage'}>
                   <MyPageIcon />
                 </MobileMyPageLink>
                 <MobileButton

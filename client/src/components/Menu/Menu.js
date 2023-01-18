@@ -2,7 +2,7 @@ import {
   CatagoryButton,
   CatagoryContainer,
   CatagoryWrapper
-} from '../../styles/headerStyle';
+} from '../../styles/menuStyle';
 
 const Menu = () => {
   return (

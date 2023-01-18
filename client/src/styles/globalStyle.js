@@ -53,7 +53,7 @@ const Main = styled.main`
   display: flex;
   justify-content: center;
   width: 100%;
-  margin-top: 122px;
+  margin-top: 120px;
 `;
 
 const Container = styled.div`

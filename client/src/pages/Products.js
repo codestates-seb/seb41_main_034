@@ -16,7 +16,7 @@ const ProductList = styled.ul`
   flex-wrap: wrap;
   justify-content: space-between;
   width: 100%;
-  margin: 64px 0;
+  margin: 60px 0;
   row-gap: 12px;
 
   @media ${(props) => props.theme.tablet} {
