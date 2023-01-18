@@ -20,8 +20,10 @@ const ProductImage = styled.div`
 
 const ProductContainer = styled.li`
   position: relative;
-  width: calc(25% - 12px);
+  width: calc(25% - 4px);
   height: 300px;
+  padding: 8px;
+  border-radius: 4px;
 
   a {
     display: block;
@@ -31,6 +33,8 @@ const ProductContainer = styled.li`
 
   @media ${(props) => props.theme.desktop} {
     &:hover {
+      border: 1px solid ${(props) => props.theme.borderColor};
+
       ${ProductImage} {
         transform: scale(1.1);
       }
@@ -42,18 +46,21 @@ const ProductContainer = styled.li`
   }
 
   @media ${(props) => props.theme.tablet} {
-    width: calc(100% / 3 - 12px);
+    width: calc(100% / 3 - 8px);
     height: 280px;
+    padding: 0;
   }
 
   @media ${(props) => props.theme.mobile} {
-    width: calc(50% - 12px);
+    width: calc(50% - 4px);
     height: 180px;
+    padding: 0;
   }
 `;
 
 const ProductInfo = styled.div`
   height: 20%;
+  margin-top: 8px;
 `;
 
 const ProductName = styled.h3`
