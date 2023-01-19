@@ -1,8 +1,7 @@
 const color = {
   primary: '#F03E3E',
   secondary: '#FF6B6B',
-  hover: '#FFA8A8',
-  active: '#C92A2A',
+  hover: '#C92A2A',
   black: '#000000',
   white: '#FFFFFF',
   gray: '#ADB5BD',
@@ -18,7 +17,6 @@ const theme = {
   primaryColor: `${color.primary}`,
   secondaryColor: `${color.secondary}`,
   hoverColor: `${color.hover}`,
-  activeColor: `${color.active}`,
   blackColor: `${color.black}`,
   whiteColor: `${color.white}`,
   grayColor: `${color.gray}`,
