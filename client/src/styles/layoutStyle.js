@@ -336,43 +336,17 @@ const Etc = styled.div`
 
 const EtcDt = styled.dt`
   margin-right: 4px;
-  font-size: 12px;
+  font-size: 10px;
   color: ${(props) => props.theme.grayColor};
-
-  @media ${(props) => props.theme.tablet} {
-    margin-right: 2px;
-    font-size: 10px;
-  }
-
-  @media ${(props) => props.theme.mobile} {
-    margin-right: 2px;
-    font-size: 8px;
-  }
 `;
 
 const EtcDd = styled.dd`
-  font-size: 12px;
+  font-size: 10px;
   color: ${(props) => props.theme.grayColor};
 
-  @media ${(props) => props.theme.tablet} {
-    font-size: 10px;
-  }
-
-  @media ${(props) => props.theme.mobile} {
-    font-size: 8px;
-  }
-
   a {
-    font-size: 12px;
+    font-size: 10px;
     color: ${(props) => props.theme.grayColor};
-
-    @media ${(props) => props.theme.tablet} {
-      font-size: 10px;
-    }
-
-    @media ${(props) => props.theme.mobile} {
-      font-size: 8px;
-    }
   }
 `;
 
