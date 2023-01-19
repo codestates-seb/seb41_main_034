@@ -3,11 +3,13 @@ package com.codestates.seb41_main_034.order;
 import com.codestates.seb41_main_034.common.Address;
 import com.codestates.seb41_main_034.common.exception.BusinessLogicException;
 import com.codestates.seb41_main_034.common.exception.ExceptionCode;
-import com.codestates.seb41_main_034.order.dto.*;
+import com.codestates.seb41_main_034.order.dto.OrderAddressPatchDto;
+import com.codestates.seb41_main_034.order.dto.OrderCancelDto;
+import com.codestates.seb41_main_034.order.dto.OrderPostDto;
+import com.codestates.seb41_main_034.order.dto.OrderProductCancelDto;
 import com.codestates.seb41_main_034.order.entity.Order;
 import com.codestates.seb41_main_034.order.entity.OrderProduct;
 import com.codestates.seb41_main_034.order.entity.OrderProductStatus;
-import com.codestates.seb41_main_034.product.entity.Product;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,21 +28,15 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
 
-    public Order createOrder(OrderPostDto postDto, Map<Integer, Product> productMap) {
+    public Order createOrder(OrderPostDto postDto) {
         // Order 생성
         Order order = new Order();
 
         // OrderProduct 생성
         // DTO에 중복된 상품 ID가 있는 경우 수량을 합쳐서 하나의 OrderProduct 엔티티로 처리
         Map<Integer, OrderProduct> orderProductMap = new HashMap<>();
-        for (OrderProductPostDto dto : postDto.getProducts()) {
+        postDto.getProducts().forEach(dto -> {
             int productId = dto.getProductId();
-
-            // 상품 주문 가격과 상품 가격이 불일치하는 경우 예외 발생
-            if (dto.getPrice() != productMap.get(productId).getPrice()) {
-                throw new BusinessLogicException(ExceptionCode.ORDER_MISMATCHED_PRICE);
-            }
-
             orderProductMap.compute(productId, (k, v) -> {
                 if (v == null) {
                     return new OrderProduct(order, productId, dto.getPrice(), dto.getQuantity());
@@ -48,7 +44,7 @@ public class OrderService {
                 v.setQuantity(v.getQuantity() + dto.getQuantity());
                 return v;
             });
-        }
+        });
         order.setOrderProducts(new ArrayList<>(orderProductMap.values()));
 
         // 주소 입력

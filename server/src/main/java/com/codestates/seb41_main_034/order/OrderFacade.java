@@ -38,8 +38,8 @@ public class OrderFacade {
                 .map(OrderProductPostDto::getProductId).collect(Collectors.toSet());
         Map<Integer, Product> productMap = productService.getVerifiedProducts(productIds)
                 .stream()
-                .peek(productDto -> {
-                    switch (productDto.getStatus()) {
+                .peek(product -> {
+                    switch (product.getStatus()) {
                         case UNAVAILABLE:
                             throw new BusinessLogicException(ExceptionCode.ORDER_PRODUCT_IS_UNAVAILABLE);
                         case DRAFT:
@@ -48,8 +48,15 @@ public class OrderFacade {
                 })
                 .collect(Collectors.toMap(Product::getId, Function.identity()));
 
+        // 상품 원래 가격과 주문 가격 검증
+        postDto.getProducts().forEach(dto -> {
+            if (dto.getPrice() != productMap.get(dto.getProductId()).getPrice()) {
+                throw new BusinessLogicException(ExceptionCode.ORDER_MISMATCHED_PRICE);
+            }
+        });
+
         // 주문 저장
-        Order order = orderService.createOrder(postDto, productMap);
+        Order order = orderService.createOrder(postDto);
 
         // 주문한 만큼 재고 감소
         for (OrderProduct orderProduct : order.getOrderProducts()) {
@@ -142,7 +149,6 @@ public class OrderFacade {
 
     public OrderDto updateOrderPay(long orderId) {
         // TODO: 결제 정보 확인 필요
-
         Order order = orderService.updateOrderPay(orderId);
 
         return order.toDto();
