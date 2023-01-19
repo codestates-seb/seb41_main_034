@@ -26,7 +26,7 @@ const CartContainer = styled.div`
   @media ${(props) => props.theme.mobile} {
     right: 4px;
     width: 150px;
-    height: 380px;
+    height: 360px;
   }
 `;
 
@@ -277,7 +277,9 @@ const CartItemDelete = styled.div`
 
 const DeleteButton = styled.button`
   svg {
-    fill: ${(props) => props.theme.blackColor};
+    width: 12px;
+    height: 12px;
+    fill: ${(props) => props.theme.grayColor};
   }
 
   @media ${(props) => props.theme.desktop} {
@@ -288,17 +290,10 @@ const DeleteButton = styled.button`
     }
   }
 
-  @media ${(props) => props.theme.tablet} {
-    svg {
-      width: 16px;
-      height: 16px;
-    }
-  }
-
   @media ${(props) => props.theme.mobile} {
     svg {
-      width: 12px;
-      height: 12px;
+      width: 8px;
+      height: 8px;
     }
   }
 `;
@@ -460,7 +455,6 @@ const OrderContainer = styled.div`
 
   @media ${(props) => props.theme.mobile} {
     display: block;
-    margin: 30px 0;
   }
 `;
 

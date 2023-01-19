@@ -82,6 +82,10 @@ const PaymentContainer = styled(ReceiptContainer)`
 const ReceiptAmount = styled.strong`
   display: block;
   font-size: 16px;
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 14px;
+  }
 `;
 
 const ReceiptTitle = styled(ReceiptAmount)`
@@ -91,11 +95,18 @@ const ReceiptTitle = styled(ReceiptAmount)`
 const ReceiptPayment = styled.h3`
   font-size: 24px;
   font-weight: 700;
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 18px;
+  }
 `;
 
 const OrderButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  padding: 12px 96px;
+  height: 40px;
   border-radius: 4px;
   font-size: 18px;
   font-weight: 700;
@@ -114,6 +125,7 @@ const OrderButton = styled.button`
     bottom: 0;
     left: 0;
     border-radius: 0;
+    font-size: 14px;
   }
 `;
 
