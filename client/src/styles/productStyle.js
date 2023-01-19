@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const ProductImageContainer = styled.div`
+  position: relative;
   flex-grow: 1;
   width: 100%;
   margin-bottom: 4px;
@@ -16,6 +17,37 @@ const ProductImage = styled.div`
   background-position: center center;
   background-size: cover;
   transition: transform 0.3s;
+`;
+
+const CartButton = styled.button`
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 100px;
+  background-color: ${(props) => props.theme.primaryColor};
+  opacity: 0.6;
+
+  svg {
+    position: relative;
+    left: -2px;
+
+    g {
+      g {
+        stroke: ${(props) => props.theme.whiteColor};
+      }
+    }
+  }
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      background-color: ${(props) => props.theme.hoverColor};
+    }
+  }
 `;
 
 const ProductList = styled.ul`
@@ -427,5 +459,6 @@ export {
   CancleImgContainer,
   ReviewContainer,
   ReviewHeader,
-  ReviewText
+  ReviewText,
+  CartButton
 };
