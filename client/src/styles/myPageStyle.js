@@ -143,7 +143,7 @@ const CatagoryBox = styled(Link)`
   }
 
   @media ${(props) => props.theme.tablet} {
-    width: 120px;
+    width: 140px;
     padding: 12px;
     font-size: 8px;
 
@@ -207,93 +207,118 @@ const SubTitle = styled.div`
 //UserInfo
 const UserWrapper = styled.div`
   width: 100%;
-  max-width: 602px;
+  max-width: 160px;
 
   @media ${(props) => props.theme.tablet} {
     width: 100%;
-    max-width: 393px;
+    max-width: 140px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    width: 100%;
+    max-width: 100%;
   }
 `;
 
 const UserInfoContainer = styled.div`
-  display: flex;
+  display: grid;
   width: 100%;
   align-items: center;
   border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
+
+  @media ${(props) => props.theme.mobile} {
+    display: flex;
+    border: none;
+  }
 `;
 
 const ImgContainer = styled.div`
-  display: flex;
-  width: 35%;
+  display: grid;
   justify-content: center;
   align-items: center;
+  width: 100%;
 
   svg {
-    width: 150px;
-    height: 150px;
+    width: 80px;
+    height: 80px;
+    margin: 8px 0 8px 0;
 
     @media ${(props) => props.theme.tablet} {
-      width: 102px;
-      height: 102px;
+      width: 60px;
+      height: 60px;
+      margin: 12px 0 12px 0;
     }
 
     @media ${(props) => props.theme.mobile} {
-      width: 102px;
-      height: 102px;
+      width: 66px;
+      height: 66px;
+      margin: 12px;
     }
   }
 `;
 
 const InfoContainer = styled.div`
-  display: grid;
-  width: 65%;
+  width: 100%;
 `;
 
 const NameText = styled.div`
   display: flex;
-  padding: 12px 0 12px 0;
-  font-size: 24px;
   align-items: center;
+  padding: 12px 0 12px 8px;
+  font-size: 16px;
 
   @media ${(props) => props.theme.tablet} {
-    font-size: 16px;
+    font-size: 12px;
+    padding: 0 0 4px 8px;
   }
 
   @media ${(props) => props.theme.mobile} {
-    font-size: 12px;
+    font-size: 8px;
   }
 `;
 
 const OtherText = styled.div`
   display: flex;
-  font-size: 12px;
-  padding-bottom: 8px;
   align-items: center;
+  width: 100%;
+  padding: 0 0 8px 8px;
+  font-size: 8px;
 
   @media ${(props) => props.theme.tablet} {
-    font-size: 8px;
+    padding: 4px 0 4px 8px;
+    font-size: 4px;
+    zoom: 0.9;
   }
 
   @media ${(props) => props.theme.mobile} {
-    font-size: 8px;
+    font-size: 4px;
+    zoom: 0.9;
   }
 `;
 
-const EditButtonContainer = styled.div`
+const EditbuttonContainer = styled.div`
   display: flex;
+  justify-content: center;
   width: 100%;
-  justify-content: flex-end;
+
+  @media ${(props) => props.theme.mobile} {
+    justify-content: end;
+    width: 100%;
+    max-width: 435px;
+    padding-top: 50px;
+  }
 `;
 
 const EditButton = styled.button`
-  width: 167px;
-  height: 41px;
-  margin: 12px 0 12px 0;
+  width: 100%;
+  max-width: 122px;
+  margin: 8px 0 8px 0;
+  padding: 4px 0 4px 0;
   border-radius: 4px;
   background-color: ${(props) => props.theme.primaryColor};
   color: ${(props) => props.theme.whiteColor};
-  font-size: 12px;
+  font-size: 8px;
 
   @media ${(props) => props.theme.desktop} {
     &:hover {
@@ -302,15 +327,19 @@ const EditButton = styled.button`
   }
 
   @media ${(props) => props.theme.tablet} {
-    width: 96px;
-    height: 29px;
-    font-size: 8px;
+    max-width: 98px;
+    margin: 8px 0 8px 0;
+    padding: 4px 0 4px 0;
+    font-size: 4px;
+    zoom: 0.9;
   }
 
   @media ${(props) => props.theme.mobile} {
-    width: 88px;
-    height: 28px;
-    font-size: 8px;
+    max-width: 88px;
+    margin: 8px 0 8px 0;
+    padding: 4px 0 4px 0;
+    font-size: 4px;
+    zoom: 0.9;
   }
 `;
 //UserInfoEdit
@@ -503,7 +532,7 @@ export {
   InfoContainer,
   NameText,
   OtherText,
-  EditButtonContainer,
+  EditbuttonContainer,
   EditButton,
   UserEditWrapper,
   UserEditContainer,
