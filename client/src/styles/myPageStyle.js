@@ -24,12 +24,18 @@ const ListHeader = styled.div`
 
 const RightContainer = styled.div`
   display: flex;
-  flex-grow: 1;
+  width: 100%;
   justify-content: space-between;
+
+  svg {
+    width: 1px;
+    fill: ${(props) => props.theme.activeColor};
+  }
 `;
 
 const LeftCotainer = styled.div`
-  flex-grow: 1.5;
+  width: 100%;
+  max-width: 363px;
 `;
 
 const Text = styled.div`
@@ -65,15 +71,23 @@ const ListHeader2 = styled.div`
 
 const RightContainer2 = styled.div`
   display: flex;
+  width: 100%;
   justify-content: space-between;
-  flex-grow: 1;
+  align-items: center;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: ${(props) => props.theme.blackColor};
+  }
 `;
 
 const LeftCotainer2 = styled.div`
-  flex-grow: 1.3;
+  width: 100%;
+  max-width: 363px;
 `;
 
-const Text2 = styled.div`
+const Text2 = styled.button`
   font-size: 12px;
 
   @media ${(props) => props.theme.tablet} {
@@ -89,18 +103,8 @@ const MarginSpace = styled.div`
   height: 8px;
 `;
 
-const NavWrapper = styled.div`
-  display: grid;
-  width: 100%;
-  margin-top: 64px;
-  justify-items: center;
-
-  @media ${(props) => props.theme.mobile} {
-    padding: 0;
-  }
-`;
-
 const NavContainer = styled.div`
+  position: relative;
   display: grid;
   width: 100%;
   max-width: 1024px;
@@ -119,8 +123,8 @@ const CatagoryBox = styled(Link)`
   align-items: center;
   border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
-  font-size: 10px;
-  background-color: ${(props) => props.theme.secondaryColor};
+  font-size: 12px;
+  background-color: ${(props) => props.theme.whiteColor};
 
   svg {
     width: 10px;
@@ -153,24 +157,16 @@ const CatagoryBox = styled(Link)`
     width: 100%;
     max-width: 100%;
     padding: 12px;
+    margin-top: 19px;
     justify-content: center;
     align-items: center;
     font-size: 4px;
+    zoom: 0.7;
 
     svg {
       display: none;
     }
   }
-`;
-
-const TopContainer = styled.div`
-  display: grid;
-  width: 100%;
-`;
-
-const BottomContainer = styled.div`
-  display: grid;
-  width: 100%;
 `;
 
 const Container = styled.div`
@@ -208,187 +204,284 @@ const SubTitle = styled.div`
     display: none;
   }
 `;
-
-//주문목록
-const OrderListContainer = styled.div`
+//UserInfo
+const UserWrapper = styled.div`
   width: 100%;
-  max-width: 600px;
-  height: 185px;
-  display: flex;
-  border: 1px solid ${(props) => props.theme.blackColor};
-  border-radius: 10px;
+  max-width: 602px;
 
   @media ${(props) => props.theme.tablet} {
     width: 100%;
-    max-width: 399px;
-  }
-  @media ${(props) => props.theme.mobile} {
-    width: 100%;
+    max-width: 393px;
   }
 `;
 
-const LeftContent = styled.div`
-  width: 100%;
-  max-width: 200px;
-  @media ${(props) => props.theme.tablet} {
-    max-width: 399px;
-  }
-  @media ${(props) => props.theme.mobile} {
-    width: 100%;
-  }
-  /* background-color: blue; */
-`;
-
-const ProductImg = styled.img`
-  width: 135px;
-  height: 135px;
-  margin: 24px 30px 0 30px;
-`;
-
-const CenterContent = styled.div`
-  width: 100%;
-  max-width: 200px;
+const UserInfoContainer = styled.div`
   display: flex;
+  width: 100%;
   align-items: center;
+  border: 1px solid ${(props) => props.theme.borderColor};
+  border-radius: 4px;
+`;
+
+const ImgContainer = styled.div`
+  display: flex;
+  width: 35%;
   justify-content: center;
-  font-size: 20px;
-  @media ${(props) => props.theme.tablet} {
-    width: 100%;
-    max-width: 399px;
+  align-items: center;
+
+  svg {
+    width: 150px;
+    height: 150px;
+
+    @media ${(props) => props.theme.tablet} {
+      width: 102px;
+      height: 102px;
+    }
+
+    @media ${(props) => props.theme.mobile} {
+      width: 102px;
+      height: 102px;
+    }
   }
-  @media ${(props) => props.theme.mobile} {
-    width: 100%;
-  }
-  background-color: aqua;
 `;
 
-const OrderStatus = styled.div``;
-
-const RightContent = styled.div`
-  width: 100%;
-  max-width: 200px;
-  font-size: 16px;
-  @media ${(props) => props.theme.tablet} {
-    width: 100%;
-    max-width: 399px;
-  }
-  @media ${(props) => props.theme.mobile} {
-    width: 100%;
-  }
-  background-color: violet;
+const InfoContainer = styled.div`
+  display: grid;
+  width: 65%;
 `;
 
-const ProductName = styled.div``;
-
-const OrderListPrice = styled.div``;
-
-const OrderQuantity = styled.div``;
-
-//Review
-const MyReviewContainer = styled.div`
-  width: 100%;
-  max-width: 700%;
-  display: center;
-  border: 1px solid ${(props) => props.theme.blackColor};
-  border-radius: 10px;
-`;
-
-const ContentLeft = styled.div``;
-
-const ContentRight = styled.div``;
-
-const ReviewProductImage = styled.div``;
-
-const ReviewProductImg = styled.div`
-  width: 135px;
-  height: 135px;
-`;
-const ReviewTitle = styled.div`
+const NameText = styled.div`
+  display: flex;
+  padding: 12px 0 12px 0;
   font-size: 24px;
+  align-items: center;
+
+  @media ${(props) => props.theme.tablet} {
+    font-size: 16px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 12px;
+  }
 `;
 
-const ReviewProductInfo = styled.div`
-  font-size: 16px;
-`;
-
-const CreationDate = styled.div``;
-
-const ProductName2 = styled.div``;
-
-//MyAddress
-const MyAddressContainer = styled.div`
-  width: 100%;
-  max-width: 700px;
-
-  align-items: start;
-  justify-content: space-between;
-`;
-
-const AddressTitle = styled.div`
-  width: 100%;
-  height: 99px;
+const OtherText = styled.div`
   display: flex;
-  justify-content: space-between;
-  border: 1px solid ${(props) => props.theme.blackColor};
-  border-radius: 10px;
-  background-color: ${(props) => props.theme.primaryColor};
+  font-size: 12px;
+  padding-bottom: 8px;
+  align-items: center;
+
+  @media ${(props) => props.theme.tablet} {
+    font-size: 8px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 8px;
+  }
 `;
-const AddressInfo = styled.div`
+
+const EditButtonContainer = styled.div`
+  display: flex;
   width: 100%;
-  height: 99px;
-  display: flex;
-  border: 1px solid ${(props) => props.theme.blackColor};
-  border-radius: 10px;
-`;
-const Select = styled.div`
-  font-size: 20px;
+  justify-content: flex-end;
 `;
 
-const Address = styled.div`
-  font-size: 20px;
-`;
-
-const Recipient = styled.div`
-  font-size: 20px;
-`;
-
-const SelectText = styled.div`
-  font-size: 20px;
-`;
-
-const SelectImg = styled.svg``;
-
-const AddressText = styled.div`
-  font-size: 16px;
-`;
-
-const RecipientText = styled.div`
-  font-size: 16px;
-`;
-
-const PhoneNumber = styled.div`
-  font-size: 20px;
-`;
-
-const PhoneNumberText = styled.div`
-  font-size: 16px;
-`;
-
-const Modify = styled.div`
-  font-size: 20px;
-`;
-
-const ModifyImg = styled.svg``;
-
-const AddressButton = styled.button`
-  display: flex;
-  justify-content: end;
-  font-size: 16px;
-  border: 1px solid;
+const EditButton = styled.button`
+  width: 167px;
+  height: 41px;
+  margin: 12px 0 12px 0;
   border-radius: 4px;
   background-color: ${(props) => props.theme.primaryColor};
+  color: ${(props) => props.theme.whiteColor};
+  font-size: 12px;
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      background-color: ${(props) => props.theme.hoverColor};
+    }
+  }
+
+  @media ${(props) => props.theme.tablet} {
+    width: 96px;
+    height: 29px;
+    font-size: 8px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    width: 88px;
+    height: 28px;
+    font-size: 8px;
+  }
+`;
+//UserInfoEdit
+const UserEditWrapper = styled.div`
+  width: 100%;
+  max-width: 602px;
+
+  @media ${(props) => props.theme.tablet} {
+    width: 100%;
+    max-width: 393px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    width: 100%;
+  }
 `;
 
+const UserEditContainer = styled.div`
+  display: grid;
+  width: 100%;
+  align-items: center;
+  border: 1px solid ${(props) => props.theme.borderColor};
+  border-radius: 4px;
+`;
+
+const EditCotainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+`;
+
+const LeftBox = styled.div`
+  display: flex;
+  width: 100%;
+  max-width: 137px;
+  padding: 14px 0 14px 0;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid ${(props) => props.theme.borderColor};
+  border-radius: 4px;
+  font-size: 12px;
+  background-color: ${(props) => props.theme.primaryColor};
+  color: ${(props) => props.theme.whiteColor};
+
+  @media ${(props) => props.theme.tablet} {
+    max-width: 77px;
+    padding: 12px 0 12px 0;
+    font-size: 8px;
+  }
+`;
+
+const RightBox = styled.div`
+  display: grid;
+  width: 100%;
+  padding: 4px;
+  align-items: center;
+  border: 1px solid ${(props) => props.theme.borderColor};
+
+  @media ${(props) => props.theme.mobile} {
+    border: none;
+  }
+`;
+
+const InputBox = styled.input`
+  width: 100%;
+  padding: 12px;
+  margin: 2px;
+  border: 1px solid ${(props) => props.theme.borderColor};
+  border-radius: 4px;
+  font-size: 12px;
+
+  @media ${(props) => props.theme.tablet} {
+    padding: 8px;
+    font-size: 12px;
+    zoom: 0.9;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 8px;
+  }
+`;
+
+const PasswordContainer = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+`;
+
+const PasswordText = styled.div`
+  width: 60%;
+  padding: 4px;
+  font-size: 12px;
+
+  @media ${(props) => props.theme.tablet} {
+    font-size: 8px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 4px;
+  }
+`;
+
+const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+
+  @media ${(props) => props.theme.mobile} {
+    display: grid;
+    justify-content: center;
+  }
+`;
+
+const ConfirmButton = styled.button`
+  width: 98px;
+  height: 34px;
+  margin: 4px 0 0 4px;
+  color: ${(props) => props.theme.whiteColor};
+  background-color: ${(props) => props.theme.primaryColor};
+  border-radius: 4px;
+  font-size: 12px;
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      background-color: ${(props) => props.theme.hoverColor};
+    }
+  }
+
+  @media ${(props) => props.theme.tablet} {
+    width: 64px;
+    height: 24px;
+    font-size: 8px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    width: 220px;
+    height: 28px;
+    margin-top: 24px;
+    font-size: 8px;
+  }
+`;
+
+const UserOutButton = styled.button`
+  width: 98px;
+  height: 34px;
+  margin: 4px 0 0 4px;
+  border: 1px solid ${(props) => props.theme.borderColor};
+  border-radius: 4px;
+  color: ${(props) => props.theme.primaryColor};
+  background-color: ${(props) => props.theme.whiteColor};
+  font-size: 12px;
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      background-color: ${(props) => props.theme.hoverColor};
+      color: ${(props) => props.theme.whiteColor};
+    }
+  }
+
+  @media ${(props) => props.theme.tablet} {
+    width: 64px;
+    height: 24px;
+    font-size: 8px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    width: 220px;
+    height: 28px;
+    font-size: 8px;
+  }
+`;
 export {
   ListHeader,
   RightContainer,
@@ -399,45 +492,28 @@ export {
   LeftCotainer2,
   Text2,
   MarginSpace,
-  NavWrapper,
   NavContainer,
   CatagoryBox,
-  TopContainer,
-  BottomContainer,
   Container,
   Title,
   SubTitle,
-  OrderListContainer,
-  LeftContent,
-  CenterContent,
-  RightContent,
-  ProductName,
-  OrderListPrice,
-  OrderQuantity,
-  OrderStatus,
-  ProductImg,
-  MyReviewContainer,
-  ContentLeft,
-  ReviewProductImage,
-  ReviewProductImg,
-  ContentRight,
-  ReviewTitle,
-  ReviewProductInfo,
-  CreationDate,
-  ProductName2,
-  MyAddressContainer,
-  AddressTitle,
-  AddressInfo,
-  Select,
-  Address,
-  Recipient,
-  SelectText,
-  SelectImg,
-  AddressText,
-  RecipientText,
-  PhoneNumber,
-  PhoneNumberText,
-  Modify,
-  ModifyImg,
-  AddressButton
+  UserWrapper,
+  UserInfoContainer,
+  ImgContainer,
+  InfoContainer,
+  NameText,
+  OtherText,
+  EditButtonContainer,
+  EditButton,
+  UserEditWrapper,
+  UserEditContainer,
+  EditCotainer,
+  LeftBox,
+  RightBox,
+  InputBox,
+  PasswordContainer,
+  PasswordText,
+  ButtonContainer,
+  ConfirmButton,
+  UserOutButton
 };
