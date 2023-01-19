@@ -39,6 +39,7 @@ public class UserAddressFacade {
         List<UserAddress> userAddressList = userAddressService.readUserAddressList(createdBy);
 
         // TODO: 회원 정보에서 대표 주소 ID를 알아내야 한다.
+        //       대표 주소를 맨 앞으로 빼야한다.
 
         return userAddressList.stream()
                 .map(userAddress -> userAddress.toDto(null)).collect(Collectors.toList());

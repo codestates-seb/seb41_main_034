@@ -52,7 +52,7 @@ public class UserAddressService {
     public void deleteUserAddress(long userAddressId) {
         UserAddress userAddress = readUserAddress(userAddressId);
 
-        userAddressRepository.delete(userAddress);
+        userAddress.setDeleted(true);
     }
 
 }
