@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import ProductItem from '../components/Product/ProductItem';
+import { ProductList } from '../styles/productStyle';
 
 const Products = () => {
   return (
@@ -10,22 +10,5 @@ const Products = () => {
     </ProductList>
   );
 };
-
-const ProductList = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  width: 100%;
-  margin: 60px 0;
-  row-gap: 12px;
-
-  @media ${(props) => props.theme.tablet} {
-    row-gap: 24px;
-  }
-
-  @media ${(props) => props.theme.mobile} {
-    row-gap: 32px;
-  }
-`;
 
 export default Products;

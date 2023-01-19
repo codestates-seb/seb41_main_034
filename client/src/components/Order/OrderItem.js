@@ -8,7 +8,8 @@ import {
   OrderItemImg,
   OrderItemName,
   ProductPrice,
-  DeleteButton
+  DeleteButton,
+  CartItemDelete
 } from '../../styles/orderStyle';
 import OrderCounter from './OrderCounter';
 import { ReactComponent as DeleteIcon } from '../../assets/icons/cancleIcon.svg';
@@ -31,15 +32,18 @@ const OrderItem = () => {
           <Link>사과</Link>
         </OrderItemName>
       </OrderItemLeft>
-      <OrderItemRight>
-        <OrderCounter />
 
+      <OrderItemRight>
         <ProductPrice>{`${(12000).toLocaleString('ko-KR')}`}원</ProductPrice>
 
+        <OrderCounter />
+      </OrderItemRight>
+
+      <CartItemDelete>
         <DeleteButton>
           <DeleteIcon />
         </DeleteButton>
-      </OrderItemRight>
+      </CartItemDelete>
     </OrderItemContainer>
   );
 };

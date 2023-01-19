@@ -1,18 +1,12 @@
-import styled from 'styled-components';
 import LoginForm from '../components/Sign/LoginForm';
+import { SignWrapper } from '../styles/signStyle';
 
 const Login = () => {
   return (
-    <LoginContainer>
+    <SignWrapper>
       <LoginForm />
-    </LoginContainer>
+    </SignWrapper>
   );
 };
-
-const LoginContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
 
 export default Login;

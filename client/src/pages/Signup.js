@@ -1,18 +1,12 @@
-import styled from 'styled-components';
 import SignupForm from '../components/Sign/SignupForm';
+import { SignWrapper } from '../styles/signStyle';
 
 const Signup = () => {
   return (
-    <SignupContainer>
+    <SignWrapper>
       <SignupForm />
-    </SignupContainer>
+    </SignWrapper>
   );
 };
-
-const SignupContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
 
 export default Signup;

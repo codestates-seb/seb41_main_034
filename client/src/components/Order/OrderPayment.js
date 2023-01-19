@@ -41,11 +41,21 @@ function OrderPayment() {
 const OrderPaymentWrapper = styled.div`
   width: 100%;
   max-width: 320px;
+
+  @media ${(props) => props.theme.mobile} {
+    max-width: 544px;
+    margin-top: 20px;
+  }
 `;
 
 const OrderPaymentContainer = styled.div`
   position: sticky;
   top: 168px;
+
+  @media ${(props) => props.theme.mobile} {
+    position: relative;
+    top: 0;
+  }
 `;
 
 const OrderReceipt = styled.div`
@@ -97,6 +107,13 @@ const OrderButton = styled.button`
     &:hover {
       background-color: ${(props) => props.theme.hoverColor};
     }
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    border-radius: 0;
   }
 `;
 

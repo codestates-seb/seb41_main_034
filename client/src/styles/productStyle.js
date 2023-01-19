@@ -18,6 +18,22 @@ const ProductImage = styled.div`
   transition: transform 0.3s;
 `;
 
+const ProductList = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+  row-gap: 12px;
+
+  @media ${(props) => props.theme.tablet} {
+    row-gap: 24px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    row-gap: 32px;
+  }
+`;
+
 const ProductContainer = styled.li`
   position: relative;
   width: calc(25% - 4px);
@@ -72,7 +88,7 @@ const ProductName = styled.h3`
 const ProductPrice = styled.strong`
   display: block;
   margin-bottom: 4px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
 `;
 
@@ -388,6 +404,7 @@ const ReviewText = styled.div`
 
 export {
   ProductContainer,
+  ProductList,
   ProductImage,
   ProductImageContainer,
   ProductInfo,

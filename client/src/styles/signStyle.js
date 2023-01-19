@@ -1,5 +1,11 @@
 import styled from 'styled-components';
 
+const SignWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 const SignContainer = styled.form`
   position: relative;
   display: flex;
@@ -8,7 +14,6 @@ const SignContainer = styled.form`
   width: 100%;
   max-width: 300px;
   border-radius: 4px;
-  margin: 60px 0;
 `;
 
 const SignHeader = styled.div`
@@ -124,6 +129,7 @@ const AddressModal = styled.div`
 `;
 
 export {
+  SignWrapper,
   SignContainer,
   SignHeader,
   SignTitle,

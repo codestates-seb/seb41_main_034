@@ -304,6 +304,7 @@ const DeleteButton = styled.button`
 `;
 
 const OrderItemContainer = styled.li`
+  position: relative;
   display: flex;
   justify-content: space-between;
   padding: 12px;
@@ -316,6 +317,8 @@ const OrderItemContainer = styled.li`
 const OrderItemLeft = styled.div`
   display: flex;
   align-items: center;
+  flex-shrink: 0;
+  margin-right: 12px;
 `;
 
 const CheckBox = styled.div`
@@ -351,6 +354,14 @@ const CheckLabel = styled.label`
       color: ${(props) => props.theme.hoverColor};
     }
   }
+
+  @media ${(props) => props.theme.tablet} {
+    font-size: 14px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 12px;
+  }
 `;
 
 const CheckDelete = styled.button`
@@ -361,6 +372,14 @@ const CheckDelete = styled.button`
       color: ${(props) => props.theme.hoverColor};
     }
   }
+
+  @media ${(props) => props.theme.tablet} {
+    font-size: 14px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 12px;
+  }
 `;
 
 const OrderItemImage = styled.div`
@@ -369,6 +388,18 @@ const OrderItemImage = styled.div`
   margin-left: 24px;
   border-radius: 4px;
   overflow: hidden;
+
+  @media ${(props) => props.theme.tablet} {
+    width: 72px;
+    height: 72px;
+    margin-left: 16px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    width: 48px;
+    height: 48px;
+    margin-left: 12px;
+  }
 `;
 
 const OrderItemImg = styled.div`
@@ -400,21 +431,37 @@ const OrderItemName = styled.h3`
         color: ${(props) => props.theme.hoverColor};
       }
     }
+
+    @media ${(props) => props.theme.tablet} {
+      font-size: 14px;
+    }
+
+    @media ${(props) => props.theme.mobile} {
+      font-size: 12px;
+    }
   }
 `;
 
 const OrderItemRight = styled.div`
   display: flex;
-  align-items: center;
-  column-gap: 12px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  row-gap: 8px;
+  margin-right: 24px;
+  flex-shrink: 0;
 `;
 
 const OrderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin: 60px 0;
   gap: 20px;
+
+  @media ${(props) => props.theme.mobile} {
+    display: block;
+    margin: 30px 0;
+  }
 `;
 
 const OrderListContianer = styled.div`
