@@ -1,7 +1,11 @@
 package com.codestates.seb41_main_034.order;
 
-import com.codestates.seb41_main_034.common.PaginatedResponseDto;
-import com.codestates.seb41_main_034.order.dto.*;
+import com.codestates.seb41_main_034.common.response.PaginatedData;
+import com.codestates.seb41_main_034.common.response.Response;
+import com.codestates.seb41_main_034.order.dto.OrderAddressPatchDto;
+import com.codestates.seb41_main_034.order.dto.OrderCancelDto;
+import com.codestates.seb41_main_034.order.dto.OrderDto;
+import com.codestates.seb41_main_034.order.dto.OrderPostDto;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -19,65 +23,62 @@ import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 
 @AllArgsConstructor
-@Validated
 @RestController
+@Validated
 @RequestMapping("/api/v1")
 public class OrderController {
 
-    private final OrderService orderService;
+    private final OrderFacade orderFacade;
 
     @PostMapping("/ordering")
-    public ResponseEntity<OrderResponseDto> postOrder(@Valid @RequestBody OrderPostDto postDto) {
-        return new ResponseEntity<>(orderService.createOrder(postDto), HttpStatus.CREATED);
+    public ResponseEntity<Response<OrderDto>> postOrder(@Valid @RequestBody OrderPostDto postDto) {
+        return new ResponseEntity<>(Response.of(orderFacade.createOrder(postDto)), HttpStatus.CREATED);
     }
 
     @GetMapping("/order/{orderId}")
-    public ResponseEntity<OrderResponseDto> getOrder(@Positive @PathVariable long orderId) {
-        return new ResponseEntity<>(orderService.readOrder(orderId), HttpStatus.OK);
+    public ResponseEntity<Response<OrderDto>> getOrder(@Positive @PathVariable long orderId) {
+        return new ResponseEntity<>(Response.of(orderFacade.readOrder(orderId)), HttpStatus.OK);
     }
 
     @GetMapping("/order/order-history")
-    public ResponseEntity<PaginatedResponseDto<OrderResponseDto>> getMyOrders(
-//            @AuthenticationPrincipal User user,
+    public ResponseEntity<Response<PaginatedData<OrderDto>>> getMyOrders(
             @PastOrPresent @RequestParam(required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate from,
             @PastOrPresent @RequestParam(required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate to,
             @PageableDefault(sort = "id", direction = Direction.DESC) Pageable pageable
     ) {
-        // TODO: 인증된 principal로부터 유저 ID를 얻어야 한다.
+        // TODO: 인증된 회원의 ID를 가져와야 한다.
         int createdBy = 1;
 
-        return new ResponseEntity<>(orderService.readOrders(createdBy, from, to, pageable), HttpStatus.OK);
+        return new ResponseEntity<>(Response.of(orderFacade.readOrders(createdBy, from, to, pageable)), HttpStatus.OK);
     }
 
     @PatchMapping("/ordering/{orderId}/address")
-    public ResponseEntity<OrderAddressResponseDto> patchOrderAddress(
-            @Positive @PathVariable long orderId,
-            @Valid @RequestBody OrderAddressPatchDto patchDto
-    ) {
-        return new ResponseEntity<>(orderService.updateOrderAddress(orderId, patchDto), HttpStatus.OK);
+    public ResponseEntity<Response<OrderDto>> patchOrderAddress(@Positive @PathVariable long orderId,
+                                                                @Valid @RequestBody OrderAddressPatchDto patchDto) {
+        return new ResponseEntity<>(Response.of(orderFacade.updateOrderAddress(orderId, patchDto)), HttpStatus.OK);
     }
 
+    // TODO: 결제 프로세스 후 update 기능 필요
+
     @PatchMapping("/ordering/{orderId}/cancel")
-    public ResponseEntity<OrderResponseDto> patchOrderCancel(
-            @Positive @PathVariable long orderId,
-            @Valid @RequestBody OrderCancelDto cancelDto
-    ) {
-        return new ResponseEntity<>(orderService.updateOrderCancel(orderId, cancelDto), HttpStatus.OK);
+    public ResponseEntity<Response<OrderDto>> patchOrderCancel(@Positive @PathVariable long orderId,
+                                                               @Valid @RequestBody OrderCancelDto cancelDto) {
+        return new ResponseEntity<>(Response.of(orderFacade.updateOrderCancel(orderId, cancelDto)), HttpStatus.OK);
     }
 
     @PatchMapping("/ordering/{orderId}/prepare")
-    public ResponseEntity<OrderResponseDto> patchOrderPrepare(@Positive @PathVariable long orderId) {
-        return new ResponseEntity<>(orderService.updateOrderPrepare(orderId), HttpStatus.OK);
+    public ResponseEntity<Response<OrderDto>> patchOrderPrepare(@Positive @PathVariable long orderId) {
+        return new ResponseEntity<>(Response.of(orderFacade.updateOrderPrepare(orderId)), HttpStatus.OK);
     }
 
     @PatchMapping("/ordering/{orderId}/ship")
-    public ResponseEntity<OrderResponseDto> patchOrderShip(@Positive @PathVariable long orderId) {
-        return new ResponseEntity<>(orderService.updateOrderShip(orderId), HttpStatus.OK);
+    public ResponseEntity<Response<OrderDto>> patchOrderShip(@Positive @PathVariable long orderId) {
+        return new ResponseEntity<>(Response.of(orderFacade.updateOrderShip(orderId)), HttpStatus.OK);
     }
 
     @PatchMapping("/ordering/{orderId}/confirm-cancellation")
-    public ResponseEntity<OrderResponseDto> patchOrderConfirmCancellation(@Positive @PathVariable long orderId) {
-        return new ResponseEntity<>(orderService.updateOrderConfirmCancellation(orderId), HttpStatus.OK);
+    public ResponseEntity<Response<OrderDto>> patchOrderConfirmCancellation(@Positive @PathVariable long orderId) {
+        return new ResponseEntity<>(Response.of(orderFacade.updateOrderConfirmCancellation(orderId)), HttpStatus.OK);
     }
 
 }

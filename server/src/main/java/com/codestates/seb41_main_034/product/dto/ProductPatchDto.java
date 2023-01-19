@@ -1,6 +1,7 @@
 package com.codestates.seb41_main_034.product.dto;
 
-import com.codestates.seb41_main_034.product.Product;
+import com.codestates.seb41_main_034.product.entity.ProductCategory;
+import com.codestates.seb41_main_034.product.entity.ProductStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -20,8 +21,8 @@ public class ProductPatchDto {
     @PositiveOrZero
     private Integer stock;
 
-    private Product.ProductStatus status;
+    private ProductStatus status;
 
-    private Product.ProductCategory category;
+    private ProductCategory category;
 
 }

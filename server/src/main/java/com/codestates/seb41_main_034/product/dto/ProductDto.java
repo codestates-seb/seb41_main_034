@@ -1,6 +1,7 @@
 package com.codestates.seb41_main_034.product.dto;
 
-import com.codestates.seb41_main_034.product.Product;
+import com.codestates.seb41_main_034.product.entity.ProductCategory;
+import com.codestates.seb41_main_034.product.entity.ProductStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
-public class ProductResponseDto {
+public class ProductDto {
 
     private int id;
 
@@ -19,9 +20,9 @@ public class ProductResponseDto {
 
     private int stock;
 
-    private Product.ProductStatus status;
+    private ProductStatus status;
 
-    private Product.ProductCategory category;
+    private ProductCategory category;
 
     private List<String> imageUrls;
 

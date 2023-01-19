@@ -1,6 +1,6 @@
-package com.codestates.seb41_main_034.common.exception.dto;
+package com.codestates.seb41_main_034.common.exception.response;
 
-import com.codestates.seb41_main_034.common.exception.BusinessLogicException.ExceptionCode;
+import com.codestates.seb41_main_034.common.exception.ExceptionCode;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -13,13 +13,13 @@ import java.util.Set;
 
 @Getter
 @RequiredArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ErrorInfo {
 
     private final int status;
 
     private final String message;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<ValidationError> validationErrors;
 
     private ErrorInfo(final List<ValidationError> validationErrors) {
