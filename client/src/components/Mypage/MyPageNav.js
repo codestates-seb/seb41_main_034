@@ -5,10 +5,6 @@ const MyPageNav = () => {
   return (
     <NavContainer>
       <CatagoryBox to="">
-        회원정보
-        <RightArrow />
-      </CatagoryBox>
-      <CatagoryBox to="">
         주소관리
         <RightArrow />
       </CatagoryBox>
