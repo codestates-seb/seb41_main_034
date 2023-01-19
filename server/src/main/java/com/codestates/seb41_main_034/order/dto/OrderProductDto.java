@@ -1,6 +1,6 @@
 package com.codestates.seb41_main_034.order.dto;
 
-import com.codestates.seb41_main_034.order.entity.OrderProduct.OrderProductStatus;
+import com.codestates.seb41_main_034.order.entity.OrderProductStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 @JsonInclude(Include.NON_NULL)
-public class OrderProductResponseDto {
+public class OrderProductDto {
 
     private int productId;
 

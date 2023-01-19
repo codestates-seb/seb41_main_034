@@ -1,7 +1,9 @@
 package com.codestates.seb41_main_034.common;
 
 import com.codestates.seb41_main_034.common.exception.BusinessLogicException;
-import com.codestates.seb41_main_034.common.exception.BusinessLogicException.ExceptionCode;
+import com.codestates.seb41_main_034.common.exception.ExceptionCode;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,18 +15,25 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ImageStorageService {
 
-    @Value("${image.local-path}")
-    private String localPath;
+    private final String localPath;
 
-    @Value("${image.server-url}")
-    private String serverUrl;
+    private final String serverUrl;
+
+    private final ObjectMapper mapper;
+
+    public ImageStorageService(@Value("${image.local-path}") String localPath,
+                               @Value("${image.server-url}") String serverUrl,
+                               ObjectMapper mapper) {
+        this.localPath = localPath;
+        this.serverUrl = serverUrl;
+        this.mapper = mapper;
+    }
 
     public String store(MultipartFile multipartFile) {
         // 파일이 null이거나 비어있는 경우 null 반환
@@ -59,4 +68,19 @@ public class ImageStorageService {
         return serverUrl + filename;
     }
 
+    public String saveImages(List<MultipartFile> images) {
+        // 이미지 파일이 있는 경우 이미지 서버에 저장 및 이미지 주소 배열 String 반환
+        List<String> imageUrls = images.stream()
+                .map(this::store).filter(Objects::nonNull).collect(Collectors.toList());
+        if (!imageUrls.isEmpty()) {
+            try {
+                return mapper.writeValueAsString(imageUrls);
+            } catch (JsonProcessingException e) {
+                throw new BusinessLogicException(ExceptionCode.IMAGE_CANNOT_WRITE_URLS);
+            }
+        }
+
+        // 이미지 파일이 없는 경우 null 반환
+        return null;
+    }
 }

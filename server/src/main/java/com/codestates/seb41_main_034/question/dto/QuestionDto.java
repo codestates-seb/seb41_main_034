@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor
-public class QuestionResponseDto {
+public class QuestionDto {
 
     private long id;
 
@@ -23,7 +23,7 @@ public class QuestionResponseDto {
 
     private String body;
 
-    private AnswerResponseDto answer;
+    private AnswerDto answer;
 
     private int createdBy;
     // TODO: 작성자 이름 필요

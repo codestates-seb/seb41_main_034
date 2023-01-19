@@ -1,6 +1,7 @@
 package com.codestates.seb41_main_034.question.entity;
 
 import com.codestates.seb41_main_034.common.auditing.entity.Auditable;
+import com.codestates.seb41_main_034.question.dto.AnswerDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,6 +30,10 @@ public class Answer extends Auditable {
     public Answer(Question question, String body) {
         this.question = question;
         this.body = body;
+    }
+
+    public AnswerDto toDto() {
+        return new AnswerDto(body, getCreatedBy(), getModifiedBy(), getCreatedAt(), getModifiedAt());
     }
 
 }

@@ -1,11 +1,14 @@
 package com.codestates.seb41_main_034.order.entity;
 
 import com.codestates.seb41_main_034.common.auditing.entity.Auditable;
+import com.codestates.seb41_main_034.order.dto.OrderProductDto;
+import com.codestates.seb41_main_034.product.entity.Product;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -41,14 +44,14 @@ public class OrderProduct extends Auditable {
         this.quantity = quantity;
     }
 
-    public enum OrderProductStatus {
-        WAITING_FOR_PAYMENT,
-        PAYMENT_FINISHED,
-        PREPARING_FOR_SHIPMENT,
-        SHIPPED,
-        DELIVERED,
-        WAITING_FOR_CANCELLATION,
-        CANCELED
+    public OrderProductDto toDto(Product product) {
+        Optional<Product> optionalProduct = Optional.ofNullable(product);
+        String name = optionalProduct.map(Product::getName).orElse(null);
+        String imageUrl = optionalProduct.map(Product::getImageUrlList)
+                .map(urls -> urls.isEmpty() ? null : urls.get(0)).orElse(null);
+
+        return new OrderProductDto(productId, name, imageUrl, price, quantity, status,
+                getCreatedBy(), getModifiedBy(), getCreatedAt(), getModifiedAt());
     }
 
 }

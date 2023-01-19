@@ -16,4 +16,5 @@ public class AuditingConfig {
         // TODO: 인증된 principal로부터 유저 ID를 받아와야 한다.
         return () -> Optional.of(1);
     }
+
 }

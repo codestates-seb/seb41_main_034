@@ -3,7 +3,6 @@ package com.codestates.seb41_main_034.order;
 import com.codestates.seb41_main_034.order.entity.Order;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -22,8 +21,9 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "where o.createdBy = ?1 and cast(o.createdAt as LocalDate) between ?2 and ?3 and o.isDeleted = false")
     Page<Long> findIdByCreatedByAndDateBetween(int createdBy, LocalDate from, LocalDate to, Pageable pageable);
 
+    @Override
     @Query("select distinct o from Order o left join fetch o.orderProducts op " +
             "where o.id in ?1 and o.isDeleted = false and op.isDeleted = false")
-    List<Order> findAllById(Iterable<Long> ids, Sort sort);
+    List<Order> findAllById(Iterable<Long> ids);
 
 }

@@ -1,6 +1,7 @@
 package com.codestates.seb41_main_034.product;
 
-import com.codestates.seb41_main_034.product.Product.ProductCategory;
+import com.codestates.seb41_main_034.product.entity.Product;
+import com.codestates.seb41_main_034.product.entity.ProductCategory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

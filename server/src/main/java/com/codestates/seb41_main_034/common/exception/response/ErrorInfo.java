@@ -1,6 +1,6 @@
-package com.codestates.seb41_main_034.common.exception.dto;
+package com.codestates.seb41_main_034.common.exception.response;
 
-import com.codestates.seb41_main_034.common.exception.BusinessLogicException.ExceptionCode;
+import com.codestates.seb41_main_034.common.exception.ExceptionCode;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

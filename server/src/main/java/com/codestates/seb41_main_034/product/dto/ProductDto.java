@@ -1,7 +1,7 @@
 package com.codestates.seb41_main_034.product.dto;
 
-import com.codestates.seb41_main_034.product.Product.ProductCategory;
-import com.codestates.seb41_main_034.product.Product.ProductStatus;
+import com.codestates.seb41_main_034.product.entity.ProductCategory;
+import com.codestates.seb41_main_034.product.entity.ProductStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -10,7 +10,7 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
-public class ProductResponseDto {
+public class ProductDto {
 
     private int id;
 
