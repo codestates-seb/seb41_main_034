@@ -59,14 +59,14 @@ const Main = styled.main`
 const Container = styled.div`
   width: 100%;
   max-width: 1200px;
-  padding: 0 64px;
+  padding: 120px 64px;
 
   @media ${(props) => props.theme.tablet} {
-    padding: 0 32px;
+    padding: 80px 32px;
   }
 
   @media ${(props) => props.theme.mobile} {
-    padding: 0 16px;
+    padding: 60px 16px;
   }
 `;
 
