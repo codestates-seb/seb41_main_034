@@ -19,13 +19,13 @@ const CartContainer = styled.div`
 
   @media ${(props) => props.theme.tablet} {
     right: 12px;
-    width: 200px;
+    width: 220px;
     height: 560px;
   }
 
   @media ${(props) => props.theme.mobile} {
     right: 4px;
-    width: 150px;
+    width: 200px;
     height: 360px;
   }
 `;
@@ -120,24 +120,16 @@ const CartFooter = styled.footer`
 const CartItemContainer = styled.li`
   position: relative;
   display: flex;
-  padding: 16px;
+  padding: 32px 12px;
 
   &:not(:last-child) {
     border-bottom: 1px solid ${(props) => props.theme.borderColor};
   }
-
-  @media ${(props) => props.theme.tablet} {
-    padding: 8px;
-  }
-
-  @media ${(props) => props.theme.mobile} {
-    padding: 4px;
-  }
 `;
 
 const CartItemImage = styled.div`
-  width: 90px;
-  height: 90px;
+  width: 48px;
+  height: 48px;
   margin-right: 12px;
   border-radius: 4px;
   overflow: hidden;
@@ -148,16 +140,8 @@ const CartItemImage = styled.div`
     height: 100%;
   }
 
-  @media ${(props) => props.theme.tablet} {
-    width: 76px;
-    height: 76px;
-    margin-right: 8px;
-  }
-
   @media ${(props) => props.theme.mobile} {
-    width: 56px;
-    height: 56px;
-    margin-right: 4px;
+    margin-right: 8px;
   }
 `;
 
@@ -187,12 +171,14 @@ const CartItemInfo = styled.div`
 
 const ProductName = styled.h3`
   a {
-    font-size: 16px;
-    font-weight: 700;
+    font-size: 10px;
+    transition: color 0.3s;
   }
 
   @media ${(props) => props.theme.desktop} {
     a {
+      font-size: 14px;
+
       &:hover {
         color: ${(props) => props.theme.hoverColor};
       }
@@ -201,36 +187,38 @@ const ProductName = styled.h3`
 
   @media ${(props) => props.theme.tablet} {
     a {
-      font-size: 14px;
-    }
-  }
+      font-size: 12px;
 
-  @media ${(props) => props.theme.mobile} {
-    a {
-      font-size: 8px;
+      &:hover {
+        color: ${(props) => props.theme.hoverColor};
+      }
     }
   }
+`;
+
+const PriceContainer = styled.div`
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
 `;
 
 const ProductPrice = styled.strong`
   display: block;
   flex-shrink: 0;
-  font-size: 16px;
+  font-size: 10px;
   font-weight: 700;
 
-  @media ${(props) => props.theme.tablet} {
+  @media ${(props) => props.theme.desktop} {
     font-size: 14px;
   }
 
-  @media ${(props) => props.theme.mobile} {
-    font-size: 8px;
+  @media ${(props) => props.theme.tablet} {
+    font-size: 12px;
   }
 `;
 
 const ProductCount = styled.div`
   display: flex;
-  width: 100%;
-  max-width: 76px;
   border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
 `;
@@ -245,24 +233,23 @@ const CountButton = styled.button`
 
 const Count = styled.input`
   display: block;
-  width: 100%;
-  max-width: 32px;
-  font-size: 16px;
+  flex-grow: 1;
+  font-size: 10px;
   text-align: center;
 
-  @media ${(props) => props.theme.tablet} {
+  @media ${(props) => props.theme.desktop} {
     font-size: 14px;
   }
 
-  @media ${(props) => props.theme.mobile} {
-    font-size: 8px;
+  @media ${(props) => props.theme.tablet} {
+    font-size: 12px;
   }
 `;
 
 const CartItemDelete = styled.div`
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 8px;
+  right: 8px;
 
   @media ${(props) => props.theme.tablet} {
     top: 8px;
@@ -302,7 +289,7 @@ const OrderItemContainer = styled.li`
   position: relative;
   display: flex;
   justify-content: space-between;
-  padding: 12px;
+  padding: 24px 12px;
 
   &:not(:last-child) {
     border-bottom: 1px solid ${(props) => props.theme.borderColor};
@@ -418,7 +405,6 @@ const OrderItemName = styled.h3`
 
   a {
     font-size: 16px;
-    font-weight: 700;
     transition: color 0.3s;
 
     @media ${(props) => props.theme.desktop} {
@@ -448,13 +434,13 @@ const OrderItemRight = styled.div`
 `;
 
 const OrderContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  gap: 20px;
+  display: block;
 
-  @media ${(props) => props.theme.mobile} {
-    display: block;
+  @media ${(props) => props.theme.desktop} {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px;
   }
 `;
 
@@ -470,8 +456,8 @@ const OrderListHeader = styled.div`
 `;
 
 const OrderList = styled.ul`
-  border-top: 1px solid ${(props) => props.theme.blackColor};
-  border-bottom: 1px solid ${(props) => props.theme.blackColor};
+  border-top: 1px solid ${(props) => props.theme.grayColor};
+  border-bottom: 1px solid ${(props) => props.theme.grayColor};
 `;
 
 export {
@@ -485,6 +471,7 @@ export {
   CartItemImg,
   CartItemInfo,
   CartItemDelete,
+  PriceContainer,
   ProductName,
   ProductPrice,
   ProductCount,

@@ -42,6 +42,11 @@ const OrderPaymentWrapper = styled.div`
   width: 100%;
   max-width: 320px;
 
+  @media ${(props) => props.theme.tablet} {
+    max-width: 928px;
+    margin-top: 20px;
+  }
+
   @media ${(props) => props.theme.mobile} {
     max-width: 544px;
     margin-top: 20px;
@@ -61,8 +66,11 @@ const OrderPaymentContainer = styled.div`
 const OrderReceipt = styled.div`
   margin-bottom: 20px;
   padding: 20px;
-  border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
+
+  @media ${(props) => props.theme.desktop} {
+    border: 1px solid ${(props) => props.theme.borderColor};
+  }
 `;
 
 const ReceiptContainer = styled.div`
@@ -102,30 +110,33 @@ const ReceiptPayment = styled.h3`
 `;
 
 const OrderButton = styled.button`
+  position: fixed;
+  bottom: 0;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 40px;
-  border-radius: 4px;
-  font-size: 18px;
+  font-size: 14px;
+
   font-weight: 700;
   color: ${(props) => props.theme.whiteColor};
   background-color: ${(props) => props.theme.primaryColor};
   transition: background-color 0.5s;
 
   @media ${(props) => props.theme.desktop} {
+    position: relative;
+    font-size: 18px;
+    border-radius: 4px;
+
     &:hover {
       background-color: ${(props) => props.theme.hoverColor};
     }
   }
 
-  @media ${(props) => props.theme.mobile} {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    border-radius: 0;
-    font-size: 14px;
+  @media ${(props) => props.theme.tablet} {
+    font-size: 16px;
   }
 `;
 

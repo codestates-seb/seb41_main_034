@@ -6,6 +6,7 @@ import {
   CartItemInfo,
   CartItemDelete,
   ProductName,
+  PriceContainer,
   ProductPrice,
   DeleteButton
 } from '../../styles/orderStyle';
@@ -30,10 +31,12 @@ const MyCartItem = () => {
           <Link>사과</Link>
         </ProductName>
 
-        <ProductPrice>{`${(12000).toLocaleString('ko-KR')}`}원</ProductPrice>
-
-        <OrderCounter />
+        <PriceContainer>
+          <ProductPrice>{`${(12000).toLocaleString('ko-KR')}`}원</ProductPrice>
+          <OrderCounter />
+        </PriceContainer>
       </CartItemInfo>
+
       <CartItemDelete>
         <DeleteButton>
           <DeleteIcon />
