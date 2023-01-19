@@ -140,6 +140,14 @@ public class OrderFacade {
         return updatedOrder.toDto(productMap);
     }
 
+    public OrderDto updateOrderPay(long orderId) {
+        // TODO: 결제 정보 확인 필요
+
+        Order order = orderService.updateOrderPay(orderId);
+
+        return order.toDto();
+    }
+
     public OrderDto updateOrderPrepare(long orderId) {
         // 주문 배송 준비 처리
         Order order = orderService.updateOrderPrepare(orderId);

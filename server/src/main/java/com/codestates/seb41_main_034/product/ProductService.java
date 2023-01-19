@@ -59,8 +59,7 @@ public class ProductService {
     public Product updateProduct(
             int productId, ProductPatchDto patchDto, String imageUrls, String detailImageUrls) {
         // DB에서 상품 조회, 없는 경우 예외 발생
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
+        Product product = readProduct(productId);
 
         // DTO에 입력된 값으로 변경
         Optional.ofNullable(patchDto.getName()).ifPresent(product::setName);
@@ -92,8 +91,7 @@ public class ProductService {
 
     public void updateProductStock(int productId, int delta) {
         // DB에서 상품 조회, 없는 경우 예외 발생
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
+        Product product = readProduct(productId);
 
         // 수정될 재고량 계산
         int updatedStock = product.getStock() + delta;

@@ -82,8 +82,7 @@ public class OrderService {
 
     public Order updateOrderAddress(long orderId, OrderAddressPatchDto addressPatchDto) {
         // DB에서 주문 조회, 없는 경우 예외 발생
-        Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ORDER_NOT_FOUND));
+        Order order = readOrder(orderId);
 
         // 배송 진행중인 상품이 없고 결제 대기중, 결제 완료 상태인 상품만 있을 때 주소 수정 가능
         order.getOrderProducts()
@@ -117,8 +116,7 @@ public class OrderService {
 
     public Order updateOrderCancel(long orderId, OrderCancelDto cancelDto) {
         // DB에서 주문 조회, 없는 경우 예외 발생
-        Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ORDER_NOT_FOUND));
+        Order order = readOrder(orderId);
 
         // DTO를 Map<productId, quantity>로 만든다. DTO에 중복된 ID가 있는 경우 quantity를 더한다.
         Map<Integer, Integer> cancelMap = cancelDto.getProducts().stream().collect(Collectors.toMap(
@@ -200,10 +198,27 @@ public class OrderService {
         return order;
     }
 
+    public Order updateOrderPay(long orderId) {
+        Order order = readOrder(orderId);
+
+        List<OrderProduct> orderProducts = order.getOrderProducts().stream()
+                .filter(orderProduct -> orderProduct.getStatus() == OrderProductStatus.WAITING_FOR_PAYMENT)
+                .collect(Collectors.toList());
+
+        if (orderProducts.isEmpty()) {
+            throw new BusinessLogicException(ExceptionCode.ORDER_NO_PRODUCTS_TO_PAY);
+        }
+
+        for (OrderProduct orderProduct : orderProducts) {
+            orderProduct.setStatus(OrderProductStatus.PAYMENT_FINISHED);
+        }
+
+        return order;
+    }
+
     public Order updateOrderPrepare(long orderId) {
         // DB에서 주문 조회, 없는 경우 예외 발생
-        Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ORDER_NOT_FOUND));
+        Order order = readOrder(orderId);
 
         // 결제 완료된 OrderProduct List 생성
         List<OrderProduct> orderProducts = order.getOrderProducts().stream()
@@ -225,8 +240,7 @@ public class OrderService {
 
     public Order updateOrderShip(long orderId) {
         // DB에서 주문 조회, 없는 경우 예외 발생
-        Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ORDER_NOT_FOUND));
+        Order order = readOrder(orderId);
 
         // 배송 준비, 취소 대기 상태인 OrderProduct List 생성
         List<OrderProduct> orderProducts = order.getOrderProducts().stream()
@@ -268,8 +282,7 @@ public class OrderService {
 
     public Order updateOrderConfirmCancellation(long orderId) {
         // DB에서 주문 조회, 없는 경우 예외 발생
-        Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ORDER_NOT_FOUND));
+        Order order = readOrder(orderId);
 
         // 취소 대기 중인 OrderProduct List 생성
         List<OrderProduct> orderProducts = order.getOrderProducts().stream()
