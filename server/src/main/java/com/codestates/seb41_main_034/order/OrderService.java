@@ -17,7 +17,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -120,28 +123,21 @@ public class OrderService {
 
         // 취소 가능한 OrderProduct만 분리
         // 결제 대기, 결제 완료, 배송 준비 중일 때에만 취소 가능
-        List<OrderProduct> cancelableOrderProducts = order.getOrderProducts()
-                .stream()
-                .filter(orderProduct -> {
-                    OrderProductStatus status = orderProduct.getStatus();
-
-                    return status == OrderProductStatus.WAITING_FOR_PAYMENT
-                            || status == OrderProductStatus.PAYMENT_FINISHED
-                            || status == OrderProductStatus.PREPARING_FOR_SHIPMENT;
-                })
-                .collect(Collectors.toList());
+        List<OrderProduct> cancelableOrderProducts = order.getOrderProducts().stream().filter(orderProduct -> {
+            OrderProductStatus status = orderProduct.getStatus();
+            return status == OrderProductStatus.WAITING_FOR_PAYMENT
+                    || status == OrderProductStatus.PAYMENT_FINISHED
+                    || status == OrderProductStatus.PREPARING_FOR_SHIPMENT;
+        }).collect(Collectors.toList());
 
         // 취소 처리 진행
         cancelMap.forEach((productId, quantity) -> {
             // 상품 ID에 해당하는 OrderProduct만 분리
             List<OrderProduct> orderProducts = cancelableOrderProducts.stream()
-                    .filter(orderProduct -> orderProduct.getProductId() == productId)
-                    .collect(Collectors.toList());
+                    .filter(orderProduct -> orderProduct.getProductId() == productId).collect(Collectors.toList());
 
             // 취소 가능한 수량보다 취소 요청 수량이 큰 경우 예외 발생
-            int cancelableQuantity = orderProducts.stream()
-                    .mapToInt(OrderProduct::getQuantity)
-                    .sum();
+            int cancelableQuantity = orderProducts.stream().mapToInt(OrderProduct::getQuantity).sum();
             if (cancelableQuantity < quantity) {
                 throw new BusinessLogicException(ExceptionCode.ORDER_CANNOT_CANCEL);
             }
@@ -249,29 +245,24 @@ public class OrderService {
             throw new BusinessLogicException(ExceptionCode.ORDER_NO_PRODUCTS_TO_SHIP);
         }
 
-        // 배송 준비, 취소 대기 상태인 상품 ID Set 생성
-        Set<Integer> productIds = orderProducts.stream().map(OrderProduct::getProductId).collect(Collectors.toSet());
-
         // 상품 ID마다 하나의 OrderProduct로 수량을 합치고 배송 중으로 변경
-        for (int productId : productIds) {
-            // 상품 ID로 OrderProduct 필터
-            List<OrderProduct> orderProductsByProductId = orderProducts.stream()
-                    .filter(orderProduct -> orderProduct.getProductId() == productId)
-                    .collect(Collectors.toList());
+        Map<Integer, OrderProduct> orderProductMap = new HashMap<>();
+        orderProducts.forEach(orderProduct -> {
+            int productId = orderProduct.getProductId();
+            orderProductMap.compute(productId, (k, v) -> {
+                if (v == null) {
+                    orderProduct.setStatus(OrderProductStatus.SHIPPED);
+                    return orderProduct;
+                }
+                v.setQuantity(v.getQuantity() + orderProduct.getQuantity());
+                orderProduct.setDeleted(true);
+                return v;
+            });
+        });
 
-            // 총 배송 수량 집계
-            int quantity = orderProductsByProductId.stream().mapToInt(OrderProduct::getQuantity).sum();
-
-            // 하나의 OrderProduct의 수량을 총 배송 수량으로 바꾸고 배송 중 상태로 변경
-            OrderProduct orderProduct = orderProductsByProductId.get(0);
-            orderProduct.setQuantity(quantity);
-            orderProduct.setStatus(OrderProductStatus.SHIPPED);
-
-            // 나머지 OrderProduct는 삭제 처리 (soft delete)
-            for (int i = 1; i < orderProductsByProductId.size(); i++) {
-                orderProductsByProductId.get(i).setDeleted(true);
-            }
-        }
+        // 삭제된 OrderProduct를 정리
+        order.setOrderProducts(order.getOrderProducts().stream()
+                .filter(orderProduct -> !orderProduct.isDeleted()).collect(Collectors.toList()));
 
         return order;
     }
