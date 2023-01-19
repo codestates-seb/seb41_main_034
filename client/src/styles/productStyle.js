@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 const ProductImageContainer = styled.div`
+  flex-grow: 1;
   width: 100%;
-  height: 80%;
   margin-bottom: 4px;
   border-radius: 4px;
   overflow: hidden;
@@ -23,15 +23,7 @@ const ProductList = styled.ul`
   flex-wrap: wrap;
   justify-content: space-between;
   width: 100%;
-  row-gap: 12px;
-
-  @media ${(props) => props.theme.tablet} {
-    row-gap: 24px;
-  }
-
-  @media ${(props) => props.theme.mobile} {
-    row-gap: 32px;
-  }
+  row-gap: 16px;
 `;
 
 const ProductContainer = styled.li`
@@ -42,7 +34,8 @@ const ProductContainer = styled.li`
   border-radius: 4px;
 
   a {
-    display: block;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
   }
@@ -68,14 +61,13 @@ const ProductContainer = styled.li`
   }
 
   @media ${(props) => props.theme.mobile} {
-    width: calc(50% - 4px);
+    width: calc(50% - 8px);
     height: 180px;
     padding: 0;
   }
 `;
 
 const ProductInfo = styled.div`
-  height: 20%;
   margin-top: 8px;
 `;
 
