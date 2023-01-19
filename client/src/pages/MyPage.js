@@ -1,4 +1,4 @@
-import MyPageNav from '../components/MyPage/MyPageNav';
+import MyPageNav from '../components/Mypage/MyPageNav';
 
 const MyPage = () => {
   return (

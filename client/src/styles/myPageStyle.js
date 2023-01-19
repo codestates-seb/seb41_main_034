@@ -175,7 +175,7 @@ const BottomContainer = styled.div`
 
 const Container = styled.div`
   width: 100%;
-  height: 650px;
+  height: 100px;
   padding: 30px;
 `;
 
@@ -209,6 +209,186 @@ const SubTitle = styled.div`
   }
 `;
 
+//주문목록
+const OrderListContainer = styled.div`
+  width: 100%;
+  max-width: 600px;
+  height: 185px;
+  display: flex;
+  border: 1px solid ${(props) => props.theme.blackColor};
+  border-radius: 10px;
+
+  @media ${(props) => props.theme.tablet} {
+    width: 100%;
+    max-width: 399px;
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: 100%;
+  }
+`;
+
+const LeftContent = styled.div`
+  width: 100%;
+  max-width: 200px;
+  @media ${(props) => props.theme.tablet} {
+    max-width: 399px;
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: 100%;
+  }
+  /* background-color: blue; */
+`;
+
+const ProductImg = styled.img`
+  width: 135px;
+  height: 135px;
+  margin: 24px 30px 0 30px;
+`;
+
+const CenterContent = styled.div`
+  width: 100%;
+  max-width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  @media ${(props) => props.theme.tablet} {
+    width: 100%;
+    max-width: 399px;
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: 100%;
+  }
+  background-color: aqua;
+`;
+
+const OrderStatus = styled.div``;
+
+const RightContent = styled.div`
+  width: 100%;
+  max-width: 200px;
+  font-size: 16px;
+  @media ${(props) => props.theme.tablet} {
+    width: 100%;
+    max-width: 399px;
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: 100%;
+  }
+  background-color: violet;
+`;
+
+const ProductName = styled.div``;
+
+const OrderListPrice = styled.div``;
+
+const OrderQuantity = styled.div``;
+
+//Review
+const MyReviewContainer = styled.div`
+  width: 100%;
+  max-width: 700%;
+  display: center;
+  border: 1px solid ${(props) => props.theme.blackColor};
+  border-radius: 10px;
+`;
+
+const ContentLeft = styled.div``;
+
+const ContentRight = styled.div``;
+
+const ReviewProductImage = styled.div``;
+
+const ReviewProductImg = styled.div`
+  width: 135px;
+  height: 135px;
+`;
+const ReviewTitle = styled.div`
+  font-size: 24px;
+`;
+
+const ReviewProductInfo = styled.div`
+  font-size: 16px;
+`;
+
+const CreationDate = styled.div``;
+
+const ProductName2 = styled.div``;
+
+//MyAddress
+const MyAddressContainer = styled.div`
+  width: 100%;
+  max-width: 700px;
+
+  align-items: start;
+  justify-content: space-between;
+`;
+
+const AddressTitle = styled.div`
+  width: 100%;
+  height: 99px;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid ${(props) => props.theme.blackColor};
+  border-radius: 10px;
+  background-color: ${(props) => props.theme.primaryColor};
+`;
+const AddressInfo = styled.div`
+  width: 100%;
+  height: 99px;
+  display: flex;
+  border: 1px solid ${(props) => props.theme.blackColor};
+  border-radius: 10px;
+`;
+const Select = styled.div`
+  font-size: 20px;
+`;
+
+const Address = styled.div`
+  font-size: 20px;
+`;
+
+const Recipient = styled.div`
+  font-size: 20px;
+`;
+
+const SelectText = styled.div`
+  font-size: 20px;
+`;
+
+const SelectImg = styled.svg``;
+
+const AddressText = styled.div`
+  font-size: 16px;
+`;
+
+const RecipientText = styled.div`
+  font-size: 16px;
+`;
+
+const PhoneNumber = styled.div`
+  font-size: 20px;
+`;
+
+const PhoneNumberText = styled.div`
+  font-size: 16px;
+`;
+
+const Modify = styled.div`
+  font-size: 20px;
+`;
+
+const ModifyImg = styled.svg``;
+
+const AddressButton = styled.button`
+  display: flex;
+  justify-content: end;
+  font-size: 16px;
+  border: 1px solid;
+  border-radius: 4px;
+  background-color: ${(props) => props.theme.primaryColor};
+`;
+
 export {
   ListHeader,
   RightContainer,
@@ -226,5 +406,38 @@ export {
   BottomContainer,
   Container,
   Title,
-  SubTitle
+  SubTitle,
+  OrderListContainer,
+  LeftContent,
+  CenterContent,
+  RightContent,
+  ProductName,
+  OrderListPrice,
+  OrderQuantity,
+  OrderStatus,
+  ProductImg,
+  MyReviewContainer,
+  ContentLeft,
+  ReviewProductImage,
+  ReviewProductImg,
+  ContentRight,
+  ReviewTitle,
+  ReviewProductInfo,
+  CreationDate,
+  ProductName2,
+  MyAddressContainer,
+  AddressTitle,
+  AddressInfo,
+  Select,
+  Address,
+  Recipient,
+  SelectText,
+  SelectImg,
+  AddressText,
+  RecipientText,
+  PhoneNumber,
+  PhoneNumberText,
+  Modify,
+  ModifyImg,
+  AddressButton
 };
