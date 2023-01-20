@@ -1,3 +1,4 @@
+import ProductInfo from '../components/Product/ProductInfo';
 import ItemQuestionList from '../components/Product/ItemQuestionList';
 import OrderProduct from '../components/Order/OrderProduct';
 import {
@@ -12,6 +13,7 @@ const Product = () => {
   return (
     <ProductWrapper>
       <ProductContent>
+        <ProductInfo />
         <ItemQuestionList />
       </ProductContent>
 

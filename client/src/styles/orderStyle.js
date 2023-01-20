@@ -120,16 +120,26 @@ const CartFooter = styled.footer`
 const CartItemContainer = styled.li`
   position: relative;
   display: flex;
-  padding: 32px 12px;
+  flex-direction: column;
+  padding: 24px 12px;
+  row-gap: 8px;
 
   &:not(:last-child) {
     border-bottom: 1px solid ${(props) => props.theme.borderColor};
   }
+
+  @media ${(props) => props.theme.tablet} {
+    padding: 16px 12px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    padding: 12px;
+  }
 `;
 
 const CartItemImage = styled.div`
-  width: 48px;
-  height: 48px;
+  width: 64px;
+  height: 64px;
   margin-right: 12px;
   border-radius: 4px;
   overflow: hidden;
@@ -141,6 +151,8 @@ const CartItemImage = styled.div`
   }
 
   @media ${(props) => props.theme.mobile} {
+    width: 48px;
+    height: 48px;
     margin-right: 8px;
   }
 `;
@@ -153,20 +165,6 @@ const CartItemImg = styled.div`
   background-position: center center;
   background-size: cover;
   transition: transform 0.3s;
-
-  @media ${(props) => props.theme.desktop} {
-    &:hover {
-      transform: scale(1.1);
-    }
-  }
-`;
-
-const CartItemInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  width: 40%;
-  row-gap: 4px;
 `;
 
 const ProductName = styled.h3`
@@ -178,19 +176,31 @@ const ProductName = styled.h3`
   @media ${(props) => props.theme.desktop} {
     a {
       font-size: 14px;
-
-      &:hover {
-        color: ${(props) => props.theme.hoverColor};
-      }
     }
   }
 
   @media ${(props) => props.theme.tablet} {
     a {
       font-size: 12px;
+    }
+  }
+`;
 
-      &:hover {
-        color: ${(props) => props.theme.hoverColor};
+const CartItemInfo = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      ${CartItemImg} {
+        transform: scale(1.1);
+      }
+
+      ${ProductName} {
+        a {
+          color: ${(props) => props.theme.hoverColor};
+        }
       }
     }
   }
@@ -198,13 +208,13 @@ const ProductName = styled.h3`
 
 const PriceContainer = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
   column-gap: 8px;
 `;
 
 const ProductPrice = styled.strong`
   display: block;
-  flex-shrink: 0;
   font-size: 10px;
   font-weight: 700;
 
@@ -214,6 +224,19 @@ const ProductPrice = styled.strong`
 
   @media ${(props) => props.theme.tablet} {
     font-size: 12px;
+  }
+`;
+
+const OrderPrice = styled.strong`
+  font-size: 14px;
+  font-weight: 700;
+
+  @media ${(props) => props.theme.desktop} {
+    font-size: 18px;
+  }
+
+  @media ${(props) => props.theme.tablet} {
+    font-size: 16px;
   }
 `;
 
@@ -235,6 +258,7 @@ const Count = styled.input`
   display: block;
   flex-grow: 1;
   font-size: 10px;
+  font-weight: 700;
   text-align: center;
 
   @media ${(props) => props.theme.desktop} {
@@ -276,23 +300,51 @@ const DeleteButton = styled.button`
       }
     }
   }
-
-  @media ${(props) => props.theme.mobile} {
-    svg {
-      width: 8px;
-      height: 8px;
-    }
-  }
 `;
 
-const OrderItemContainer = styled.li`
+const OrderItemWrapper = styled.li`
   position: relative;
   display: flex;
-  justify-content: space-between;
-  padding: 24px 12px;
+  align-items: center;
+  padding: 24px;
+  column-gap: 24px;
 
   &:not(:last-child) {
     border-bottom: 1px solid ${(props) => props.theme.borderColor};
+  }
+`;
+
+const OrderItemContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  row-gap: 12px;
+`;
+
+const OrderItemImg = styled.div`
+  width: 100%;
+  height: 100%;
+  background-image: url(${(props) => props.img});
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  transition: transform 0.3s;
+`;
+
+const OrderItemName = styled.h3`
+  margin-left: 12px;
+
+  a {
+    font-size: 16px;
+    transition: color 0.3s;
+
+    @media ${(props) => props.theme.tablet} {
+      font-size: 14px;
+    }
+
+    @media ${(props) => props.theme.mobile} {
+      font-size: 12px;
+    }
   }
 `;
 
@@ -300,7 +352,21 @@ const OrderItemLeft = styled.div`
   display: flex;
   align-items: center;
   flex-shrink: 0;
-  margin-right: 12px;
+  cursor: pointer;
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      ${OrderItemImg} {
+        transform: scale(1.1);
+      }
+
+      ${OrderItemName} {
+        a {
+          color: ${(props) => props.theme.hoverColor};
+        }
+      }
+    }
+  }
 `;
 
 const CheckBox = styled.div`
@@ -367,70 +433,24 @@ const CheckDelete = styled.button`
 const OrderItemImage = styled.div`
   width: 96px;
   height: 96px;
-  margin-left: 24px;
   border-radius: 4px;
   overflow: hidden;
 
   @media ${(props) => props.theme.tablet} {
     width: 72px;
     height: 72px;
-    margin-left: 16px;
   }
 
   @media ${(props) => props.theme.mobile} {
-    width: 48px;
-    height: 48px;
-    margin-left: 12px;
-  }
-`;
-
-const OrderItemImg = styled.div`
-  width: 100%;
-  height: 100%;
-  background-image: url(${(props) => props.img});
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
-  transition: transform 0.3s;
-
-  @media ${(props) => props.theme.desktop} {
-    &:hover {
-      transform: scale(1.1);
-    }
-  }
-`;
-
-const OrderItemName = styled.h3`
-  margin-left: 12px;
-
-  a {
-    font-size: 16px;
-    transition: color 0.3s;
-
-    @media ${(props) => props.theme.desktop} {
-      &:hover {
-        color: ${(props) => props.theme.hoverColor};
-      }
-    }
-
-    @media ${(props) => props.theme.tablet} {
-      font-size: 14px;
-    }
-
-    @media ${(props) => props.theme.mobile} {
-      font-size: 12px;
-    }
+    width: 64px;
+    height: 64px;
   }
 `;
 
 const OrderItemRight = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-end;
-  row-gap: 8px;
-  margin-right: 24px;
-  flex-shrink: 0;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const OrderContainer = styled.div`
@@ -548,15 +568,23 @@ const OrderButton = styled.button`
   height: 40px;
   font-size: 18px;
   font-weight: 700;
-  border-radius: 4px;
   color: ${(props) => props.theme.whiteColor};
   background-color: ${(props) => props.theme.primaryColor};
   transition: background-color 0.5s;
 
   @media ${(props) => props.theme.desktop} {
+    border-radius: 4px;
     &:hover {
       background-color: ${(props) => props.theme.hoverColor};
     }
+  }
+
+  @media ${(props) => props.theme.tablet} {
+    font-size: 16px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 14px;
   }
 `;
 
@@ -565,9 +593,11 @@ const CartButton = styled(OrderButton)`
   color: ${(props) => props.theme.primaryColor};
   background-color: ${(props) => props.theme.whiteColor};
 
-  &:hover {
-    color: ${(props) => props.theme.whiteColor};
-    background-color: ${(props) => props.theme.hoverColor};
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      color: ${(props) => props.theme.whiteColor};
+      background-color: ${(props) => props.theme.hoverColor};
+    }
   }
 `;
 
@@ -581,7 +611,6 @@ const MobileOrderButton = styled.button`
   height: 40px;
   font-size: 16px;
   font-weight: 700;
-  border-radius: 4px;
   color: ${(props) => props.theme.whiteColor};
   background-color: ${(props) => props.theme.primaryColor};
   transition: background-color 0.5s;
@@ -593,6 +622,8 @@ const MobileOrderButton = styled.button`
 `;
 
 export {
+  OrderItemWrapper,
+  OrderPrice,
   CartContainer,
   CartHeader,
   CartList,
