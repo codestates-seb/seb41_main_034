@@ -66,7 +66,7 @@ const MobileMenuWrapper = styled.div`
     width: 100%;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 97;
+    z-index: 80;
   }
 `;
 
@@ -86,7 +86,7 @@ const MobileMenuContainer = styled.div`
     transition: transform 0.5s;
     transform: ${(props) =>
       props.isOpenMenu ? 'translateX(0)' : 'translateX(-270px)'};
-    z-index: 98;
+    z-index: 80;
   }
 `;
 
@@ -142,7 +142,21 @@ const MobileMyPageLink = styled(Link)`
   }
 `;
 
+const CancleButton = styled.button`
+  position: absolute;
+  top: 16px;
+  left: 216px;
+  background-color: rgba(0, 0, 0, 0);
+
+  svg {
+    width: 16px;
+    height: 16px;
+    fill: ${(props) => props.theme.whiteColor};
+  }
+`;
+
 export {
+  CancleButton,
   CatagoryWrapper,
   CatagoryContainer,
   CatagoryButton,

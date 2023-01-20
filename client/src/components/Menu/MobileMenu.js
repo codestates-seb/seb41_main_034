@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import {
   MobileLink,
   MobileButtonContainer,
@@ -7,12 +8,13 @@ import {
   MobileMenuWrapper,
   MobileMenuContainer,
   MobileButton,
-  MobileMyPageLink
+  MobileMyPageLink,
+  CancleButton
 } from '../../styles/menuStyle';
 import { Logo } from '../../styles/layoutStyle';
 import { ReactComponent as LogoIcon } from '../../assets/icons/foodmeet.svg';
 import { ReactComponent as MyPageIcon } from '../../assets/icons/myPageIcon.svg';
-import { Link } from 'react-router-dom';
+import { ReactComponent as DeleteIcon } from '../../assets/icons/cancleIcon.svg';
 
 const MobileMenu = ({ isLogin, isOpenMenu, setIsOpenMenu }) => {
   return (
@@ -20,7 +22,11 @@ const MobileMenu = ({ isLogin, isOpenMenu, setIsOpenMenu }) => {
       <MobileMenuWrapper
         onClick={() => setIsOpenMenu(false)}
         isOpenMenu={isOpenMenu}
-      />
+      >
+        <CancleButton type="button">
+          <DeleteIcon />
+        </CancleButton>
+      </MobileMenuWrapper>
       <MobileMenuContainer isOpenMenu={isOpenMenu}>
         <MobileMenuHeader>
           <Logo>
