@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import {
   SignContainer,
   SignHeader,
+  SignLogo,
   SignTitle,
   SignSpan,
   ToSign,
@@ -12,6 +13,7 @@ import {
   SignInput,
   SignButton
 } from '../../styles/signStyle';
+import { ReactComponent as LogoIcon } from '../../assets/icons/foodmeet.svg';
 // import { loginAPI } from '../api/sign';
 
 function LoginForm() {
@@ -33,6 +35,11 @@ function LoginForm() {
     <>
       <SignContainer onSubmit={onSubmit}>
         <SignHeader>
+          <SignLogo>
+            <Link to={'/'}>
+              <LogoIcon />
+            </Link>
+          </SignLogo>
           <SignTitle>로그인</SignTitle>
           <SignSpan>
             아직 계정이 없으신가요?{' '}

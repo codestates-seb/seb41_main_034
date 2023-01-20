@@ -21,6 +21,16 @@ const SignHeader = styled.div`
   margin-bottom: 48px;
 `;
 
+const SignLogo = styled.h1`
+  position: relative;
+  top: 8px;
+
+  svg {
+    width: 72px;
+    height: 72px;
+  }
+`;
+
 const SignTitle = styled.h2`
   font-size: 32px;
   margin-bottom: 12px;
@@ -132,6 +142,7 @@ export {
   SignWrapper,
   SignContainer,
   SignHeader,
+  SignLogo,
   SignTitle,
   SignSpan,
   ToSign,
