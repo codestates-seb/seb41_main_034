@@ -11,7 +11,7 @@ const HeaderWrapper = styled.header`
   height: 70px;
   border-bottom: 1px solid ${(props) => props.theme.borderColor};
   background-color: ${(props) => props.theme.whiteColor};
-  z-index: 96;
+  z-index: 80;
 
   @media ${(props) => props.theme.mobile} {
     display: flex;
@@ -368,14 +368,14 @@ const MainWrapper = styled.main`
 const MainContainer = styled.div`
   width: 100%;
   max-width: 1200px;
-  padding: 64px;
+  padding: 96px 64px;
 
   @media ${(props) => props.theme.tablet} {
-    padding: 32px;
+    padding: 72px 32px;
   }
 
   @media ${(props) => props.theme.mobile} {
-    padding: 16px;
+    padding: 56px 16px;
   }
 `;
 

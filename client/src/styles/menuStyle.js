@@ -11,7 +11,7 @@ const CatagoryWrapper = styled.div`
   height: 50px;
   border-bottom: 1px solid ${(props) => props.theme.borderColor};
   background-color: ${(props) => props.theme.whiteColor};
-  z-index: 97;
+  z-index: 80;
 
   @media ${(props) => props.theme.mobile} {
     display: none;
