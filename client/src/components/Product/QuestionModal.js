@@ -9,7 +9,7 @@ import {
   ModalContainer,
   ModalWrapper,
   CancleImgContainer
-} from '../../styles/questionmodalStyle';
+} from '../../styles/productStyle';
 import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
 // import { useState } from 'react';
 // import { questionPostAPI } from '../../api/question';

@@ -2,23 +2,32 @@ import {
   ListHeader2,
   RightContainer2,
   LeftCotainer2,
-  Text2,
-  MarginSpace
+  ItemText,
+  MarginSpace,
+  ItemLinkText
 } from '../../styles/myPageStyle';
 import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
 
 const MyQuestion = () => {
+  const onRemove = () => {
+    if (window.confirm('해당 상품에 대한 문의를 삭제하시겠습니까?')) {
+      alert('삭제되었습니다');
+    } else {
+      alert('취소했습니다.');
+    }
+  };
+
   return (
     <ListHeader2>
       <LeftCotainer2>
-        <Text2>상품명</Text2>
+        <ItemLinkText>상품명</ItemLinkText>
         <MarginSpace />
-        <Text2>상품에 대한 문의합니다..</Text2>
+        <ItemLinkText>상품에 대한 문의합니다..</ItemLinkText>
       </LeftCotainer2>
       <RightContainer2>
-        <Text2>2023.1.13</Text2>
-        <Text2>답변완료</Text2>
-        <CancelIcon />
+        <ItemText>2023.1.13</ItemText>
+        <ItemText>답변완료</ItemText>
+        <CancelIcon onClick={onRemove} alt="문의 삭제 버튼입니다" />
       </RightContainer2>
     </ListHeader2>
   );

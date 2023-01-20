@@ -170,8 +170,8 @@ const QuestionButton = styled.button`
   }
 
   @media ${(props) => props.theme.mobile} {
-    width: 52px;
-    height: 15px;
+    width: 72px;
+    height: 24px;
     margin: 0 16px 8px 0;
     font-size: 8px;
   }
