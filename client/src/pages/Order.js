@@ -8,7 +8,8 @@ import {
   CheckLabel,
   CheckDelete,
   OrderListContianer,
-  OrderListHeader
+  OrderListHeader,
+  MobileOrderButton
 } from '../styles/orderStyle';
 
 const Order = () => {
@@ -28,7 +29,9 @@ const Order = () => {
           ))}
         </OrderList>
       </OrderListContianer>
+
       <OrderPayment />
+      <MobileOrderButton>주문하기</MobileOrderButton>
     </OrderContainer>
   );
 };

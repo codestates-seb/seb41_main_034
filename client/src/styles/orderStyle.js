@@ -460,6 +460,120 @@ const OrderList = styled.ul`
   border-bottom: 1px solid ${(props) => props.theme.grayColor};
 `;
 
+const OrderPaymentWrapper = styled.div`
+  width: 100%;
+  max-width: 320px;
+
+  @media ${(props) => props.theme.tablet} {
+    max-width: 928px;
+    margin-top: 20px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    max-width: 544px;
+    margin-top: 20px;
+  }
+`;
+
+const OrderPaymentContainer = styled.div`
+  position: sticky;
+  top: 168px;
+
+  @media ${(props) => props.theme.mobile} {
+    position: relative;
+    top: 0;
+  }
+`;
+
+const OrderReceipt = styled.div`
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 4px;
+
+  @media ${(props) => props.theme.desktop} {
+    border: 1px solid ${(props) => props.theme.borderColor};
+  }
+`;
+
+const ReceiptContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
+`;
+
+const PaymentContainer = styled(ReceiptContainer)`
+  margin-top: 30px;
+`;
+
+const ReceiptAmount = styled.strong`
+  display: block;
+  font-size: 16px;
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 14px;
+  }
+`;
+
+const ReceiptTitle = styled(ReceiptAmount)`
+  font-weight: 700;
+`;
+
+const ReceiptPayment = styled.h3`
+  font-size: 24px;
+  font-weight: 700;
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 18px;
+  }
+`;
+
+const OrderButton = styled.button`
+  display: none;
+
+  @media ${(props) => props.theme.desktop} {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 4px;
+    color: ${(props) => props.theme.whiteColor};
+    background-color: ${(props) => props.theme.primaryColor};
+    transition: background-color 0.5s;
+
+    &:hover {
+      background-color: ${(props) => props.theme.hoverColor};
+    }
+  }
+`;
+
+const MobileOrderButton = styled.button`
+  position: sticky;
+  bottom: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 4px;
+  color: ${(props) => props.theme.whiteColor};
+  background-color: ${(props) => props.theme.primaryColor};
+  transition: background-color 0.5s;
+  z-index: 99;
+
+  @media ${(props) => props.theme.desktop} {
+    display: none;
+  }
+`;
+
 export {
   CartContainer,
   CartHeader,
@@ -491,5 +605,15 @@ export {
   OrderContainer,
   OrderList,
   OrderListContianer,
-  OrderListHeader
+  OrderListHeader,
+  OrderPaymentWrapper,
+  OrderPaymentContainer,
+  OrderReceipt,
+  ReceiptContainer,
+  PaymentContainer,
+  ReceiptTitle,
+  ReceiptAmount,
+  ReceiptPayment,
+  OrderButton,
+  MobileOrderButton
 };
