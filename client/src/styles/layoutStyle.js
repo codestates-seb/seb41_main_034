@@ -95,11 +95,11 @@ const SearchInput = styled.input`
   font-size: 16px;
 
   &:focus {
-    border: 1px solid ${(props) => props.theme.activeColor};
+    border: 1px solid ${(props) => props.theme.primaryColor};
 
     & + label {
       svg {
-        fill: ${(props) => props.theme.activeColor};
+        fill: ${(props) => props.theme.primaryColor};
       }
     }
   }
