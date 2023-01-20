@@ -319,14 +319,17 @@ const EtcContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  margin-bottom: 8px;
 
   @media ${(props) => props.theme.tablet} {
     gap: 4px;
+    margin-bottom: 4px;
   }
 
   @media ${(props) => props.theme.mobile} {
     flex-direction: column;
     gap: 4px;
+    margin-bottom: 4px;
   }
 `;
 
@@ -348,6 +351,11 @@ const EtcDd = styled.dd`
     font-size: 10px;
     color: ${(props) => props.theme.grayColor};
   }
+`;
+
+const Copyright = styled.p`
+  font-size: 10px;
+  color: ${(props) => props.theme.grayColor};
 `;
 
 export {
@@ -375,5 +383,6 @@ export {
   EtcContainer,
   Etc,
   EtcDt,
-  EtcDd
+  EtcDd,
+  Copyright
 };

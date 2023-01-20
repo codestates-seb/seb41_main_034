@@ -8,10 +8,13 @@ import {
   EtcContainer,
   Etc,
   EtcDt,
-  EtcDd
+  EtcDd,
+  Copyright
 } from '../../styles/layoutStyle';
 
 const Footer = () => {
+  const year = new Date().getFullYear();
+
   return (
     <FooterWrapper>
       <FooterContainer>
@@ -22,6 +25,7 @@ const Footer = () => {
           </InfoNumber>
           <InfoTime>평일 09:00 ~ 18:00 (주말 &amp; 공휴일 제외)</InfoTime>
         </Info>
+
         <EtcContainer>
           <Etc>
             <EtcDt>상호명</EtcDt>
@@ -53,6 +57,7 @@ const Footer = () => {
             </EtcDd>
           </Etc>
         </EtcContainer>
+        <Copyright>Copyright &copy; {year}</Copyright>
       </FooterContainer>
     </FooterWrapper>
   );
