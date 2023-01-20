@@ -31,7 +31,7 @@ const OrderProduct = () => {
 
       <OrderButtonContainer>
         <CartButton>장바구니 담기</CartButton>
-        <OrderButton>주문하기</OrderButton>
+        <OrderButton to={'/order'}>주문하기</OrderButton>
       </OrderButtonContainer>
     </OrderPaymentContainer>
   );

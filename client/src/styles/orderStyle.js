@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const CartContainer = styled.div`
@@ -560,7 +561,7 @@ const OrderButtonContainer = styled.div`
   }
 `;
 
-const OrderButton = styled.button`
+const OrderButton = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;

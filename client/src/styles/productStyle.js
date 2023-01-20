@@ -459,11 +459,63 @@ const ProductButtonContainer = styled.div`
   }
 `;
 
+const ProductInfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+`;
+
 const ProductInfoImage = styled.div`
+  border-radius: 4px;
+  overflow: hidden;
+`;
+
+const ProductInfoImg = styled.div`
   width: 100%;
+  height: 0;
+  padding-top: calc(928 / 928 * 100%);
+  background: url(${(props) => props.img}) center center / cover no-repeat;
+`;
+
+const Info = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+
+  @media ${(props) => props.theme.desktop} {
+    display: none;
+  }
+`;
+
+const ProductInfoName = styled.strong`
+  display: block;
+  font-size: 18px;
+`;
+
+const ProductInfoPrice = styled.strong`
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+`;
+
+const ProductModalWrapper = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: ${(props) => (props.isOpenOrder ? 'block' : 'none')};
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 80;
 `;
 
 export {
+  ProductModalWrapper,
+  ProductInfoContainer,
+  Info,
+  ProductInfoName,
+  ProductInfoPrice,
+  ProductInfoImg,
   ProductInfoImage,
   ProductContainer,
   ProductList,
