@@ -482,6 +482,216 @@ const UserOutButton = styled.button`
     font-size: 8px;
   }
 `;
+
+//주문목록
+
+const OrderDate = styled.div`
+  display: flex;
+  margin-top: 28px;
+  margin-bottom: 12px;
+`;
+const OrderListContainer = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  height: 185px;
+  padding: 24px;
+  border-top: 1px solid ${(props) => props.theme.borderColor};
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
+  margin-bottom: 28px;
+  @media ${(props) => props.theme.tablet} {
+    width: 100%;
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: 100%;
+  }
+`;
+
+const LeftContent = styled.div`
+  width: 96px;
+  height: 96px;
+  margin-right: 12px;
+
+  @media ${(props) => props.theme.tablet} {
+    width: 72px;
+    height: 72px;
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: 48px;
+    height: 48px;
+  }
+`;
+
+const ProductImg = styled.img`
+  width: 100%;
+  height: 100%;
+`;
+
+const CenterContent = styled.div`
+  width: 100%;
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 8px;
+  font-size: 20px;
+
+  @media ${(props) => props.theme.tablet} {
+    width: 100%;
+    max-width: 399px;
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: 100%;
+  }
+`;
+
+const ProductName = styled.div`
+  font-weight: bold;
+`;
+
+const OrderListPrice = styled.div``;
+
+const OrderQuantity = styled.div``;
+
+const RightContent = styled.div`
+  width: 100%;
+  max-width: 200px;
+  display: grid;
+  align-items: center;
+  font-size: 20px;
+  @media ${(props) => props.theme.tablet} {
+    width: 100%;
+    max-width: 399px;
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: 100%;
+  }
+
+  svg {
+    fill: ${(props) => props.theme.grayColor};
+  }
+`;
+
+const OrderStatus = styled.div`
+  font-size: 20px;
+  font-weight: bold;
+`;
+const MyQuestionButton = styled.button`
+  max-width: 100px;
+  font-size: 12px;
+  border: 1px solid ${(props) => props.theme.primaryColor};
+  border-radius: 4px;
+`;
+
+//Review
+const MyReviewContainer = styled.div`
+  width: 100%;
+  max-width: 700%;
+  display: center;
+  border: 1px solid ${(props) => props.theme.blackColor};
+  border-radius: 10px;
+`;
+
+const ContentLeft = styled.div``;
+
+const ContentRight = styled.div``;
+
+const ReviewProductImage = styled.div``;
+
+const ReviewProductImg = styled.div`
+  width: 135px;
+  height: 135px;
+`;
+const ReviewTitle = styled.div`
+  font-size: 24px;
+`;
+
+const ReviewProductInfo = styled.div`
+  font-size: 16px;
+`;
+
+const CreationDate = styled.div``;
+
+const ProductName2 = styled.div``;
+
+//MyAddress
+const MyAddressContainer = styled.div`
+  width: 100%;
+  max-width: 700px;
+  display: grid;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const AddressTitle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 99px;
+
+  border: 1px solid ${(props) => props.theme.blackColor};
+  border-radius: 10px;
+  background-color: ${(props) => props.theme.primaryColor};
+`;
+const AddressInfo = styled.div`
+  width: 100%;
+  height: 99px;
+  display: flex;
+  align-items: center;
+
+  border: 1px solid ${(props) => props.theme.blackColor};
+  border-radius: 10px;
+`;
+const Select = styled.div`
+  font-size: 20px;
+`;
+
+const Address = styled.div`
+  font-size: 20px;
+`;
+
+const Recipient = styled.div`
+  font-size: 20px;
+`;
+
+const SelectText = styled.div`
+  font-size: 20px;
+`;
+
+const SelectImg = styled.svg``;
+
+const AddressText = styled.div`
+  font-size: 16px;
+`;
+
+const RecipientText = styled.div`
+  font-size: 16px;
+`;
+
+const PhoneNumber = styled.div`
+  font-size: 20px;
+`;
+
+const PhoneNumberText = styled.div`
+  font-size: 16px;
+`;
+
+const Modify = styled.div`
+  font-size: 20px;
+`;
+
+const ModifyImg = styled.svg``;
+
+const AddressButton = styled.button`
+  display: flex;
+  justify-content: end;
+  font-size: 16px;
+  border: 1px solid;
+  border-radius: 4px;
+  background-color: ${(props) => props.theme.primaryColor};
+`;
 export {
   ListHeader,
   RightContainer,
@@ -515,5 +725,40 @@ export {
   PasswordText,
   ButtonContainer,
   ConfirmButton,
-  UserOutButton
+  UserOutButton,
+  OrderDate,
+  OrderListContainer,
+  LeftContent,
+  CenterContent,
+  RightContent,
+  ProductName,
+  OrderListPrice,
+  OrderQuantity,
+  OrderStatus,
+  ProductImg,
+  MyQuestionButton,
+  MyReviewContainer,
+  ContentLeft,
+  ReviewProductImage,
+  ReviewProductImg,
+  ContentRight,
+  ReviewTitle,
+  ReviewProductInfo,
+  CreationDate,
+  ProductName2,
+  MyAddressContainer,
+  AddressTitle,
+  AddressInfo,
+  Select,
+  Address,
+  Recipient,
+  SelectText,
+  SelectImg,
+  AddressText,
+  RecipientText,
+  PhoneNumber,
+  PhoneNumberText,
+  Modify,
+  ModifyImg,
+  AddressButton
 };

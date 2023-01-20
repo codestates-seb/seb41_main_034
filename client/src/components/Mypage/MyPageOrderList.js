@@ -1,5 +1,8 @@
+// import { ReactComponet as cancleIcon } from '../../assets/icons/cancleIcon.svg';
+
 import {
   OrderListContainer,
+  OrderDate,
   LeftContent,
   CenterContent,
   RightContent,
@@ -7,13 +10,15 @@ import {
   OrderListPrice,
   OrderQuantity,
   OrderStatus,
-  ProductImg
+  ProductImg,
+  MyQuestionButton
 } from '../../styles/myPageStyle';
-// import { Link } from 'react-router-dom';
+import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
 
 const OrderList = () => {
   return (
     <>
+      <OrderDate>2023.01.07</OrderDate>
       <OrderListContainer>
         <LeftContent>
           <ProductImg
@@ -24,12 +29,14 @@ const OrderList = () => {
           />
         </LeftContent>
         <CenterContent>
-          <OrderStatus>주문완료</OrderStatus>
-        </CenterContent>
-        <RightContent>
           <ProductName>상품명</ProductName>
           <OrderListPrice>가격: 10000원</OrderListPrice>
           <OrderQuantity>수량: 1개</OrderQuantity>
+        </CenterContent>
+        <RightContent>
+          <CancelIcon />
+          <OrderStatus>주문완료</OrderStatus>
+          <MyQuestionButton>문의하기</MyQuestionButton>
         </RightContent>
       </OrderListContainer>
     </>
