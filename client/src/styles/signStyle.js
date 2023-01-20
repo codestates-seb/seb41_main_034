@@ -7,13 +7,17 @@ const SignWrapper = styled.div`
 `;
 
 const SignContainer = styled.form`
-  position: relative;
+  position: fixed;
+  top: 50%;
+  left: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   max-width: 300px;
   border-radius: 4px;
+  transform: translate(-50%, -50%);
+  z-index: 70;
 `;
 
 const SignHeader = styled.div`
@@ -76,11 +80,7 @@ const SignInput = styled.input`
   padding: 8px;
   border-radius: 4px;
   font-size: 14px;
-  border-bottom: 1px solid ${(props) => props.theme.borderColor};
-
-  &:focus {
-    border: 1px solid ${(props) => props.theme.borderColor};
-  }
+  border: 1px solid ${(props) => props.theme.borderColor};
 `;
 
 const ConfirmButton = styled.button`
@@ -122,23 +122,52 @@ const ModalBackground = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  display: ${(props) => (props.isOpenPost ? 'block' : 'none')};
   width: 100%;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 98;
+  z-index: 80;
+`;
+
+const ModalCancle = styled.button`
+  position: absolute;
+  top: 15%;
+  left: 90%;
+  background-color: rgba(0, 0, 0, 0);
+
+  svg {
+    width: 16px;
+    height: 16px;
+    fill: ${(props) => props.theme.whiteColor};
+  }
 `;
 
 const AddressModal = styled.div`
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
   width: 100%;
   max-width: 768px;
-  z-index: 99;
+  border-radius: 4px;
+  transition: transform 0.5s;
+  transform: translate(-50%, -50%)
+    ${(props) => (props.isOpenPost ? 'translateY(0)' : 'translateY(-300%)')};
+  overflow: hidden;
+  z-index: 90;
+`;
+
+const ModalTitle = styled.h2`
+  padding: 12px 0;
+  border-bottom: 1px solid ${(props) => props.theme.blackColor};
+  font-size: 24px;
+  text-align: center;
+  color: ${(props) => props.theme.primaryColor};
+  background-color: ${(props) => props.theme.whiteColor};
 `;
 
 export {
+  ModalCancle,
+  ModalTitle,
   SignWrapper,
   SignContainer,
   SignHeader,

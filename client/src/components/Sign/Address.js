@@ -1,25 +1,22 @@
 import { useState } from 'react';
-import DaumPostcode from 'react-daum-postcode';
 import {
   SignItem,
   SignLabel,
   SignInput,
-  ConfirmButton,
-  ModalBackground,
-  AddressModal
+  ConfirmButton
 } from '../../styles/signStyle';
 
-const Address = ({ address, addressDetail, setAddress, setAddressDetail }) => {
-  const [isOpenPost, setIsOpenPost] = useState(false);
-
+const Address = ({
+  address,
+  addressDetail,
+  setAddress,
+  setAddressDetail,
+  isOpenPost,
+  setIsOpenPost
+}) => {
   const onChangeOpenPost = (e) => {
     e.preventDefault();
     setIsOpenPost(!isOpenPost);
-  };
-
-  const onCompletePost = (data) => {
-    setAddress(data.address);
-    setIsOpenPost(false);
   };
 
   return (
@@ -56,14 +53,6 @@ const Address = ({ address, addressDetail, setAddress, setAddressDetail }) => {
             required
           />
         </SignItem>
-      )}
-
-      {isOpenPost && (
-        <ModalBackground onClick={() => setIsOpenPost(false)}>
-          <AddressModal>
-            <DaumPostcode onComplete={onCompletePost} />
-          </AddressModal>
-        </ModalBackground>
       )}
     </>
   );
