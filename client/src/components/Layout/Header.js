@@ -26,7 +26,7 @@ import Menu from '../Menu/Menu';
 import MobileMenu from '../Menu/MobileMenu';
 import ShoppingCart from '../Order/ShoppingCart';
 
-const Header = () => {
+const Header = ({ location }) => {
   const [isLogin, setIsLogin] = useState(false);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isOpenCart, setIsOpenCart] = useState(false);
@@ -36,6 +36,10 @@ const Header = () => {
   useEffect(() => {
     setIsLogin(token ? true : false);
   }, [token]);
+
+  if (location.pathname === '/login' || location.pathname === '/signup') {
+    return null;
+  }
 
   return (
     <>

@@ -56,18 +56,4 @@ const Main = styled.main`
   margin-top: 120px;
 `;
 
-const Container = styled.div`
-  width: 100%;
-  max-width: 1200px;
-  padding: 64px;
-
-  @media ${(props) => props.theme.tablet} {
-    padding: 32px;
-  }
-
-  @media ${(props) => props.theme.mobile} {
-    padding: 16px;
-  }
-`;
-
-export { GlobalStyle, Main, Container };
+export { GlobalStyle };

@@ -358,7 +358,30 @@ const Copyright = styled.p`
   color: ${(props) => props.theme.grayColor};
 `;
 
+const MainWrapper = styled.main`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 120px;
+`;
+
+const MainContainer = styled.div`
+  width: 100%;
+  max-width: 1200px;
+  padding: 64px;
+
+  @media ${(props) => props.theme.tablet} {
+    padding: 32px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    padding: 16px;
+  }
+`;
+
 export {
+  MainWrapper,
+  MainContainer,
   HeaderWrapper,
   HeaderContainer,
   HeaderLeft,

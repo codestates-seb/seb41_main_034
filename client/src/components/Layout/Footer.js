@@ -12,8 +12,12 @@ import {
   Copyright
 } from '../../styles/layoutStyle';
 
-const Footer = () => {
+const Footer = ({ location }) => {
   const year = new Date().getFullYear();
+
+  if (location.pathname === '/login' || location.pathname === '/signup') {
+    return null;
+  }
 
   return (
     <FooterWrapper>
