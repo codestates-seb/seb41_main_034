@@ -295,17 +295,17 @@ const ModalWrapper = styled.div`
 
 const ModalContainer = styled.div`
   position: fixed;
-  top: 160px;
-  left: 160px;
+  top: 50%;
+  left: 50%;
   width: 100%;
   max-width: 425px;
   padding: 24px 48px 48px 48px;
   margin-top: 24px;
   border-radius: 4px;
   background-color: ${(props) => props.theme.whiteColor};
-  transition: all 0.5s;
-  transform: ${(props) =>
-    props.isOpenQuestion ? 'translateY(0)' : 'translateY(100%)'};
+  transition: transform 0.5s;
+  transform: translate(-50%, -50%)
+    ${(props) => (props.isOpenQuestion ? 'translateY(0)' : 'translateY(-200%)')};
   z-index: 98;
 
   @media ${(props) => props.theme.mobile} {

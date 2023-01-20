@@ -46,12 +46,10 @@ const ItemQuestionList = () => {
         </ListContainer>
       </ListWrapper>
 
-      {isOpenQuestion && (
-        <QuestionModal
-          isOpenQuestion={isOpenQuestion}
-          setIsOpenQuestion={setIsOpenQuestion}
-        />
-      )}
+      <QuestionModal
+        isOpenQuestion={isOpenQuestion}
+        setIsOpenQuestion={setIsOpenQuestion}
+      />
     </>
   );
 };

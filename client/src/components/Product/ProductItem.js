@@ -14,7 +14,7 @@ import { ReactComponent as CartIcon } from '../../assets/icons/cartIcon.svg';
 const ProductItem = () => {
   return (
     <ProductContainer>
-      <Link>
+      <Link to={'/product/1'}>
         <ProductImageContainer>
           <ProductImage
             img={

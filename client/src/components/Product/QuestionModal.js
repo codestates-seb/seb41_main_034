@@ -39,6 +39,7 @@ const QuestionModal = ({ isOpenQuestion, setIsOpenQuestion }) => {
         onClick={handleQuestionClose}
         isOpenQuestion={isOpenQuestion}
       />
+
       <ModalContainer isOpenQuestion={isOpenQuestion}>
         <CancleImgContainer>
           <CancelIcon onClick={handleQuestionClose} />
