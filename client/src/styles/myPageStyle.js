@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-//MyQuestionList
+
 const ListHeader = styled.div`
   display: flex;
   width: 100%;
@@ -48,7 +48,7 @@ const Text = styled.div`
     font-size: 4px;
   }
 `;
-//MyQuestion
+
 const ListHeader2 = styled.div`
   display: flex;
   width: 702px;
@@ -227,7 +227,7 @@ const SubTitle = styled.div`
     display: none;
   }
 `;
-//UserInfo
+
 const UserWrapper = styled.div`
   width: 100%;
   max-width: 160px;
@@ -354,7 +354,7 @@ const EditButton = styled.button`
     zoom: 0.9;
   }
 `;
-//UserInfoEdit
+
 const UserEditWrapper = styled.div`
   width: 100%;
   max-width: 602px;
@@ -547,8 +547,6 @@ const UserOutButton = styled.button`
   }
 `;
 
-//주문목록
-
 const OrderDate = styled.div`
   display: flex;
   margin-top: 28px;
@@ -648,7 +646,6 @@ const MyQuestionButton = styled.button`
   border-radius: 4px;
 `;
 
-//Review
 const MyReviewContainer = styled.div`
   width: 100%;
   max-width: 700%;
@@ -679,7 +676,6 @@ const CreationDate = styled.div``;
 
 const ProductName2 = styled.div``;
 
-//MyAddress
 const MyAddressContainer = styled.div`
   width: 100%;
   max-width: 700px;
@@ -699,6 +695,7 @@ const AddressTitle = styled.div`
   border-radius: 10px;
   background-color: ${(props) => props.theme.primaryColor};
 `;
+
 const AddressInfo = styled.div`
   width: 100%;
   height: 99px;
@@ -708,6 +705,7 @@ const AddressInfo = styled.div`
   border: 1px solid ${(props) => props.theme.blackColor};
   border-radius: 10px;
 `;
+
 const Select = styled.div`
   font-size: 20px;
 `;
@@ -756,6 +754,7 @@ const AddressButton = styled.button`
   border-radius: 4px;
   background-color: ${(props) => props.theme.primaryColor};
 `;
+
 export {
   ListHeader,
   RightContainer,
