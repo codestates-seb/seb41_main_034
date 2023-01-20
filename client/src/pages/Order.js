@@ -32,7 +32,7 @@ const Order = () => {
 
       <OrderPayment />
 
-      <MobileOrderButton>주문하기</MobileOrderButton>
+      <MobileOrderButton>결제하기</MobileOrderButton>
     </OrderContainer>
   );
 };

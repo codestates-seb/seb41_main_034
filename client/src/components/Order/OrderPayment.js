@@ -44,7 +44,7 @@ function OrderPayment() {
         </OrderReceipt>
 
         <OrderButtonContainer>
-          <OrderButton>주문하기</OrderButton>
+          <OrderButton>결제하기</OrderButton>
         </OrderButtonContainer>
       </OrderPaymentContainer>
     </OrderPaymentWrapper>
