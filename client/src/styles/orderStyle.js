@@ -438,7 +438,6 @@ const OrderContainer = styled.div`
 
   @media ${(props) => props.theme.desktop} {
     display: flex;
-    justify-content: space-between;
     width: 100%;
     gap: 20px;
   }
@@ -531,25 +530,44 @@ const ReceiptPayment = styled.h3`
   }
 `;
 
-const OrderButton = styled.button`
+const OrderButtonContainer = styled.div`
   display: none;
 
   @media ${(props) => props.theme.desktop} {
     display: flex;
-    justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 40px;
-    font-size: 18px;
-    font-weight: 700;
-    border-radius: 4px;
-    color: ${(props) => props.theme.whiteColor};
-    background-color: ${(props) => props.theme.primaryColor};
-    transition: background-color 0.5s;
+    gap: 8px;
+  }
+`;
 
+const OrderButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 4px;
+  color: ${(props) => props.theme.whiteColor};
+  background-color: ${(props) => props.theme.primaryColor};
+  transition: background-color 0.5s;
+
+  @media ${(props) => props.theme.desktop} {
     &:hover {
       background-color: ${(props) => props.theme.hoverColor};
     }
+  }
+`;
+
+const CartButton = styled(OrderButton)`
+  border: 1px solid ${(props) => props.theme.primaryColor};
+  color: ${(props) => props.theme.primaryColor};
+  background-color: ${(props) => props.theme.whiteColor};
+
+  &:hover {
+    color: ${(props) => props.theme.whiteColor};
+    background-color: ${(props) => props.theme.hoverColor};
   }
 `;
 
@@ -614,6 +632,8 @@ export {
   ReceiptTitle,
   ReceiptAmount,
   ReceiptPayment,
+  OrderButtonContainer,
   OrderButton,
+  CartButton,
   MobileOrderButton
 };

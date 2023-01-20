@@ -124,17 +124,12 @@ const ProductReview = styled.p`
 
 const ListWrapper = styled.div`
   display: flex;
-  width: 100%;
   justify-content: center;
+  width: 100%;
 `;
 
 const ListContainer = styled.div`
   width: 100%;
-  max-width: 1024px;
-
-  @media ${(props) => props.theme.tablet} {
-    max-width: 638px;
-  }
 `;
 
 const TitleText = styled.div`
@@ -426,6 +421,43 @@ const ReviewText = styled.div`
   font-size: 20px;
 `;
 
+const ProductWrapper = styled.div`
+  display: block;
+
+  @media ${(props) => props.theme.desktop} {
+    display: flex;
+    width: 100%;
+    gap: 20px;
+  }
+`;
+
+const ProductContent = styled.div`
+  width: 100%;
+  flex-grow: 1;
+`;
+
+const ProductOrder = styled.div`
+  display: none;
+
+  @media ${(props) => props.theme.desktop} {
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    flex-shrink: 0;
+  }
+`;
+
+const ProductButtonContainer = styled.div`
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  gap: 8px;
+
+  @media ${(props) => props.theme.desktop} {
+    display: none;
+  }
+`;
+
 export {
   ProductContainer,
   ProductList,
@@ -460,5 +492,9 @@ export {
   ReviewContainer,
   ReviewHeader,
   ReviewText,
-  CartButton
+  CartButton,
+  ProductContent,
+  ProductOrder,
+  ProductWrapper,
+  ProductButtonContainer
 };

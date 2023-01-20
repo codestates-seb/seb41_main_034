@@ -7,7 +7,8 @@ import {
   PaymentContainer,
   ReceiptTitle,
   ReceiptPayment,
-  OrderButton
+  OrderButton,
+  OrderButtonContainer
 } from '../../styles/orderStyle';
 
 function OrderPayment() {
@@ -42,7 +43,9 @@ function OrderPayment() {
           </PaymentContainer>
         </OrderReceipt>
 
-        <OrderButton>주문하기</OrderButton>
+        <OrderButtonContainer>
+          <OrderButton>주문하기</OrderButton>
+        </OrderButtonContainer>
       </OrderPaymentContainer>
     </OrderPaymentWrapper>
   );

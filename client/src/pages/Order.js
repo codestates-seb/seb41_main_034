@@ -31,6 +31,7 @@ const Order = () => {
       </OrderListContianer>
 
       <OrderPayment />
+
       <MobileOrderButton>주문하기</MobileOrderButton>
     </OrderContainer>
   );
