@@ -15,7 +15,7 @@ public class OrderAddressPatchDto {
     private String recipient;
 
     @NotNull
-    @Pattern(regexp = "\\A\\d{5}\\z")
+    @Pattern(regexp = "\\A\\d{5}\\z", message = "5자리 숫자여야 합니다.")
     private String zonecode;
 
     @NotBlank
@@ -25,7 +25,7 @@ public class OrderAddressPatchDto {
     private String detailAddress;
 
     @NotNull
-    @Pattern(regexp = "\\A\\d{10,12}\\z")
+    @Pattern(regexp = "\\A\\d{10,12}\\z", message = "10자리에서 12자리의 숫자여야 합니다.")
     private String phone;
 
 }

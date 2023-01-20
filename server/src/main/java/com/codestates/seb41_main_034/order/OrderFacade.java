@@ -126,20 +126,18 @@ public class OrderFacade {
         Order updatedOrder = orderService.updateOrderCancel(orderId, cancelDto);
 
         // 취소된 수량 집계
-        for (OrderProduct product : updatedOrder.getOrderProducts()) {
-            if (product.getStatus() == OrderProductStatus.CANCELED) {
-                productIdDeltaMap.merge(product.getProductId(), product.getQuantity(), Integer::sum);
+        for (OrderProduct orderProduct : updatedOrder.getOrderProducts()) {
+            if (orderProduct.getStatus() == OrderProductStatus.CANCELED) {
+                productIdDeltaMap.merge(orderProduct.getProductId(), orderProduct.getQuantity(), Integer::sum);
             }
         }
 
         // 취소 완료된 만큼 재고 증가
         productIdDeltaMap.forEach(productService::updateProductStock);
 
-        // 주문한 상품 ID Set 생성
+        // 주문한 상품 정보 조회
         Set<Integer> productIds = updatedOrder.getOrderProducts().stream()
                 .map(OrderProduct::getProductId).collect(Collectors.toSet());
-
-        // 상품 정보 조회
         Map<Integer, Product> productMap = productService.getVerifiedProducts(productIds).stream()
                 .collect(Collectors.toMap(Product::getId, Function.identity()));
 

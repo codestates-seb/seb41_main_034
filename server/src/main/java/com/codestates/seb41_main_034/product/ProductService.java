@@ -62,13 +62,13 @@ public class ProductService {
         Product product = readProduct(productId);
 
         // DTO에 입력된 값으로 변경
-        Optional.ofNullable(patchDto.getName()).ifPresent(product::setName);
-        Optional.ofNullable(patchDto.getPrice()).ifPresent(product::setPrice);
-        Optional.ofNullable(patchDto.getStock()).ifPresent(product::setStock);
+        Optional.ofNullable(patchDto).map(ProductPatchDto::getName).ifPresent(product::setName);
+        Optional.ofNullable(patchDto).map(ProductPatchDto::getPrice).ifPresent(product::setPrice);
+        Optional.ofNullable(patchDto).map(ProductPatchDto::getStock).ifPresent(product::setStock);
+        Optional.ofNullable(patchDto).map(ProductPatchDto::getStatus).ifPresent(product::setStatus);
+        Optional.ofNullable(patchDto).map(ProductPatchDto::getCategory).ifPresent(product::setCategory);
         Optional.ofNullable(imageUrls).ifPresent(product::setImageUrls);
         Optional.ofNullable(detailImageUrls).ifPresent(product::setDetailImageUrls);
-        Optional.ofNullable(patchDto.getStatus()).ifPresent(product::setStatus);
-        Optional.ofNullable(patchDto.getCategory()).ifPresent(product::setCategory);
 
         return product;
     }

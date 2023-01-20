@@ -27,8 +27,8 @@ public class ProductFacade {
     public ProductDto createProduct(
             ProductPostDto postDto, List<MultipartFile> images, List<MultipartFile> detailImages) {
         // 이미지 저장
-        String imageUrls = imageStorageService.saveImages(images);
-        String detailImageUrls = imageStorageService.saveImages(detailImages);
+        String imageUrls = imageStorageService.store(images);
+        String detailImageUrls = imageStorageService.store(detailImages);
 
         // 상품 추가
         Product product = productService.createProduct(postDto, imageUrls, detailImageUrls);
@@ -58,17 +58,23 @@ public class ProductFacade {
     public ProductDto updateProduct(
             int productId, ProductPatchDto patchDto, List<MultipartFile> images, List<MultipartFile> detailImages) {
         // 상품 조회, 존재하는 지 확인
-        productService.readProduct(productId);
+        Product product = productService.readProduct(productId);
 
-        // 이미지 저장
-        String imageUrls = imageStorageService.saveImages(images);
-        String detailImageUrls = imageStorageService.saveImages(detailImages);
+        String imageDeleteMask =
+                Optional.ofNullable(patchDto).map(ProductPatchDto::getImageDeleteMask).orElse(null);
+        String detailImageDeleteMask =
+                Optional.ofNullable(patchDto).map(ProductPatchDto::getDetailImageDeleteMask).orElse(null);
+
+        // 이미지 수정
+        String imageUrls = imageStorageService.update(product.getImageUrlList(), imageDeleteMask, images);
+        String detailImageUrls =
+                imageStorageService.update(product.getDetailImageUrlList(), detailImageDeleteMask, detailImages);
 
         // 상품 수정
-        Product product = productService.updateProduct(productId, patchDto, imageUrls, detailImageUrls);
+        Product updatedProduct = productService.updateProduct(productId, patchDto, imageUrls, detailImageUrls);
 
         // DTO로 변환 후 반환
-        return product.toDto();
+        return updatedProduct.toDto();
     }
 
 }

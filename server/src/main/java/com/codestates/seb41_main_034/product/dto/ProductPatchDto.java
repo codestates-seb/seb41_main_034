@@ -5,6 +5,7 @@ import com.codestates.seb41_main_034.product.entity.ProductStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 
@@ -24,5 +25,11 @@ public class ProductPatchDto {
     private ProductStatus status;
 
     private ProductCategory category;
+
+    @Pattern(regexp = "\\A[01]*\\z", message = "0과 1로만 표현되어야 합니다.")
+    private String imageDeleteMask;
+
+    @Pattern(regexp = "\\A[01]*\\z", message = "0과 1로만 표현되어야 합니다.")
+    private String detailImageDeleteMask;
 
 }
