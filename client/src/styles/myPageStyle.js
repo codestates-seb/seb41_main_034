@@ -8,10 +8,9 @@ const ListHeader = styled.div`
   padding: 12px 16px;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid ${(props) => props.theme.blackColor};
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
-  background-color: ${(props) => props.theme.activeColor};
-  color: ${(props) => props.theme.whiteColor};
+  color: ${(props) => props.theme.primaryColor};
 
   @media ${(props) => props.theme.tablet} {
     width: 100%;
@@ -19,6 +18,7 @@ const ListHeader = styled.div`
   }
   @media ${(props) => props.theme.mobile} {
     width: 100%;
+    border-top: 1px solid ${(props) => props.theme.borderColor};
   }
 `;
 
@@ -55,7 +55,7 @@ const ListHeader2 = styled.div`
   padding: 12px 16px;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid ${(props) => props.theme.blackColor};
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
   color: ${(props) => props.theme.blackColor};
 
@@ -78,7 +78,18 @@ const RightContainer2 = styled.div`
   svg {
     width: 20px;
     height: 20px;
-    fill: ${(props) => props.theme.blackColor};
+    fill: ${(props) => props.theme.grayColor};
+
+    @media ${(props) => props.theme.tablet} {
+      width: 12px;
+      height: 12px;
+    }
+
+    @media ${(props) => props.theme.mobile} {
+      width: 12px;
+      height: 12px;
+      margin-left: 13px;
+    }
   }
 `;
 
@@ -87,7 +98,19 @@ const LeftCotainer2 = styled.div`
   max-width: 363px;
 `;
 
-const Text2 = styled.button`
+const ItemLinkText = styled.button`
+  font-size: 12px;
+
+  @media ${(props) => props.theme.tablet} {
+    font-size: 8px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 4px;
+  }
+`;
+
+const ItemText = styled.div`
   font-size: 12px;
 
   @media ${(props) => props.theme.tablet} {
@@ -143,7 +166,7 @@ const CatagoryBox = styled(Link)`
   }
 
   @media ${(props) => props.theme.tablet} {
-    width: 120px;
+    width: 140px;
     padding: 12px;
     font-size: 8px;
 
@@ -207,57 +230,64 @@ const SubTitle = styled.div`
 //UserInfo
 const UserWrapper = styled.div`
   width: 100%;
-  max-width: 602px;
+  max-width: 160px;
 
   @media ${(props) => props.theme.tablet} {
     width: 100%;
-    max-width: 393px;
+    max-width: 140px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    width: 100%;
+    max-width: 100%;
   }
 `;
 
 const UserInfoContainer = styled.div`
-  display: flex;
+  display: grid;
   width: 100%;
-  align-items: center;
   border: 1px solid ${(props) => props.theme.borderColor};
-  border-radius: 4px;
-`;
 
-const ImgContainer = styled.div`
-  display: flex;
-  width: 35%;
-  justify-content: center;
-  align-items: center;
-
-  svg {
-    width: 150px;
-    height: 150px;
-
-    @media ${(props) => props.theme.tablet} {
-      width: 102px;
-      height: 102px;
-    }
-
-    @media ${(props) => props.theme.mobile} {
-      width: 102px;
-      height: 102px;
-    }
+  @media ${(props) => props.theme.mobile} {
+    display: flex;
+    border: none;
+    padding: 0 30px 0 30px;
   }
 `;
 
 const InfoContainer = styled.div`
-  display: grid;
-  width: 65%;
+  width: 100%;
+`;
+
+const TextContainer = styled.div`
+  display: flex;
+  width: 100%;
+`;
+
+const WellcomText = styled.div`
+  margin: 12px 12px 12px 8px;
+  font-size: 14px;
+  color: ${(props) => props.theme.primaryColor};
+
+  @media ${(props) => props.theme.tablet} {
+    margin: 12px 0 12px 8px;
+    font-size: 12px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 12px;
+  }
 `;
 
 const NameText = styled.div`
   display: flex;
-  padding: 12px 0 12px 0;
-  font-size: 24px;
   align-items: center;
+  margin: 12px 12px 12px 8px;
+  font-size: 14px;
 
   @media ${(props) => props.theme.tablet} {
-    font-size: 16px;
+    font-size: 12px;
+    margin: 12px 0 12px 8px;
   }
 
   @media ${(props) => props.theme.mobile} {
@@ -267,12 +297,15 @@ const NameText = styled.div`
 
 const OtherText = styled.div`
   display: flex;
-  font-size: 12px;
-  padding-bottom: 8px;
   align-items: center;
+  width: 100%;
+  padding: 0 0 8px 8px;
+  font-size: 8px;
 
   @media ${(props) => props.theme.tablet} {
-    font-size: 8px;
+    padding: 4px 0 4px 8px;
+    font-size: 4px;
+    zoom: 0.9;
   }
 
   @media ${(props) => props.theme.mobile} {
@@ -280,20 +313,26 @@ const OtherText = styled.div`
   }
 `;
 
-const EditButtonContainer = styled.div`
+const EditbuttonContainer = styled.div`
   display: flex;
+  justify-content: center;
   width: 100%;
-  justify-content: flex-end;
+
+  @media ${(props) => props.theme.mobile} {
+    width: 100%;
+    padding-top: 60px;
+  }
 `;
 
 const EditButton = styled.button`
-  width: 167px;
-  height: 41px;
+  width: 100%;
+  max-width: 122px;
   margin: 12px 0 12px 0;
+  padding: 4px 0 4px 0;
   border-radius: 4px;
   background-color: ${(props) => props.theme.primaryColor};
   color: ${(props) => props.theme.whiteColor};
-  font-size: 12px;
+  font-size: 8px;
 
   @media ${(props) => props.theme.desktop} {
     &:hover {
@@ -302,15 +341,17 @@ const EditButton = styled.button`
   }
 
   @media ${(props) => props.theme.tablet} {
-    width: 96px;
-    height: 29px;
-    font-size: 8px;
+    max-width: 98px;
+    padding: 4px 0 4px 0;
+    font-size: 4px;
+    zoom: 0.9;
   }
 
   @media ${(props) => props.theme.mobile} {
-    width: 88px;
-    height: 28px;
-    font-size: 8px;
+    max-width: 88px;
+    margin: 0;
+    font-size: 4px;
+    zoom: 0.9;
   }
 `;
 //UserInfoEdit
@@ -332,7 +373,6 @@ const UserEditContainer = styled.div`
   display: grid;
   width: 100%;
   align-items: center;
-  border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
 `;
 
@@ -342,7 +382,7 @@ const EditCotainer = styled.div`
   height: 100%;
 `;
 
-const LeftBox = styled.div`
+const LeftBox = styled.label`
   display: flex;
   width: 100%;
   max-width: 137px;
@@ -350,7 +390,6 @@ const LeftBox = styled.div`
   justify-content: center;
   align-items: center;
   border: 1px solid ${(props) => props.theme.borderColor};
-  border-radius: 4px;
   font-size: 12px;
   background-color: ${(props) => props.theme.primaryColor};
   color: ${(props) => props.theme.whiteColor};
@@ -360,6 +399,10 @@ const LeftBox = styled.div`
     padding: 12px 0 12px 0;
     font-size: 8px;
   }
+
+  @media ${(props) => props.theme.mobile} {
+    max-width: 120px;
+  }
 `;
 
 const RightBox = styled.div`
@@ -367,7 +410,6 @@ const RightBox = styled.div`
   width: 100%;
   padding: 4px;
   align-items: center;
-  border: 1px solid ${(props) => props.theme.borderColor};
 
   @media ${(props) => props.theme.mobile} {
     border: none;
@@ -376,14 +418,31 @@ const RightBox = styled.div`
 
 const InputBox = styled.input`
   width: 100%;
-  padding: 12px;
-  margin: 2px;
-  border: 1px solid ${(props) => props.theme.borderColor};
+  padding: 6px;
+  margin: 12px 2px 12px 2px;
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
   font-size: 12px;
 
   @media ${(props) => props.theme.tablet} {
     padding: 8px;
+    font-size: 12px;
+    zoom: 0.9;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 8px;
+  }
+`;
+
+const ConfirmMessage = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  color: ${(props) => props.theme.primaryColor};
+  font-size: 12px;
+
+  @media ${(props) => props.theme.tablet} {
     font-size: 12px;
     zoom: 0.9;
   }
@@ -399,24 +458,28 @@ const PasswordContainer = styled.div`
   align-items: center;
 `;
 
-const PasswordText = styled.div`
-  width: 60%;
+const PasswordText = styled.label`
+  width: 100%;
+  max-width: 147px;
   padding: 4px;
   font-size: 12px;
 
   @media ${(props) => props.theme.tablet} {
+    max-width: 79px;
     font-size: 8px;
   }
 
   @media ${(props) => props.theme.mobile} {
+    max-width: 102px;
     font-size: 4px;
   }
 `;
 
 const ButtonContainer = styled.div`
-  width: 100%;
   display: flex;
   justify-content: flex-end;
+  width: 100%;
+  margin: 12px 0 12px 0;
 
   @media ${(props) => props.theme.mobile} {
     display: grid;
@@ -448,8 +511,8 @@ const ConfirmButton = styled.button`
   @media ${(props) => props.theme.mobile} {
     width: 220px;
     height: 28px;
-    margin-top: 24px;
     font-size: 8px;
+    order: 1;
   }
 `;
 
@@ -480,6 +543,7 @@ const UserOutButton = styled.button`
     width: 220px;
     height: 28px;
     font-size: 8px;
+    order: 2;
   }
 `;
 
@@ -700,7 +764,8 @@ export {
   ListHeader2,
   RightContainer2,
   LeftCotainer2,
-  Text2,
+  ItemLinkText,
+  ItemText,
   MarginSpace,
   NavContainer,
   CatagoryBox,
@@ -709,11 +774,12 @@ export {
   SubTitle,
   UserWrapper,
   UserInfoContainer,
-  ImgContainer,
   InfoContainer,
+  TextContainer,
   NameText,
+  WellcomText,
   OtherText,
-  EditButtonContainer,
+  EditbuttonContainer,
   EditButton,
   UserEditWrapper,
   UserEditContainer,
@@ -721,6 +787,7 @@ export {
   LeftBox,
   RightBox,
   InputBox,
+  ConfirmMessage,
   PasswordContainer,
   PasswordText,
   ButtonContainer,

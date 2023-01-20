@@ -1,13 +1,13 @@
-import { ReactComponent as UserIcon } from '../../assets/icons/myPageIcon.svg';
 import {
   UserWrapper,
   UserInfoContainer,
-  ImgContainer,
   InfoContainer,
+  TextContainer,
   NameText,
+  WellcomText,
   OtherText,
-  EditButtonContainer,
-  EditButton
+  EditButton,
+  EditbuttonContainer
 } from '../../styles/myPageStyle';
 
 const UserInfo = () => {
@@ -15,20 +15,19 @@ const UserInfo = () => {
     <>
       <UserWrapper>
         <UserInfoContainer>
-          <ImgContainer>
-            <UserIcon />
-          </ImgContainer>
           <InfoContainer>
-            <NameText>홍길동</NameText>
+            <TextContainer>
+              <WellcomText>환영합니다 !</WellcomText>
+              <NameText>홍길동님</NameText>
+            </TextContainer>
             <OtherText>주소 : 대한민국</OtherText>
-            <OtherText>이메일 : 123123@naver.com</OtherText>
-            <OtherText>연락처 : 010-1234-1234</OtherText>
-            <OtherText>문의 수 : 3 | 리뷰 수 : 3</OtherText>
+            <OtherText>문의 수 : 3</OtherText>
+            <OtherText>리뷰 수 : 3</OtherText>
           </InfoContainer>
+          <EditbuttonContainer>
+            <EditButton>회원정보수정</EditButton>
+          </EditbuttonContainer>
         </UserInfoContainer>
-        <EditButtonContainer>
-          <EditButton>회원정보수정</EditButton>
-        </EditButtonContainer>
       </UserWrapper>
     </>
   );
