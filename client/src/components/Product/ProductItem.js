@@ -17,9 +17,10 @@ const ProductItem = () => {
       <Link to={'/product/1'}>
         <ProductImageContainer>
           <ProductImage
-            img={
+            src={
               'https://thumbnail9.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/493405785878144-be8efa56-f85d-43e2-bbe2-79dcf26f6eac.jpg'
             }
+            alt={''}
           />
           <CartButton>
             <CartIcon />

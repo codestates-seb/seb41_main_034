@@ -2,20 +2,16 @@ import styled from 'styled-components';
 
 const ProductImageContainer = styled.div`
   position: relative;
-  flex-grow: 1;
   width: 100%;
+  height: 100%;
   margin-bottom: 4px;
   border-radius: 4px;
   overflow: hidden;
 `;
 
-const ProductImage = styled.div`
+const ProductImage = styled.img`
   width: 100%;
   height: 100%;
-  background-image: url(${(props) => props.img});
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
   transition: transform 0.3s;
 `;
 
@@ -51,17 +47,26 @@ const CartButton = styled.button`
 `;
 
 const ProductList = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  width: 100%;
-  row-gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(200px, auto);
+  grid-gap: 4px;
+
+  @media ${(props) => props.theme.tablet} {
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 8px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 8px;
+  }
 `;
 
 const ProductContainer = styled.li`
   position: relative;
-  width: calc(25% - 4px);
-  height: 300px;
+  width: 100%;
+  height: auto;
   padding: 8px;
   border-radius: 4px;
 
@@ -87,14 +92,10 @@ const ProductContainer = styled.li`
   }
 
   @media ${(props) => props.theme.tablet} {
-    width: calc(100% / 3 - 8px);
-    height: 280px;
     padding: 0;
   }
 
   @media ${(props) => props.theme.mobile} {
-    width: calc(50% - 8px);
-    height: 180px;
     padding: 0;
   }
 `;
@@ -458,7 +459,12 @@ const ProductButtonContainer = styled.div`
   }
 `;
 
+const ProductInfoImage = styled.div`
+  width: 100%;
+`;
+
 export {
+  ProductInfoImage,
   ProductContainer,
   ProductList,
   ProductImage,
