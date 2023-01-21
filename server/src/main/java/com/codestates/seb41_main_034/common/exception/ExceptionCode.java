@@ -30,7 +30,8 @@ public enum ExceptionCode {
     QUESTION_CANNOT_DELETE(HttpStatus.FORBIDDEN, "이미 답변된 문의는 삭제할 수 없습니다."),
     QUESTION_CANNOT_ANSWER(HttpStatus.FORBIDDEN, "이미 답변된 문의에는 답변할 수 없습니다."),
     QUESTION_ANSWER_NOT_FOUND(HttpStatus.NOT_FOUND, "답변을 찾을 수 없습니다."),
-    USER_ADDRESS_NOT_FOUND(HttpStatus.NOT_FOUND, "주소를 찾을 수 없습니다.");
+    USER_ADDRESS_NOT_FOUND(HttpStatus.NOT_FOUND, "주소를 찾을 수 없습니다."),
+    REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND, "후기를 찾을 수 없습니다.");
 
     private final HttpStatus httpStatus;
 

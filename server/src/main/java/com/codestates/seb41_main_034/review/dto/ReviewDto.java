@@ -1,4 +1,4 @@
-package com.codestates.seb41_main_034.question.dto;
+package com.codestates.seb41_main_034.review.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor
-public class QuestionDto {
+public class ReviewDto {
 
     private long id;
 
@@ -23,7 +23,7 @@ public class QuestionDto {
 
     private String body;
 
-    private AnswerDto answer;
+    private String[] imageUrls;
 
     private int createdBy;
     // TODO: 작성자 이름 필요

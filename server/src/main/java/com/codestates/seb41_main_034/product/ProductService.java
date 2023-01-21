@@ -67,6 +67,8 @@ public class ProductService {
         Optional.ofNullable(patchDto).map(ProductPatchDto::getStock).ifPresent(product::setStock);
         Optional.ofNullable(patchDto).map(ProductPatchDto::getStatus).ifPresent(product::setStatus);
         Optional.ofNullable(patchDto).map(ProductPatchDto::getCategory).ifPresent(product::setCategory);
+
+        // 이미지 주소 변경
         Optional.ofNullable(imageUrls).ifPresent(product::setImageUrls);
         Optional.ofNullable(detailImageUrls).ifPresent(product::setDetailImageUrls);
 

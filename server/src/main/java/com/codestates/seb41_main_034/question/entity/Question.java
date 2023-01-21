@@ -32,11 +32,11 @@ public class Question extends Auditable {
     public QuestionDto toDto(Product product) {
         Optional<Product> optionalProductDto = Optional.ofNullable(product);
         String productName = optionalProductDto.map(Product::getName).orElse(null);
-        String imageUrl = optionalProductDto.map(Product::getImageUrlArray)
+        String productImageUrl = optionalProductDto.map(Product::getImageUrlArray)
                 .map(urls -> urls.length == 0 ? null : urls[0]).orElse(null);
         AnswerDto answerDto = Optional.ofNullable(answer).map(Answer::toDto).orElse(null);
 
-        return new QuestionDto(id, productId, productName, imageUrl, body, answerDto,
+        return new QuestionDto(id, productId, productName, productImageUrl, body, answerDto,
                 getCreatedBy(), getModifiedBy(), getCreatedAt(), getModifiedAt());
     }
 

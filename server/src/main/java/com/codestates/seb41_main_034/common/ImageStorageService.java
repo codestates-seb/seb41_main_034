@@ -85,6 +85,10 @@ public class ImageStorageService {
     }
 
     public String update(String[] imageUrlArray, boolean[] deleteImage, List<MultipartFile> images) {
+        if (deleteImage == null && images == null) {
+            return null;
+        }
+
         List<String> newImageUrlList = new ArrayList<>();
         if (deleteImage != null) {
             if (deleteImage.length != imageUrlArray.length) {
