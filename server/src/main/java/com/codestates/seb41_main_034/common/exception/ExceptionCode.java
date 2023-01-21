@@ -11,7 +11,7 @@ public enum ExceptionCode {
     PRODUCT_NOT_FOUND(HttpStatus.NOT_FOUND, "상품을 찾을 수 없습니다."),
     PRODUCT_CANNOT_READ_IMAGE_URLS(HttpStatus.INTERNAL_SERVER_ERROR, "상품 이미지 주소를 읽을 수 없습니다."),
     PRODUCT_NOT_ENOUGH_STOCK(HttpStatus.FORBIDDEN, "재고가 부족합니다."),
-    IMAGE_BAD_DELETE_MASK(HttpStatus.BAD_REQUEST, "이미지 삭제 mask가 올바르지 않습니다."),
+    IMAGE_BAD_DELETE_ARRAY(HttpStatus.BAD_REQUEST, "이미지 삭제 배열이 올바르지 않습니다."),
     IMAGE_NOT_SUPPORTED(HttpStatus.BAD_REQUEST, "지원되지 않는 이미지 형식입니다."),
     IMAGE_CANNOT_READ_FILE(HttpStatus.INTERNAL_SERVER_ERROR, "이미지 파일을 읽을 수 없습니다."),
     IMAGE_CANNOT_WRITE_FILE(HttpStatus.INTERNAL_SERVER_ERROR, "이미지 파일을 저장할 수 없습니다."),

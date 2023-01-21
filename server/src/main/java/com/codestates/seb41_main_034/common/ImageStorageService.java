@@ -84,14 +84,14 @@ public class ImageStorageService {
         }
     }
 
-    public String update(List<String> imageUrlList, String deleteMask, List<MultipartFile> images) {
+    public String update(List<String> imageUrlList, boolean[] deleteImage, List<MultipartFile> images) {
         List<String> newImageUrlList = new ArrayList<>();
-        if (deleteMask != null) {
-            if (deleteMask.length() != imageUrlList.size()) {
-                throw new BusinessLogicException(ExceptionCode.IMAGE_BAD_DELETE_MASK);
+        if (deleteImage != null) {
+            if (deleteImage.length != imageUrlList.size()) {
+                throw new BusinessLogicException(ExceptionCode.IMAGE_BAD_DELETE_ARRAY);
             }
-            for (int i = 0; i < deleteMask.length(); i++) {
-                if (deleteMask.charAt(i) == '0') {
+            for (int i = 0; i < deleteImage.length; i++) {
+                if (!deleteImage[i]) {
                     newImageUrlList.add(imageUrlList.get(i));
                 }
             }

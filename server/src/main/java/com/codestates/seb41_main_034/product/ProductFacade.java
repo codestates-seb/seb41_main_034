@@ -60,10 +60,10 @@ public class ProductFacade {
         // 상품 조회, 존재하는 지 확인
         Product product = productService.readProduct(productId);
 
-        String imageDeleteMask =
-                Optional.ofNullable(patchDto).map(ProductPatchDto::getImageDeleteMask).orElse(null);
-        String detailImageDeleteMask =
-                Optional.ofNullable(patchDto).map(ProductPatchDto::getDetailImageDeleteMask).orElse(null);
+        boolean[] imageDeleteMask =
+                Optional.ofNullable(patchDto).map(ProductPatchDto::getDeleteImage).orElse(null);
+        boolean[] detailImageDeleteMask =
+                Optional.ofNullable(patchDto).map(ProductPatchDto::getDeleteDetailImage).orElse(null);
 
         // 이미지 수정
         String imageUrls = imageStorageService.update(product.getImageUrlList(), imageDeleteMask, images);
