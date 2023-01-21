@@ -73,8 +73,8 @@ public class ImageStorageService {
         }
 
         // 이미지 파일이 있는 경우 이미지 서버에 저장 및 저장된 이미지 주소 List로 저장
-        List<String> imageUrlList = images.stream()
-                .map(this::store).filter(Objects::nonNull).collect(Collectors.toList());
+        String[] imageUrlList = images.stream()
+                .map(this::store).filter(Objects::nonNull).toArray(String[]::new);
 
         // 저장된 이미지가 있는 경우 주소 List를 JSON 포맷 String으로 반환
         try {
@@ -84,19 +84,19 @@ public class ImageStorageService {
         }
     }
 
-    public String update(List<String> imageUrlList, boolean[] deleteImage, List<MultipartFile> images) {
+    public String update(String[] imageUrlArray, boolean[] deleteImage, List<MultipartFile> images) {
         List<String> newImageUrlList = new ArrayList<>();
         if (deleteImage != null) {
-            if (deleteImage.length != imageUrlList.size()) {
+            if (deleteImage.length != imageUrlArray.length) {
                 throw new BusinessLogicException(ExceptionCode.IMAGE_BAD_DELETE_ARRAY);
             }
             for (int i = 0; i < deleteImage.length; i++) {
                 if (!deleteImage[i]) {
-                    newImageUrlList.add(imageUrlList.get(i));
+                    newImageUrlList.add(imageUrlArray[i]);
                 }
             }
         } else {
-            newImageUrlList.addAll(imageUrlList);
+            newImageUrlList.addAll(List.of(imageUrlArray));
         }
 
         if (images != null) {

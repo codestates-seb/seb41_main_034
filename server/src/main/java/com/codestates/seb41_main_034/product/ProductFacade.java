@@ -66,9 +66,9 @@ public class ProductFacade {
                 Optional.ofNullable(patchDto).map(ProductPatchDto::getDeleteDetailImage).orElse(null);
 
         // 이미지 수정
-        String imageUrls = imageStorageService.update(product.getImageUrlList(), imageDeleteMask, images);
+        String imageUrls = imageStorageService.update(product.getImageUrlArray(), imageDeleteMask, images);
         String detailImageUrls =
-                imageStorageService.update(product.getDetailImageUrlList(), detailImageDeleteMask, detailImages);
+                imageStorageService.update(product.getDetailImageUrlArray(), detailImageDeleteMask, detailImages);
 
         // 상품 수정
         Product updatedProduct = productService.updateProduct(productId, patchDto, imageUrls, detailImageUrls);

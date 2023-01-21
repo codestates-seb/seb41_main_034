@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -24,9 +23,9 @@ public class ProductDto {
 
     private ProductCategory category;
 
-    private List<String> imageUrls;
+    private String[] imageUrls;
 
-    private List<String> detailImageUrls;
+    private String[] detailImageUrls;
 
     private int createdBy;
 
