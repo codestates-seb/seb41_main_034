@@ -248,7 +248,7 @@ const FooterContainer = styled.dl`
   width: 100%;
   max-width: 1200px;
   height: 240px;
-  padding: 0 0 64px 64px;
+  padding: 0 0 24px 64px;
 
   @media ${(props) => props.theme.tablet} {
     padding-left: 32px;
@@ -354,6 +354,7 @@ const EtcDd = styled.dd`
 `;
 
 const Copyright = styled.p`
+  margin-top: 40px;
   font-size: 10px;
   color: ${(props) => props.theme.grayColor};
 `;
