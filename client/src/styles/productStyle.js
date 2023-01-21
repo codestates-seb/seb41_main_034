@@ -623,6 +623,10 @@ const CarouselContainer = styled.div`
   border-radius: 4px;
   overflow: hidden;
 
+  .carousel.carousel-slider .control-arrow:hover {
+    background: rgba(0, 0, 0, 0);
+  }
+
   @media ${(props) => props.theme.tablet} {
     top: -71px;
   }
