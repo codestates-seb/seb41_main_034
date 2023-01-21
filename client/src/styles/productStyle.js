@@ -286,7 +286,7 @@ const ModalWrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  display: ${(props) => (props.isOpenQuestion ? 'block' : 'none')};
+  display: ${(props) => (props.isOpenReview ? 'block' : 'none')};
   width: 100%;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
@@ -305,7 +305,7 @@ const ModalContainer = styled.div`
   background-color: ${(props) => props.theme.whiteColor};
   transition: transform 0.5s;
   transform: translate(-50%, -50%)
-    ${(props) => (props.isOpenQuestion ? 'translateY(0)' : 'translateY(-200%)')};
+    ${(props) => (props.isOpenReview ? 'translateY(0)' : 'translateY(-200%)')};
   z-index: 98;
 
   @media ${(props) => props.theme.mobile} {
@@ -318,6 +318,7 @@ const MiddleText = styled.div`
   margin: 4px 0 28px 0;
   justify-content: center;
   font-size: 28px;
+  color: ${(props) => props.theme.primaryColor};
 
   @media ${(props) => props.theme.mobile} {
     font-size: 20px;
@@ -327,6 +328,7 @@ const MiddleText = styled.div`
 const LeftTextContainer = styled.div`
   display: flex;
   width: 100%;
+  height: 50%;
   justify-content: center;
 `;
 
@@ -340,9 +342,8 @@ const LeftText = styled.label`
 `;
 
 const MiddleContainer = styled.div`
-  display: flex;
   width: 100%;
-  justify-content: center;
+  margin: 20px 0px;
 `;
 
 const SmallInput = styled.input`
@@ -365,7 +366,8 @@ const SmallInput = styled.input`
 
 const BigInput = styled.textarea`
   width: 100%;
-  padding: 4px 4px 208px 4px;
+  height: 100px;
+  padding: 4px 4px 4px 4px;
   margin: 16px 0 32px 0;
   border-bottom: 1px solid ${(props) => props.theme.borderColor};
   border-left: 1px solid ${(props) => props.theme.borderColor};
@@ -411,19 +413,135 @@ const CancleImgContainer = styled.div`
   }
 `;
 
-const ReviewContainer = styled.div`
-  width: 520px;
-  height: 1205px;
-  margin: auto;
-  background-color: red;
+const ReviewNotice = styled.div`
+  font-size: 12px;
+  margin-bottom: 10px;
+`;
+
+//ItemReview
+
+const ReviewWrapper = styled.div`
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  /* background-color: yellow; */
 `;
 
 const ReviewHeader = styled.div`
-  font-size: 50px;
+  width: 100%;
+  max-width: 1024px;
 `;
 
-const ReviewText = styled.div`
+const TopTitle = styled.div`
+  margin: 64px 0 20px 0;
+  width: 100%;
+  font-size: 24px;
+`;
+
+const MiddleTiTle = styled.div`
+  margin-bottom: 16px;
+  font-size: 16px;
+`;
+const ReviewMiddleInfo = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 16px 0 0;
+  width: 100%;
+`;
+const ReviewQuantity = styled.div`
   font-size: 20px;
+`;
+
+const ReviewButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 20px;
+  width: 120px;
+  height: 40px;
+  font-size: 18px;
+  border-radius: 4px;
+  color: ${(props) => props.theme.whiteColor};
+  background-color: ${(props) => props.theme.primaryColor};
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      background-color: ${(props) => props.theme.hoverColor};
+      transition: 0.5s;
+    }
+  }
+
+  @media ${(props) => props.theme.tablet} {
+    width: 80px;
+    height: 30px;
+    font-size: 12px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    width: 52px;
+    height: 15px;
+    margin: 0 16px 8px 0;
+    font-size: 8px;
+  }
+`;
+
+const ReviewListContainer = styled.div`
+  width: 100%;
+  max-width: 600px;
+  padding: 16px;
+  border-top: 1px solid ${(props) => props.theme.borderColor};
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
+  margin-bottom: 28px;
+`;
+
+const ReviewList = styled.div`
+  margin: 25px 0px;
+`;
+
+const FirstInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+const SecondInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+const ReviewProductName = styled.div`
+  margin-bottom: 24px;
+  font-size: 16px;
+  font-weight: bold;
+`;
+
+const ReviewImageContainer = styled.div`
+  width: 100%;
+  height: 90px;
+  display: flex;
+`;
+const ReviewImg = styled.img`
+  width: 90px;
+  height: 90px;
+`;
+
+const Detail = styled.div``;
+
+const Writer = styled.div`
+  margin-left: 24px;
+  font-size: 16px;
+`;
+const Reviews = styled.div`
+  margin-left: 24px;
+  font-size: 16px;
+`;
+
+const CreationDate = styled.div`
+  font-size: 16px;
+  font-weight: bold;
 `;
 
 export {
@@ -457,8 +575,24 @@ export {
   ModalContainer,
   ModalWrapper,
   CancleImgContainer,
-  ReviewContainer,
+  CartButton,
+  ReviewNotice,
+  ReviewWrapper,
   ReviewHeader,
-  ReviewText,
-  CartButton
+  TopTitle,
+  MiddleTiTle,
+  ReviewMiddleInfo,
+  ReviewQuantity,
+  ReviewButton,
+  ReviewListContainer,
+  ReviewList,
+  FirstInfo,
+  SecondInfo,
+  ReviewProductName,
+  Writer,
+  Reviews,
+  CreationDate,
+  ReviewImageContainer,
+  ReviewImg,
+  Detail
 };
