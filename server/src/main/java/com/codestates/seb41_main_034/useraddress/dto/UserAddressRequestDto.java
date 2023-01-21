@@ -1,4 +1,4 @@
-package com.codestates.seb41_main_034.order.dto;
+package com.codestates.seb41_main_034.useraddress.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,13 +9,13 @@ import javax.validation.constraints.Pattern;
 
 @Getter
 @AllArgsConstructor
-public class OrderAddressPatchDto {
+public class UserAddressRequestDto {
 
     @NotBlank
     private String recipient;
 
     @NotNull
-    @Pattern(regexp = "\\A\\d{5}\\z", message = "5자리 숫자여야 합니다.")
+    @Pattern(regexp = "\\A\\d{5}\\z")
     private String zonecode;
 
     @NotBlank
@@ -25,7 +25,9 @@ public class OrderAddressPatchDto {
     private String detailAddress;
 
     @NotNull
-    @Pattern(regexp = "\\A\\d{10,12}\\z", message = "10자리에서 12자리의 숫자여야 합니다.")
+    @Pattern(regexp = "\\A\\d{10,12}\\z")
     private String phone;
+
+    private boolean isPrimary;
 
 }

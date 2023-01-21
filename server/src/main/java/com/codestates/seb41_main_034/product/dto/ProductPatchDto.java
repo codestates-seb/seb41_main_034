@@ -25,4 +25,8 @@ public class ProductPatchDto {
 
     private ProductCategory category;
 
+    private boolean[] deleteImage;
+
+    private boolean[] deleteDetailImage;
+
 }

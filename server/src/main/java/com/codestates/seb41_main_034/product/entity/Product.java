@@ -5,7 +5,6 @@ import com.codestates.seb41_main_034.common.exception.BusinessLogicException;
 import com.codestates.seb41_main_034.common.exception.ExceptionCode;
 import com.codestates.seb41_main_034.product.dto.ProductDto;
 import com.fasterxml.jackson.core.JacksonException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +12,6 @@ import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
 @Setter
@@ -62,22 +60,22 @@ public class Product extends Auditable {
     public ProductDto toDto() {
         return new ProductDto(
                 id, name, price, stock, status, category,
-                getImageUrlList(), getDetailImageUrlList(),
+                getImageUrlArray(), getDetailImageUrlArray(),
                 getCreatedBy(), getModifiedBy(), getCreatedAt(), getModifiedAt()
         );
     }
 
-    public List<String> getImageUrlList() {
+    public String[] getImageUrlArray() {
         try {
-            return mapper.readValue(getImageUrls(), new TypeReference<>() {});
+            return mapper.readValue(getImageUrls(), String[].class);
         } catch (JacksonException e) {
             throw new BusinessLogicException(ExceptionCode.PRODUCT_CANNOT_READ_IMAGE_URLS);
         }
     }
 
-    public List<String> getDetailImageUrlList() {
+    public String[] getDetailImageUrlArray() {
         try {
-            return mapper.readValue(getDetailImageUrls(), new TypeReference<>() {});
+            return mapper.readValue(getDetailImageUrls(), String[].class);
         } catch (JacksonException e) {
             throw new BusinessLogicException(ExceptionCode.PRODUCT_CANNOT_READ_IMAGE_URLS);
         }

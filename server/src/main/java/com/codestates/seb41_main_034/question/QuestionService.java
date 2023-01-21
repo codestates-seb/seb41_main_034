@@ -72,8 +72,7 @@ public class QuestionService {
 
     public Question updateQuestion(long questionId, QuestionPatchDto questionPatchDto) {
         // DB에서 문의 ID 조회, 없는 경우 예외 발생
-        Question question = questionRepository.findById(questionId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
+        Question question = readQuestion(questionId);
 
         // 답변이 있는 경우 수정 불가
         Optional.ofNullable(question.getAnswer()).ifPresent(answer -> {
@@ -88,8 +87,7 @@ public class QuestionService {
 
     public void deleteQuestion(long questionId) {
         // DB에서 문의 ID 조회, 없는 경우 예외 발생
-        Question question = questionRepository.findById(questionId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
+        Question question = readQuestion(questionId);
 
         // 답변이 있는 경우 삭제 불가
         Optional.ofNullable(question.getAnswer()).ifPresent(answer -> {
@@ -102,8 +100,7 @@ public class QuestionService {
 
     public Question createAnswer(long questionId, AnswerRequestDto answerRequestDto) {
         // DB에서 문의 ID 조회, 없는 경우 예외 발생
-        Question question = questionRepository.findById(questionId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
+        Question question = readQuestion(questionId);
 
         // 답변이 있는 경우 답변 불가
         Optional.ofNullable(question.getAnswer()).ifPresent(answer -> {
@@ -118,8 +115,7 @@ public class QuestionService {
 
     public Question updateAnswer(long questionId, AnswerRequestDto answerRequestDto) {
         // DB에서 문의 ID 조회, 없는 경우 예외 발생
-        Question question = questionRepository.findById(questionId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
+        Question question = readQuestion(questionId);
 
         // 답변이 없는 경우 예외 발생
         Optional.ofNullable(question.getAnswer())

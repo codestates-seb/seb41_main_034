@@ -31,8 +31,8 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<Response<ProductDto>> postProduct(
             @Valid @RequestPart("data-json") ProductPostDto postDto,
-            @RequestPart("images") List<MultipartFile> images,
-            @RequestPart("detail-images") List<MultipartFile> detailImages
+            @RequestPart(name = "images", required = false) List<MultipartFile> images,
+            @RequestPart(name = "detail-images", required = false) List<MultipartFile> detailImages
     ) {
         return new ResponseEntity<>(
                 Response.of(productFacade.createProduct(postDto, images, detailImages)), HttpStatus.CREATED);
@@ -54,9 +54,9 @@ public class ProductController {
     @PatchMapping("/{productId}")
     public ResponseEntity<Response<ProductDto>> patchProduct(
             @Positive @PathVariable int productId,
-            @Valid @RequestPart("data-json") ProductPatchDto patchDto,
-            @RequestPart("images") List<MultipartFile> images,
-            @RequestPart("detail-images") List<MultipartFile> detailImages
+            @Valid @RequestPart(name = "data-json", required = false) ProductPatchDto patchDto,
+            @RequestPart(name = "images", required = false) List<MultipartFile> images,
+            @RequestPart(name = "detail-images", required = false) List<MultipartFile> detailImages
     ) {
         return new ResponseEntity<>(
                 Response.of(productFacade.updateProduct(productId, patchDto, images, detailImages)), HttpStatus.OK);

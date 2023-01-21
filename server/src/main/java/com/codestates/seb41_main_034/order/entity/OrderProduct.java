@@ -47,8 +47,8 @@ public class OrderProduct extends Auditable {
     public OrderProductDto toDto(Product product) {
         Optional<Product> optionalProduct = Optional.ofNullable(product);
         String name = optionalProduct.map(Product::getName).orElse(null);
-        String imageUrl = optionalProduct.map(Product::getImageUrlList)
-                .map(urls -> urls.isEmpty() ? null : urls.get(0)).orElse(null);
+        String imageUrl = optionalProduct.map(Product::getImageUrlArray)
+                .map(urls -> urls.length == 0 ? null : urls[0]).orElse(null);
 
         return new OrderProductDto(productId, name, imageUrl, price, quantity, status,
                 getCreatedBy(), getModifiedBy(), getCreatedAt(), getModifiedAt());

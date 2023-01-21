@@ -38,8 +38,8 @@ public class OrderFacade {
                 .map(OrderProductPostDto::getProductId).collect(Collectors.toSet());
         Map<Integer, Product> productMap = productService.getVerifiedProducts(productIds)
                 .stream()
-                .peek(productDto -> {
-                    switch (productDto.getStatus()) {
+                .peek(product -> {
+                    switch (product.getStatus()) {
                         case UNAVAILABLE:
                             throw new BusinessLogicException(ExceptionCode.ORDER_PRODUCT_IS_UNAVAILABLE);
                         case DRAFT:
@@ -48,8 +48,15 @@ public class OrderFacade {
                 })
                 .collect(Collectors.toMap(Product::getId, Function.identity()));
 
+        // 상품 원래 가격과 주문 가격 검증
+        postDto.getProducts().forEach(dto -> {
+            if (dto.getPrice() != productMap.get(dto.getProductId()).getPrice()) {
+                throw new BusinessLogicException(ExceptionCode.ORDER_MISMATCHED_PRICE);
+            }
+        });
+
         // 주문 저장
-        Order order = orderService.createOrder(postDto, productMap);
+        Order order = orderService.createOrder(postDto);
 
         // 주문한 만큼 재고 감소
         for (OrderProduct orderProduct : order.getOrderProducts()) {
@@ -119,25 +126,30 @@ public class OrderFacade {
         Order updatedOrder = orderService.updateOrderCancel(orderId, cancelDto);
 
         // 취소된 수량 집계
-        for (OrderProduct product : updatedOrder.getOrderProducts()) {
-            if (product.getStatus() == OrderProductStatus.CANCELED) {
-                productIdDeltaMap.merge(product.getProductId(), product.getQuantity(), Integer::sum);
+        for (OrderProduct orderProduct : updatedOrder.getOrderProducts()) {
+            if (orderProduct.getStatus() == OrderProductStatus.CANCELED) {
+                productIdDeltaMap.merge(orderProduct.getProductId(), orderProduct.getQuantity(), Integer::sum);
             }
         }
 
         // 취소 완료된 만큼 재고 증가
         productIdDeltaMap.forEach(productService::updateProductStock);
 
-        // 주문한 상품 ID Set 생성
+        // 주문한 상품 정보 조회
         Set<Integer> productIds = updatedOrder.getOrderProducts().stream()
                 .map(OrderProduct::getProductId).collect(Collectors.toSet());
-
-        // 상품 정보 조회
         Map<Integer, Product> productMap = productService.getVerifiedProducts(productIds).stream()
                 .collect(Collectors.toMap(Product::getId, Function.identity()));
 
         // 응답 DTO로 매핑 후 반환
         return updatedOrder.toDto(productMap);
+    }
+
+    public OrderDto updateOrderPay(long orderId) {
+        // TODO: 결제 정보 확인 필요
+        Order order = orderService.updateOrderPay(orderId);
+
+        return order.toDto();
     }
 
     public OrderDto updateOrderPrepare(long orderId) {

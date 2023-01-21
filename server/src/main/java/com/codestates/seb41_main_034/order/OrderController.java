@@ -58,12 +58,15 @@ public class OrderController {
         return new ResponseEntity<>(Response.of(orderFacade.updateOrderAddress(orderId, patchDto)), HttpStatus.OK);
     }
 
-    // TODO: 결제 프로세스 후 update 기능 필요
-
     @PatchMapping("/ordering/{orderId}/cancel")
     public ResponseEntity<Response<OrderDto>> patchOrderCancel(@Positive @PathVariable long orderId,
                                                                @Valid @RequestBody OrderCancelDto cancelDto) {
         return new ResponseEntity<>(Response.of(orderFacade.updateOrderCancel(orderId, cancelDto)), HttpStatus.OK);
+    }
+
+    @PatchMapping("/ordering/{orderId}/pay")
+    public ResponseEntity<Response<OrderDto>> patchOrderPay(@Positive @PathVariable long orderId) {
+        return new ResponseEntity<>(Response.of(orderFacade.updateOrderPay(orderId)), HttpStatus.OK);
     }
 
     @PatchMapping("/ordering/{orderId}/prepare")

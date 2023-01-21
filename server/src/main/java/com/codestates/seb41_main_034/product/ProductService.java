@@ -59,17 +59,16 @@ public class ProductService {
     public Product updateProduct(
             int productId, ProductPatchDto patchDto, String imageUrls, String detailImageUrls) {
         // DB에서 상품 조회, 없는 경우 예외 발생
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
+        Product product = readProduct(productId);
 
         // DTO에 입력된 값으로 변경
-        Optional.ofNullable(patchDto.getName()).ifPresent(product::setName);
-        Optional.ofNullable(patchDto.getPrice()).ifPresent(product::setPrice);
-        Optional.ofNullable(patchDto.getStock()).ifPresent(product::setStock);
+        Optional.ofNullable(patchDto).map(ProductPatchDto::getName).ifPresent(product::setName);
+        Optional.ofNullable(patchDto).map(ProductPatchDto::getPrice).ifPresent(product::setPrice);
+        Optional.ofNullable(patchDto).map(ProductPatchDto::getStock).ifPresent(product::setStock);
+        Optional.ofNullable(patchDto).map(ProductPatchDto::getStatus).ifPresent(product::setStatus);
+        Optional.ofNullable(patchDto).map(ProductPatchDto::getCategory).ifPresent(product::setCategory);
         Optional.ofNullable(imageUrls).ifPresent(product::setImageUrls);
         Optional.ofNullable(detailImageUrls).ifPresent(product::setDetailImageUrls);
-        Optional.ofNullable(patchDto.getStatus()).ifPresent(product::setStatus);
-        Optional.ofNullable(patchDto.getCategory()).ifPresent(product::setCategory);
 
         return product;
     }
@@ -92,8 +91,7 @@ public class ProductService {
 
     public void updateProductStock(int productId, int delta) {
         // DB에서 상품 조회, 없는 경우 예외 발생
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
+        Product product = readProduct(productId);
 
         // 수정될 재고량 계산
         int updatedStock = product.getStock() + delta;
