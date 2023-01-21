@@ -561,6 +561,17 @@ const OrderButtonContainer = styled.div`
   }
 `;
 
+const ModalButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 4px;
+
+  @media ${(props) => props.theme.desktop} {
+    padding: 0;
+  }
+`;
+
 const OrderButton = styled(Link)`
   display: flex;
   justify-content: center;
@@ -572,9 +583,9 @@ const OrderButton = styled(Link)`
   color: ${(props) => props.theme.whiteColor};
   background-color: ${(props) => props.theme.primaryColor};
   transition: background-color 0.5s;
+  border-radius: 4px;
 
   @media ${(props) => props.theme.desktop} {
-    border-radius: 4px;
     &:hover {
       background-color: ${(props) => props.theme.hoverColor};
     }
@@ -612,6 +623,7 @@ const MobileOrderButton = styled.button`
   height: 40px;
   font-size: 16px;
   font-weight: 700;
+  border-radius: 4px;
   color: ${(props) => props.theme.whiteColor};
   background-color: ${(props) => props.theme.primaryColor};
   transition: background-color 0.5s;
@@ -622,7 +634,27 @@ const MobileOrderButton = styled.button`
   }
 `;
 
+const OrderModalContainer = styled.div`
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 200px;
+  border-radius: 16px 16px 0 0;
+  transition: transform 0.5s;
+  transform: ${(props) =>
+    props.isOpenOrder ? 'trnaslateY(0)' : 'translateY(200px)'};
+  background-color: ${(props) => props.theme.whiteColor};
+  z-index: 90;
+
+  @media ${(props) => props.theme.desktop} {
+    display: none;
+  }
+`;
+
 export {
+  ModalButtonContainer,
+  OrderModalContainer,
   OrderItemWrapper,
   OrderPrice,
   CartContainer,

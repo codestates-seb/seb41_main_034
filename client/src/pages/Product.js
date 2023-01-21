@@ -2,19 +2,35 @@ import { useState } from 'react';
 import ProductInfo from '../components/Product/ProductInfo';
 import ItemQuestionList from '../components/Product/ItemQuestionList';
 import OrderProduct from '../components/Order/OrderProduct';
+import OrderModal from '../components/Order/OrderModal';
 import {
   ProductWrapper,
   ProductContent,
   ProductOrder,
-  ProductButtonContainer
+  ProductButtonContainer,
+  ProductModalWrapper,
+  ProductModalCancle
 } from '../styles/productStyle';
-import { CartButton, OrderButton } from '../styles/orderStyle';
+import { OrderButton, DeleteButton } from '../styles/orderStyle';
+import { ReactComponent as DeleteIcon } from '../assets/icons/cancleIcon.svg';
 
 const Product = () => {
   const [isOpenOrder, setIsOpenOrder] = useState(false);
 
   return (
     <>
+      <ProductModalWrapper
+        isOpenOrder={isOpenOrder}
+        onClick={() => setIsOpenOrder(false)}
+      >
+        <ProductModalCancle>
+          <DeleteButton>
+            <DeleteIcon />
+          </DeleteButton>
+        </ProductModalCancle>
+      </ProductModalWrapper>
+      <OrderModal isOpenOrder={isOpenOrder} />
+
       <ProductWrapper>
         <ProductContent>
           <ProductInfo />

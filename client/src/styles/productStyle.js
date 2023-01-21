@@ -507,9 +507,20 @@ const ProductModalWrapper = styled.div`
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 80;
+
+  @media ${(props) => props.theme.desktop} {
+    display: none;
+  }
+`;
+
+const ProductModalCancle = styled.div`
+  position: absolute;
+  right: 16px;
+  bottom: 220px;
 `;
 
 export {
+  ProductModalCancle,
   ProductModalWrapper,
   ProductInfoContainer,
   Info,
