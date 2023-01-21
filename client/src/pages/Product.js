@@ -1,8 +1,11 @@
 import { useState } from 'react';
-import ProductInfo from '../components/Product/ProductInfo';
+import ProductMain from '../components/Product/ProductMain';
 import ItemQuestionList from '../components/Product/ItemQuestionList';
 import OrderProduct from '../components/Order/OrderProduct';
 import OrderModal from '../components/Order/OrderModal';
+import ProductNavbar from '../components/Product/ProductNavbar';
+import ProductInfo from '../components/Product/ProductInfo';
+import ProductDetail from '../components/Product/ProductDetail';
 import {
   ProductWrapper,
   ProductContent,
@@ -33,7 +36,13 @@ const Product = () => {
 
       <ProductWrapper>
         <ProductContent>
+          <ProductMain />
+          <ProductNavbar />
+
           <ProductInfo />
+
+          <ProductDetail />
+
           <ItemQuestionList />
         </ProductContent>
 

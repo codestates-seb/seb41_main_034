@@ -174,7 +174,7 @@ const FlexContainer = styled.div`
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid ${(props) => props.theme.grayColor};
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
 
   @media ${(props) => props.theme.mobile} {
     justify-content: flex-end;
@@ -459,18 +459,18 @@ const ProductButtonContainer = styled.div`
   }
 `;
 
-const ProductInfoContainer = styled.div`
+const ProductMainContainer = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 16px;
+  row-gap: 24px;
 `;
 
-const ProductInfoImage = styled.div`
+const ProductMainImage = styled.div`
   border-radius: 4px;
   overflow: hidden;
 `;
 
-const ProductInfoImg = styled.div`
+const ProductMainImg = styled.div`
   width: 100%;
   height: 0;
   padding-top: calc(928 / 928 * 100%);
@@ -481,21 +481,30 @@ const Info = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 8px;
+  padding: 0 16px;
 
-  @media ${(props) => props.theme.desktop} {
-    display: none;
+  @media ${(props) => props.theme.mobile} {
+    padding: 0 4px;
   }
 `;
 
-const ProductInfoName = styled.strong`
+const ProductMainName = styled.strong`
   display: block;
-  font-size: 18px;
+  font-size: 24px;
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 16px;
+  }
 `;
 
-const ProductInfoPrice = styled.strong`
+const ProductMainPrice = styled.strong`
   display: block;
-  font-size: 20px;
+  font-size: 30px;
   font-weight: 700;
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 20px;
+  }
 `;
 
 const ProductModalWrapper = styled.div`
@@ -519,15 +528,112 @@ const ProductModalCancle = styled.div`
   bottom: 220px;
 `;
 
+const ProductNavbarList = styled.ol`
+  position: sticky;
+  top: 120px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  margin: 48px 0;
+  border: 1px solid ${(props) => props.theme.borderColor};
+  background-color: ${(props) => props.theme.whiteColor};
+
+  @media ${(props) => props.theme.mobile} {
+    margin: 32px 0;
+  }
+`;
+
+const NavbarItemName = styled.p`
+  font-size: 16px;
+  transition: color 0.3s;
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 14px;
+  }
+`;
+
+const ProductNavbarItem = styled.li`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25%;
+  height: 100%;
+  cursor: pointer;
+
+  &:not(:last-child) {
+    border-right: 1px solid ${(props) => props.theme.borderColor};
+  }
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      ${NavbarItemName} {
+        color: ${(props) => props.theme.hoverColor};
+      }
+    }
+  }
+`;
+
+const NavbarItemCount = styled.span`
+  font-size: 12px;
+  margin-left: 4px;
+  color: ${(props) => props.theme.grayColor};
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 10px;
+  }
+`;
+
+const ProductInfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 32px;
+`;
+
+const ProductDetailContainer = styled.div`
+  width: 100%;
+  margin-top: 72px;
+
+  @media ${(props) => props.theme.mobile} {
+    margin-top: 56px;
+  }
+`;
+
+const ProductDetailHeader = styled.div`
+  margin-bottom: 24px;
+  padding: 0 0 24px 16px;
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
+`;
+
+const ProductDetailTitle = styled.h3`
+  font-size: 30px;
+
+  @media ${(props) => props.theme.tablet} {
+    font-size: 26px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 22px;
+  }
+`;
+
 export {
+  ProductDetailContainer,
+  ProductDetailHeader,
+  ProductDetailTitle,
+  ProductInfoContainer,
+  NavbarItemName,
+  NavbarItemCount,
+  ProductNavbarItem,
+  ProductNavbarList,
   ProductModalCancle,
   ProductModalWrapper,
-  ProductInfoContainer,
+  ProductMainContainer,
   Info,
-  ProductInfoName,
-  ProductInfoPrice,
-  ProductInfoImg,
-  ProductInfoImage,
+  ProductMainName,
+  ProductMainPrice,
+  ProductMainImg,
+  ProductMainImage,
   ProductContainer,
   ProductList,
   ProductImage,
