@@ -6,12 +6,14 @@ import com.codestates.seb41_main_034.common.exception.ExceptionCode;
 import com.codestates.seb41_main_034.product.entity.Product;
 import com.codestates.seb41_main_034.review.dto.ReviewDto;
 import com.fasterxml.jackson.core.JacksonException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Optional;
 
 @Getter
@@ -32,26 +34,23 @@ public class Review extends Auditable {
     @Type(type = "text")
     private String imageUrls = "[]";
 
-    @Transient
-    private static ObjectMapper mapper = new ObjectMapper();
+    public ReviewDto toDto(ObjectMapper mapper, Product product) {
+        Optional<Product> optionalProduct = Optional.ofNullable(product);
+        String productName = optionalProduct.map(Product::getName).orElse(null);
+        String productImageUrl = optionalProduct.map(presentProduct -> presentProduct.getImageUrlList(mapper))
+                .map(urlList -> urlList.isEmpty() ? null : urlList.get(0)).orElse(null);
 
-    public ReviewDto toDto(Product product) {
-        Optional<Product> optionalProductDto = Optional.ofNullable(product);
-        String productName = optionalProductDto.map(Product::getName).orElse(null);
-        String productImageUrl = optionalProductDto.map(Product::getImageUrlArray)
-                .map(urls -> urls.length == 0 ? null : urls[0]).orElse(null);
-
-        return new ReviewDto(id, productId, productName, productImageUrl, body, getImageUrlArray(),
+        return new ReviewDto(id, productId, productName, productImageUrl, body, getImageUrlList(mapper),
                 getCreatedBy(), getModifiedBy(), getCreatedAt(), getModifiedAt());
     }
 
-    public ReviewDto toDto() {
-        return toDto(null);
+    public ReviewDto toDto(ObjectMapper mapper) {
+        return toDto(mapper, null);
     }
 
-    public String[] getImageUrlArray() {
+    public List<String> getImageUrlList(ObjectMapper mapper) {
         try {
-            return mapper.readValue(getImageUrls(), String[].class);
+            return mapper.readValue(getImageUrls(), new TypeReference<>() {});
         } catch (JacksonException e) {
             throw new BusinessLogicException(ExceptionCode.PRODUCT_CANNOT_READ_IMAGE_URLS);
         }

@@ -5,6 +5,7 @@ import com.codestates.seb41_main_034.common.exception.BusinessLogicException;
 import com.codestates.seb41_main_034.common.exception.ExceptionCode;
 import com.codestates.seb41_main_034.product.dto.ProductDto;
 import com.fasterxml.jackson.core.JacksonException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -48,34 +50,31 @@ public class Product extends Auditable {
     @Type(type = "text")
     private String detailImageUrls = "[]";
 
-    @Transient
-    private static ObjectMapper mapper = new ObjectMapper();
-
     public Product(String name, int price, int stock) {
         this.name = name;
         this.price = price;
         this.stock = stock;
     }
 
-    public ProductDto toDto() {
+    public ProductDto toDto(ObjectMapper mapper) {
         return new ProductDto(
                 id, name, price, stock, status, category,
-                getImageUrlArray(), getDetailImageUrlArray(),
+                getImageUrlList(mapper), getDetailImageUrlList(mapper),
                 getCreatedBy(), getModifiedBy(), getCreatedAt(), getModifiedAt()
         );
     }
 
-    public String[] getImageUrlArray() {
+    public List<String> getImageUrlList(ObjectMapper mapper) {
         try {
-            return mapper.readValue(getImageUrls(), String[].class);
+            return mapper.readValue(getImageUrls(), new TypeReference<>() {});
         } catch (JacksonException e) {
             throw new BusinessLogicException(ExceptionCode.PRODUCT_CANNOT_READ_IMAGE_URLS);
         }
     }
 
-    public String[] getDetailImageUrlArray() {
+    public List<String> getDetailImageUrlList(ObjectMapper mapper) {
         try {
-            return mapper.readValue(getDetailImageUrls(), String[].class);
+            return mapper.readValue(getDetailImageUrls(), new TypeReference<>() {});
         } catch (JacksonException e) {
             throw new BusinessLogicException(ExceptionCode.PRODUCT_CANNOT_READ_IMAGE_URLS);
         }

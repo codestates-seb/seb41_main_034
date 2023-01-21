@@ -4,6 +4,7 @@ import com.codestates.seb41_main_034.common.auditing.entity.Auditable;
 import com.codestates.seb41_main_034.product.entity.Product;
 import com.codestates.seb41_main_034.question.dto.AnswerDto;
 import com.codestates.seb41_main_034.question.dto.QuestionDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
@@ -29,19 +30,19 @@ public class Question extends Auditable {
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "question")
     private Answer answer;
 
-    public QuestionDto toDto(Product product) {
-        Optional<Product> optionalProductDto = Optional.ofNullable(product);
-        String productName = optionalProductDto.map(Product::getName).orElse(null);
-        String productImageUrl = optionalProductDto.map(Product::getImageUrlArray)
-                .map(urls -> urls.length == 0 ? null : urls[0]).orElse(null);
+    public QuestionDto toDto(ObjectMapper mapper, Product product) {
+        Optional<Product> optionalProduct = Optional.ofNullable(product);
+        String productName = optionalProduct.map(Product::getName).orElse(null);
+        String productImageUrl = optionalProduct.map(presentProduct -> presentProduct.getImageUrlList(mapper))
+                .map(urlList -> urlList.isEmpty() ? null : urlList.get(0)).orElse(null);
         AnswerDto answerDto = Optional.ofNullable(answer).map(Answer::toDto).orElse(null);
 
         return new QuestionDto(id, productId, productName, productImageUrl, body, answerDto,
                 getCreatedBy(), getModifiedBy(), getCreatedAt(), getModifiedAt());
     }
 
-    public QuestionDto toDto() {
-        return toDto(null);
+    public QuestionDto toDto(ObjectMapper mapper) {
+        return toDto(mapper, null);
     }
 
 }

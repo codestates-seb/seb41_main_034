@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -23,7 +24,7 @@ public class ReviewDto {
 
     private String body;
 
-    private String[] imageUrls;
+    private List<String> imageUrls;
 
     private int createdBy;
     // TODO: 작성자 이름 필요

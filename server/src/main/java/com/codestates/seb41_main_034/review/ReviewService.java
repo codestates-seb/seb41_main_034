@@ -35,7 +35,7 @@ public class ReviewService {
     public Review readReview(long reviewId) {
         // DB에서 후기 ID 조회, 없는 경우 예외 발생
         return reviewRepository.findById(reviewId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.REVIEW_NOT_FOUND));
     }
 
     @Transactional(readOnly = true)

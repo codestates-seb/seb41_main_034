@@ -2,8 +2,6 @@ package com.codestates.seb41_main_034.common;
 
 import com.codestates.seb41_main_034.common.exception.BusinessLogicException;
 import com.codestates.seb41_main_034.common.exception.ExceptionCode;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,19 +19,11 @@ import java.util.stream.Collectors;
 @Service
 public class ImageStorageService {
 
-    private final String localPath;
+    @Value("${image.local-path}")
+    private String localPath;
 
-    private final String serverUrl;
-
-    private final ObjectMapper mapper;
-
-    public ImageStorageService(@Value("${image.local-path}") String localPath,
-                               @Value("${image.server-url}") String serverUrl,
-                               ObjectMapper mapper) {
-        this.localPath = localPath;
-        this.serverUrl = serverUrl;
-        this.mapper = mapper;
-    }
+    @Value("${image.server-url}")
+    private String serverUrl;
 
     public String store(MultipartFile multipartFile) {
         if (multipartFile == null || multipartFile.isEmpty()) {
@@ -67,40 +57,34 @@ public class ImageStorageService {
         return serverUrl + filename;
     }
 
-    public String store(List<MultipartFile> images) {
+    public List<String> store(List<MultipartFile> images) {
         if (images == null) {
             return null;
         }
 
-        // 이미지 파일이 있는 경우 이미지 서버에 저장 및 저장된 이미지 주소 List로 저장
-        String[] imageUrlList = images.stream()
-                .map(this::store).filter(Objects::nonNull).toArray(String[]::new);
-
-        // 저장된 이미지가 있는 경우 주소 List를 JSON 포맷 String으로 반환
-        try {
-            return mapper.writeValueAsString(imageUrlList);
-        } catch (JsonProcessingException e) {
-            throw new BusinessLogicException(ExceptionCode.IMAGE_CANNOT_WRITE_URLS);
-        }
+        // 이미지 파일이 있는 경우 이미지 서버에 저장 및 저장된 이미지 주소 배열로 반환
+        return images.stream().map(this::store).filter(Objects::nonNull).collect(Collectors.toList());
     }
 
-    public String update(String[] imageUrlArray, boolean[] deleteImage, List<MultipartFile> images) {
+    public List<String> update(List<String> imageUrlList, List<Boolean> deleteImage, List<MultipartFile> images) {
+        // 변화가 없는 경우 null 반환
         if (deleteImage == null && images == null) {
             return null;
         }
 
-        List<String> newImageUrlList = new ArrayList<>();
+        List<String> newImageUrlList;
         if (deleteImage != null) {
-            if (deleteImage.length != imageUrlArray.length) {
+            newImageUrlList = new ArrayList<>();
+            if (deleteImage.size() != imageUrlList.size()) {
                 throw new BusinessLogicException(ExceptionCode.IMAGE_BAD_DELETE_ARRAY);
             }
-            for (int i = 0; i < deleteImage.length; i++) {
-                if (!deleteImage[i]) {
-                    newImageUrlList.add(imageUrlArray[i]);
+            for (int i = 0; i < deleteImage.size(); i++) {
+                if (!deleteImage.get(i)) {
+                    newImageUrlList.add(imageUrlList.get(i));
                 }
             }
         } else {
-            newImageUrlList.addAll(List.of(imageUrlArray));
+            newImageUrlList = new ArrayList<>(imageUrlList);
         }
 
         if (images != null) {
@@ -108,11 +92,7 @@ public class ImageStorageService {
                     images.stream().map(this::store).filter(Objects::nonNull).collect(Collectors.toList()));
         }
 
-        try {
-            return mapper.writeValueAsString(newImageUrlList);
-        } catch (JsonProcessingException e) {
-            throw new BusinessLogicException(ExceptionCode.IMAGE_CANNOT_WRITE_URLS);
-        }
+        return newImageUrlList;
     }
 
 }

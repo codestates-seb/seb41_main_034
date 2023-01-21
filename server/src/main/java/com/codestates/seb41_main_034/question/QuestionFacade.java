@@ -8,6 +8,7 @@ import com.codestates.seb41_main_034.question.dto.QuestionDto;
 import com.codestates.seb41_main_034.question.dto.QuestionPatchDto;
 import com.codestates.seb41_main_034.question.dto.QuestionPostDto;
 import com.codestates.seb41_main_034.question.entity.Question;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,6 +31,8 @@ public class QuestionFacade {
 
     // TODO: 작성자 이름을 불러오기 위해 UserService 주입 필요
 
+    private final ObjectMapper mapper;
+
     public QuestionDto createQuestion(QuestionPostDto questionPostDto) {
         // 상품 정보 조회
         Product product = productService.readProduct(questionPostDto.getProductId());
@@ -38,7 +41,7 @@ public class QuestionFacade {
         Question question = questionService.createQuestion(questionPostDto);
 
         // DTO 매핑 후 반환
-        return question.toDto(product);
+        return question.toDto(mapper, product);
     }
 
     public QuestionDto readQuestion(long questionId) {
@@ -49,7 +52,7 @@ public class QuestionFacade {
         Product product = productService.readProduct(question.getProductId());
 
         // DTO 매핑 후 반환
-        return question.toDto(product);
+        return question.toDto(mapper, product);
     }
 
     public PaginatedData<QuestionDto> readProductQuestions(int productId, Pageable pageable) {
@@ -60,7 +63,7 @@ public class QuestionFacade {
         Page<Question> questionPage = questionService.readProductQuestions(productId, pageable);
 
         // DTO 매핑 후 반환
-        return PaginatedData.of(questionPage.map(question -> question.toDto(product)));
+        return PaginatedData.of(questionPage.map(question -> question.toDto(mapper, product)));
     }
 
     public PaginatedData<QuestionDto> readQuestionHistory(
@@ -78,7 +81,7 @@ public class QuestionFacade {
                 .collect(Collectors.toMap(Product::getId, Function.identity()));
 
         // DTO 매핑 후 반환
-        return PaginatedData.of(questionPage.map(question -> question.toDto(productMap.get(question.getProductId()))));
+        return PaginatedData.of(questionPage.map(question -> question.toDto(mapper, productMap.get(question.getProductId()))));
     }
 
     public QuestionDto updateQuestion(long questionId, QuestionPatchDto questionPatchDto) {
@@ -86,7 +89,7 @@ public class QuestionFacade {
         Question question = questionService.updateQuestion(questionId, questionPatchDto);
 
         // DTO 매핑 후 반환
-        return question.toDto();
+        return question.toDto(mapper);
     }
 
     public void deleteQuestion(long questionId) {
@@ -99,7 +102,7 @@ public class QuestionFacade {
         Question question = questionService.createAnswer(questionId, answerRequestDto);
 
         // DTO 매핑 후 반환
-        return question.toDto();
+        return question.toDto(mapper);
     }
 
     public QuestionDto updateAnswer(long questionId, AnswerRequestDto answerRequestDto) {
@@ -107,7 +110,7 @@ public class QuestionFacade {
         Question question = questionService.updateAnswer(questionId, answerRequestDto);
 
         // DTO 매핑 후 반환
-        return question.toDto();
+        return question.toDto(mapper);
     }
 
 }
