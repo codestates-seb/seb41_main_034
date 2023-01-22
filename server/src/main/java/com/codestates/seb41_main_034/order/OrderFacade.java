@@ -44,7 +44,7 @@ public class OrderFacade {
                 .peek(product -> {
                     switch (product.getStatus()) {
                         case UNAVAILABLE:
-                            throw new BusinessLogicException(ExceptionCode.ORDER_PRODUCT_IS_UNAVAILABLE);
+                            throw new BusinessLogicException(ExceptionCode.ORDER_UNAVAILABLE_PRODUCT);
                         case DRAFT:
                             throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
                     }

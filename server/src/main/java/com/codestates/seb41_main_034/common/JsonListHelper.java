@@ -25,14 +25,11 @@ public class JsonListHelper {
     }
 
     public String listToJson(List<String> list) {
-        if (list == null) {
-            return null;
-        }
-
         try {
             return mapper.writerFor(new TypeReference<List<String>>() {}).writeValueAsString(list);
         } catch (JsonProcessingException e) {
             throw new BusinessLogicException(ExceptionCode.JSON_CANNOT_WRITE_IMAGE_URLS);
         }
     }
+
 }

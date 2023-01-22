@@ -1,8 +1,8 @@
 package com.codestates.seb41_main_034.review;
 
-import com.codestates.seb41_main_034.common.ImageStorageService;
 import com.codestates.seb41_main_034.common.JsonListHelper;
 import com.codestates.seb41_main_034.common.response.PaginatedData;
+import com.codestates.seb41_main_034.common.storage.ImageStorageService;
 import com.codestates.seb41_main_034.product.ProductService;
 import com.codestates.seb41_main_034.product.entity.Product;
 import com.codestates.seb41_main_034.review.dto.ReviewDto;
@@ -15,12 +15,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @AllArgsConstructor
 @Service
@@ -41,7 +39,8 @@ public class ReviewFacade {
         Product product = productService.readProduct(reviewPostDto.getProductId());
 
         // 이미지 저장
-        String imageUrls = helper.listToJson(imageStorageService.store(images));
+        String imageUrls = Optional.ofNullable(images)
+                .map(imageStorageService::store).map(helper::listToJson).orElse(null);
 
         // 엔티티 객체 생성
         Review review = reviewService.createReview(reviewPostDto, imageUrls);
@@ -93,10 +92,15 @@ public class ReviewFacade {
     public ReviewDto updateReview(long reviewId, ReviewPatchDto reviewPatchDto, List<MultipartFile> images) {
         Review review = reviewService.readReview(reviewId);
 
-        List<String> imageUrlList = imageStorageService.update(
-                helper.jsonToList(review.getImageUrls()), reviewPatchDto.getDeleteImage(), images);
+        // 이미지 삭제
+        List<String> imageUrlList = Optional.ofNullable(reviewPatchDto).map(ReviewPatchDto::getDeleteImage)
+                .map(deleteImage -> imageStorageService.delete(helper.jsonToList(review.getImageUrls()), deleteImage))
+                .orElse(Collections.emptyList());
 
-        String imageUrls = helper.listToJson(imageUrlList);
+        // 이미지 추가
+        String imageUrls = Optional.ofNullable(images).map(imageStorageService::store)
+                .map(urlList -> Stream.concat(imageUrlList.stream(), urlList.stream()).collect(Collectors.toList()))
+                .map(helper::listToJson).orElse(null);
 
         // 후기 수정 후 반환
         Review updateReview = reviewService.updateReview(reviewId, reviewPatchDto, imageUrls);
@@ -106,6 +110,12 @@ public class ReviewFacade {
     }
 
     public void deleteReview(long reviewId) {
+        // 후기 조회
+        Review review = reviewService.readReview(reviewId);
+
+        // 이미지 삭제
+        imageStorageService.delete(helper.jsonToList(review.getImageUrls()));
+
         // 후기 삭제
         reviewService.deleteReview(reviewId);
     }
