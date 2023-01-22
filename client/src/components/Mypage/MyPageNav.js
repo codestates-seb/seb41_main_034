@@ -17,7 +17,7 @@ const MyPageNav = () => {
         <RightArrow />
       </CatagoryBox>
       <CatagoryBox to={'/mypage/question'}>
-        나의문의
+        주소관리
         <RightArrow />
       </CatagoryBox>
     </NavContainer>

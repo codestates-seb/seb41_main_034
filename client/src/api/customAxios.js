@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const BASE_URL =
-  'http://ec2-3-34-193-217.ap-northeast-2.compute.amazonaws.com/api';
+  'http://ec2-3-34-193-217.ap-northeast-2.compute.amazonaws.com/api/v1';
 
 const token = localStorage.getItem('jwt_token');
 

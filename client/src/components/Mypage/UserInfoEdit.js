@@ -145,8 +145,15 @@ const UserInfoEdit = () => {
         </EditCotainer>
       </UserEditContainer>
       <ButtonContainer>
-        <UserOutButton onClick={onUserOut}>탈퇴하기</UserOutButton>
-        <ConfirmButton onClick={onEditComplete}>수정완료</ConfirmButton>
+        <UserOutButton aria-label="탈퇴하기 버튼입니다." onClick={onUserOut}>
+          탈퇴하기
+        </UserOutButton>
+        <ConfirmButton
+          aria-label="수정완료 버튼입니다."
+          onClick={onEditComplete}
+        >
+          수정완료
+        </ConfirmButton>
       </ButtonContainer>
     </UserEditWrapper>
   );

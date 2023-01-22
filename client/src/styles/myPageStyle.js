@@ -381,7 +381,7 @@ const InputBox = styled.input`
   width: 100%;
   padding: 6px;
   margin: 12px 2px 12px 2px;
-  border-bottom: 1px solid ${(props) => props.theme.borderColor};
+  border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
   font-size: 12px;
 

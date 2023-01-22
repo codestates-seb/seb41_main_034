@@ -11,27 +11,28 @@ import {
   QuestionModalContainer
 } from '../../styles/productStyle';
 import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
-// import { useState } from 'react';
-// import { questionPostAPI } from '../../api/question';
+import { useState } from 'react';
+import { questionPostAPI } from '../../api/question';
 
 const QuestionModal = ({ isOpenQuestion, setIsOpenQuestion }) => {
+  const [title, setTitle] = useState('');
+  const [productName, setProductName] = useState('');
+  const [content, setContent] = useState('');
+
   const handleQuestionClose = () => {
     setIsOpenQuestion(false);
+    console.log('close');
   };
 
-  // const [title, setTitle] = useState('');
-  // const [itemName, setItemName] = useState('');
-  // const [content, setConet] = useState('');
-  // // question add button call func
-  // const questionAdd = async () => {
-  //   const body = {
-  //     title: title,
-  //     itemName: itemName,
-  //     content: content
-  //   };
-  //   await questionPostAPI(body);
-  //   setIsQuestion(false); // modal false
-  // };
+  const questionAdd = async () => {
+    const body = {
+      body: title,
+      productName: productName,
+      answer: content
+    };
+    await questionPostAPI(body);
+    setIsOpenQuestion(false);
+  };
 
   return (
     <>

@@ -1,5 +1,4 @@
 import {
-  UserWrapper,
   UserInfoContainer,
   InfoContainer,
   TextContainer,
