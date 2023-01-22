@@ -389,10 +389,8 @@ const LeftBox = styled.label`
   padding: 14px 0 14px 0;
   justify-content: center;
   align-items: center;
-  border: 1px solid ${(props) => props.theme.borderColor};
   font-size: 12px;
-  background-color: ${(props) => props.theme.primaryColor};
-  color: ${(props) => props.theme.whiteColor};
+  color: ${(props) => props.theme.primaryColor};
 
   @media ${(props) => props.theme.tablet} {
     max-width: 77px;
@@ -420,7 +418,7 @@ const InputBox = styled.input`
   width: 100%;
   padding: 6px;
   margin: 12px 2px 12px 2px;
-  border-bottom: 1px solid ${(props) => props.theme.borderColor};
+  border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
   font-size: 12px;
 
