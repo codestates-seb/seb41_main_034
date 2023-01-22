@@ -1,0 +1,52 @@
+services:
+  web:
+    image: nginx
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - ./client/build:/usr/share/nginx/html:ro
+      - ./images:/usr/share/nginx/images
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+
+  db:
+    image: mariadb
+    restart: always
+    secrets:
+      - db-password
+    volumes:
+      - db-data:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=foodmeet
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/db-password
+    healthcheck:
+      test: ['CMD-SHELL', 'mysqladmin ping -h 127.0.0.1 --password="$$(cat /run/secrets/db-password)" --silent']
+      interval: 3s
+      retries: 5
+      start_period: 30s
+    ports:
+      - 3306:3306
+
+  backend:
+    image: eclipse-temurin:11-jre
+    restart: always
+    secrets:
+      - backend
+    command: java -jar app.jar
+    volumes:
+      - ./server/build/libs/seb41_main_034-0.0.1-SNAPSHOT.jar:/app.jar:ro
+      - ./images:/images
+    environment:
+      - SPRING_CONFIG_IMPORT=file:/run/secrets/backend[.yml]
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  db-data:
+
+secrets:
+  db-password:
+    file: ./secrets/db-password
+  backend:
+    file: ./secrets/backend.yml
