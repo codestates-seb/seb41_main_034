@@ -26,8 +26,8 @@ const ResponsiveCarousel = () => {
       <Carousel {...settings}>
         {SliderData.map((el, idx) => {
           return (
-            <div>
-              <img src={el} alt="" key={idx} />
+            <div key={idx}>
+              <img src={el} alt="" />
             </div>
           );
         })}
