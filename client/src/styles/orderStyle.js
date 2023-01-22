@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const CartContainer = styled.div`
   position: fixed;
-  top: 160px;
+  top: 50%;
   right: 16px;
   display: flex;
   flex-direction: column;
@@ -13,8 +13,8 @@ const CartContainer = styled.div`
   border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
   transition: transform 0.5s;
-  transform: ${(props) =>
-    props.isOpenCart ? 'translateX(0)' : 'translateX(200%)'};
+  transform: translateY(-50%)
+    ${(props) => (props.isOpenCart ? 'translateX(0)' : 'translateX(200%)')};
   overflow: hidden;
   z-index: 97;
 
@@ -27,7 +27,7 @@ const CartContainer = styled.div`
   @media ${(props) => props.theme.mobile} {
     right: 4px;
     width: 200px;
-    height: 360px;
+    height: 460px;
   }
 `;
 
