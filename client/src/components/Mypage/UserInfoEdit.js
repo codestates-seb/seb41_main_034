@@ -76,29 +76,28 @@ const UserInfoEdit = () => {
     <UserEditWrapper>
       <UserEditContainer>
         <EditCotainer>
-          <LeftBox htmlFor="name">이름</LeftBox>
-          <RightBox>
+          <PasswordContainer>
+            <PasswordText htmlFor="number">이름</PasswordText>
             <InputBox
               type="text"
               aria-label="이름을 입력해주세요"
               placeholder="이름을 입력해주세요"
               id="name"
             />
-          </RightBox>
+          </PasswordContainer>
         </EditCotainer>
         <EditCotainer>
-          <LeftBox htmlFor="number">연락처</LeftBox>
-          <RightBox>
+          <PasswordContainer>
+            <PasswordText htmlFor="number">연락처</PasswordText>
             <InputBox
               type="text"
               aria-label="연락처를 입력해주세요"
               placeholder="연락처를 입력해주세요"
               id="number"
             />
-          </RightBox>
+          </PasswordContainer>
         </EditCotainer>
         <EditCotainer>
-          <LeftBox>비밀번호</LeftBox>
           <RightBox>
             <PasswordContainer>
               <PasswordText htmlFor="password1">현재 비밀번호</PasswordText>
@@ -143,18 +142,18 @@ const UserInfoEdit = () => {
             ) : null}
           </RightBox>
         </EditCotainer>
+        <ButtonContainer>
+          <UserOutButton aria-label="탈퇴하기 버튼입니다." onClick={onUserOut}>
+            탈퇴하기
+          </UserOutButton>
+          <ConfirmButton
+            aria-label="수정완료 버튼입니다."
+            onClick={onEditComplete}
+          >
+            수정완료
+          </ConfirmButton>
+        </ButtonContainer>
       </UserEditContainer>
-      <ButtonContainer>
-        <UserOutButton aria-label="탈퇴하기 버튼입니다." onClick={onUserOut}>
-          탈퇴하기
-        </UserOutButton>
-        <ConfirmButton
-          aria-label="수정완료 버튼입니다."
-          onClick={onEditComplete}
-        >
-          수정완료
-        </ConfirmButton>
-      </ButtonContainer>
     </UserEditWrapper>
   );
 };

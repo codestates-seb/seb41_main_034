@@ -6,7 +6,9 @@ import {
   WellcomText,
   OtherText,
   EditButton,
-  EditbuttonContainer
+  EditbuttonContainer,
+  Name,
+  NameNext
 } from '../../styles/myPageStyle';
 
 const UserInfo = () => {
@@ -16,7 +18,10 @@ const UserInfo = () => {
         <InfoContainer>
           <TextContainer>
             <WellcomText>환영합니다 !</WellcomText>
-            <NameText>홍길동님</NameText>
+            <Name>
+              <NameText>홍길동</NameText>
+              <NameNext>님</NameNext>
+            </Name>
           </TextContainer>
           <OtherText>주소 : 대한민국</OtherText>
           <OtherText>주문 수 : 0</OtherText>

@@ -23,12 +23,12 @@ const MyPageQuestionItem = () => {
     }
   };
 
-  useEffect(() => {
-    const body = 'questionId';
-    const data = questionGetAPI(body);
-    setQuestion(data);
-    console.log(question);
-  }, [question]);
+  // useEffect(() => {
+  //   const body = 'questionId';
+  //   const data = questionGetAPI(body);
+  //   setQuestion(data);
+  //   console.log(question);
+  // }, [question]);
 
   return (
     <ListHeader2>

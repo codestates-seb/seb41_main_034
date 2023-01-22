@@ -7,14 +7,12 @@ const ListHeader = styled.div`
   justify-content: space-between;
   padding: 12px 16px;
   width: 100%;
-  max-width: 702px;
   border-bottom: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
   color: ${(props) => props.theme.primaryColor};
 
   @media ${(props) => props.theme.tablet} {
     width: 100%;
-    max-width: 399px;
   }
   @media ${(props) => props.theme.mobile} {
     width: 100%;
@@ -26,6 +24,7 @@ const RightContainer = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
+  align-items: center;
 
   svg {
     width: 1px;
@@ -35,7 +34,6 @@ const RightContainer = styled.div`
 
 const LeftCotainer = styled.div`
   width: 100%;
-  max-width: 363px;
 `;
 
 const Text = styled.div`
@@ -51,7 +49,7 @@ const Text = styled.div`
 
 const ListHeader2 = styled.div`
   display: flex;
-  width: 702px;
+  width: 100%;
   padding: 12px 16px;
   justify-content: space-between;
   align-items: center;
@@ -61,7 +59,6 @@ const ListHeader2 = styled.div`
 
   @media ${(props) => props.theme.tablet} {
     width: 100%;
-    max-width: 399px;
   }
 
   @media ${(props) => props.theme.mobile} {
@@ -95,7 +92,6 @@ const RightContainer2 = styled.div`
 
 const LeftCotainer2 = styled.div`
   width: 100%;
-  max-width: 363px;
 `;
 
 const ItemLinkText = styled.button`
@@ -129,122 +125,96 @@ const MarginSpace = styled.div`
 const NavContainer = styled.div`
   position: relative;
   display: flex;
-  flex-direction: column;
   width: 100%;
-  row-gap: 1px;
+  border: 1px solid ${(props) => props.theme.borderColor};
+  border-radius: 4px;
+  font-size: 12px;
+
+  @media ${(props) => props.theme.desktop} {
+    border: none;
+    flex-direction: column;
+    row-gap: 1px;
+  }
 
   @media ${(props) => props.theme.mobile} {
-    flex-direction: row;
+    font-size: 10px;
   }
 `;
 
 const CatagoryBox = styled(Link)`
   display: flex;
-  width: 100%;
-  max-width: 160px;
-  padding: 16px;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  border: 1px solid ${(props) => props.theme.borderColor};
-  border-radius: 4px;
-  font-size: 12px;
+  width: 100%;
   background-color: ${(props) => props.theme.whiteColor};
+  transition: background-color 0.3s, color 0.3s;
+  padding: 12px;
+
+  &:not(:last-child) {
+    border-right: 1px solid ${(props) => props.theme.borderColor};
+  }
 
   svg {
-    width: 10px;
-    height: 10px;
+    display: none;
   }
 
   @media ${(props) => props.theme.desktop} {
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border: 1px solid ${(props) => props.theme.borderColor};
+    border-radius: 4px;
+    font-size: 12px;
+
+    svg {
+      display: block;
+      width: 10px;
+      height: 10px;
+      transition: fill 0.3s;
+    }
+
     &:hover {
-      background-color: ${(props) => props.theme.hoverColor};
       color: ${(props) => props.theme.whiteColor};
+      background-color: ${(props) => props.theme.hoverColor};
 
       svg {
         fill: ${(props) => props.theme.whiteColor};
       }
     }
   }
-
-  @media ${(props) => props.theme.tablet} {
-    width: 140px;
-    padding: 12px;
-    font-size: 8px;
-
-    svg {
-      width: 8px;
-      height: 8px;
-    }
-  }
-
-  @media ${(props) => props.theme.mobile} {
-    width: 100%;
-    max-width: 100%;
-    padding: 12px;
-    margin-top: 19px;
-    justify-content: center;
-    align-items: center;
-    font-size: 4px;
-    zoom: 0.7;
-
-    svg {
-      display: none;
-    }
-  }
 `;
 
 const Container = styled.div`
   width: 100%;
-  height: 100px;
-  padding: 30px;
+  border-bottom: 1px solid ${(props) => props.theme.grayColor};
+  padding-bottom: 12px;
 `;
 
 const Title = styled.div`
   width: 100%;
-  height: 60px;
-  font-size: 40px;
+  font-size: 30px;
 
   @media ${(props) => props.theme.tablet} {
-    font-size: 30px;
+    font-size: 24px;
+    text-align: center;
   }
   @media ${(props) => props.theme.mobile} {
-    font-size: 30px;
+    font-size: 20px;
     text-align: center;
   }
 `;
 
-const SubTitle = styled.div`
-  width: calc(100% - 250px);
-  height: 45px;
-  font-size: 30px;
-  border-bottom: 1px solid ${(props) => props.theme.borderColor};
-  margin: 0px 0px 0px auto;
-
-  @media ${(props) => props.theme.tablet} {
-    width: calc(100% - 150px);
-    font-size: 20px;
-  }
-  @media ${(props) => props.theme.mobile} {
-    display: none;
-  }
-`;
-
 const UserInfoContainer = styled.div`
+  width: 100%;
   padding: 16px;
   border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
-
-  @media ${(props) => props.theme.mobile} {
-    display: flex;
-    border: none;
-    padding: 0 30px 0 30px;
-  }
 `;
 
 const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 8px;
+  row-gap: 12px;
 `;
 
 const TextContainer = styled.div`
@@ -256,16 +226,22 @@ const TextContainer = styled.div`
 const WellcomText = styled.div`
   font-size: 12px;
   color: ${(props) => props.theme.primaryColor};
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 10px;
+  }
 `;
 
-const NameText = styled.div`
+const Name = styled.div`
   display: flex;
-  align-items: center;
-  font-size: 14px;
+  align-items: flex-end;
+`;
+
+const NameText = styled.p`
+  font-size: 16px;
 
   @media ${(props) => props.theme.tablet} {
-    font-size: 12px;
-    margin: 12px 0 12px 8px;
+    font-size: 14px;
   }
 
   @media ${(props) => props.theme.mobile} {
@@ -273,18 +249,29 @@ const NameText = styled.div`
   }
 `;
 
+const NameNext = styled.span`
+  display: block;
+  margin-left: 2px;
+  font-size: 14px;
+  color: ${(props) => props.theme.grayColor};
+
+  @media ${(props) => props.theme.tablet} {
+    font-size: 12px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 10px;
+  }
+`;
+
 const OtherText = styled.p`
-  font-size: 10px;
+  font-size: 12px;
 `;
 
 const EditbuttonContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 8px;
-
-  @media ${(props) => props.theme.mobile} {
-    padding-top: 60px;
-  }
+  margin-top: 12px;
 `;
 
 const EditButton = styled(Link)`
@@ -294,87 +281,56 @@ const EditButton = styled(Link)`
   border-radius: 4px;
   background-color: ${(props) => props.theme.primaryColor};
   color: ${(props) => props.theme.whiteColor};
+  transition: background-color 0.3s;
 
   @media ${(props) => props.theme.desktop} {
     &:hover {
       background-color: ${(props) => props.theme.hoverColor};
     }
   }
-
-  @media ${(props) => props.theme.tablet} {
-    max-width: 98px;
-    padding: 4px 0 4px 0;
-    font-size: 4px;
-    zoom: 0.9;
-  }
-
-  @media ${(props) => props.theme.mobile} {
-    max-width: 88px;
-    margin: 0;
-    font-size: 4px;
-    zoom: 0.9;
-  }
 `;
 
 const UserEditWrapper = styled.div`
+  display: flex;
+  justify-content: center;
   width: 100%;
-  max-width: 602px;
-
-  @media ${(props) => props.theme.tablet} {
-    width: 100%;
-    max-width: 393px;
-  }
-
-  @media ${(props) => props.theme.mobile} {
-    width: 100%;
-  }
 `;
 
 const UserEditContainer = styled.div`
-  display: grid;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   align-items: center;
-  border-radius: 4px;
+
+  @media ${(props) => props.theme.tablet} {
+    max-width: 500px;
+  }
 `;
 
 const EditCotainer = styled.div`
   display: flex;
   width: 100%;
-  height: 100%;
 `;
 
 const LeftBox = styled.label`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 14px 0 14px 0;
-  width: 100%;
-  max-width: 137px;
-  font-size: 12px;
-  border: 1px solid ${(props) => props.theme.borderColor};
-  background-color: ${(props) => props.theme.primaryColor};
-  color: ${(props) => props.theme.whiteColor};
+  font-size: 14px;
+  color: ${(props) => props.theme.primaryColor};
 
   @media ${(props) => props.theme.tablet} {
-    max-width: 77px;
-    padding: 12px 0 12px 0;
-    font-size: 8px;
+    font-size: 12px;
   }
 
   @media ${(props) => props.theme.mobile} {
-    max-width: 120px;
+    font-size: 10px;
   }
 `;
 
 const RightBox = styled.div`
-  display: grid;
   width: 100%;
   padding: 4px;
-  align-items: center;
-
-  @media ${(props) => props.theme.mobile} {
-    border: none;
-  }
 `;
 
 const InputBox = styled.input`
@@ -441,11 +397,6 @@ const ButtonContainer = styled.div`
   justify-content: flex-end;
   width: 100%;
   margin: 12px 0 12px 0;
-
-  @media ${(props) => props.theme.mobile} {
-    display: grid;
-    justify-content: center;
-  }
 `;
 
 const ConfirmButton = styled.button`
@@ -470,10 +421,9 @@ const ConfirmButton = styled.button`
   }
 
   @media ${(props) => props.theme.mobile} {
-    width: 220px;
-    height: 28px;
+    width: 64px;
+    height: 24px;
     font-size: 8px;
-    order: 1;
   }
 `;
 
@@ -501,32 +451,28 @@ const UserOutButton = styled.button`
   }
 
   @media ${(props) => props.theme.mobile} {
-    width: 220px;
-    height: 28px;
+    width: 64px;
+    height: 24px;
     font-size: 8px;
-    order: 2;
   }
 `;
 
-//MyPageOrderList
 const OrderDateContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 28px;
-  margin-bottom: 12px;
   font-weight: bold;
+  padding: 12px 0;
 `;
 
 const OrderDate = styled.div`
   font-size: 20px;
+  color: ${(props) => props.theme.grayColor};
 `;
 const OrderListContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: 600px;
-  height: 185px;
   padding: 24px;
   border-top: 1px solid ${(props) => props.theme.borderColor};
   border-bottom: 1px solid ${(props) => props.theme.borderColor};
@@ -611,7 +557,7 @@ const RightContent = styled.div`
     fill: ${(props) => props.theme.grayColor};
   }
 `;
-const CancleImgContainer = styled.div`
+const CancleImgContainer = styled.button`
   display: flex;
   width: 100%;
   justify-content: end;
@@ -646,8 +592,8 @@ const MyAddressContainer = styled.div`
 const Addressheader = styled.div`
   display: flex;
   width: 100%;
-  height: 100%;
-  max-height: 300px;
+  padding: 12px 0;
+  border-bottom: 1px solid ${(props) => props.theme.grayColor};
   color: ${(props) => props.theme.primaryColor};
 `;
 
@@ -658,16 +604,16 @@ const AddressInfo = styled.div`
   width: 100%;
   height: 100%;
   margin: 12px 0px;
-
-  border-bottom: 1px solid ${(props) => props.theme.grayColor};
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
 `;
 
 const SelectTitle = styled.div`
-  width: 15%;
-  font-size: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 15%;
+  font-size: 16px;
+  font-weight: 700;
 
   @media ${(props) => props.theme.mobile} {
     font-size: 12px;
@@ -675,11 +621,12 @@ const SelectTitle = styled.div`
 `;
 
 const AddressTitle = styled.div`
-  width: 25%;
-  font-size: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 25%;
+  font-size: 16px;
+  font-weight: 700;
 
   @media ${(props) => props.theme.mobile} {
     font-size: 12px;
@@ -687,22 +634,24 @@ const AddressTitle = styled.div`
 `;
 
 const RecipientTitle = styled.div`
-  width: 20%;
-  font-size: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 20%;
+  font-size: 16px;
+  font-weight: 700;
 
   @media ${(props) => props.theme.mobile} {
     font-size: 12px;
   }
 `;
 const PhoneNumberTitle = styled.div`
-  width: 25%;
-  font-size: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 25%;
+  font-size: 16px;
+  font-weight: 700;
 
   @media ${(props) => props.theme.mobile} {
     font-size: 12px;
@@ -710,25 +659,12 @@ const PhoneNumberTitle = styled.div`
 `;
 
 const EditTitle = styled.div`
-  width: 15%;
-  font-size: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  @media ${(props) => props.theme.mobile} {
-    font-size: 12px;
-  }
-`;
-
-const SelectText = styled.div`
   width: 15%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-size: 16px;
-  margin-top: 35px;
-  margin-bottom: 5px;
+  font-weight: 700;
 
   @media ${(props) => props.theme.mobile} {
     font-size: 12px;
@@ -934,7 +870,6 @@ const ModalViewFooterButtonRight = styled.button`
   color: ${(props) => props.theme.whiteColor};
 `;
 
-//MyPageReview
 const ReviewListContainer = styled.div`
   display: flex;
   align-items: center;
@@ -963,10 +898,11 @@ const ProductImg2 = styled.img`
   width: 100%;
   height: 100%;
 `;
+
 const MyPageReviewImage = styled.div`
-  width: 40%;
+  width: 100%;
   height: 100%;
-  max-width: 100%;
+  max-width: 160px;
 `;
 
 const MyPageReviewContent = styled.div`
@@ -1031,10 +967,13 @@ const CancleImgContainer3 = styled.div`
 
 const MyPageContainer = styled.div`
   display: flex;
+  align-items: center;
   flex-direction: column;
+  row-gap: 24px;
 
   @media ${(props) => props.theme.desktop} {
     flex-direction: row;
+    align-items: flex-start;
     column-gap: 24px;
   }
 `;
@@ -1044,6 +983,12 @@ const MyPageNavbar = styled.nav`
   flex-direction: column;
   flex-shrink: 0;
   row-gap: 12px;
+  width: 100%;
+  max-width: 500px;
+
+  @media ${(props) => props.theme.desktop} {
+    max-width: 240px;
+  }
 `;
 
 const MyPageContent = styled.div`
@@ -1052,6 +997,8 @@ const MyPageContent = styled.div`
 `;
 
 export {
+  Name,
+  NameNext,
   MyPageContent,
   MyPageNavbar,
   MyPageContainer,
@@ -1069,7 +1016,6 @@ export {
   CatagoryBox,
   Container,
   Title,
-  SubTitle,
   UserInfoContainer,
   InfoContainer,
   TextContainer,
@@ -1111,7 +1057,6 @@ export {
   RecipientTitle,
   PhoneNumberTitle,
   EditTitle,
-  SelectText,
   AddressText,
   RecipientText,
   PhoneNumberText,

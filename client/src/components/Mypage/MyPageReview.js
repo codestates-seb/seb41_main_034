@@ -9,6 +9,7 @@ import {
   MyPageReviewContentText,
   MyPageReviewDelete
 } from '../../styles/myPageStyle';
+import MyPageHeader from './MyPageHeader';
 import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
 //   import { Link } from 'react-router-dom';
 
@@ -37,6 +38,7 @@ const MyPageReview = () => {
 
   return (
     <>
+      <MyPageHeader title={'나의후기'} />
       <ReviewListContainer>
         <MyPageReviewImage>
           <ProductImg2

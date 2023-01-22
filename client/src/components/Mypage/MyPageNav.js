@@ -13,11 +13,11 @@ const MyPageNav = () => {
         <RightArrow />
       </CatagoryBox>
       <CatagoryBox to={'/mypage/review'}>
-        나의리뷰
+        나의후기
         <RightArrow />
       </CatagoryBox>
       <CatagoryBox to={'/mypage/question'}>
-        주소관리
+        나의문의
         <RightArrow />
       </CatagoryBox>
     </NavContainer>

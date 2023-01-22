@@ -8,7 +8,6 @@ import {
   RecipientTitle,
   PhoneNumberTitle,
   EditTitle,
-  SelectText,
   AddressText,
   RecipientText,
   PhoneNumberText,
@@ -27,24 +26,25 @@ import {
   ModalViewFooterButtonLeft,
   ModalViewFooterButtonRight
 } from '../../styles/myPageStyle';
-
+import MyPageHeader from './MyPageHeader';
 import { ReactComponent as CheckIcon } from '../../assets/icons/checkIcon.svg';
 import { ReactComponent as EditIcon } from '../../assets/icons/editIcon.svg';
 import { ReactComponent as CancleIcon } from '../../assets/icons/cancleIcon.svg';
-const MyAddress = () => {
+
+const MyPageAddress = () => {
   const [list, setList] = useState([{}, {}, {}]);
   const [modal, setModal] = useState(false);
   return (
     <>
+      <MyPageHeader title={'주소관리'} />
       <MyAddressContainer>
         <Addressheader>
-          <SelectTitle>선택</SelectTitle>
+          <SelectTitle>기본 배송지</SelectTitle>
           <AddressTitle>주소</AddressTitle>
           <RecipientTitle>받는사람</RecipientTitle>
           <PhoneNumberTitle>연락처</PhoneNumberTitle>
           <EditTitle>수정</EditTitle>
         </Addressheader>
-        <SelectText>기본주소</SelectText>
         {list.map((el, idx) => {
           return (
             <AddressInfo key={idx}>
@@ -111,4 +111,4 @@ const MyAddress = () => {
   );
 };
 
-export default MyAddress;
+export default MyPageAddress;

@@ -5,11 +5,13 @@ import {
   LeftCotainer,
   Text
 } from '../../styles/myPageStyle';
+import MyPageHeader from './MyPageHeader';
 import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
 
 const MyPageQuestionList = () => {
   return (
     <>
+      <MyPageHeader title={'나의문의'} />
       <ListHeader>
         <LeftCotainer>
           <Text>제목 / 상품명</Text>

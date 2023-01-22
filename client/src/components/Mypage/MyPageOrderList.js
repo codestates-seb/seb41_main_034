@@ -15,6 +15,7 @@ import {
   ProductImg,
   MyQuestionButton
 } from '../../styles/myPageStyle';
+import MyPageHeader from './MyPageHeader';
 import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
 
 const MyPageOrderList = () => {
@@ -27,6 +28,7 @@ const MyPageOrderList = () => {
   };
   return (
     <>
+      <MyPageHeader title={'주문목록'} />
       <OrderDateContainer>
         {' '}
         <OrderDate>2023.01.07</OrderDate>
@@ -47,11 +49,11 @@ const MyPageOrderList = () => {
           <OrderQuantity>수량: 1개</OrderQuantity>
         </CenterContent>
         <RightContent>
-          <CancleImgContainer>
+          <CancleImgContainer type="button">
             <CancelIcon onClick={onRemove} alt="후기 삭제 버튼입니다" />
           </CancleImgContainer>
           <OrderStatus>주문완료</OrderStatus>
-          <MyQuestionButton>문의하기</MyQuestionButton>
+          <MyQuestionButton type="button">문의하기</MyQuestionButton>
         </RightContent>
       </OrderListContainer>
     </>

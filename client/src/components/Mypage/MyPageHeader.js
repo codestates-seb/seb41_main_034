@@ -1,11 +1,10 @@
-import { Container, Title, SubTitle } from '../../styles/myPageStyle';
+import { Container, Title } from '../../styles/myPageStyle';
 
-const MyPageHeader = ({ tabTitle }) => {
+const MyPageHeader = ({ title }) => {
   return (
     <>
       <Container>
-        <Title>My Page</Title>
-        <SubTitle>{tabTitle}</SubTitle>
+        <Title>{title}</Title>
       </Container>
     </>
   );
