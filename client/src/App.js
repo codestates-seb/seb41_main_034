@@ -5,6 +5,7 @@ import theme from './styles/theme';
 import Header from './components/Layout/Header';
 import Main from './components/Layout/Main';
 import Footer from './components/Layout/Footer';
+import ScrollToTop from './components/Layout/ScrollToTop';
 
 function App() {
   const location = useLocation();
@@ -16,6 +17,8 @@ function App() {
       <Header location={location} />
 
       <Main />
+
+      <ScrollToTop />
 
       <Footer location={location} />
     </ThemeProvider>
