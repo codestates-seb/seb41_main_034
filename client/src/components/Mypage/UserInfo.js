@@ -25,7 +25,9 @@ const UserInfo = () => {
             <OtherText>리뷰 수 : 3</OtherText>
           </InfoContainer>
           <EditbuttonContainer>
-            <EditButton>회원정보수정</EditButton>
+            <EditButton aria-label="회원정보수정 버튼입니다.">
+              회원정보수정
+            </EditButton>
           </EditbuttonContainer>
         </UserInfoContainer>
       </UserWrapper>
