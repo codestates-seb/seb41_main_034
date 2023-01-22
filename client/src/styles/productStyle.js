@@ -424,7 +424,7 @@ const ProductMainContainer = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 24px;
-  padding-bottom: 12px;
+  padding-bottom: 48px;
   border-bottom: 1px solid ${(props) => props.theme.grayColor};
 `;
 
