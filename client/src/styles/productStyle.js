@@ -50,16 +50,14 @@ const ProductList = styled.ul`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: minmax(200px, auto);
-  grid-gap: 4px;
+  grid-gap: 16px;
 
   @media ${(props) => props.theme.tablet} {
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 8px;
   }
 
   @media ${(props) => props.theme.mobile} {
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 8px;
   }
 `;
 
@@ -67,7 +65,6 @@ const ProductContainer = styled.li`
   position: relative;
   width: 100%;
   height: auto;
-  padding: 8px;
   border-radius: 4px;
 
   a {
@@ -79,8 +76,6 @@ const ProductContainer = styled.li`
 
   @media ${(props) => props.theme.desktop} {
     &:hover {
-      border: 1px solid ${(props) => props.theme.borderColor};
-
       ${ProductImage} {
         transform: scale(1.1);
       }
@@ -619,7 +614,7 @@ const ProductDetailTitle = styled.h3`
 
 const CarouselContainer = styled.div`
   position: relative;
-  top: -95px;
+  top: -63px;
   border-radius: 4px;
   overflow: hidden;
 
@@ -628,21 +623,21 @@ const CarouselContainer = styled.div`
   }
 
   @media ${(props) => props.theme.tablet} {
-    top: -71px;
+    top: -31px;
   }
 
   @media ${(props) => props.theme.mobile} {
-    top: -55px;
+    top: -15px;
   }
 `;
 
 const HomeProductContainer = styled.div`
   position: relative;
-  top: -96px;
+  margin-top: 48px;
 `;
 
 const HomeProductHeader = styled.header`
-  padding: 72px 0 24px 0;
+  padding-bottom: 24px;
 `;
 
 const HomeProductTitle = styled.h2`
@@ -658,7 +653,44 @@ const HomeProductTitle = styled.h2`
   }
 `;
 
+const SortNavbarContainer = styled.ul`
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 8px;
+  height: 32px;
+  margin-bottom: 4px;
+  padding-right: 4px;
+`;
+
+const SortNavbarItem = styled.li`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const SortNavbarButton = styled.button`
+  font-size: 14px;
+  color: ${(props) => props.theme.grayColor};
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      color: ${(props) => props.theme.hoverColor};
+    }
+  }
+
+  @media ${(props) => props.theme.tablet} {
+    font-size: 12px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 10px;
+  }
+`;
+
 export {
+  SortNavbarContainer,
+  SortNavbarItem,
+  SortNavbarButton,
   HomeProductContainer,
   HomeProductHeader,
   HomeProductTitle,
