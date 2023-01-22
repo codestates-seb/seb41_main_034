@@ -1,11 +1,18 @@
 import ProductItem from '../components/Product/ProductItem';
-import { ProductList } from '../styles/productStyle';
+import {
+  ProductList,
+  CategoryHeader,
+  CategoryTitle
+} from '../styles/productStyle';
 import SortNavbar from '../components/Product/SortNavbar';
 
 const Products = () => {
   return (
     <>
-      <SortNavbar />
+      <CategoryHeader>
+        <CategoryTitle>카테고리</CategoryTitle>
+        <SortNavbar />
+      </CategoryHeader>
 
       <ProductList>
         {[

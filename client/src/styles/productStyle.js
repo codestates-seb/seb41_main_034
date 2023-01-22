@@ -50,7 +50,7 @@ const ProductList = styled.ul`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: minmax(200px, auto);
-  grid-gap: 16px;
+  grid-gap: 48px 16px;
 
   @media ${(props) => props.theme.tablet} {
     grid-template-columns: repeat(3, 1fr);
@@ -96,24 +96,36 @@ const ProductContainer = styled.li`
 `;
 
 const ProductInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
   margin-top: 8px;
+
+  @media ${(props) => props.theme.desktop} {
+    row-gap: 12px;
+    margin-top: 12px;
+  }
+
+  @media ${(props) => props.theme.tablet} {
+    row-gap: 10px;
+    margin-top: 10px;
+  }
 `;
 
 const ProductName = styled.h3`
-  margin-bottom: 4px;
   font-size: 14px;
   transition: color 0.3s;
 `;
 
 const ProductPrice = styled.strong`
   display: block;
-  margin-bottom: 4px;
   font-size: 16px;
   font-weight: 700;
 `;
 
 const ProductReview = styled.p`
-  margin-bottom: 4px;
+  position: relative;
+  top: -4px;
   font-size: 12px;
   color: ${(props) => props.theme.grayColor};
 `;
@@ -612,15 +624,15 @@ const HomeProductHeader = styled.header`
 `;
 
 const HomeProductTitle = styled.h2`
-  font-size: 30px;
+  font-size: 24px;
   font-weight: 700;
 
   @media ${(props) => props.theme.tablet} {
-    font-size: 26px;
+    font-size: 22px;
   }
 
   @media ${(props) => props.theme.mobile} {
-    font-size: 22px;
+    font-size: 20px;
   }
 `;
 
@@ -629,14 +641,13 @@ const SortNavbarContainer = styled.ul`
   justify-content: flex-end;
   column-gap: 8px;
   height: 32px;
-  margin-bottom: 4px;
   padding-right: 4px;
 `;
 
 const SortNavbarItem = styled.li`
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
 `;
 
 const SortNavbarButton = styled.button`
@@ -721,7 +732,29 @@ const ReviewListContainer = styled.ul`
   width: 100%;
 `;
 
+const CategoryHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 16px;
+`;
+
+const CategoryTitle = styled.h2`
+  font-size: 24px;
+  font-weight: 700;
+
+  @media ${(props) => props.theme.tablet} {
+    font-size: 22px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 20px;
+  }
+`;
+
 export {
+  CategoryHeader,
+  CategoryTitle,
   Text,
   TextBold,
   TextGray,
