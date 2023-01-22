@@ -1,4 +1,4 @@
-import MyQuestion from './MyQuestion';
+import MyPageQuestionItem from './MyPageQuestionItem';
 import {
   ListHeader,
   RightContainer,
@@ -7,7 +7,7 @@ import {
 } from '../../styles/myPageStyle';
 import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
 
-const MyQuestionList = () => {
+const MyPageQuestionList = () => {
   return (
     <>
       <ListHeader>
@@ -20,9 +20,10 @@ const MyQuestionList = () => {
           <CancelIcon />
         </RightContainer>
       </ListHeader>
-      <MyQuestion />
+      <MyPageQuestionItem />
+      <MyPageQuestionItem />
     </>
   );
 };
 
-export default MyQuestionList;
+export default MyPageQuestionList;

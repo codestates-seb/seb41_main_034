@@ -128,12 +128,13 @@ const MarginSpace = styled.div`
 
 const NavContainer = styled.div`
   position: relative;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  max-width: 1024px;
+  row-gap: 1px;
 
   @media ${(props) => props.theme.mobile} {
-    display: flex;
+    flex-direction: row;
   }
 `;
 
@@ -228,25 +229,10 @@ const SubTitle = styled.div`
   }
 `;
 
-const UserWrapper = styled.div`
-  width: 100%;
-  max-width: 160px;
-
-  @media ${(props) => props.theme.tablet} {
-    width: 100%;
-    max-width: 140px;
-  }
-
-  @media ${(props) => props.theme.mobile} {
-    width: 100%;
-    max-width: 100%;
-  }
-`;
-
 const UserInfoContainer = styled.div`
-  display: grid;
-  width: 100%;
+  padding: 16px;
   border: 1px solid ${(props) => props.theme.borderColor};
+  border-radius: 4px;
 
   @media ${(props) => props.theme.mobile} {
     display: flex;
@@ -256,33 +242,25 @@ const UserInfoContainer = styled.div`
 `;
 
 const InfoContainer = styled.div`
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
 `;
 
 const TextContainer = styled.div`
   display: flex;
-  width: 100%;
+  align-items: flex-end;
+  column-gap: 12px;
 `;
 
 const WellcomText = styled.div`
-  margin: 12px 12px 12px 8px;
-  font-size: 14px;
+  font-size: 12px;
   color: ${(props) => props.theme.primaryColor};
-
-  @media ${(props) => props.theme.tablet} {
-    margin: 12px 0 12px 8px;
-    font-size: 12px;
-  }
-
-  @media ${(props) => props.theme.mobile} {
-    font-size: 12px;
-  }
 `;
 
 const NameText = styled.div`
   display: flex;
   align-items: center;
-  margin: 12px 12px 12px 8px;
   font-size: 14px;
 
   @media ${(props) => props.theme.tablet} {
@@ -295,44 +273,27 @@ const NameText = styled.div`
   }
 `;
 
-const OtherText = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding: 0 0 8px 8px;
-  font-size: 8px;
-
-  @media ${(props) => props.theme.tablet} {
-    padding: 4px 0 4px 8px;
-    font-size: 4px;
-    zoom: 0.9;
-  }
-
-  @media ${(props) => props.theme.mobile} {
-    font-size: 8px;
-  }
+const OtherText = styled.p`
+  font-size: 10px;
 `;
 
 const EditbuttonContainer = styled.div`
   display: flex;
   justify-content: center;
-  width: 100%;
+  margin-top: 8px;
 
   @media ${(props) => props.theme.mobile} {
-    width: 100%;
     padding-top: 60px;
   }
 `;
 
-const EditButton = styled.button`
-  width: 100%;
-  max-width: 122px;
-  margin: 12px 0 12px 0;
-  padding: 4px 0 4px 0;
+const EditButton = styled(Link)`
+  display: block;
+  padding: 4px 8px;
+  font-size: 10px;
   border-radius: 4px;
   background-color: ${(props) => props.theme.primaryColor};
   color: ${(props) => props.theme.whiteColor};
-  font-size: 8px;
 
   @media ${(props) => props.theme.desktop} {
     &:hover {
@@ -1068,7 +1029,32 @@ const CancleImgContainer3 = styled.div`
   }
 `;
 
+const MyPageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  @media ${(props) => props.theme.desktop} {
+    flex-direction: row;
+    column-gap: 24px;
+  }
+`;
+
+const MyPageNavbar = styled.nav`
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  row-gap: 12px;
+`;
+
+const MyPageContent = styled.div`
+  width: 100%;
+  flex-grow: 1;
+`;
+
 export {
+  MyPageContent,
+  MyPageNavbar,
+  MyPageContainer,
   ListHeader,
   RightContainer,
   LeftCotainer,
@@ -1084,7 +1070,6 @@ export {
   Container,
   Title,
   SubTitle,
-  UserWrapper,
   UserInfoContainer,
   InfoContainer,
   TextContainer,

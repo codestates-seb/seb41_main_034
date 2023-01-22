@@ -45,9 +45,9 @@ const MyAddress = () => {
           <EditTitle>수정</EditTitle>
         </Addressheader>
         <SelectText>기본주소</SelectText>
-        {list.map((e) => {
+        {list.map((el, idx) => {
           return (
-            <AddressInfo>
+            <AddressInfo key={idx}>
               <CheckIconContainer>
                 <CheckIcon />
               </CheckIconContainer>

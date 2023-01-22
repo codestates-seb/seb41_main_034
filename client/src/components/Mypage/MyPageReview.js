@@ -12,7 +12,7 @@ import {
 import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
 //   import { Link } from 'react-router-dom';
 
-const MyReview = () => {
+const MyPageReview = () => {
   const onRemove = () => {
     if (window.confirm('해당 상품에 대한 후기를 삭제하시겠습니까?')) {
       alert('삭제되었습니다');
@@ -21,11 +21,11 @@ const MyReview = () => {
     }
   };
   const textLengthOverCut = (txt, len, lastTxt) => {
-    if (len == '' || len == null) {
+    if (len === '' || len === null) {
       // 기본값
       len = 20;
     }
-    if (lastTxt == '' || lastTxt == null) {
+    if (lastTxt === '' || lastTxt === null) {
       // 기본값
       lastTxt = '...';
     }
@@ -70,4 +70,4 @@ const MyReview = () => {
   );
 };
 
-export default MyReview;
+export default MyPageReview;

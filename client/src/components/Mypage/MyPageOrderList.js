@@ -17,7 +17,7 @@ import {
 } from '../../styles/myPageStyle';
 import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
 
-const OrderList = () => {
+const MyPageOrderList = () => {
   const onRemove = () => {
     if (window.confirm('해당 상품에 대한 후기를 삭제하시겠습니까?')) {
       alert('삭제되었습니다');
@@ -58,4 +58,4 @@ const OrderList = () => {
   );
 };
 
-export default OrderList;
+export default MyPageOrderList;

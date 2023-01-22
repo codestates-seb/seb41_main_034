@@ -4,19 +4,19 @@ import { NavContainer, CatagoryBox } from '../../styles/myPageStyle';
 const MyPageNav = () => {
   return (
     <NavContainer>
-      <CatagoryBox to="">
+      <CatagoryBox to={'/mypage'}>
         주소관리
         <RightArrow />
       </CatagoryBox>
-      <CatagoryBox to="">
+      <CatagoryBox to={'/mypage/orderlist'}>
         주문목록
         <RightArrow />
       </CatagoryBox>
-      <CatagoryBox to="">
+      <CatagoryBox to={'/mypage/review'}>
         나의리뷰
         <RightArrow />
       </CatagoryBox>
-      <CatagoryBox to="">
+      <CatagoryBox to={'/mypage/question'}>
         나의문의
         <RightArrow />
       </CatagoryBox>

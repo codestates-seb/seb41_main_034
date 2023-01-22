@@ -8,7 +8,7 @@ import {
 } from '../../styles/myPageStyle';
 import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
 
-const MyQuestion = () => {
+const MyPageQuestionItem = () => {
   const onRemove = () => {
     if (window.confirm('해당 상품에 대한 문의를 삭제하시겠습니까?')) {
       alert('삭제되었습니다');
@@ -33,4 +33,4 @@ const MyQuestion = () => {
   );
 };
 
-export default MyQuestion;
+export default MyPageQuestionItem;

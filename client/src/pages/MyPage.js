@@ -1,10 +1,35 @@
+import { Routes, Route } from 'react-router-dom';
 import MyPageNav from '../components/MyPage/MyPageNav';
+import UserInfo from '../components/MyPage/UserInfo';
+import MyAddress from '../components/MyPage/MyAddress';
+import UserInfoEdit from '../components/MyPage/UserInfoEdit';
+import MyPageOrderList from '../components/MyPage/MyPageOrderList';
+import MyPageReview from '../components/MyPage/MyPageReview';
+import MyPageQuestionList from '../components/MyPage/MyPageQuestionList';
+import {
+  MyPageContainer,
+  MyPageNavbar,
+  MyPageContent
+} from '../styles/myPageStyle';
 
 const MyPage = () => {
   return (
-    <>
-      <MyPageNav />
-    </>
+    <MyPageContainer>
+      <MyPageNavbar>
+        <UserInfo />
+        <MyPageNav />
+      </MyPageNavbar>
+
+      <MyPageContent>
+        <Routes>
+          <Route path="/" element={<MyAddress />} />
+          <Route path="/edit" element={<UserInfoEdit />} />
+          <Route path="orderlist" element={<MyPageOrderList />} />
+          <Route path="review" element={<MyPageReview />} />
+          <Route path="question" element={<MyPageQuestionList />} />
+        </Routes>
+      </MyPageContent>
+    </MyPageContainer>
   );
 };
 
