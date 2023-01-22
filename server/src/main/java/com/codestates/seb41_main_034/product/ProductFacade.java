@@ -1,18 +1,13 @@
 package com.codestates.seb41_main_034.product;
 
 import com.codestates.seb41_main_034.common.ImageStorageService;
-import com.codestates.seb41_main_034.common.exception.BusinessLogicException;
-import com.codestates.seb41_main_034.common.exception.ExceptionCode;
+import com.codestates.seb41_main_034.common.JsonListHelper;
 import com.codestates.seb41_main_034.common.response.PaginatedData;
 import com.codestates.seb41_main_034.product.dto.ProductDto;
 import com.codestates.seb41_main_034.product.dto.ProductPatchDto;
 import com.codestates.seb41_main_034.product.dto.ProductPostDto;
 import com.codestates.seb41_main_034.product.entity.Product;
 import com.codestates.seb41_main_034.product.entity.ProductCategory;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,30 +25,19 @@ public class ProductFacade {
 
     private final ImageStorageService imageStorageService;
 
-    private final ObjectMapper mapper;
+    private final JsonListHelper helper;
 
     public ProductDto createProduct(
             ProductPostDto postDto, List<MultipartFile> images, List<MultipartFile> detailImages) {
         // 이미지 저장
-        List<String> imageUrlList = imageStorageService.store(images);
-        List<String> detailImageUrlList = imageStorageService.store(detailImages);
-
-        String imageUrls;
-        String detailImageUrls;
-
-        try {
-            ObjectWriter writer = mapper.writerFor(new TypeReference<List<String>>() {});
-            imageUrls = writer.writeValueAsString(imageUrlList);
-            detailImageUrls = writer.writeValueAsString(detailImageUrlList);
-        } catch (JsonProcessingException e) {
-            throw new BusinessLogicException(ExceptionCode.PRODUCT_CANNOT_WRITE_IMAGE_URLS);
-        }
+        String imageUrls = helper.listToJson(imageStorageService.store(images));
+        String detailImageUrls = helper.listToJson(imageStorageService.store(detailImages));
 
         // 상품 추가
         Product product = productService.createProduct(postDto, imageUrls, detailImageUrls);
 
         // DTO 변환 후 반환
-        return product.toDto(mapper);
+        return product.toDto(helper);
     }
 
     public ProductDto readProduct(int productId) {
@@ -62,7 +46,7 @@ public class ProductFacade {
 
         // TODO: 인증이 없거나 인증된 사용자가 관리자가 아닌 경우 DRAFT 상태인 상품은 PRODUCT_NOT_FOUND 처리해야 한다.
 
-        return product.toDto(mapper);
+        return product.toDto(helper);
     }
 
     public PaginatedData<ProductDto> readProducts(ProductCategory category, Pageable pageable) {
@@ -71,7 +55,7 @@ public class ProductFacade {
                 .map(productCategory -> productService.readProducts(productCategory, pageable))
                 .orElse(productService.readProducts(pageable));
 
-        return PaginatedData.of(productPage.map(product -> product.toDto(mapper)));
+        return PaginatedData.of(productPage.map(product -> product.toDto(helper)));
     }
 
     public ProductDto updateProduct(
@@ -85,26 +69,19 @@ public class ProductFacade {
                 Optional.ofNullable(patchDto).map(ProductPatchDto::getDeleteDetailImage).orElse(null);
 
         // 이미지 수정
-        List<String> imageUrlList = imageStorageService.update(product.getImageUrlList(mapper), deleteImage, images);
-        List<String> detailImageUrlList =
-                imageStorageService.update(product.getDetailImageUrlList(mapper), deleteDetailImage, detailImages);
+        List<String> imageUrlList = imageStorageService.update(
+                helper.jsonToList(product.getImageUrls()), deleteImage, images);
+        List<String> detailImageUrlList = imageStorageService.update(
+                helper.jsonToList(product.getDetailImageUrls()), deleteDetailImage, detailImages);
 
-        String imageUrls;
-        String detailImageUrls;
-
-        try {
-            ObjectWriter writer = mapper.writerFor(new TypeReference<List<String>>() {});
-            imageUrls = writer.writeValueAsString(imageUrlList);
-            detailImageUrls = writer.writeValueAsString(detailImageUrlList);
-        } catch (JsonProcessingException e) {
-            throw new BusinessLogicException(ExceptionCode.PRODUCT_CANNOT_WRITE_IMAGE_URLS);
-        }
+        String imageUrls = helper.listToJson(imageUrlList);
+        String detailImageUrls = helper.listToJson(detailImageUrlList);
 
         // 상품 수정
         Product updatedProduct = productService.updateProduct(productId, patchDto, imageUrls, detailImageUrls);
 
         // DTO로 변환 후 반환
-        return updatedProduct.toDto(mapper);
+        return updatedProduct.toDto(helper);
     }
 
 }

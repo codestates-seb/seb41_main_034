@@ -62,7 +62,7 @@ public class ImageStorageService {
             return null;
         }
 
-        // 이미지 파일이 있는 경우 이미지 서버에 저장 및 저장된 이미지 주소 배열로 반환
+        // 이미지 파일이 있는 경우 이미지 서버에 저장 및 저장된 이미지 주소 List로 반환
         return images.stream().map(this::store).filter(Objects::nonNull).collect(Collectors.toList());
     }
 

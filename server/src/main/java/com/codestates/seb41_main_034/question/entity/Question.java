@@ -1,10 +1,10 @@
 package com.codestates.seb41_main_034.question.entity;
 
+import com.codestates.seb41_main_034.common.JsonListHelper;
 import com.codestates.seb41_main_034.common.auditing.entity.Auditable;
 import com.codestates.seb41_main_034.product.entity.Product;
 import com.codestates.seb41_main_034.question.dto.AnswerDto;
 import com.codestates.seb41_main_034.question.dto.QuestionDto;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
@@ -30,10 +30,10 @@ public class Question extends Auditable {
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "question")
     private Answer answer;
 
-    public QuestionDto toDto(ObjectMapper mapper, Product product) {
+    public QuestionDto toDto(JsonListHelper helper, Product product) {
         Optional<Product> optionalProduct = Optional.ofNullable(product);
         String productName = optionalProduct.map(Product::getName).orElse(null);
-        String productImageUrl = optionalProduct.map(presentProduct -> presentProduct.getImageUrlList(mapper))
+        String productImageUrl = optionalProduct.map(Product::getImageUrls).map(helper::jsonToList)
                 .map(urlList -> urlList.isEmpty() ? null : urlList.get(0)).orElse(null);
         AnswerDto answerDto = Optional.ofNullable(answer).map(Answer::toDto).orElse(null);
 
@@ -41,8 +41,8 @@ public class Question extends Auditable {
                 getCreatedBy(), getModifiedBy(), getCreatedAt(), getModifiedAt());
     }
 
-    public QuestionDto toDto(ObjectMapper mapper) {
-        return toDto(mapper, null);
+    public QuestionDto toDto(JsonListHelper helper) {
+        return toDto(helper, null);
     }
 
 }

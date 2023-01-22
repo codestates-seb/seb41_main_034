@@ -1,18 +1,14 @@
 package com.codestates.seb41_main_034.product.entity;
 
+import com.codestates.seb41_main_034.common.JsonListHelper;
 import com.codestates.seb41_main_034.common.auditing.entity.Auditable;
-import com.codestates.seb41_main_034.common.exception.BusinessLogicException;
-import com.codestates.seb41_main_034.common.exception.ExceptionCode;
 import com.codestates.seb41_main_034.product.dto.ProductDto;
-import com.fasterxml.jackson.core.JacksonException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
 @Setter
@@ -55,28 +51,12 @@ public class Product extends Auditable {
         this.stock = stock;
     }
 
-    public ProductDto toDto(ObjectMapper mapper) {
+    public ProductDto toDto(JsonListHelper helper) {
         return new ProductDto(
                 id, name, price, stock, status, category,
-                getImageUrlList(mapper), getDetailImageUrlList(mapper),
+                helper.jsonToList(imageUrls), helper.jsonToList(detailImageUrls),
                 getCreatedBy(), getModifiedBy(), getCreatedAt(), getModifiedAt()
         );
-    }
-
-    public List<String> getImageUrlList(ObjectMapper mapper) {
-        try {
-            return mapper.readerForListOf(String.class).readValue(getImageUrls());
-        } catch (JacksonException e) {
-            throw new BusinessLogicException(ExceptionCode.PRODUCT_CANNOT_READ_IMAGE_URLS);
-        }
-    }
-
-    public List<String> getDetailImageUrlList(ObjectMapper mapper) {
-        try {
-            return mapper.readerForListOf(String.class).readValue(getDetailImageUrls());
-        } catch (JacksonException e) {
-            throw new BusinessLogicException(ExceptionCode.PRODUCT_CANNOT_READ_IMAGE_URLS);
-        }
     }
 
 }
