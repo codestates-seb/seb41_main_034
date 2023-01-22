@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
 const GlobalStyle = createGlobalStyle`
@@ -47,13 +47,6 @@ const GlobalStyle = createGlobalStyle`
     background-color: inherit;
     cursor: pointer;
   }
-`;
-
-const Main = styled.main`
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  margin-top: 120px;
 `;
 
 export { GlobalStyle };
