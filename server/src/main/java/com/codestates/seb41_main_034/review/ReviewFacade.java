@@ -109,7 +109,6 @@ public class ReviewFacade {
 
         String imageUrls;
         try {
-
             imageUrls = mapper.writerFor(new TypeReference<List<String>>() {}).writeValueAsString(imageUrlList);
         } catch (JsonProcessingException e) {
             throw new BusinessLogicException(ExceptionCode.REVIEW_CANNOT_WRITE_IMAGE_URLS);
