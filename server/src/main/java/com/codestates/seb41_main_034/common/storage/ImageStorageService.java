@@ -4,7 +4,6 @@ import com.codestates.seb41_main_034.common.exception.BusinessLogicException;
 import com.codestates.seb41_main_034.common.exception.ExceptionCode;
 import com.codestates.seb41_main_034.common.storage.event.FileCopyEvent;
 import com.codestates.seb41_main_034.common.storage.event.FileDeleteEvent;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
@@ -18,7 +17,6 @@ import java.io.InputStream;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Slf4j
 @Service
 public class ImageStorageService implements ApplicationEventPublisherAware {
 
