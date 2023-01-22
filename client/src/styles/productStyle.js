@@ -294,19 +294,12 @@ const ModalWrapper = styled.div`
 `;
 
 const ModalContainer = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
   width: 100%;
-  max-width: 425px;
-  padding: 24px 48px 48px 48px;
+  max-width: 435px;
+  padding: 0 48px 48px 48px;
   margin-top: 24px;
   border-radius: 4px;
   background-color: ${(props) => props.theme.whiteColor};
-  transition: transform 0.5s;
-  transform: translate(-50%, -50%)
-    ${(props) => (props.isOpenQuestion ? 'translateY(0)' : 'translateY(-200%)')};
-  z-index: 98;
 
   @media ${(props) => props.theme.mobile} {
     padding: 12px 24px 24px 24px;
@@ -318,6 +311,7 @@ const MiddleText = styled.div`
   margin: 4px 0 28px 0;
   justify-content: center;
   font-size: 28px;
+  color: ${(props) => props.theme.primaryColor};
 
   @media ${(props) => props.theme.mobile} {
     font-size: 20px;
@@ -349,7 +343,7 @@ const SmallInput = styled.input`
   width: 100%;
   margin: 16px 0 32px 0;
   padding: 4px;
-  border-bottom: 1px solid ${(props) => props.theme.borderColor};
+  border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
   font-size: 12px;
 
@@ -367,7 +361,7 @@ const BigInput = styled.textarea`
   width: 100%;
   padding: 4px 4px 208px 4px;
   margin: 16px 0 32px 0;
-  border-bottom: 1px solid ${(props) => props.theme.borderColor};
+  border: 1px solid ${(props) => props.theme.borderColor};
   border-left: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
   resize: none;
@@ -403,11 +397,17 @@ const CompletButton = styled.button`
 
 const CancleImgContainer = styled.div`
   display: flex;
-  width: 100%;
   justify-content: end;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.5);
 
   svg {
-    fill: black;
+    width: 40px;
+    height: 30px;
+    margin-bottom: 4px;
+    fill: ${(props) => props.theme.grayColor};
+    background-color: rgba(0, 0, 0, 0, 0.5);
   }
 `;
 
@@ -424,6 +424,21 @@ const ReviewHeader = styled.div`
 
 const ReviewText = styled.div`
   font-size: 20px;
+`;
+
+const ModalView = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  max-width: 425px;
+  background-color: ${(props) => props.theme.whiteColor};
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  transition: transform 0.5s;
+  transform: translate(-50%, -50%)
+    ${(props) => (props.isOpenQuestion ? 'translateY(0)' : 'translateY(-200%)')};
+  z-index: 98;
 `;
 
 export {
@@ -460,5 +475,6 @@ export {
   ReviewContainer,
   ReviewHeader,
   ReviewText,
-  CartButton
+  CartButton,
+  ModalView
 };
