@@ -8,22 +8,24 @@ import {
   ListWrapper
 } from '../../styles/productStyle';
 import ItemQuestion from './ItemQuestion';
-import { useState } from 'react';
-//useEffect
+import { useState, useEffect } from 'react';
 import QuestionModal from './QuestionModal';
-// import { questionAPI } from '../../api/question';
+import { itemQuestionGetAPI } from '../../api/question';
 
 const ItemQuestionList = () => {
   const [isOpenQuestion, setIsOpenQuestion] = useState(false);
-  // const [Question, setQuestion] = useState(null);
+  const [Question, setQuestion] = useState(null);
 
   const handleQuestionOpen = () => {
     setIsOpenQuestion(!isOpenQuestion);
   };
 
-  // useEffect(() => {
-  //   setQuestion(questionAPI)
-  // }, [Question,setQuestion])
+  useEffect(() => {
+    const body = 'productId';
+    const data = itemQuestionGetAPI(body);
+    setQuestion(data);
+    console.log(Question);
+  }, ['Question']);
 
   return (
     <>
@@ -40,8 +42,7 @@ const ItemQuestionList = () => {
             </QuestionButton>
           </FlexContainer>
           <QuestionContainer>
-            {/* {Question.map(() => <ItemQuestion Question={Question}></ItemQuestion>)} */}
-            <ItemQuestion />
+            <ItemQuestion Question={Question} />
           </QuestionContainer>
         </ListContainer>
       </ListWrapper>

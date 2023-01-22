@@ -6,8 +6,8 @@ import {
   AnswerBox
 } from '../../styles/productStyle';
 
-const ItemQuestion = () => {
-  // {Question}
+const ItemQuestion = ({ Question }) => {
+  // console.log(Question);
   // 16:삼항연산자, 18,19,24:뿌려주기
   return (
     <>
