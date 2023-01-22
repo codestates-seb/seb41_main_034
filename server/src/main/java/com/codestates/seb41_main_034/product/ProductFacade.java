@@ -10,7 +10,9 @@ import com.codestates.seb41_main_034.product.dto.ProductPostDto;
 import com.codestates.seb41_main_034.product.entity.Product;
 import com.codestates.seb41_main_034.product.entity.ProductCategory;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,8 +42,9 @@ public class ProductFacade {
         String detailImageUrls;
 
         try {
-            imageUrls = mapper.writeValueAsString(imageUrlList);
-            detailImageUrls = mapper.writeValueAsString(detailImageUrlList);
+            ObjectWriter writer = mapper.writerFor(new TypeReference<List<String>>() {});
+            imageUrls = writer.writeValueAsString(imageUrlList);
+            detailImageUrls = writer.writeValueAsString(detailImageUrlList);
         } catch (JsonProcessingException e) {
             throw new BusinessLogicException(ExceptionCode.PRODUCT_CANNOT_WRITE_IMAGE_URLS);
         }
@@ -90,8 +93,9 @@ public class ProductFacade {
         String detailImageUrls;
 
         try {
-            imageUrls = mapper.writeValueAsString(imageUrlList);
-            detailImageUrls = mapper.writeValueAsString(detailImageUrlList);
+            ObjectWriter writer = mapper.writerFor(new TypeReference<List<String>>() {});
+            imageUrls = writer.writeValueAsString(imageUrlList);
+            detailImageUrls = writer.writeValueAsString(detailImageUrlList);
         } catch (JsonProcessingException e) {
             throw new BusinessLogicException(ExceptionCode.PRODUCT_CANNOT_WRITE_IMAGE_URLS);
         }

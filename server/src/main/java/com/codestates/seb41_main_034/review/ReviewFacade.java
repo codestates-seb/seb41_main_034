@@ -10,6 +10,7 @@ import com.codestates.seb41_main_034.review.dto.ReviewDto;
 import com.codestates.seb41_main_034.review.dto.ReviewPatchDto;
 import com.codestates.seb41_main_034.review.dto.ReviewPostDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -48,7 +49,7 @@ public class ReviewFacade {
 
         String imageUrls;
         try {
-            imageUrls = mapper.writeValueAsString(imageUrlList);
+            imageUrls = mapper.writerFor(new TypeReference<List<String>>() {}).writeValueAsString(imageUrlList);
         } catch (JsonProcessingException e) {
             throw new BusinessLogicException(ExceptionCode.REVIEW_CANNOT_WRITE_IMAGE_URLS);
         }
@@ -108,7 +109,8 @@ public class ReviewFacade {
 
         String imageUrls;
         try {
-            imageUrls = mapper.writeValueAsString(imageUrlList);
+
+            imageUrls = mapper.writerFor(new TypeReference<List<String>>() {}).writeValueAsString(imageUrlList);
         } catch (JsonProcessingException e) {
             throw new BusinessLogicException(ExceptionCode.REVIEW_CANNOT_WRITE_IMAGE_URLS);
         }

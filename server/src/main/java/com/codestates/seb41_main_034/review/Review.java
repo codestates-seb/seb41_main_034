@@ -6,7 +6,6 @@ import com.codestates.seb41_main_034.common.exception.ExceptionCode;
 import com.codestates.seb41_main_034.product.entity.Product;
 import com.codestates.seb41_main_034.review.dto.ReviewDto;
 import com.fasterxml.jackson.core.JacksonException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
@@ -50,7 +49,7 @@ public class Review extends Auditable {
 
     public List<String> getImageUrlList(ObjectMapper mapper) {
         try {
-            return mapper.readValue(getImageUrls(), new TypeReference<>() {});
+            return mapper.readerForListOf(String.class).readValue(getImageUrls());
         } catch (JacksonException e) {
             throw new BusinessLogicException(ExceptionCode.PRODUCT_CANNOT_READ_IMAGE_URLS);
         }
