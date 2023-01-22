@@ -424,6 +424,27 @@ const ReviewHeader = styled.div`
   max-width: 1024px;
 `;
 
+const TopTitle = styled.div`
+  margin: 64px 0 20px 0;
+  width: 100%;
+  font-size: 24px;
+`;
+
+const MiddleTiTle = styled.div`
+  margin-bottom: 16px;
+  font-size: 16px;
+`;
+const ReviewMiddleInfo = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 16px 0 0;
+  width: 100%;
+`;
+const ReviewQuantity = styled.div`
+  font-size: 20px;
+`;
+
 const ProductWrapper = styled.div`
   display: block;
 
@@ -695,6 +716,10 @@ const SortNavbarButton = styled.button`
 `;
 
 export {
+  TopTitle,
+  MiddleTiTle,
+  ReviewMiddleInfo,
+  ReviewQuantity,
   SortNavbarContainer,
   SortNavbarItem,
   SortNavbarButton,

@@ -7,13 +7,13 @@ import {
   ListContainer,
   ListWrapper
 } from '../../styles/productStyle';
-import ItemQuestion from './ItemQuestion';
+import ItemQuestion from './ProductQuestionItem';
 import { useState } from 'react';
 //useEffect
 import QuestionModal from './QuestionModal';
 // import { questionAPI } from '../../api/question';
 
-const ItemQuestionList = () => {
+const ProductQuestionList = () => {
   const [isOpenQuestion, setIsOpenQuestion] = useState(false);
   // const [Question, setQuestion] = useState(null);
 
@@ -54,4 +54,4 @@ const ItemQuestionList = () => {
   );
 };
 
-export default ItemQuestionList;
+export default ProductQuestionList;

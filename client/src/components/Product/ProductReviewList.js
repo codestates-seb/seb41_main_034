@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import {
   ReviewWrapper,
   ReviewHeader,
@@ -8,11 +9,10 @@ import {
   ReviewButton,
   ReviewListContainer
 } from '../../styles/productStyle';
-import ItemReview from './ItemReview';
-import { useState, useEffect } from 'react';
+import ProductReviewItem from './ProductReviewItem';
 import ReviewModal from './ReviewModal';
 
-const ItemReviewList = () => {
+const ProductReviewList = () => {
   const [isOpenReview, setIsOpenReview] = useState(false);
 
   const handleReviewOpen = () => {
@@ -40,9 +40,7 @@ const ItemReviewList = () => {
           </ReviewButton>
         </ReviewMiddleInfo>
         <ReviewListContainer>
-          <ItemReview />
-          <ItemReview />
-          <ItemReview />
+          <ProductReviewItem />
         </ReviewListContainer>
       </ReviewWrapper>
 
@@ -53,4 +51,4 @@ const ItemReviewList = () => {
     </>
   );
 };
-export default ItemReviewList;
+export default ProductReviewList;

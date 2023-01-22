@@ -11,7 +11,7 @@ import {
   Detail
 } from '../../styles/productStyle';
 
-const ItemReview = () => {
+const ProductReviewItem = () => {
   return (
     <>
       <ReviewList>
@@ -37,4 +37,4 @@ const ItemReview = () => {
     </>
   );
 };
-export default ItemReview;
+export default ProductReviewItem;

@@ -6,7 +6,7 @@ import {
   AnswerBox
 } from '../../styles/productStyle';
 
-const ItemQuestion = () => {
+const ProductQuestionItem = () => {
   // {Question}
   // 16:삼항연산자, 18,19,24:뿌려주기
   return (
@@ -26,4 +26,4 @@ const ItemQuestion = () => {
   );
 };
 
-export default ItemQuestion;
+export default ProductQuestionItem;
