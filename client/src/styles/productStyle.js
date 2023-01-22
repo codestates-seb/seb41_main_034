@@ -277,7 +277,7 @@ const ModalWrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  display: ${(props) => (props.isOpenQuestion ? 'block' : 'none')};
+  display: ${(props) => (props.isOpenReview ? 'block' : 'none')};
   width: 100%;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
@@ -296,7 +296,7 @@ const ModalContainer = styled.div`
   background-color: ${(props) => props.theme.whiteColor};
   transition: transform 0.5s;
   transform: translate(-50%, -50%)
-    ${(props) => (props.isOpenQuestion ? 'translateY(0)' : 'translateY(-200%)')};
+    ${(props) => (props.isOpenReview ? 'translateY(0)' : 'translateY(-200%)')};
   z-index: 98;
 
   @media ${(props) => props.theme.mobile} {
@@ -309,6 +309,7 @@ const MiddleText = styled.div`
   margin: 4px 0 28px 0;
   justify-content: center;
   font-size: 28px;
+  color: ${(props) => props.theme.primaryColor};
 
   @media ${(props) => props.theme.mobile} {
     font-size: 20px;
@@ -318,6 +319,7 @@ const MiddleText = styled.div`
 const LeftTextContainer = styled.div`
   display: flex;
   width: 100%;
+  height: 50%;
   justify-content: center;
 `;
 
@@ -331,9 +333,8 @@ const LeftText = styled.label`
 `;
 
 const MiddleContainer = styled.div`
-  display: flex;
   width: 100%;
-  justify-content: center;
+  margin: 20px 0px;
 `;
 
 const SmallInput = styled.input`
@@ -356,7 +357,8 @@ const SmallInput = styled.input`
 
 const BigInput = styled.textarea`
   width: 100%;
-  padding: 4px 4px 208px 4px;
+  height: 100px;
+  padding: 4px 4px 4px 4px;
   margin: 16px 0 32px 0;
   border-bottom: 1px solid ${(props) => props.theme.borderColor};
   border-left: 1px solid ${(props) => props.theme.borderColor};
@@ -402,19 +404,24 @@ const CancleImgContainer = styled.div`
   }
 `;
 
-const ReviewContainer = styled.div`
-  width: 520px;
-  height: 1205px;
-  margin: auto;
-  background-color: red;
+const ReviewNotice = styled.div`
+  font-size: 12px;
+  margin-bottom: 10px;
+`;
+
+//ItemReview
+
+const ReviewWrapper = styled.div`
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  /* background-color: yellow; */
 `;
 
 const ReviewHeader = styled.div`
-  font-size: 50px;
-`;
-
-const ReviewText = styled.div`
-  font-size: 20px;
+  width: 100%;
+  max-width: 1024px;
 `;
 
 const ProductWrapper = styled.div`
@@ -741,10 +748,10 @@ export {
   ModalContainer,
   ModalWrapper,
   CancleImgContainer,
-  ReviewContainer,
-  ReviewHeader,
-  ReviewText,
   CartButton,
+  ReviewNotice,
+  ReviewWrapper,
+  ReviewHeader,
   ProductContent,
   ProductOrder,
   ProductWrapper,
