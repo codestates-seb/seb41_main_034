@@ -39,13 +39,9 @@ const Product = () => {
         <ProductContent>
           <ProductMain />
           <ProductNavbar />
-
           <ProductInfo />
-
           <ProductDetail />
-
           <ProductReviewList />
-
           <ProductQuestionList />
         </ProductContent>
 

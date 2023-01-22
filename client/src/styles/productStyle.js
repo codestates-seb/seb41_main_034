@@ -118,100 +118,27 @@ const ProductReview = styled.p`
   color: ${(props) => props.theme.grayColor};
 `;
 
-const ListWrapper = styled.div`
+const QuestionButton = styled.button`
   display: flex;
   justify-content: center;
-  width: 100%;
-`;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  color: ${(props) => props.theme.whiteColor};
+  background-color: ${(props) => props.theme.primaryColor};
+  transition: background-color 0.5s;
 
-const ListContainer = styled.div`
-  width: 100%;
-`;
-
-const TitleText = styled.div`
-  width: 100%;
-  margin: 73px 0 0 16px;
-  font-size: 30px;
-
-  @media ${(props) => props.theme.tablet} {
-    font-size: 26px;
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      background-color: ${(props) => props.theme.hoverColor};
+    }
   }
-
-  @media ${(props) => props.theme.mobile} {
-    margin: 56px 0 0 4px;
-    font-size: 22px;
-  }
-`;
-
-const SubTitleText = styled.div`
-  margin: 22px 0 21px 16px;
-  font-size: 12px;
-
-  @media ${(props) => props.theme.tablet} {
-    font-size: 12px;
-  }
-
-  @media ${(props) => props.theme.mobile} {
-    display: none;
-    margin: 12px 0 12px 4px;
-    font-size: 8px;
-  }
-`;
-
-const QuestionContainer = styled.div`
-  width: 100%;
-  max-width: 1024px;
-  padding: 16px 0 16px 0;
 `;
 
 const FlexContainer = styled.div`
   display: flex;
   width: 100%;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid ${(props) => props.theme.borderColor};
-
-  @media ${(props) => props.theme.mobile} {
-    justify-content: flex-end;
-  }
-`;
-
-const QuestionButton = styled.button`
-  display: flex;
-  width: 131px;
-  height: 43px;
-  margin-right: 4px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 8px;
-  color: ${(props) => props.theme.whiteColor};
-  background-color: ${(props) => props.theme.primaryColor};
-
-  @media ${(props) => props.theme.desktop} {
-    &:hover {
-      background-color: ${(props) => props.theme.hoverColor};
-      transition: 0.5s;
-    }
-  }
-
-  @media ${(props) => props.theme.tablet} {
-    width: 80px;
-    height: 30px;
-    font-size: 10px;
-  }
-
-  @media ${(props) => props.theme.mobile} {
-    width: 72px;
-    height: 24px;
-    margin: 0 16px 8px 0;
-    font-size: 8px;
-  }
-`;
-//ItemQuestion
-const FlexContainer2 = styled.div`
-  display: flex;
-  width: 100%;
-  max-width: 1024px;
   align-items: center;
 `;
 
@@ -230,28 +157,38 @@ const QAText = styled.div`
 `;
 
 const ItemText = styled.div`
+  display: flex;
   margin: 8px 8px 0 8px;
-  font-size: 12px;
-
-  @media ${(props) => props.theme.tablet} {
-    font-size: 12px;
-  }
+  font-size: 14px;
 
   @media ${(props) => props.theme.mobile} {
-    font-size: 8px;
+    font-size: 12px;
   }
+`;
+
+const Text = styled.p`
+  font-size: 14px;
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 12px;
+  }
+`;
+
+const TextBold = styled(Text)`
+  margin-left: 4px;
+  font-weight: 700;
+`;
+
+const TextGray = styled(TextBold)`
+  color: ${(props) => props.theme.grayColor};
 `;
 
 const AnswerText = styled.div`
   margin: 20px 0 20px 24px;
   font-size: 12px;
 
-  @media ${(props) => props.theme.tablet} {
-    font-size: 12px;
-  }
-
   @media ${(props) => props.theme.mobile} {
-    font-size: 8px;
+    font-size: 10px;
   }
 `;
 
@@ -273,7 +210,7 @@ const AnswerBox = styled.div`
   }
 `;
 
-const ModalWrapper = styled.div`
+const ReviewModalWrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -281,10 +218,10 @@ const ModalWrapper = styled.div`
   width: 100%;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 97;
+  z-index: 80;
 `;
 
-const ModalContainer = styled.div`
+const ReviewModalContainer = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
@@ -297,7 +234,38 @@ const ModalContainer = styled.div`
   transition: transform 0.5s;
   transform: translate(-50%, -50%)
     ${(props) => (props.isOpenReview ? 'translateY(0)' : 'translateY(-200%)')};
-  z-index: 98;
+  z-index: 90;
+
+  @media ${(props) => props.theme.mobile} {
+    padding: 12px 24px 24px 24px;
+  }
+`;
+
+const QuestionModalWrapper = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: ${(props) => (props.isOpenQuestion ? 'block' : 'none')};
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 80;
+`;
+
+const QuestionModalContainer = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  max-width: 425px;
+  padding: 24px 48px 48px 48px;
+  margin-top: 24px;
+  border-radius: 4px;
+  background-color: ${(props) => props.theme.whiteColor};
+  transition: transform 0.5s;
+  transform: translate(-50%, -50%)
+    ${(props) => (props.isOpenQuestion ? 'translateY(0)' : 'translateY(-200%)')};
+  z-index: 90;
 
   @media ${(props) => props.theme.mobile} {
     padding: 12px 24px 24px 24px;
@@ -409,42 +377,6 @@ const ReviewNotice = styled.div`
   margin-bottom: 10px;
 `;
 
-//ItemReview
-
-const ReviewWrapper = styled.div`
-  justify-content: center;
-  width: 100%;
-  max-width: 100%;
-  height: 100%;
-  /* background-color: yellow; */
-`;
-
-const ReviewHeader = styled.div`
-  width: 100%;
-  max-width: 1024px;
-`;
-
-const TopTitle = styled.div`
-  margin: 64px 0 20px 0;
-  width: 100%;
-  font-size: 24px;
-`;
-
-const MiddleTiTle = styled.div`
-  margin-bottom: 16px;
-  font-size: 16px;
-`;
-const ReviewMiddleInfo = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 0 16px 0 0;
-  width: 100%;
-`;
-const ReviewQuantity = styled.div`
-  font-size: 20px;
-`;
-
 const ProductWrapper = styled.div`
   display: block;
 
@@ -486,6 +418,8 @@ const ProductMainContainer = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid ${(props) => props.theme.grayColor};
 `;
 
 const ProductMainImage = styled.div`
@@ -513,7 +447,7 @@ const Info = styled.div`
 
 const ProductMainName = styled.strong`
   display: block;
-  font-size: 24px;
+  font-size: 20px;
 
   @media ${(props) => props.theme.mobile} {
     font-size: 16px;
@@ -522,7 +456,7 @@ const ProductMainName = styled.strong`
 
 const ProductMainPrice = styled.strong`
   display: block;
-  font-size: 30px;
+  font-size: 24px;
   font-weight: 700;
 
   @media ${(props) => props.theme.mobile} {
@@ -558,12 +492,12 @@ const ProductNavbarList = styled.ol`
   align-items: center;
   width: 100%;
   height: 50px;
-  margin: 48px 0;
+  margin: 24px 0 48px 0;
   border: 1px solid ${(props) => props.theme.borderColor};
   background-color: ${(props) => props.theme.whiteColor};
 
   @media ${(props) => props.theme.mobile} {
-    margin: 32px 0;
+    margin: 24px 0 32px 0;
   }
 `;
 
@@ -623,20 +557,23 @@ const ProductDetailContainer = styled.div`
 `;
 
 const ProductDetailHeader = styled.div`
-  margin-bottom: 24px;
-  padding: 0 0 24px 16px;
-  border-bottom: 1px solid ${(props) => props.theme.borderColor};
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 4px;
+  padding: 0 0 16px 16px;
+  border-bottom: 1px solid ${(props) => props.theme.grayColor};
 `;
 
 const ProductDetailTitle = styled.h3`
-  font-size: 30px;
+  font-size: 24px;
 
   @media ${(props) => props.theme.tablet} {
-    font-size: 26px;
+    font-size: 20px;
   }
 
   @media ${(props) => props.theme.mobile} {
-    font-size: 22px;
+    font-size: 16px;
   }
 `;
 
@@ -715,11 +652,88 @@ const SortNavbarButton = styled.button`
   }
 `;
 
+const ReviewItemContainer = styled.li`
+  padding: 16px;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid ${(props) => props.theme.borderColor};
+  }
+`;
+
+const FirstInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+const SecondInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+const ReviewProductName = styled.div`
+  margin-bottom: 24px;
+  font-size: 16px;
+  font-weight: bold;
+`;
+
+const ReviewImageContainer = styled.div`
+  width: 100%;
+  height: 90px;
+  display: flex;
+`;
+
+const ReviewImg = styled.img`
+  width: 90px;
+  height: 90px;
+  border-radius: 4px;
+`;
+
+const Detail = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 12px;
+  margin-left: 24px;
+`;
+
+const Writer = styled.div`
+  font-size: 16px;
+`;
+const Reviews = styled.div`
+  font-size: 14px;
+`;
+
+const CreationDate = styled.div`
+  font-size: 16px;
+  font-weight: bold;
+  color: ${(props) => props.theme.grayColor};
+`;
+
+const ReviewListContainer = styled.ul`
+  width: 100%;
+`;
+
 export {
-  TopTitle,
-  MiddleTiTle,
-  ReviewMiddleInfo,
-  ReviewQuantity,
+  Text,
+  TextBold,
+  TextGray,
+  ReviewModalContainer,
+  ReviewModalWrapper,
+  QuestionModalContainer,
+  QuestionModalWrapper,
+  ReviewListContainer,
+  ReviewItemContainer,
+  FirstInfo,
+  SecondInfo,
+  ReviewProductName,
+  ReviewImageContainer,
+  ReviewImg,
+  Detail,
+  Writer,
+  Reviews,
+  CreationDate,
   SortNavbarContainer,
   SortNavbarItem,
   SortNavbarButton,
@@ -753,12 +767,6 @@ export {
   ProductReview,
   QuestionButton,
   FlexContainer,
-  QuestionContainer,
-  SubTitleText,
-  TitleText,
-  ListContainer,
-  ListWrapper,
-  FlexContainer2,
   QAText,
   ItemText,
   AnswerText,
@@ -770,13 +778,9 @@ export {
   LeftText,
   LeftTextContainer,
   MiddleText,
-  ModalContainer,
-  ModalWrapper,
   CancleImgContainer,
   CartButton,
   ReviewNotice,
-  ReviewWrapper,
-  ReviewHeader,
   ProductContent,
   ProductOrder,
   ProductWrapper,

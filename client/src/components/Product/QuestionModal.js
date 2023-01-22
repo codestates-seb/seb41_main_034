@@ -6,9 +6,9 @@ import {
   LeftText,
   LeftTextContainer,
   MiddleText,
-  ModalContainer,
-  ModalWrapper,
-  CancleImgContainer
+  CancleImgContainer,
+  QuestionModalWrapper,
+  QuestionModalContainer
 } from '../../styles/productStyle';
 import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
 // import { useState } from 'react';
@@ -35,12 +35,12 @@ const QuestionModal = ({ isOpenQuestion, setIsOpenQuestion }) => {
 
   return (
     <>
-      <ModalWrapper
+      <QuestionModalWrapper
         onClick={handleQuestionClose}
         isOpenQuestion={isOpenQuestion}
       />
 
-      <ModalContainer isOpenQuestion={isOpenQuestion}>
+      <QuestionModalContainer isOpenQuestion={isOpenQuestion}>
         <CancleImgContainer>
           <CancelIcon onClick={handleQuestionClose} />
         </CancleImgContainer>
@@ -78,7 +78,7 @@ const QuestionModal = ({ isOpenQuestion, setIsOpenQuestion }) => {
         <MiddleContainer>
           <CompletButton>완료</CompletButton>
         </MiddleContainer>
-      </ModalContainer>
+      </QuestionModalContainer>
     </>
   );
 };

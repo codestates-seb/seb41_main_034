@@ -383,12 +383,12 @@ const MainContainer = styled.div`
 const ScrollToTopButton = styled.button`
   position: fixed;
   right: 5%;
-  bottom: 40px;
+  bottom: 10%;
   padding: 8px;
   border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 100px;
   background-color: ${(props) => props.theme.whiteColor};
-  z-index: 90;
+  z-index: 80;
 
   svg {
     fill: ${(props) => props.theme.primaryColor};
