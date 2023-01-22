@@ -12,15 +12,14 @@ import {
   OrderQuantity,
   CancleImgContainer,
   OrderStatus,
-  ProductImg,
-  MyQuestionButton
+  ProductImg
 } from '../../styles/myPageStyle';
 import MyPageHeader from './MyPageHeader';
 import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
 
 const MyPageOrderList = () => {
   const onRemove = () => {
-    if (window.confirm('해당 상품에 대한 후기를 삭제하시겠습니까?')) {
+    if (window.confirm('해당 상품에 대한 주문목록을 삭제하시겠습니까?')) {
       alert('삭제되었습니다');
     } else {
       alert('취소했습니다.');
@@ -50,10 +49,9 @@ const MyPageOrderList = () => {
         </CenterContent>
         <RightContent>
           <CancleImgContainer type="button">
-            <CancelIcon onClick={onRemove} alt="후기 삭제 버튼입니다" />
+            <CancelIcon onClick={onRemove} alt="주문목록 삭제 버튼입니다" />
           </CancleImgContainer>
           <OrderStatus>주문완료</OrderStatus>
-          <MyQuestionButton type="button">문의하기</MyQuestionButton>
         </RightContent>
       </OrderListContainer>
     </>
