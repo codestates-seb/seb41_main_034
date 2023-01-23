@@ -354,7 +354,7 @@ const EtcDd = styled.dd`
 `;
 
 const Copyright = styled.p`
-  margin-top: 40px;
+  margin-top: 20px;
   font-size: 10px;
   color: ${(props) => props.theme.grayColor};
 `;
