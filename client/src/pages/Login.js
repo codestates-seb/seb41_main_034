@@ -18,15 +18,17 @@ import { ReactComponent as LogoIcon } from '../assets/icons/foodmeet.svg';
 // import { loginAPI } from '../api/sign';
 
 const Login = () => {
-  const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
+  const [form, setForm] = useState({
+    id: '',
+    password: ''
+  });
 
   const onSubmit = (e) => {
     e.preventDefault();
 
     // const body = JSON.stringify({
-    //   id: id,
-    //   password: password
+    //   id: form.id,
+    //   password: form.password
     // });
 
     // loginAPI(body);
@@ -57,10 +59,8 @@ const Login = () => {
               id="id"
               aria-label="아이디를 입력하세요."
               required
-              maxLength={12}
-              minLength={4}
-              onChange={(e) => setId(e.target.value)}
-              value={id || ''}
+              onChange={(e) => setForm({ ...form, id: e.target.value })}
+              value={form.id || ''}
             />
           </SignItem>
           <SignItem>
@@ -70,10 +70,8 @@ const Login = () => {
               id="password"
               aria-label="비밀번호를 입력하세요."
               required
-              maxLength={12}
-              minLength={4}
-              onChange={(e) => setPassword(e.target.value)}
-              value={password || ''}
+              onChange={(e) => setForm({ ...form, password: e.target.value })}
+              value={form.password || ''}
             />
           </SignItem>
         </SignList>
