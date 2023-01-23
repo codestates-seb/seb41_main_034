@@ -44,11 +44,10 @@ const Signup = () => {
     e.preventDefault();
 
     // const body = JSON.stringify({
-    //   id: id,
-    //   password: password,
-    //   name: name,
-    //   address: `${address} ${addressDetail}`,
-    //   phone: phone
+    //   id: form.id,
+    //   password: form.password,
+    //   name: form.name,
+    //   address: `${form.address} ${form.addressDetail}`
     // });
 
     // signupAPI(body);
