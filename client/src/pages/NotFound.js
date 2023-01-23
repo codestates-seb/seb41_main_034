@@ -22,21 +22,34 @@ const NotFoundContainer = styled.div`
 `;
 
 const NotFoundTitle = styled.h2`
-  font-size: 100px;
+  font-size: 64px;
   font-weight: 700;
   color: ${(props) => props.theme.primaryColor};
+
+  @media ${(props) => props.theme.desktop} {
+    font-size: 100px;
+  }
 `;
 
 const NotFoundSubTitle = styled.h3`
   margin-top: 24px;
-  font-size: 24px;
+  font-size: 16px;
   text-align: center;
+
+  @media ${(props) => props.theme.desktop} {
+    font-size: 24px;
+  }
 `;
 
 const NotFoundDesc = styled.p`
   margin-top: 30px;
-  font-size: 16px;
+  font-size: 14px;
+
   text-align: center;
+
+  @media ${(props) => props.theme.desktop} {
+    font-size: 16px;
+  }
 `;
 
 export default NotFound;
