@@ -1,22 +1,21 @@
 import styled from 'styled-components';
 
 const SignWrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
 const SignContainer = styled.form`
-  position: fixed;
-  top: 50%;
-  left: 50%;
+  position: relative;
+  top: -100px;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   max-width: 300px;
   border-radius: 4px;
-  transform: translate(-50%, -50%);
   z-index: 70;
 `;
 
@@ -30,8 +29,8 @@ const SignLogo = styled.h1`
   top: 8px;
 
   svg {
-    width: 72px;
-    height: 72px;
+    width: 100px;
+    height: 100px;
   }
 `;
 
@@ -67,8 +66,13 @@ const SignItem = styled.li`
   flex-direction: column;
 
   &:not(:last-child) {
-    margin-bottom: 36px;
+    margin-bottom: 24px;
   }
+`;
+
+const AddressDetail = styled.div`
+  width: 100%;
+  margin-top: 8px;
 `;
 
 const SignLabel = styled.label`
@@ -77,13 +81,21 @@ const SignLabel = styled.label`
 `;
 
 const SignInput = styled.input`
+  width: 100%;
   padding: 8px;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 12px;
   border: 1px solid ${(props) => props.theme.borderColor};
 `;
 
-const ConfirmButton = styled.button`
+const SignValid = styled.strong`
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: ${(props) => props.theme.primaryColor};
+`;
+
+const DisabledConfirmButton = styled.button`
   position: absolute;
   top: -10px;
   right: 0;
@@ -92,6 +104,9 @@ const ConfirmButton = styled.button`
   color: ${(props) => props.theme.grayColor};
   border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
+`;
+
+const ConfirmButton = styled(DisabledConfirmButton)`
   transition: color 0.5s, border 0.5s;
 
   @media ${(props) => props.theme.desktop} {
@@ -102,14 +117,21 @@ const ConfirmButton = styled.button`
   }
 `;
 
-const SignButton = styled.button`
+const DisabledSignButton = styled.button`
   width: 100%;
   padding: 16px 0;
   font-size: 16px;
   border-radius: 4px;
   color: ${(props) => props.theme.whiteColor};
+  background-color: ${(props) => props.theme.grayColor};
+  cursor: initial;
+`;
+
+const SignButton = styled(DisabledSignButton)`
+  color: ${(props) => props.theme.whiteColor};
   background-color: ${(props) => props.theme.primaryColor};
   transition: background-color 0.5s;
+  cursor: pointer;
 
   @media ${(props) => props.theme.desktop} {
     &:hover {
@@ -142,7 +164,7 @@ const ModalCancle = styled.button`
   }
 `;
 
-const AddressModal = styled.div`
+const AddressModalContainer = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
@@ -166,6 +188,10 @@ const ModalTitle = styled.h2`
 `;
 
 export {
+  SignValid,
+  AddressDetail,
+  DisabledSignButton,
+  DisabledConfirmButton,
   ModalCancle,
   ModalTitle,
   SignWrapper,
@@ -182,5 +208,5 @@ export {
   ConfirmButton,
   SignButton,
   ModalBackground,
-  AddressModal
+  AddressModalContainer
 };
