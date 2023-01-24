@@ -89,9 +89,11 @@ const SignInput = styled.input`
 `;
 
 const SignValid = styled.strong`
+  position: absolute;
+  bottom: -16px;
   display: block;
   margin-top: 4px;
-  font-size: 12px;
+  font-size: 10px;
   color: ${(props) => props.theme.primaryColor};
 `;
 
