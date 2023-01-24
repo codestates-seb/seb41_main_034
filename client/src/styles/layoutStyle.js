@@ -149,7 +149,7 @@ const SignLink = styled(Link)`
 
 const LogoutButton = styled.button`
   font-size: 14px;
-  margin-right: 8px;
+  margin-right: 12px;
 
   @media ${(props) => props.theme.desktop} {
     &:hover {
@@ -200,7 +200,7 @@ const CartCount = styled.div`
 `;
 
 const MyPageLink = styled(Link)`
-  margin-right: 8px;
+  margin-right: 12px;
 
   svg {
     width: 24px;

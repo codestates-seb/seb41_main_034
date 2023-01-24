@@ -30,6 +30,12 @@ const Header = ({ location, isLogin }) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isOpenCart, setIsOpenCart] = useState(false);
 
+  const onClickLogout = () => {
+    const isLogout = window.confirm('로그아웃 하시겠습니까?');
+
+    isLogout && localStorage.removeItem('accessToken');
+  };
+
   if (location.pathname === '/login' || location.pathname === '/signup') {
     return null;
   }
@@ -60,10 +66,10 @@ const Header = ({ location, isLogin }) => {
             <ButtonContainer>
               {isLogin ? (
                 <>
-                  <LogoutButton>로그아웃</LogoutButton>
                   <MyPageLink to={'/mypage'}>
                     <MyPageIcon />
                   </MyPageLink>
+                  <LogoutButton onClick={onClickLogout}>로그아웃</LogoutButton>
                 </>
               ) : (
                 <>

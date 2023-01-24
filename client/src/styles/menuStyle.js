@@ -124,21 +124,15 @@ const MobileCategoryButton = styled(Link)`
 `;
 
 const MobileButton = styled.button`
-  font-size: 20px;
+  font-size: 16px;
 `;
 
 const MobileMyPageLink = styled(Link)`
   margin-right: 12px;
 
   svg {
-    width: 32px;
-    height: 32px;
-  }
-
-  &:hover {
-    svg {
-      fill: ${(props) => props.theme.hoverColor};
-    }
+    width: 24px;
+    height: 24px;
   }
 `;
 
