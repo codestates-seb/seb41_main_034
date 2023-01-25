@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 public class UserResponseDto {
     private long userId;
     private String displayName;
-    private String role;
+    private List<String> roles;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 

@@ -57,7 +57,7 @@ public class UserService {
             else { throw new BusinessLogicException(ExceptionCode.WRONG_PASSWORD);
             }
         });
-        return user;
+        return userRepository.save(user);
     }
 
     public void deleteUser(long userId) {

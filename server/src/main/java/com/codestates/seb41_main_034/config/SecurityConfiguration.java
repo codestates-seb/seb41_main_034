@@ -8,8 +8,6 @@ import com.codestates.seb41_main_034.auth.handler.UserAuthenticationFailureHandl
 import com.codestates.seb41_main_034.auth.handler.UserAuthenticationSuccessHandler;
 import com.codestates.seb41_main_034.auth.jwt.JwtTokenizer;
 import com.codestates.seb41_main_034.auth.utils.CustomAuthorityUtils;
-import com.codestates.seb41_main_034.user.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,12 +30,10 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
-    private final UserRepository userRepository;
 
-    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils, UserRepository userRepository) {
+    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
-        this.userRepository = userRepository;
     }
 
 //    @Value("${spring.security.oauth2.client.registration.google.clientId}")

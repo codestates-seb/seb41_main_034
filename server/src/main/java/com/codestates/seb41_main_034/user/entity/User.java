@@ -22,10 +22,10 @@ public class User {
     @Column(nullable = false, updatable = false, unique = true)
     private String username;
 
-    @Column(nullable = false, updatable = false, unique = true)
+    @Column(nullable = false)
     private String displayName;
 
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false)
     private String password;
 
     @Column
