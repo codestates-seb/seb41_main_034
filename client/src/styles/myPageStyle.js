@@ -572,13 +572,6 @@ const OrderStatus = styled.div`
   font-size: 20px;
   font-weight: bold;
 `;
-const MyQuestionButton = styled.button`
-  margin-top: 12px;
-  max-width: 100px;
-  font-size: 12px;
-  border: 1px solid ${(props) => props.theme.primaryColor};
-  border-radius: 4px;
-`;
 
 //MyPageAddress
 const MyAddressContainer = styled.div`
@@ -1048,7 +1041,6 @@ export {
   CancleImgContainer,
   OrderStatus,
   ProductImg,
-  MyQuestionButton,
   MyAddressContainer,
   Addressheader,
   AddressInfo,

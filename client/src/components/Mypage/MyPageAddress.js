@@ -34,6 +34,27 @@ import { ReactComponent as CancleIcon } from '../../assets/icons/cancleIcon.svg'
 const MyPageAddress = () => {
   const [list, setList] = useState([{}, {}, {}]);
   const [modal, setModal] = useState(false);
+  const onRemove = () => {
+    if (window.confirm('주소를 삭제하시겠습니까?')) {
+      alert('삭제되었습니다');
+    } else {
+      alert('취소했습니다.');
+    }
+  };
+  const textLengthOverCut = (txt, len, lastTxt) => {
+    if (len === '' || len === null) {
+      // 기본값
+      len = 20;
+    }
+    if (lastTxt === '' || lastTxt === null) {
+      // 기본값
+      lastTxt = '...';
+    }
+    if (txt.length > len) {
+      txt = txt.substr(0, len) + lastTxt;
+    }
+    return txt;
+  };
   return (
     <>
       <MyPageHeader title={'주소관리'} />
@@ -56,7 +77,7 @@ const MyPageAddress = () => {
               <PhoneNumberText>010-1234-5678</PhoneNumberText>
               <EditIconContainer>
                 <EditIcon alt="주소 수정버튼입니다" />
-                <CancleIcon />
+                <CancleIcon onClick={onRemove} alt="주소 삭제 버튼입니다" />
               </EditIconContainer>
             </AddressInfo>
           );
