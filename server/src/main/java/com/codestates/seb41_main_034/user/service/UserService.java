@@ -28,7 +28,7 @@ public class UserService {
     }
 
     public User createUser(User user) {
-        verifyExistsId(user.getUserId());
+        verifyexistsidusername(user.getUsername());
 
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);
@@ -38,16 +38,6 @@ public class UserService {
         user.setRoles(roles);
 
         return userRepository.save(user);
-    }
-
-    public List<UserResponseDto> findAllUsers() {
-        List<User> userList = userRepository.findAll();
-        List<UserResponseDto> userResponseList = new ArrayList<>();
-        for (User user : userList) {
-            UserResponseDto userResponseDto = mapper.userToUserResponseDto(user);
-            userResponseList.add(userResponseDto);
-        }
-        return userResponseList;
     }
 
     public User findUser(long userId) {
@@ -60,8 +50,8 @@ public class UserService {
         return foundUser;
     }
 
-    private void verifyExistsId(long userId) {
-        Optional<User> user = userRepository.findById(userId);
+    private void verifyexistsidusername(String username) {
+        Optional<User> user = userRepository.findByusername(username);
 
         if (user.isPresent()) {
             throw new BusinessLogicException(ExceptionCode.USER_EXISTS);

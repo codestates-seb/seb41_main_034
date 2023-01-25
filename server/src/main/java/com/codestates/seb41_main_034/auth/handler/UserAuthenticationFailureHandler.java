@@ -29,5 +29,4 @@ public class UserAuthenticationFailureHandler implements AuthenticationFailureHa
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.getWriter().write(gson.toJson(errorResponse, ErrorResponse.class));
     }
-
 }

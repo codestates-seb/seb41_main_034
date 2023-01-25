@@ -1,7 +1,6 @@
 package com.codestates.seb41_main_034.auth.filter;
 
 import com.codestates.seb41_main_034.auth.dto.LoginDto;
-import com.codestates.seb41_main_034.auth.dto.TokenDto;
 import com.codestates.seb41_main_034.user.entity.User;
 import com.codestates.seb41_main_034.auth.jwt.JwtTokenizer;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -57,9 +56,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         response.setContentType("application/json");
         ObjectMapper objectMapper = new ObjectMapper();
-        TokenDto tokenDto = new TokenDto();
 
-        response.getWriter().write(objectMapper.writeValueAsString(tokenDto));
 
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
     }
@@ -70,7 +67,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         claims.put("username", user.getUserId());
         claims.put("roles", user.getRoles());
 
-        String subject = user.getUserName();
+        String subject = user.getUsername();
         Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
 
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
@@ -81,7 +78,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     private String delegateRefreshToken(User user) {
-        String subject = user.getUserName();
+        String subject = user.getUsername();
         Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getRefreshTokenExpirationMinutes());
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
 

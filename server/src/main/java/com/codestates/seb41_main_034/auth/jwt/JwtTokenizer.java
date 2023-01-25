@@ -17,7 +17,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.*;
 
-
+@Component
 public class JwtTokenizer {
     @Getter
     @Value("${jwt.secret-key}")

@@ -9,13 +9,15 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 public class UserPostDto {
     @NotBlank(message = "아이디를 입력해주세요.")
-    private String userId;
+    private String username;
 
     @NotBlank(message = "비밀번호를 입력해주세요.")
     private String password;
 
     @NotBlank(message = "이름을 입력해주세요.")
-    private String name;
+    private String displayName;
 
+    @NotBlank(message = "휴대폰번호를 입력해주세요")
+    private String phoneNumber;
 }
 

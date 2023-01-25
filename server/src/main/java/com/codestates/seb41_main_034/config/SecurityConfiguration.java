@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -27,6 +28,7 @@ import java.util.Arrays;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
+@EnableWebSecurity
 public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
@@ -37,11 +39,12 @@ public class SecurityConfiguration {
         this.authorityUtils = authorityUtils;
         this.userRepository = userRepository;
     }
-    @Value("${spring.security.oauth2.client.registration.google.clientId}")
-    private String clientId;
 
-    @Value("${spring.security.oauth2.client.registration.google.clientSecret}")
-    private String clientSecret;
+//    @Value("${spring.security.oauth2.client.registration.google.clientId}")
+//    private String clientId;
+//
+//    @Value("${spring.security.oauth2.client.registration.google.clientSecret}")
+//    private String clientSecret;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{

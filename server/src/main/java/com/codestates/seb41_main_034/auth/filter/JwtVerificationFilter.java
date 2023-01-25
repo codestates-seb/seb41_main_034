@@ -51,11 +51,11 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         return authorization == null || !authorization.startsWith("Bearer");
     }
 
-    /**
-     * 요청에서 Claims 정보를 추출하는 메서드
-     * @param request
-     * @return
-     */
+//
+//     요청에서 Claims 정보를 추출하는 메서드
+//     @param request
+//     @return
+//
     private Map<String, Object> verifyJws(HttpServletRequest request) {
         String jws = request.getHeader("Authorization").replace("Bearer ", "");
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
@@ -63,15 +63,15 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         return claims;
     }
 
-    // email or displayName??
-    /**
-     * 추출한 Claims 정보를 SecurityContext에 등록하는 메서드
-     * @param claims
-     */
+//    email or displayName??
+//
+//    추출한 Claims 정보를 SecurityContext에 등록하는 메서드
+//    @param claims
+//
     private void setAuthenticationToContext(Map<String, Object> claims) {
-        String email = (String) claims.get("email");
+        String username = (String) claims.get("username");
         List<GrantedAuthority> authorities = authorityUtils.createAuthorities((List) claims.get("roles"));
-        Authentication authentication = new UsernamePasswordAuthenticationToken(email, null, authorities);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, authorities);
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 }

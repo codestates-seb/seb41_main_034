@@ -20,13 +20,16 @@ public class User {
     private long userId;
 
     @Column(nullable = false, updatable = false, unique = true)
-    private String userName;
+    private String username;
+
+    @Column(nullable = false, updatable = false, unique = true)
+    private String displayName;
 
     @Column(nullable = false, updatable = false)
     private String password;
 
     @Column(length = 12, nullable = false, updatable = false, unique = true)
-    private Integer phoneNumber;
+    private String phoneNumber;
 
     @Column(updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now(ZoneId.of("Asia/Seoul"));

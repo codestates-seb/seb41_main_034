@@ -11,6 +11,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class UserResponseDto {
     private long userId;
+    private String displayName;
+    private String phoneNumber;
+    private String role;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
