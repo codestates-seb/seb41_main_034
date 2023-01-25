@@ -6,6 +6,7 @@ import Products from '../../pages/Products';
 import Product from '../../pages/Product';
 import Order from '../../pages/Order';
 import MyPage from '../../pages/MyPage';
+import NotFound from '../../pages/NotFound';
 
 const Routers = () => {
   return (
@@ -18,6 +19,7 @@ const Routers = () => {
         <Route path="/product/:productId" element={<Product />} />
         <Route path="/order" element={<Order />} />
         <Route path="/mypage/*" element={<MyPage />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ButtonContainer,
@@ -26,21 +26,19 @@ import Menu from '../Menu/Menu';
 import MobileMenu from '../Menu/MobileMenu';
 import ShoppingCart from '../Order/ShoppingCart';
 
-const Header = ({ location }) => {
-  const [isLogin, setIsLogin] = useState(false);
+const Header = ({ location, isLogin }) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isOpenCart, setIsOpenCart] = useState(false);
 
-  const token = localStorage.getItem('jwt_token');
+  const onClickLogout = () => {
+    const isLogout = window.confirm('로그아웃 하시겠습니까?');
 
-  useEffect(() => {
-    setIsLogin(token ? true : false);
-  }, [token]);
+    isLogout && localStorage.removeItem('accessToken');
+  };
 
   if (location.pathname === '/login' || location.pathname === '/signup') {
     return null;
   }
-
   return (
     <>
       <HeaderWrapper>
@@ -68,10 +66,10 @@ const Header = ({ location }) => {
             <ButtonContainer>
               {isLogin ? (
                 <>
-                  <LogoutButton>로그아웃</LogoutButton>
                   <MyPageLink to={'/mypage'}>
                     <MyPageIcon />
                   </MyPageLink>
+                  <LogoutButton onClick={onClickLogout}>로그아웃</LogoutButton>
                 </>
               ) : (
                 <>

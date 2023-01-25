@@ -2,7 +2,7 @@ import { baseAPI } from './customAxios';
 
 const signupAPI = async (body) => {
   try {
-    await baseAPI.post(`/signup`, body);
+    await baseAPI.post(`/users/signup`, body);
   } catch (err) {
     console.log(err);
   }
@@ -10,7 +10,8 @@ const signupAPI = async (body) => {
 
 const loginAPI = async (body) => {
   try {
-    await baseAPI.post(`/login`, body);
+    const res = await baseAPI.post(`/users/login`, body);
+    localStorage.setItem('accessToken', JSON.stringify(res.headers));
   } catch (err) {
     console.log(err);
   }
