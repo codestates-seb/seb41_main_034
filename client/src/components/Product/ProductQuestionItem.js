@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
   ReviewItemContainer,
   FlexContainer,
@@ -9,28 +10,48 @@ import {
   TextBold,
   TextGray
 } from '../../styles/productStyle';
+import Loading from '../Layout/Loading';
 
-const ProductQuestionItem = () => {
-  // {Question}
-  // 16:삼항연산자, 18,19,24:뿌려주기
-  return (
+const ProductQuestionItem = ({ question }) => {
+  const [Question, setQuestion] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setQuestion(question);
+    setIsLoading(true);
+  }, []);
+
+  console.log(question);
+  return isLoading ? (
     <ReviewItemContainer>
       <FlexContainer>
         <QAText>Question</QAText>
-        <AnswerBox>답변완료</AnswerBox>
+        {Question.answer === null ? (
+          <AnswerBox>답변대기</AnswerBox>
+        ) : (
+          <AnswerBox>답변완료</AnswerBox>
+        )}
       </FlexContainer>
       <ItemText>
-        <Text>김응찬</Text>/<TextBold>바나나</TextBold>/
-        <TextGray>2023. 01. 10</TextGray>
+        <Text>김응찬</Text>/<TextBold>{Question.productName}</TextBold>/
+        <TextGray>{Question.createdAt}</TextGray>
       </ItemText>
-      <AnswerText>해당 제품에 대한 배송이 너무 느려요.</AnswerText>
+      <AnswerText>{Question.body}</AnswerText>
       <QAText>Answer</QAText>
 
-      <FlexContainer>
-        <ItemText>푸드밋</ItemText>
-      </FlexContainer>
-      <AnswerText>죄송합니다. 빠른 시일 내에 처리해드리겠습니다.</AnswerText>
+      {Question.answer === null ? null : (
+        <>
+          <FlexContainer>
+            <ItemText>푸드밋</ItemText>
+          </FlexContainer>
+          <AnswerText>
+            죄송합니다. 빠른 시일 내에 처리해드리겠습니다.
+          </AnswerText>
+        </>
+      )}
     </ReviewItemContainer>
+  ) : (
+    <Loading />
   );
 };
 

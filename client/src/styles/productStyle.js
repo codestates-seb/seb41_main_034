@@ -134,9 +134,11 @@ const QuestionButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100px;
+  height: 30px;
   padding: 4px 8px;
   border-radius: 4px;
-  font-size: 10px;
+  font-size: 12px;
   color: ${(props) => props.theme.whiteColor};
   background-color: ${(props) => props.theme.primaryColor};
   transition: background-color 0.5s;
@@ -145,6 +147,11 @@ const QuestionButton = styled.button`
     &:hover {
       background-color: ${(props) => props.theme.hoverColor};
     }
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    width: 80px;
+    height: 25px;
   }
 `;
 
@@ -265,19 +272,9 @@ const QuestionModalWrapper = styled.div`
 `;
 
 const QuestionModalContainer = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  max-width: 435px;
-  padding: 0 48px 48px 48px;
-  margin-top: 24px;
+  padding: 36px;
   border-radius: 4px;
   background-color: ${(props) => props.theme.whiteColor};
-  transition: transform 0.5s;
-  transform: translate(-50%, -50%)
-    ${(props) => (props.isOpenQuestion ? 'translateY(0)' : 'translateY(-200%)')};
-  z-index: 90;
 
   @media ${(props) => props.theme.mobile} {
     padding: 12px 24px 24px 24px;
@@ -286,7 +283,7 @@ const QuestionModalContainer = styled.div`
 
 const MiddleText = styled.div`
   display: flex;
-  margin: 4px 0 28px 0;
+  margin: 4px 0 48px 0;
   justify-content: center;
   font-size: 28px;
   color: ${(props) => props.theme.primaryColor};
@@ -319,7 +316,7 @@ const MiddleContainer = styled.div`
 
 const SmallInput = styled.input`
   width: 100%;
-  margin: 16px 0 32px 0;
+  /* margin: 16px 0 32px 0; */
   padding: 4px;
   border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
@@ -337,9 +334,9 @@ const SmallInput = styled.input`
 
 const BigInput = styled.textarea`
   width: 100%;
-  height: 100px;
+  height: 200px;
   padding: 4px 4px 4px 4px;
-  margin: 16px 0 32px 0;
+  margin: 4px 0 24px 0;
   border: 1px solid ${(props) => props.theme.borderColor};
   border-left: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
@@ -372,6 +369,21 @@ const CompletButton = styled.button`
     background-color: ${(props) => props.theme.hoverColor};
     transition: background-color 0.5s;
   }
+`;
+
+const ModalView = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  max-width: 435px;
+  background-color: ${(props) => props.theme.whiteColor};
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  transition: transform 0.5s;
+  transform: translate(-50%, -50%)
+    ${(props) => (props.isOpenQuestion ? 'translateY(0)' : 'translateY(-200%)')};
+  z-index: 98;
 `;
 
 const CancleImgContainer = styled.div`
@@ -823,5 +835,6 @@ export {
   ProductContent,
   ProductOrder,
   ProductWrapper,
-  ProductButtonContainer
+  ProductButtonContainer,
+  ModalView
 };
