@@ -45,15 +45,25 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
+    public Page<Product> readProducts(Pageable pageable) {
+        // 전체 조회
+        return productRepository.findAll(pageable);
+    }
+
+    @Transactional(readOnly = true)
     public Page<Product> readProducts(ProductCategory category, Pageable pageable) {
         // 카테고리에 맞게 조회
         return productRepository.findByCategory(category, pageable);
     }
 
     @Transactional(readOnly = true)
-    public Page<Product> readProducts(Pageable pageable) {
-        // 전체 조회
-        return productRepository.findAll(pageable);
+    public Page<Product> readProducts(String q, Pageable pageable) {
+        return productRepository.findByNameLike(q, pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Product> readProducts(ProductCategory category, String q, Pageable pageable) {
+        return productRepository.findByCategoryAndNameLike(category, q, pageable);
     }
 
     public Product updateProduct(

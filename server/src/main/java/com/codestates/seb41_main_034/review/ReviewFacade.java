@@ -15,7 +15,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -93,14 +96,15 @@ public class ReviewFacade {
         Review review = reviewService.readReview(reviewId);
 
         // 이미지 삭제
-        List<String> imageUrlList = Optional.ofNullable(reviewPatchDto).map(ReviewPatchDto::getDeleteImage)
-                .map(deleteImage -> imageStorageService.delete(helper.jsonToList(review.getImageUrls()), deleteImage))
-                .orElse(Collections.emptyList());
+        List<String> imageUrlList = helper.jsonToList(review.getImageUrls());
+        List<String> newImageUrlList = Optional.ofNullable(reviewPatchDto).map(ReviewPatchDto::getDeleteImage)
+                .map(deleteImage -> imageStorageService.delete(imageUrlList, deleteImage))
+                .orElse(imageUrlList);
 
         // 이미지 추가
         String imageUrls = Optional.ofNullable(images).map(imageStorageService::store)
-                .map(urlList -> Stream.concat(imageUrlList.stream(), urlList.stream()).collect(Collectors.toList()))
-                .map(helper::listToJson).orElse(null);
+                .map(urlList -> Stream.concat(newImageUrlList.stream(), urlList.stream()).collect(Collectors.toList()))
+                .map(helper::listToJson).orElse(helper.listToJson(newImageUrlList));
 
         // 후기 수정 후 반환
         Review updateReview = reviewService.updateReview(reviewId, reviewPatchDto, imageUrls);
