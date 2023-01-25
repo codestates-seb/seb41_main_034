@@ -35,8 +35,6 @@ const QuestionModal = ({ isOpenQuestion, setIsOpenQuestion, question }) => {
     setIsOpenQuestion(false);
   };
 
-  console.log(question);
-
   return (
     <>
       <QuestionModalWrapper

@@ -1,39 +1,52 @@
-import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { updateCart } from '../../store/orderSlice';
 import { ProductCount, Count, CountButton } from '../../styles/orderStyle';
 
-const OrderCounter = () => {
-  const [count, setCount] = useState(1);
+const OrderCounter = ({ cart }) => {
+  const dispatch = useDispatch();
 
   return (
     <ProductCount>
-      {count <= 1 ? (
-        <CountButton disabled onClick={() => setCount(count - 1)}>
+      {cart.count <= 1 ? (
+        <CountButton disabled>-</CountButton>
+      ) : (
+        <CountButton
+          onClick={() =>
+            dispatch(updateCart({ id: cart.id, count: cart.count - 1 }))
+          }
+        >
           -
         </CountButton>
-      ) : (
-        <CountButton onClick={() => setCount(count - 1)}>-</CountButton>
       )}
       <Count
         type={'number'}
-        value={count}
+        value={cart.count}
         min={'1'}
         max={'40'}
         onChange={(e) =>
-          setCount(
-            Number(e.target.value) <= 1 || ''
-              ? ''
-              : Number(e.target.value) >= 40
-              ? 40
-              : Number(e.target.value)
+          dispatch(
+            updateCart({
+              id: cart.id,
+              count:
+                Number(e.target.value) <= 1 || ''
+                  ? ''
+                  : Number(e.target.value) >= 40
+                  ? 40
+                  : Number(e.target.value)
+            })
           )
         }
       />
-      {count >= 40 ? (
-        <CountButton disabled onClick={() => setCount(count + 1)}>
+      {cart.count >= 40 ? (
+        <CountButton disabled>+</CountButton>
+      ) : (
+        <CountButton
+          onClick={() =>
+            dispatch(updateCart({ id: cart.id, count: cart.count + 1 }))
+          }
+        >
           +
         </CountButton>
-      ) : (
-        <CountButton onClick={() => setCount(count + 1)}>+</CountButton>
       )}
     </ProductCount>
   );

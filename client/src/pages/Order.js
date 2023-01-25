@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import OrderItem from '../components/Order/OrderItem';
 import OrderPayment from '../components/Order/OrderPayment';
@@ -15,6 +16,7 @@ import {
 
 const Order = () => {
   const navigate = useNavigate();
+  const cart = useSelector((state) => state.order.cart);
 
   const onClickOrder = (e) => {
     const { IMP } = window;
@@ -52,8 +54,8 @@ const Order = () => {
           <CheckDelete type={'button'}>선택삭제</CheckDelete>
         </OrderListHeader>
         <OrderList>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((el, idx) => (
-            <OrderItem key={idx} />
+          {cart.map((el) => (
+            <OrderItem cart={el} key={el.id} />
           ))}
         </OrderList>
       </OrderListContianer>

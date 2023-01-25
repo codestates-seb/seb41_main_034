@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import {
   CartContainer,
   CartHeader,
@@ -9,14 +10,16 @@ import {
 import CartItem from './CartItem';
 
 const ShoppingCart = ({ isOpenCart, setIsOpenCart }) => {
+  const cart = useSelector((state) => state.order.cart);
+
   return (
     <CartContainer isOpenCart={isOpenCart}>
       <CartHeader>
         <h2>장바구니</h2>
       </CartHeader>
       <CartList>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((el, idx) => (
-          <CartItem key={idx} />
+        {cart.map((el) => (
+          <CartItem cart={el} key={el.id} />
         ))}
       </CartList>
       <OrderAmount>주문금액: 108,000원</OrderAmount>

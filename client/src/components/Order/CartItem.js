@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { deleteCart } from '../../store/orderSlice';
 import {
   CartItemContainer,
   CartItemImage,
@@ -13,32 +15,33 @@ import {
 import { ReactComponent as DeleteIcon } from '../../assets/icons/cancleIcon.svg';
 import OrderCounter from './OrderCounter';
 
-const MyCartItem = () => {
+const MyCartItem = ({ cart }) => {
+  const dispatch = useDispatch();
+
   return (
     <CartItemContainer>
       <CartItemInfo>
         <CartItemImage>
           <Link>
-            <CartItemImg
-              img={
-                'https://thumbnail9.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/493405785878144-be8efa56-f85d-43e2-bbe2-79dcf26f6eac.jpg'
-              }
-            />
+            <CartItemImg img={cart.img} />
           </Link>
         </CartItemImage>
 
         <ProductName>
-          <Link>사과</Link>
+          <Link>{cart.name}</Link>
         </ProductName>
       </CartItemInfo>
 
       <PriceContainer>
-        <OrderCounter />
-        <ProductPrice>{`${(12000).toLocaleString('ko-KR')}`}원</ProductPrice>
+        <OrderCounter cart={cart} />
+        <ProductPrice>{`${cart.price.toLocaleString('ko-KR')}`}원</ProductPrice>
       </PriceContainer>
 
       <CartItemDelete>
-        <DeleteButton>
+        <DeleteButton
+          type="button"
+          onClick={() => dispatch(deleteCart({ id: cart.id }))}
+        >
           <DeleteIcon />
         </DeleteButton>
       </CartItemDelete>

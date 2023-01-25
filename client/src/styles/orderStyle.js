@@ -477,7 +477,6 @@ const OrderListHeader = styled.div`
 
 const OrderList = styled.ul`
   border-top: 1px solid ${(props) => props.theme.grayColor};
-  border-bottom: 1px solid ${(props) => props.theme.grayColor};
 `;
 
 const OrderPaymentWrapper = styled.div`
@@ -627,7 +626,7 @@ const MobileOrderButton = styled.button`
   color: ${(props) => props.theme.whiteColor};
   background-color: ${(props) => props.theme.primaryColor};
   transition: background-color 0.5s;
-  z-index: 99;
+  z-index: 70;
 
   @media ${(props) => props.theme.desktop} {
     display: none;

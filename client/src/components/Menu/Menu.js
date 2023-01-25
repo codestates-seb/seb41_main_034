@@ -8,9 +8,9 @@ const Menu = () => {
   return (
     <CatagoryWrapper>
       <CatagoryContainer>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((el, idx) => (
+        {['채소', '과일', '육류', '수산물', '견과류'].map((el, idx) => (
           <CatagoryButton to={`/products/${el}`} key={idx}>
-            카테고리
+            {el}
           </CatagoryButton>
         ))}
       </CatagoryContainer>

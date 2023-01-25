@@ -25,8 +25,10 @@ import { ReactComponent as MyPageIcon } from '../../assets/icons/myPageIcon.svg'
 import Menu from '../Menu/Menu';
 import MobileMenu from '../Menu/MobileMenu';
 import ShoppingCart from '../Order/ShoppingCart';
+import { useSelector } from 'react-redux';
 
 const Header = ({ location, isLogin }) => {
+  const cart = useSelector((state) => state.order.cart);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isOpenCart, setIsOpenCart] = useState(false);
 
@@ -83,7 +85,7 @@ const Header = ({ location, isLogin }) => {
                 onClick={() => setIsOpenCart(!isOpenCart)}
               >
                 <CartIcon />
-                <CartCount>2</CartCount>
+                {cart.length !== 0 && <CartCount>{cart.length}</CartCount>}
               </CartButton>
             </ButtonContainer>
           </HeaderRight>

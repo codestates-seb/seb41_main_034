@@ -19,9 +19,8 @@ const ProductQuestionItem = ({ question }) => {
   useEffect(() => {
     setQuestion(question);
     setIsLoading(true);
-  }, []);
+  }, [question]);
 
-  console.log(question);
   return isLoading ? (
     <ReviewItemContainer>
       <FlexContainer>

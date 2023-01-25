@@ -11,9 +11,6 @@ const SortNavbar = () => {
         <SortNavbarButton>최신순</SortNavbarButton>
       </SortNavbarItem>
       <SortNavbarItem>
-        <SortNavbarButton>판매량순</SortNavbarButton>
-      </SortNavbarItem>
-      <SortNavbarItem>
         <SortNavbarButton>낮은가격순</SortNavbarButton>
       </SortNavbarItem>
       <SortNavbarItem>

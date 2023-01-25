@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addCart } from '../../store/orderSlice';
 import {
   ProductContainer,
   ProductImage,
@@ -12,6 +14,21 @@ import {
 import { ReactComponent as CartIcon } from '../../assets/icons/cartIcon.svg';
 
 const ProductItem = () => {
+  const dispatch = useDispatch();
+
+  const onClickAddCart = (e) => {
+    e.preventDefault();
+    dispatch(
+      addCart({
+        id: 1,
+        img: 'https://thumbnail9.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/493405785878144-be8efa56-f85d-43e2-bbe2-79dcf26f6eac.jpg',
+        name: '사과',
+        price: '12,000',
+        count: 1
+      })
+    );
+  };
+
   return (
     <ProductContainer>
       <Link to={'/product/1'}>
@@ -22,7 +39,7 @@ const ProductItem = () => {
             }
             alt={''}
           />
-          <CartButton>
+          <CartButton type="button" onClick={onClickAddCart}>
             <CartIcon />
           </CartButton>
         </ProductImageContainer>
