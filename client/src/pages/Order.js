@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { allCheckCart, deleteCheckCart } from '../store/orderSlice';
 import { useNavigate } from 'react-router-dom';
 import OrderItem from '../components/Order/OrderItem';
 import OrderPayment from '../components/Order/OrderPayment';
@@ -17,6 +18,7 @@ import {
 
 const Order = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const cart = useSelector((state) => state.order.cart);
   const orderAmount = useSelector((state) => state.order.orderAmount);
   const [shippingFee, setShoppingFee] = useState(3000);
@@ -24,7 +26,6 @@ const Order = () => {
   const onClickOrder = (e) => {
     const { IMP } = window;
     IMP.init('imp04631732');
-
     IMP.request_pay(
       {
         pg: 'html5_inicis',
@@ -51,10 +52,24 @@ const Order = () => {
       <OrderListContianer>
         <OrderListHeader>
           <CheckBox>
-            <CheckInput id="checkAll" type={'checkbox'} />
+            <CheckInput
+              type={'checkbox'}
+              id="checkAll"
+              checked={
+                cart.filter((el) => el.check === true)[0] === undefined
+                  ? false
+                  : true
+              }
+              onChange={() => dispatch(allCheckCart())}
+            />
             <CheckLabel htmlFor="checkAll">모두선택</CheckLabel>
           </CheckBox>
-          <CheckDelete type={'button'}>선택삭제</CheckDelete>
+          <CheckDelete
+            type={'button'}
+            onClick={() => dispatch(deleteCheckCart())}
+          >
+            선택삭제
+          </CheckDelete>
         </OrderListHeader>
         <OrderList>
           {cart.map((el) => (

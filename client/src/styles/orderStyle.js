@@ -123,10 +123,7 @@ const CartItemContainer = styled.li`
   flex-direction: column;
   padding: 24px 12px;
   row-gap: 8px;
-
-  &:not(:last-child) {
-    border-bottom: 1px solid ${(props) => props.theme.borderColor};
-  }
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
 
   @media ${(props) => props.theme.tablet} {
     padding: 16px 12px;
@@ -308,10 +305,7 @@ const OrderItemWrapper = styled.li`
   align-items: center;
   padding: 24px;
   column-gap: 24px;
-
-  &:not(:last-child) {
-    border-bottom: 1px solid ${(props) => props.theme.borderColor};
-  }
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
 `;
 
 const OrderItemContainer = styled.div`
@@ -523,6 +517,18 @@ const ReceiptContainer = styled.div`
   }
 `;
 
+const ShippingCotainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+`;
+
+const ShippingInfo = styled.strong`
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+`;
+
 const PaymentContainer = styled(ReceiptContainer)`
   margin-top: 30px;
 `;
@@ -687,6 +693,8 @@ const OrderModalContainer = styled.div`
 `;
 
 export {
+  ShippingCotainer,
+  ShippingInfo,
   ModalButtonContainer,
   OrderModalContainer,
   OrderItemWrapper,

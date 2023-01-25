@@ -10,7 +10,9 @@ import {
   ReceiptTitle,
   ReceiptPayment,
   OrderButton,
-  OrderButtonContainer
+  OrderButtonContainer,
+  ShippingCotainer,
+  ShippingInfo
 } from '../../styles/orderStyle';
 
 const OrderPayment = ({ onClickOrder, shippingFee, setShoppingFee }) => {
@@ -18,7 +20,15 @@ const OrderPayment = ({ onClickOrder, shippingFee, setShoppingFee }) => {
   const orderAmount = useSelector((state) => state.order.orderAmount);
 
   useEffect(() => {
-    setShoppingFee(orderAmount >= 10000 || cart[0] === undefined ? 0 : 3000);
+    const cartCheckFilter = cart.filter((el) => el.check === true)[0];
+
+    setShoppingFee(
+      orderAmount >= 10000 ||
+        cart[0] === undefined ||
+        cartCheckFilter === undefined
+        ? 0
+        : 3000
+    );
   }, [cart, orderAmount, setShoppingFee]);
 
   return (
@@ -33,7 +43,10 @@ const OrderPayment = ({ onClickOrder, shippingFee, setShoppingFee }) => {
           </ReceiptContainer>
 
           <ReceiptContainer>
-            <ReceiptAmount>총 배송비</ReceiptAmount>
+            <ShippingCotainer>
+              <ReceiptAmount>총 배송비</ReceiptAmount>
+              <ShippingInfo>(10,000원 이상 주문 시 배송비 무료)</ShippingInfo>
+            </ShippingCotainer>
             <ReceiptAmount>
               +{shippingFee.toLocaleString('ko-KR')}원
             </ReceiptAmount>

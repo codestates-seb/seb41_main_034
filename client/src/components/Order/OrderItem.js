@@ -15,15 +15,20 @@ import {
 import OrderCounter from './OrderCounter';
 import { ReactComponent as DeleteIcon } from '../../assets/icons/cancleIcon.svg';
 import { useDispatch } from 'react-redux';
-import { deleteCart } from '../../store/orderSlice';
+import { deleteCart, checkCart } from '../../store/orderSlice';
 
 const OrderItem = ({ cart }) => {
   const dispatch = useDispatch();
 
   return (
     <OrderItemWrapper>
-      <CheckInput type={'checkbox'} />
-
+      <CheckInput
+        type={'checkbox'}
+        checked={cart.check}
+        onChange={() =>
+          dispatch(checkCart({ id: cart.id, check: !cart.check }))
+        }
+      />
       <OrderItemContainer>
         <OrderItemLeft>
           <OrderItemImage>
