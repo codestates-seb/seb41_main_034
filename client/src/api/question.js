@@ -1,50 +1,38 @@
-import { baseAPI } from './customAxios';
+import { authAPI } from './customAxios';
 
 //회원의 문의기록조회
-const questionGetAPI = async (body) => {
+const questionGetAPI = async (Token) => {
   try {
-    const result = await baseAPI.get(`/question/question-history`, {
-      headers: { Authorization: 'Bearer <access-token>' }
-    });
+    const result = await authAPI.get(`/question/question-history`);
     return result.data;
   } catch (err) {
     console.log(err);
   }
 };
 //특정상품의 문의기록조회
-const itemQuestionGetAPI = async (body) => {
+const itemQuestionGetAPI = async (Token, productId) => {
   try {
-    const result = await baseAPI.get(`/question/product/{productId}/question`, {
-      headers: { Authorization: 'Bearer <access-token>' }
-    });
+    const result = await authAPI.get(`/product/${productId}/question`);
     return result.data;
   } catch (err) {
     console.log(err);
   }
 };
 //특정 회원의 문의추가
-const questionPostAPI = async (body) => {
+const questionPostAPI = async (body, Token) => {
   try {
-    const result = await baseAPI.post(
-      `/question`,
-      {
-        headers: { Authorization: 'Bearer <access-token>' }
-      },
-      body
-    );
+    const result = await authAPI.post(`/question`, body);
     return result;
   } catch (error) {
     console.log(error);
   }
 };
 //특정 회원의 문의수정
-const questionPatchAPI = async (body) => {
+const questionPatchAPI = async (body, Token, questionId) => {
   try {
-    const result = await baseAPI.patch(
-      `/question/{questionId}`,
-      {
-        headers: { Authorization: 'Bearer <access-token>' }
-      },
+    const result = await authAPI.patch(
+      `/question/${questionId}`,
+
       body
     );
     return result;
@@ -53,11 +41,9 @@ const questionPatchAPI = async (body) => {
   }
 };
 //특정 회원의 문의삭제
-const questionDeleteAPI = async (body) => {
+const questionDeleteAPI = async (Token, questionId) => {
   try {
-    const result = await baseAPI.delete(`/question/{questionId}`, {
-      headers: { Authorization: 'Bearer <access-token>' }
-    });
+    const result = await authAPI.delete(`/question/${questionId}`);
     return result;
   } catch (error) {
     console.log(error);
