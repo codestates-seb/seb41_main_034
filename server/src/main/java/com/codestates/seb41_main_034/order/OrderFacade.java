@@ -1,5 +1,6 @@
 package com.codestates.seb41_main_034.order;
 
+import com.codestates.seb41_main_034.common.JsonListHelper;
 import com.codestates.seb41_main_034.common.exception.BusinessLogicException;
 import com.codestates.seb41_main_034.common.exception.ExceptionCode;
 import com.codestates.seb41_main_034.common.response.PaginatedData;
@@ -31,6 +32,8 @@ public class OrderFacade {
 
     private final ProductService productService;
 
+    private final JsonListHelper helper;
+
     @Transactional
     public OrderDto createOrder(OrderPostDto postDto) {
         // 입력 받은 상품 ID가 유효하고 주문 가능한지 확인 및 상품 정보 조회
@@ -41,7 +44,7 @@ public class OrderFacade {
                 .peek(product -> {
                     switch (product.getStatus()) {
                         case UNAVAILABLE:
-                            throw new BusinessLogicException(ExceptionCode.ORDER_PRODUCT_IS_UNAVAILABLE);
+                            throw new BusinessLogicException(ExceptionCode.ORDER_UNAVAILABLE_PRODUCT);
                         case DRAFT:
                             throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
                     }
@@ -64,7 +67,7 @@ public class OrderFacade {
         }
 
         // DTO로 매핑 후 반환
-        return order.toDto(productMap);
+        return order.toDto(helper, productMap);
     }
 
     // TODO: 주문 조회, 수정 시 인증된 회원에게만 인가되도록 처리 필요
@@ -80,7 +83,7 @@ public class OrderFacade {
                 .collect(Collectors.toMap(Product::getId, Function.identity()));
 
         // DTO로 변환 후 반환
-        return order.toDto(productDtoMap);
+        return order.toDto(helper, productDtoMap);
     }
 
     public PaginatedData<OrderDto> readOrders(int createdBy, LocalDate from, LocalDate to, Pageable pageable) {
@@ -98,7 +101,7 @@ public class OrderFacade {
                 .collect(Collectors.toMap(Product::getId, Function.identity()));
 
         // 페이지네이션 DTO로 변환 후 반환
-        return PaginatedData.of(orderPage.map(order -> order.toDto(productMap)));
+        return PaginatedData.of(orderPage.map(order -> order.toDto(helper, productMap)));
     }
 
     public OrderDto updateOrderAddress(long orderId, OrderAddressPatchDto addressPatchDto) {
@@ -106,7 +109,7 @@ public class OrderFacade {
         Order order = orderService.updateOrderAddress(orderId, addressPatchDto);
 
         // DTO로 변환 후 반환
-        return order.toDto();
+        return order.toDto(helper);
     }
 
     @Transactional
@@ -142,14 +145,14 @@ public class OrderFacade {
                 .collect(Collectors.toMap(Product::getId, Function.identity()));
 
         // 응답 DTO로 매핑 후 반환
-        return updatedOrder.toDto(productMap);
+        return updatedOrder.toDto(helper, productMap);
     }
 
     public OrderDto updateOrderPay(long orderId) {
         // TODO: 결제 정보 확인 필요
         Order order = orderService.updateOrderPay(orderId);
 
-        return order.toDto();
+        return order.toDto(helper);
     }
 
     public OrderDto updateOrderPrepare(long orderId) {
@@ -157,7 +160,7 @@ public class OrderFacade {
         Order order = orderService.updateOrderPrepare(orderId);
 
         // DTO에 매핑 후 반환
-        return order.toDto();
+        return order.toDto(helper);
     }
 
     public OrderDto updateOrderShip(long orderId) {
@@ -165,7 +168,7 @@ public class OrderFacade {
         Order order = orderService.updateOrderShip(orderId);
 
         // DTO에 매핑 후 반환
-        return order.toDto();
+        return order.toDto(helper);
     }
 
     @Transactional
@@ -192,7 +195,7 @@ public class OrderFacade {
         productIdDeltaMap.forEach(productService::updateProductStock);
 
         // DTO에 매핑 후 반환
-        return updatedOrder.toDto();
+        return updatedOrder.toDto(helper);
     }
 
 }

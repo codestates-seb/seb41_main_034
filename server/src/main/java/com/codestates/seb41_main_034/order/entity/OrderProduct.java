@@ -1,5 +1,6 @@
 package com.codestates.seb41_main_034.order.entity;
 
+import com.codestates.seb41_main_034.common.JsonListHelper;
 import com.codestates.seb41_main_034.common.auditing.entity.Auditable;
 import com.codestates.seb41_main_034.order.dto.OrderProductDto;
 import com.codestates.seb41_main_034.product.entity.Product;
@@ -44,11 +45,11 @@ public class OrderProduct extends Auditable {
         this.quantity = quantity;
     }
 
-    public OrderProductDto toDto(Product product) {
+    public OrderProductDto toDto(JsonListHelper helper, Product product) {
         Optional<Product> optionalProduct = Optional.ofNullable(product);
         String name = optionalProduct.map(Product::getName).orElse(null);
-        String imageUrl = optionalProduct.map(Product::getImageUrlArray)
-                .map(urls -> urls.length == 0 ? null : urls[0]).orElse(null);
+        String imageUrl = optionalProduct.map(Product::getImageUrls).map(helper::jsonToList)
+                .map(urlList -> urlList.isEmpty() ? null : urlList.get(0)).orElse(null);
 
         return new OrderProductDto(productId, name, imageUrl, price, quantity, status,
                 getCreatedBy(), getModifiedBy(), getCreatedAt(), getModifiedAt());

@@ -1,6 +1,7 @@
 package com.codestates.seb41_main_034.order.entity;
 
 import com.codestates.seb41_main_034.common.Address;
+import com.codestates.seb41_main_034.common.JsonListHelper;
 import com.codestates.seb41_main_034.common.auditing.entity.Auditable;
 import com.codestates.seb41_main_034.order.dto.OrderDto;
 import com.codestates.seb41_main_034.order.dto.OrderProductDto;
@@ -30,12 +31,12 @@ public class Order extends Auditable {
     @Embedded
     private Address address;
 
-    public OrderDto toDto(Map<Integer, Product> productMap) {
+    public OrderDto toDto(JsonListHelper helper, Map<Integer, Product> productMap) {
         List<OrderProductDto> orderProductDtos = orderProducts.stream()
                 .map(orderProduct -> {
                     Product product = Optional.ofNullable(productMap)
                             .map(map -> map.get(orderProduct.getProductId())).orElse(null);
-                    return orderProduct.toDto(product);
+                    return orderProduct.toDto(helper, product);
                 }).collect(Collectors.toList());
 
         return new OrderDto(id, orderProductDtos, address.getRecipient(), address.getZonecode(),
@@ -43,8 +44,8 @@ public class Order extends Auditable {
                 getCreatedBy(), getModifiedBy(), getCreatedAt(), getModifiedAt());
     }
 
-    public OrderDto toDto() {
-        return toDto(null);
+    public OrderDto toDto(JsonListHelper helper) {
+        return toDto(helper, null);
     }
 
 }

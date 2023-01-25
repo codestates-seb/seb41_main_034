@@ -7,6 +7,7 @@ import lombok.Getter;
 
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -25,8 +26,8 @@ public class ProductPatchDto {
 
     private ProductCategory category;
 
-    private boolean[] deleteImage;
+    private List<Boolean> deleteImage;
 
-    private boolean[] deleteDetailImage;
+    private List<Boolean> deleteDetailImage;
 
 }
