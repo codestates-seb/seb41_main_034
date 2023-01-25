@@ -1,2 +1,12 @@
-.DS_Store
 .vscode
+# MacOS
+.DS_Store
+
+# IntelliJ IDEA
+.idea
+
+# Secrets
+secrets
+
+# Images
+images
