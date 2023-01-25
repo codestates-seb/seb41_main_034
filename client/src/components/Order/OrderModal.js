@@ -6,7 +6,6 @@ import {
   PaymentContainer,
   ReceiptTitle,
   ReceiptPayment,
-  OrderButtonContainer,
   CartButton,
   OrderButton,
   ModalButtonContainer

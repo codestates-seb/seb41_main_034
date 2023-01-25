@@ -11,7 +11,7 @@ import {
   OrderButtonContainer
 } from '../../styles/orderStyle';
 
-function OrderPayment() {
+const OrderPayment = ({ onClickOrder }) => {
   return (
     <OrderPaymentWrapper>
       <OrderPaymentContainer>
@@ -44,11 +44,13 @@ function OrderPayment() {
         </OrderReceipt>
 
         <OrderButtonContainer>
-          <OrderButton>결제하기</OrderButton>
+          <OrderButton type="button" onClick={onClickOrder}>
+            결제하기
+          </OrderButton>
         </OrderButtonContainer>
       </OrderPaymentContainer>
     </OrderPaymentWrapper>
   );
-}
+};
 
 export default OrderPayment;

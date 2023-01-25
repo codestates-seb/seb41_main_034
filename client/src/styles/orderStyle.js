@@ -13,7 +13,7 @@ const CartContainer = styled.div`
   border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
   transition: transform 0.5s;
-  transform: translateY(-50%)
+  transform: translateY(-40%)
     ${(props) => (props.isOpenCart ? 'translateX(0)' : 'translateX(200%)')};
   overflow: hidden;
   z-index: 97;

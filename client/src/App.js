@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { GlobalStyle } from './styles/globalStyle';
@@ -10,11 +11,19 @@ import ScrollToTop from './components/Layout/ScrollToTop';
 function App() {
   const location = useLocation();
 
+  const [isLogin, setIsLogin] = useState(true);
+
+  // const token = localStorage.getItem('accessToken');
+
+  // useEffect(() => {
+  //   setIsLogin(token ? true : false);
+  // }, [token]);
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
 
-      <Header location={location} />
+      <Header location={location} isLogin={isLogin} />
 
       <Main />
 

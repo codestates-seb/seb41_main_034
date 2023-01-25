@@ -17,6 +17,13 @@ import { ReactComponent as MyPageIcon } from '../../assets/icons/myPageIcon.svg'
 import { ReactComponent as DeleteIcon } from '../../assets/icons/cancleIcon.svg';
 
 const MobileMenu = ({ isLogin, isOpenMenu, setIsOpenMenu }) => {
+  const onClickLogout = () => {
+    const isLogout = window.confirm('로그아웃 하시겠습니까?');
+
+    isLogout && setIsOpenMenu(false);
+    isLogout && localStorage.removeItem('accessToken');
+  };
+
   return (
     <>
       <MobileMenuWrapper
@@ -37,13 +44,13 @@ const MobileMenu = ({ isLogin, isOpenMenu, setIsOpenMenu }) => {
           <MobileButtonContainer>
             {isLogin ? (
               <>
-                <MobileMyPageLink to={'/mypage'}>
-                  <MyPageIcon />
-                </MobileMyPageLink>
-                <MobileButton
-                  type="button"
+                <MobileMyPageLink
+                  to={'/mypage'}
                   onClick={() => setIsOpenMenu(false)}
                 >
+                  <MyPageIcon />
+                </MobileMyPageLink>
+                <MobileButton type="button" onClick={onClickLogout}>
                   로그아웃
                 </MobileButton>
               </>
