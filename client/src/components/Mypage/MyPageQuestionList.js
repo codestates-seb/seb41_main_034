@@ -7,9 +7,26 @@ import {
 } from '../../styles/myPageStyle';
 import MyPageHeader from './MyPageHeader';
 import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
+import { useState, useEffect } from 'react';
+import { questionGetAPI } from '../../api/question';
+import Loading from '../Layout/Loading';
 
 const MyPageQuestionList = () => {
-  return (
+  const [question, setQuestion] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const API = async () => {
+      const data = await questionGetAPI();
+      setQuestion(data.data.content);
+      setIsLoading(true);
+    };
+    API();
+  }, []);
+
+  // console.log(question);
+
+  return isLoading ? (
     <>
       <MyPageHeader title={'나의문의'} />
       <ListHeader>
@@ -22,9 +39,12 @@ const MyPageQuestionList = () => {
           <CancelIcon />
         </RightContainer>
       </ListHeader>
-      <MyPageQuestionItem />
-      <MyPageQuestionItem />
+      {question.map((e, idx) => (
+        <MyPageQuestionItem key={idx} question={e} />
+      ))}
     </>
+  ) : (
+    <Loading />
   );
 };
 

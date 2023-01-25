@@ -7,46 +7,54 @@ import {
   ItemLinkText
 } from '../../styles/myPageStyle';
 import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
-import { questionDeleteAPI, questionGetAPI } from '../../api/question';
-import { useEffect, useState } from 'react';
+import { questionDeleteAPI } from '../../api/question';
+import { useState, useEffect } from 'react';
+import Loading from '../Layout/Loading';
 
-const MyPageQuestionItem = () => {
-  const [question, setQuestion] = useState(null);
+const MyPageQuestionItem = ({ question }) => {
+  const [Question, setQuestion] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onRemove = () => {
     if (window.confirm('해당 상품에 대한 문의를 삭제하시겠습니까?')) {
-      const body = 'questionId';
-      questionDeleteAPI(body);
+      const body = question.id;
+      questionDeleteAPI('1', body);
+      window.location.reload();
       alert('삭제되었습니다');
     } else {
       alert('취소했습니다.');
     }
   };
 
-  // useEffect(() => {
-  //   const body = 'questionId';
-  //   const data = questionGetAPI(body);
-  //   setQuestion(data);
-  //   console.log(question);
-  // }, [question]);
+  useEffect(() => {
+    setQuestion(question);
+    setIsLoading(true);
+  }, [question]);
 
-  return (
+  return isLoading ? (
     <ListHeader2>
       <LeftCotainer2>
         <ItemLinkText aria-label="상품명에 대한 문의보기 버튼입니다.">
-          상품명
+          {Question.productName}
         </ItemLinkText>
         <MarginSpace />
         <ItemLinkText aria-label="상품명에 대한 문의보기 버튼입니다.">
-          상품에 대한 문의합니다..
+          {Question.body}
         </ItemLinkText>
       </LeftCotainer2>
       <RightContainer2>
-        <ItemText>2023.1.13</ItemText>
-        <ItemText>답변완료</ItemText>
+        <ItemText>{Question.createdAt}</ItemText>
+        {Question.answer === null ? (
+          <ItemText>답변대기</ItemText>
+        ) : (
+          <ItemText>답변완료</ItemText>
+        )}
+
         <CancelIcon onClick={onRemove} alt="문의 삭제 버튼입니다" />
       </RightContainer2>
     </ListHeader2>
+  ) : (
+    <Loading />
   );
 };
 

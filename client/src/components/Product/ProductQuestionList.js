@@ -6,23 +6,32 @@ import {
   ProductDetailTitle
 } from '../../styles/productStyle';
 import ProductQuestionItem from './ProductQuestionItem';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import QuestionModal from './QuestionModal';
-// import { questionAPI } from '../../api/question';
+import { itemQuestionGetAPI } from '../../api/question';
+import Loading from '../Layout/Loading';
 
 const ProductQuestionList = () => {
   const [isOpenQuestion, setIsOpenQuestion] = useState(false);
-  // const [Question, setQuestion] = useState(null);
+  const [Question, setQuestion] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleQuestionOpen = () => {
     setIsOpenQuestion(!isOpenQuestion);
   };
 
-  // useEffect(() => {
-  //   setQuestion(questionAPI)
-  // }, [Question,setQuestion])
+  useEffect(() => {
+    const API = async () => {
+      const data = await itemQuestionGetAPI(0, 1);
+      setQuestion(data.data.content);
+      setIsLoading(true);
+    };
+    API();
+  }, []);
 
-  return (
+  // console.log(Question);
+
+  return isLoading ? (
     <>
       <ProductDetailContainer>
         <ProductDetailHeader>
@@ -31,18 +40,21 @@ const ProductQuestionList = () => {
             문의하기
           </QuestionButton>
         </ProductDetailHeader>
-
         <ReviewListContainer>
-          <ProductQuestionItem />
-          <ProductQuestionItem />
+          {Question.map((e, idx) => (
+            <ProductQuestionItem key={idx} question={e} />
+          ))}
         </ReviewListContainer>
       </ProductDetailContainer>
 
       <QuestionModal
         isOpenQuestion={isOpenQuestion}
         setIsOpenQuestion={setIsOpenQuestion}
+        question={Question}
       />
     </>
+  ) : (
+    <Loading />
   );
 };
 

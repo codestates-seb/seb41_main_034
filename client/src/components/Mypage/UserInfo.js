@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
   UserInfoContainer,
   InfoContainer,
@@ -10,8 +11,16 @@ import {
   Name,
   NameNext
 } from '../../styles/myPageStyle';
+import { useSelector } from 'react-redux';
 
 const UserInfo = () => {
+  const [token, setToken] = useState(null);
+  const Token = useSelector((state) => state.user.userId);
+
+  useEffect(() => {
+    setToken(Token);
+  }, [Token, token]);
+
   return (
     <>
       <UserInfoContainer>

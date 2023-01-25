@@ -2,7 +2,7 @@ import {
   UserEditWrapper,
   UserEditContainer,
   EditCotainer,
-  LeftBox,
+  // LeftBox,
   RightBox,
   InputBox,
   PasswordContainer,
