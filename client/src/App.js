@@ -1,16 +1,35 @@
+import { useEffect, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
-import { Routes, Route } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { GlobalStyle } from './styles/globalStyle';
 import theme from './styles/theme';
-import Signup from './pages/Signup';
+import Header from './components/Layout/Header';
+import Main from './components/Layout/Main';
+import Footer from './components/Layout/Footer';
+import ScrollToTop from './components/Layout/ScrollToTop';
 
 function App() {
+  const location = useLocation();
+
+  const [isLogin, setIsLogin] = useState(true);
+
+  // const token = localStorage.getItem('accessToken');
+
+  // useEffect(() => {
+  //   setIsLogin(token ? true : false);
+  // }, [token]);
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <Routes>
-        <Route path="/signup" element={<Signup />} />
-      </Routes>
+
+      <Header location={location} isLogin={isLogin} />
+
+      <Main />
+
+      <ScrollToTop />
+
+      <Footer location={location} />
     </ThemeProvider>
   );
 }

@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
-export const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle`
   ${reset}
 
   * {
@@ -34,6 +34,11 @@ export const GlobalStyle = createGlobalStyle`
     box-shadow: none;
   }
 
+  input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+  }
+
   button {
     padding: 0;
     border: none;
@@ -43,3 +48,5 @@ export const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
 `;
+
+export { GlobalStyle };
