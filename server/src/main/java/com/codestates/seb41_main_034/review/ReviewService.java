@@ -59,7 +59,7 @@ public class ReviewService {
         Optional.ofNullable(reviewPatchDto).map(ReviewPatchDto::getBody).ifPresent(review::setBody);
 
         // 이미지 주소 변경
-        Optional.ofNullable(imageUrls).ifPresent(review::setImageUrls);
+        review.setImageUrls(imageUrls);
 
         return review;
     }

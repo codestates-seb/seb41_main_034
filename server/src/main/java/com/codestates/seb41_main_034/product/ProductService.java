@@ -80,8 +80,8 @@ public class ProductService {
         optionalPatchDto.map(ProductPatchDto::getCategory).ifPresent(product::setCategory);
 
         // 이미지 주소 변경
-        Optional.ofNullable(imageUrls).ifPresent(product::setImageUrls);
-        Optional.ofNullable(detailImageUrls).ifPresent(product::setDetailImageUrls);
+        product.setImageUrls(imageUrls);
+        product.setDetailImageUrls(detailImageUrls);
 
         return product;
     }
