@@ -7,7 +7,9 @@ public enum ExceptionCode {
 
     USER_NOT_FOUND(404,"User not found"),
 
-    UNAUTHORIZED_USER(403,"not authorized user");
+    UNAUTHORIZED_USER(403,"Not authorized user"),
+
+    WRONG_PASSWORD(400, "Wrong password");
 
     @Getter
     private int status;

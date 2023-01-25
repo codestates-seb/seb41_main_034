@@ -17,7 +17,5 @@ public class UserPostDto {
     @NotBlank(message = "이름을 입력해주세요.")
     private String displayName;
 
-    @NotBlank(message = "휴대폰번호를 입력해주세요")
-    private String phoneNumber;
 }
 

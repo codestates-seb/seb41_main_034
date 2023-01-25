@@ -28,8 +28,8 @@ public class User {
     @Column(nullable = false, updatable = false)
     private String password;
 
-    @Column(length = 12, nullable = false, updatable = false, unique = true)
-    private String phoneNumber;
+    @Column
+    private boolean isDeleted;
 
     @Column(updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now(ZoneId.of("Asia/Seoul"));

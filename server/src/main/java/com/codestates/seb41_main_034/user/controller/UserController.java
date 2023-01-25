@@ -1,7 +1,7 @@
 package com.codestates.seb41_main_034.user.controller;
 
+import com.codestates.seb41_main_034.user.dto.UserPatchDto;
 import com.codestates.seb41_main_034.user.dto.UserPostDto;
-import com.codestates.seb41_main_034.user.dto.UserResponseDto;
 import com.codestates.seb41_main_034.user.entity.User;
 import com.codestates.seb41_main_034.user.mapper.UserMapper;
 import com.codestates.seb41_main_034.user.service.UserService;
@@ -35,13 +35,31 @@ public class UserController {
                 HttpStatus.CREATED);
     }
 
-//    @GetMapping("/{user-id}")
-//    public ResponseEntity getMember(
-//            @PathVariable("member-id") @Positive long userId) {
-//        User userName = userService.findUser(userName);
-//        return new ResponseEntity<>(
-//                new SingleResponseDto<>(mapper.memberToMemberResponse(member))
-//                , HttpStatus.OK);
-    
+    @GetMapping("/{user-id}")
+    public ResponseEntity getUser(
+            @PathVariable("user-id") @Positive long userId) {
+        User user = userService.findUser(userId);
+        return new ResponseEntity<>((mapper.userToUserResponseDto(user))
+                , HttpStatus.OK);
+    }
+
+    @PatchMapping("/{user-id}")
+    public ResponseEntity<?> edit(
+            @PathVariable("user-id") @Positive long userId, @RequestBody UserPatchDto userPatchDto) {
+        User user = userService.editUser(userId, userPatchDto);
+
+        return new ResponseEntity<>((mapper.userToUserResponseDto(user))
+                , HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{user-id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteUser(
+            @PathVariable("user-id") @Positive long userId) {
+        userService.deleteUser(userId);
+    }
+
+
+
 }
 
