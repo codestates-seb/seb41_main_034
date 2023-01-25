@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addCart } from '../../store/orderSlice';
 import {
   ProductContainer,
@@ -15,9 +15,12 @@ import { ReactComponent as CartIcon } from '../../assets/icons/cartIcon.svg';
 
 const ProductItem = () => {
   const dispatch = useDispatch();
+  const cart = useSelector((state) => state.order.cart);
+  const cartFilter = cart.filter((el) => el.id === 1)[0];
 
   const onClickAddCart = (e) => {
     e.preventDefault();
+
     dispatch(
       addCart({
         id: 1,
@@ -25,7 +28,7 @@ const ProductItem = () => {
         name: '사과',
         price: 1000,
         priceAmount: 1000,
-        count: 1
+        count: cartFilter !== undefined ? cartFilter.count + 1 : 1
       })
     );
   };

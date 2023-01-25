@@ -20,6 +20,7 @@ import { ReactComponent as DeleteIcon } from '../assets/icons/cancleIcon.svg';
 
 const Product = () => {
   const [isOpenOrder, setIsOpenOrder] = useState(false);
+  const [count, setCount] = useState(1);
 
   return (
     <>
@@ -33,7 +34,12 @@ const Product = () => {
           </DeleteButton>
         </ProductModalCancle>
       </ProductModalWrapper>
-      <OrderModal isOpenOrder={isOpenOrder} />
+      <OrderModal
+        isOpenOrder={isOpenOrder}
+        setIsOpenOrder={setIsOpenOrder}
+        count={count}
+        setCount={setCount}
+      />
 
       <ProductWrapper>
         <ProductContent>
@@ -46,7 +52,7 @@ const Product = () => {
         </ProductContent>
 
         <ProductOrder>
-          <OrderProduct />
+          <OrderProduct count={count} setCount={setCount} />
         </ProductOrder>
 
         <ProductButtonContainer>

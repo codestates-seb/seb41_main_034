@@ -23,8 +23,8 @@ const orderSlice = createSlice({
             el.id === action.payload.id
               ? {
                   ...el,
-                  priceAmount: el.price * (el.count + 1),
-                  count: (el.count += 1)
+                  priceAmount: el.price * action.payload.count,
+                  count: action.payload.count
                 }
               : el
           ));

@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const CartContainer = styled.div`
@@ -472,7 +471,7 @@ const OrderListContianer = styled.div`
 const OrderListHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 12px;
+  padding: 24px;
 `;
 
 const OrderList = styled.ul`
@@ -557,6 +556,11 @@ const OrderButtonContainer = styled.div`
     display: flex;
     align-items: center;
     gap: 8px;
+
+    a {
+      display: block;
+      width: 100%;
+    }
   }
 `;
 
@@ -571,7 +575,7 @@ const ModalButtonContainer = styled.div`
   }
 `;
 
-const OrderButton = styled(Link)`
+const OrderButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -608,6 +612,37 @@ const CartButton = styled(OrderButton)`
     &:hover {
       color: ${(props) => props.theme.whiteColor};
       background-color: ${(props) => props.theme.hoverColor};
+    }
+  }
+`;
+
+const ProductOrderButton = styled.button`
+  width: 100%;
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    font-size: 18px;
+    font-weight: 700;
+    color: ${(props) => props.theme.whiteColor};
+    background-color: ${(props) => props.theme.primaryColor};
+    transition: background-color 0.5s;
+    border-radius: 4px;
+
+    @media ${(props) => props.theme.desktop} {
+      &:hover {
+        background-color: ${(props) => props.theme.hoverColor};
+      }
+    }
+
+    @media ${(props) => props.theme.tablet} {
+      font-size: 16px;
+    }
+
+    @media ${(props) => props.theme.mobile} {
+      font-size: 14px;
     }
   }
 `;
@@ -698,5 +733,6 @@ export {
   OrderButtonContainer,
   OrderButton,
   CartButton,
-  MobileOrderButton
+  MobileOrderButton,
+  ProductOrderButton
 };
