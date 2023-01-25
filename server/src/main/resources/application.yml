@@ -2,7 +2,6 @@ spring:
   h2:
     console:
       enabled: true
-      path: /h2
   datasource:
     url: jdbc:h2:mem:test
   jpa:
@@ -14,8 +13,19 @@ spring:
       hibernate:
         format_sql: true
         hbm2ddl:
-          # import.sql?? ??? ???? ?? ?? ??? ?? ????? ?? ??
+          # import.sql에서 하나의 쿼리문을 여러 줄로 나눠서 써도 인식하도록 하는 설정
           import_files_sql_extractor: org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor
+
+logging:
+  level:
+    org:
+      springframework:
+        orm:
+          jpa: DEBUG
+
+image:
+  local-path: /Users/jmkim/Projects/seb41_main_034/images
+  server-url: http://example.com/images/
 
 #jwt 시스템 환경 변수 설정 필요
 jwt:
