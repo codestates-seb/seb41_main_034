@@ -15,7 +15,7 @@ import {
 import { ReactComponent as DeleteIcon } from '../../assets/icons/cancleIcon.svg';
 import OrderCounter from './OrderCounter';
 
-const MyCartItem = ({ cart }) => {
+const CartItem = ({ cart }) => {
   const dispatch = useDispatch();
 
   return (
@@ -34,7 +34,9 @@ const MyCartItem = ({ cart }) => {
 
       <PriceContainer>
         <OrderCounter cart={cart} />
-        <ProductPrice>{`${cart.price.toLocaleString('ko-KR')}`}원</ProductPrice>
+        <ProductPrice>
+          {cart.priceAmount.toLocaleString('ko-KR')}원
+        </ProductPrice>
       </PriceContainer>
 
       <CartItemDelete>
@@ -49,4 +51,4 @@ const MyCartItem = ({ cart }) => {
   );
 };
 
-export default MyCartItem;
+export default CartItem;

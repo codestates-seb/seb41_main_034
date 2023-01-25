@@ -7,10 +7,12 @@ import {
 import SortNavbar from '../components/Product/SortNavbar';
 
 const Products = () => {
+  const categoryName = decodeURI(window.location.pathname).substring(10);
+
   return (
     <>
       <CategoryHeader>
-        <CategoryTitle>카테고리</CategoryTitle>
+        <CategoryTitle>{categoryName}</CategoryTitle>
         <SortNavbar />
       </CategoryHeader>
 

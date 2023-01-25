@@ -11,6 +11,7 @@ import CartItem from './CartItem';
 
 const ShoppingCart = ({ isOpenCart, setIsOpenCart }) => {
   const cart = useSelector((state) => state.order.cart);
+  const orderAmount = useSelector((state) => state.order.orderAmount);
 
   return (
     <CartContainer isOpenCart={isOpenCart}>
@@ -22,7 +23,9 @@ const ShoppingCart = ({ isOpenCart, setIsOpenCart }) => {
           <CartItem cart={el} key={el.id} />
         ))}
       </CartList>
-      <OrderAmount>주문금액: 108,000원</OrderAmount>
+      <OrderAmount>
+        주문금액: {orderAmount.toLocaleString('ko-KR')}원
+      </OrderAmount>
       <CartFooter>
         <Link to="/order" onClick={() => setIsOpenCart(false)}>
           주문하기

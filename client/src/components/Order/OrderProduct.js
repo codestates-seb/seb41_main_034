@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   OrderPaymentContainer,
   OrderReceipt,
@@ -10,15 +11,17 @@ import {
   OrderButton,
   CartButton
 } from '../../styles/orderStyle';
-import OrderCounter from './OrderCounter';
+import ProductCounter from '../Product/ProductCounter';
 
 const OrderProduct = () => {
+  const [count, setcount] = useState(1);
+
   return (
     <OrderPaymentContainer>
       <OrderReceipt>
         <ReceiptContainer>
           <ReceiptAmount>사과</ReceiptAmount>
-          <OrderCounter />
+          <ProductCounter count={count} setcount={setcount} />
         </ReceiptContainer>
 
         <PaymentContainer>

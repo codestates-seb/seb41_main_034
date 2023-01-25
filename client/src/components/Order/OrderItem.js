@@ -38,7 +38,7 @@ const OrderItem = ({ cart }) => {
 
         <OrderItemRight>
           <OrderCounter cart={cart} />
-          <OrderPrice>{`${cart.price.toLocaleString('ko-KR')}`}원</OrderPrice>
+          <OrderPrice>{cart.priceAmount.toLocaleString('ko-KR')}원</OrderPrice>
         </OrderItemRight>
       </OrderItemContainer>
 

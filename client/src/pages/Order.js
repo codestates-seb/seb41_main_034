@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import OrderItem from '../components/Order/OrderItem';
@@ -17,6 +18,8 @@ import {
 const Order = () => {
   const navigate = useNavigate();
   const cart = useSelector((state) => state.order.cart);
+  const orderAmount = useSelector((state) => state.order.orderAmount);
+  const [shippingFee, setShoppingFee] = useState(3000);
 
   const onClickOrder = (e) => {
     const { IMP } = window;
@@ -28,7 +31,7 @@ const Order = () => {
         pay_method: 'card',
         merchant_uid: 'merchant_' + new Date().getTime(),
         name: '푸드밋',
-        amount: 1000,
+        amount: orderAmount + shippingFee,
         buyer_name: '구매자이름',
         buyer_email: ''
       },
@@ -60,7 +63,11 @@ const Order = () => {
         </OrderList>
       </OrderListContianer>
 
-      <OrderPayment onClickOrder={onClickOrder} />
+      <OrderPayment
+        onClickOrder={onClickOrder}
+        shippingFee={shippingFee}
+        setShoppingFee={setShoppingFee}
+      />
 
       <MobileOrderButton type="button" onClick={onClickOrder}>
         결제하기

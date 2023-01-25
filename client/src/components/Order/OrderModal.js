@@ -10,7 +10,7 @@ import {
   OrderButton,
   ModalButtonContainer
 } from '../../styles/orderStyle';
-import OrderCounter from './OrderCounter';
+import ProductCounter from '../Product/ProductCounter';
 
 const OrderModal = ({ isOpenOrder }) => {
   return (
@@ -18,7 +18,7 @@ const OrderModal = ({ isOpenOrder }) => {
       <OrderReceipt>
         <ReceiptContainer>
           <ReceiptAmount>사과</ReceiptAmount>
-          <OrderCounter />
+          <ProductCounter />
         </ReceiptContainer>
 
         <PaymentContainer>

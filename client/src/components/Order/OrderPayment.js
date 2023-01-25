@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
   OrderPaymentWrapper,
   OrderPaymentContainer,
@@ -11,7 +13,14 @@ import {
   OrderButtonContainer
 } from '../../styles/orderStyle';
 
-const OrderPayment = ({ onClickOrder }) => {
+const OrderPayment = ({ onClickOrder, shippingFee, setShoppingFee }) => {
+  const cart = useSelector((state) => state.order.cart);
+  const orderAmount = useSelector((state) => state.order.orderAmount);
+
+  useEffect(() => {
+    setShoppingFee(orderAmount >= 10000 || cart[0] === undefined ? 0 : 3000);
+  }, [cart, orderAmount, setShoppingFee]);
+
   return (
     <OrderPaymentWrapper>
       <OrderPaymentContainer>
@@ -19,26 +28,26 @@ const OrderPayment = ({ onClickOrder }) => {
           <ReceiptContainer>
             <ReceiptAmount>총 상품금액</ReceiptAmount>
             <ReceiptAmount>
-              {`${(120000).toLocaleString('ko-KR')}`}원
+              {orderAmount.toLocaleString('ko-KR')}원
             </ReceiptAmount>
           </ReceiptContainer>
 
           <ReceiptContainer>
             <ReceiptAmount>총 배송비</ReceiptAmount>
             <ReceiptAmount>
-              {`+${(3000).toLocaleString('ko-KR')}`}원
+              +{shippingFee.toLocaleString('ko-KR')}원
             </ReceiptAmount>
           </ReceiptContainer>
 
           <ReceiptContainer>
             <ReceiptAmount>총 할인금액</ReceiptAmount>
-            <ReceiptAmount>{`-${(0).toLocaleString('ko-KR')}`}원</ReceiptAmount>
+            <ReceiptAmount>-{(0).toLocaleString('ko-KR')}원</ReceiptAmount>
           </ReceiptContainer>
 
           <PaymentContainer>
             <ReceiptTitle>결제금액</ReceiptTitle>
             <ReceiptPayment>
-              {`${(123000).toLocaleString('ko-KR')}`}원
+              {(orderAmount + shippingFee).toLocaleString('ko-KR')}원
             </ReceiptPayment>
           </PaymentContainer>
         </OrderReceipt>
