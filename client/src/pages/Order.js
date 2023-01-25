@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import OrderItem from '../components/Order/OrderItem';
 import OrderPayment from '../components/Order/OrderPayment';
 import {
@@ -13,6 +14,33 @@ import {
 } from '../styles/orderStyle';
 
 const Order = () => {
+  const navigate = useNavigate();
+
+  const onClickOrder = (e) => {
+    const { IMP } = window;
+    IMP.init('imp04631732');
+
+    IMP.request_pay(
+      {
+        pg: 'html5_inicis',
+        pay_method: 'card',
+        merchant_uid: 'merchant_' + new Date().getTime(),
+        name: '푸드밋',
+        amount: 1000,
+        buyer_name: '구매자이름',
+        buyer_email: ''
+      },
+      (rsp) => {
+        if (rsp.success) {
+          alert('결제완료');
+          navigate('/mypage/orderlist');
+        } else {
+          alert(rsp.error_msg);
+        }
+      }
+    );
+  };
+
   return (
     <OrderContainer>
       <OrderListContianer>
@@ -30,9 +58,11 @@ const Order = () => {
         </OrderList>
       </OrderListContianer>
 
-      <OrderPayment />
+      <OrderPayment onClickOrder={onClickOrder} />
 
-      <MobileOrderButton>결제하기</MobileOrderButton>
+      <MobileOrderButton type="button" onClick={onClickOrder}>
+        결제하기
+      </MobileOrderButton>
     </OrderContainer>
   );
 };

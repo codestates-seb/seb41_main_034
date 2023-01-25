@@ -13,8 +13,6 @@ const Certification = ({ form, setForm }) => {
     IMP.certification(
       {
         merchant_uid: `mid_${new Date().getTime()}`
-        // m_redirect_url: '{localhost:3000/signup}',
-        // popup: true
       },
       (res) => {
         if (res.success) {

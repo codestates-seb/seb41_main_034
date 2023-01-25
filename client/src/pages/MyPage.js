@@ -24,9 +24,9 @@ const MyPage = () => {
         <Routes>
           <Route path="/" element={<MyPageAddress />} />
           <Route path="/edit" element={<UserInfoEdit />} />
-          <Route path="orderlist" element={<MyPageOrderList />} />
-          <Route path="review" element={<MyPageReview />} />
-          <Route path="question" element={<MyPageQuestionList />} />
+          <Route path="/orderlist" element={<MyPageOrderList />} />
+          <Route path="/review" element={<MyPageReview />} />
+          <Route path="/question" element={<MyPageQuestionList />} />
         </Routes>
       </MyPageContent>
     </MyPageContainer>
