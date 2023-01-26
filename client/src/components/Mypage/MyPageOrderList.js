@@ -1,5 +1,3 @@
-// import { ReactComponet as cancleIcon } from '../../assets/icons/cancleIcon.svg';
-
 import {
   OrderDateContainer,
   OrderDate,
@@ -12,12 +10,27 @@ import {
   OrderQuantity,
   CancleImgContainer,
   OrderStatus,
-  ProductImg
+  ProductImg,
+  ReviewButton
 } from '../../styles/myPageStyle';
+
 import MyPageHeader from './MyPageHeader';
 import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
+import { ReactComponent as EditIcon } from '../../assets/icons/editIcon.svg';
+import { useState, useEffect } from 'react';
+import ReviewModal from './ReviewModal';
 
 const MyPageOrderList = () => {
+  const [isOpenReview, setIsOpenReview] = useState(false);
+
+  const handleReviewOpen = () => {
+    setIsOpenReview(!isOpenReview);
+  };
+
+  useEffect(() => {
+    console.log(isOpenReview);
+  }, [isOpenReview]);
+
   const onRemove = () => {
     if (window.confirm('해당 상품에 대한 주문목록을 삭제하시겠습니까?')) {
       alert('삭제되었습니다');
@@ -48,10 +61,20 @@ const MyPageOrderList = () => {
           <OrderQuantity>수량: 1개</OrderQuantity>
         </CenterContent>
         <RightContent>
-          <CancleImgContainer type="button">
+          <CancleImgContainer>
             <CancelIcon onClick={onRemove} alt="주문목록 삭제 버튼입니다" />
           </CancleImgContainer>
           <OrderStatus>주문완료</OrderStatus>
+          <ReviewButton
+            onClick={handleReviewOpen}
+            aria-label="후기작성 버튼입니다"
+          >
+            후기 작성
+          </ReviewButton>
+          <ReviewModal
+            isOpenReview={isOpenReview}
+            setIsOpenReview={setIsOpenReview}
+          />
         </RightContent>
       </OrderListContainer>
     </>
