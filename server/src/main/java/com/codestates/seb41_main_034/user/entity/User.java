@@ -1,12 +1,13 @@
 package com.codestates.seb41_main_034.user.entity;
 
+import com.codestates.seb41_main_034.common.Address;
+import com.codestates.seb41_main_034.common.auditing.entity.DateAuditable;
+import com.codestates.seb41_main_034.user.dto.UserDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +15,10 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity(name = "USERS")
-public class User {
+public class User extends DateAuditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long userId;
+    private Long id;
 
     @Column(nullable = false, updatable = false, unique = true)
     private String username;
@@ -28,15 +29,21 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column
-    private boolean isDeleted;
-
-    @Column(updatable = false)
-    private LocalDateTime createdAt = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
-
-    @Column(name = "LAST_MODIFIED_AT")
-    private LocalDateTime modifiedAt = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
-
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
+
+    @Column(nullable = false)
+    private long primaryAddressId;
+
+    public UserDto toDto(Address address) {
+        return new UserDto(id, username, displayName, roles,
+                address.getZonecode(), address.getAddress(), address.getDetailAddress(), address.getPhone(),
+                getCreatedAt(), getModifiedAt());
+    }
+
+    public UserDto toDto() {
+        return new UserDto(id, username, displayName, roles,
+                null, null, null, null,
+                getCreatedAt(), getModifiedAt());
+    }
 }

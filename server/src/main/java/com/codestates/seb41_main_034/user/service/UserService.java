@@ -1,50 +1,72 @@
 package com.codestates.seb41_main_034.user.service;
 
-import com.codestates.seb41_main_034.exception.BusinessLogicException;
-import com.codestates.seb41_main_034.exception.ExceptionCode;
+import com.codestates.seb41_main_034.auth.utils.CustomAuthorityUtils;
+import com.codestates.seb41_main_034.common.Address;
+import com.codestates.seb41_main_034.common.exception.BusinessLogicException;
+import com.codestates.seb41_main_034.common.exception.ExceptionCode;
+import com.codestates.seb41_main_034.user.dto.UserDto;
 import com.codestates.seb41_main_034.user.dto.UserPatchDto;
+import com.codestates.seb41_main_034.user.dto.UserPostDto;
 import com.codestates.seb41_main_034.user.entity.User;
-import com.codestates.seb41_main_034.user.mapper.UserMapper;
 import com.codestates.seb41_main_034.user.repository.UserRepository;
+import com.codestates.seb41_main_034.useraddress.UserAddress;
+import com.codestates.seb41_main_034.useraddress.UserAddressService;
+import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Transactional
+@AllArgsConstructor
 @Service
+@Transactional
 public class UserService {
     private final UserRepository userRepository;
-    private final UserMapper mapper;
+    private final CustomAuthorityUtils authorityUtils;
     private final PasswordEncoder passwordEncoder;
+    private final UserAddressService userAddressService;
 
-    public UserService(UserRepository userRepository, UserMapper mapper, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.mapper = mapper;
-        this.passwordEncoder = passwordEncoder;
-    }
+    public UserDto createUser(UserPostDto userPostDto) {
+        String username = userPostDto.getUsername();
+        verifyExistsUsername(username);
 
-    public User createUser(User user) {
-        verifyExistsUsername(user.getUsername());
+        User user = new User();
+        user.setUsername(username);
+        user.setDisplayName(userPostDto.getDisplayName());
 
-        String encryptedPassword = passwordEncoder.encode(user.getPassword());
+        String encryptedPassword = passwordEncoder.encode(userPostDto.getPassword());
         user.setPassword(encryptedPassword);
 
-        List<String> roles = new ArrayList<>();
-        roles.add("USER");
+        List<String> roles = authorityUtils.createRoles(username);
         user.setRoles(roles);
 
-        return userRepository.save(user);
+        Address address = new Address(user.getDisplayName(), userPostDto.getZonecode(), userPostDto.getAddress(),
+                userPostDto.getDetailAddress(), userPostDto.getPhone());
+        UserAddress userAddress = userAddressService.createUserPrimaryAddress(address);
+        user.setPrimaryAddressId(userAddress.getId());
+
+        User createdUser = userRepository.save(user);
+
+        return createdUser.toDto(address);
     }
 
-    public User findUser(long userId) {
-        return findVerifiedUserById(userId);
+    public UserDto findUser(long userId) {
+        User user = findVerifiedUserById(userId);
+        UserAddress userAddress = userAddressService.readUserAddress(user.getPrimaryAddressId());
+
+        return user.toDto(userAddress.getAddress());
     }
 
-    public User editUser(long userId, UserPatchDto userPatchDto) {
+    public UserDto findUser(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
+
+        return user.toDto();
+    }
+
+    public UserDto editUser(long userId, UserPatchDto userPatchDto) {
         User user = findVerifiedUserById(userId);
 
         Optional.ofNullable(userPatchDto.getDisplayName()).ifPresent(user::setDisplayName);
@@ -53,11 +75,12 @@ public class UserService {
             String oldPassword = userPatchDto.getOldPassword();
             if (oldPassword != null && passwordEncoder.matches(oldPassword, user.getPassword())) {
                 user.setPassword(passwordEncoder.encode(newPassword));
-            }
-            else { throw new BusinessLogicException(ExceptionCode.WRONG_PASSWORD);
+            } else {
+                throw new BusinessLogicException(ExceptionCode.USER_WRONG_PASSWORD);
             }
         });
-        return userRepository.save(user);
+
+        return user.toDto();
     }
 
     public void deleteUser(long userId) {
@@ -73,11 +96,9 @@ public class UserService {
         return foundUser;
     }
 
-    private void verifyExistsUsername(String username) {
-        Optional<User> user = userRepository.findByusername(username);
-
-        if (user.isPresent()) {
-            throw new BusinessLogicException(ExceptionCode.USER_EXISTS);
+    public void verifyExistsUsername(String username) {
+        if (userRepository.existsByUsername(username)) {
+            throw new BusinessLogicException(ExceptionCode.USER_USERNAME_EXISTS);
         }
     }
 }

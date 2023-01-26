@@ -1,7 +1,6 @@
-package com.codestates.seb41_main_034.order.dto;
+package com.codestates.seb41_main_034.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -10,29 +9,20 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
-public class OrderDto {
-
+public class UserDto {
     private long id;
-
-    private List<OrderProductDto> products;
-
-    private String recipient;
-
+    private String username;
+    private String displayName;
+    private List<String> roles;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String zonecode;
-
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String address;
-
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String detailAddress;
-
-    @JsonInclude(Include.NON_NULL)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String phone;
-
-    private int createdBy;
-
-    private int modifiedBy;
-
     private LocalDateTime createdAt;
-
     private LocalDateTime modifiedAt;
 
 }

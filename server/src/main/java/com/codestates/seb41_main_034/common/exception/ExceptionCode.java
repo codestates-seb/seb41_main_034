@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum ExceptionCode {
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "회원을 찾을 수 없습니다."),
+    USER_WRONG_PASSWORD(HttpStatus.BAD_REQUEST, "비밀번호가 맞지 않습니다."),
+    USER_USERNAME_EXISTS(HttpStatus.CONFLICT, "아이디가 이미 존재합니다."),
     PRODUCT_NOT_FOUND(HttpStatus.NOT_FOUND, "상품을 찾을 수 없습니다."),
     PRODUCT_NOT_ENOUGH_STOCK(HttpStatus.FORBIDDEN, "재고가 부족합니다."),
     ORDER_UNAVAILABLE_PRODUCT(HttpStatus.FORBIDDEN, "구매할 수 없는 상품입니다."),

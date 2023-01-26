@@ -27,6 +27,14 @@ public class UserAddressService {
         return userAddressRepository.save(userAddress);
     }
 
+    public UserAddress createUserPrimaryAddress(Address address) {
+        UserAddress userAddress = new UserAddress();
+
+        userAddress.setAddress(address);
+
+        return userAddressRepository.save(userAddress);
+    }
+
     @Transactional(readOnly = true)
     public UserAddress readUserAddress(long userAddressId) {
         return userAddressRepository.findById(userAddressId)

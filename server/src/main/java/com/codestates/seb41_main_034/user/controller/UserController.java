@@ -1,54 +1,63 @@
 package com.codestates.seb41_main_034.user.controller;
 
+import com.codestates.seb41_main_034.common.response.Response;
+import com.codestates.seb41_main_034.user.dto.UserDto;
 import com.codestates.seb41_main_034.user.dto.UserPatchDto;
 import com.codestates.seb41_main_034.user.dto.UserPostDto;
-import com.codestates.seb41_main_034.user.entity.User;
-import com.codestates.seb41_main_034.user.mapper.UserMapper;
 import com.codestates.seb41_main_034.user.service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
+@AllArgsConstructor
 @RestController
-@CrossOrigin
-@RequestMapping("/users")
+@RequestMapping("/api/v1/user")
 @Validated
 public class UserController {
     private final UserService userService;
-    private final UserMapper mapper;
-
-    public UserController(UserService userService, UserMapper mapper) {
-        this.userService = userService;
-        this.mapper = mapper;
-    }
 
     //회원가입
     @PostMapping("/signup")
     public ResponseEntity postUser(@Valid @RequestBody UserPostDto userPostDto) {
-        User user = userService.createUser(mapper.userPostDtoToUser(userPostDto));
+        UserDto userDto = userService.createUser(userPostDto);
 
-        return new ResponseEntity<>(mapper.userToUserResponseDto(user),
+        return new ResponseEntity<>(Response.of(userDto),
                 HttpStatus.CREATED);
     }
+
+    @GetMapping("/duplicate-check")
+    @ResponseStatus(HttpStatus.OK)
+    public void getDuplicateCheck(@NotBlank @RequestParam String username) {
+        userService.verifyExistsUsername(username);
+    }
+
+    @GetMapping("/login-status")
+    public ResponseEntity getLoginStatus(@AuthenticationPrincipal String username) {
+        return new ResponseEntity<>(Response.of(userService.findUser(username)), HttpStatus.OK);
+    }
+
 
     @GetMapping("/{user-id}")
     public ResponseEntity getUser(
             @PathVariable("user-id") @Positive long userId) {
-        User user = userService.findUser(userId);
-        return new ResponseEntity<>((mapper.userToUserResponseDto(user))
+        UserDto userDto = userService.findUser(userId);
+        return new ResponseEntity<>(Response.of(userDto)
                 , HttpStatus.OK);
     }
 
     @PatchMapping("/{user-id}")
     public ResponseEntity<?> edit(
             @PathVariable("user-id") @Positive long userId, @RequestBody UserPatchDto userPatchDto) {
-        User user = userService.editUser(userId, userPatchDto);
+        UserDto userDto = userService.editUser(userId, userPatchDto);
 
-        return new ResponseEntity<>((mapper.userToUserResponseDto(user))
+        return new ResponseEntity<>(Response.of(userDto)
                 , HttpStatus.OK);
     }
 
