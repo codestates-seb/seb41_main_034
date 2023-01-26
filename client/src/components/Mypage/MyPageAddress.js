@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   MyAddressContainer,
   Addressheader,
@@ -6,11 +5,9 @@ import {
   SelectTitle,
   AddressTitle,
   RecipientTitle,
-  PhoneNumberTitle,
   EditTitle,
   AddressText,
   RecipientText,
-  PhoneNumberText,
   EditIconContainer,
   CheckIconContainer,
   AddressButtonContainer,
@@ -30,9 +27,23 @@ import MyPageHeader from './MyPageHeader';
 import { ReactComponent as CheckIcon } from '../../assets/icons/checkIcon.svg';
 import { ReactComponent as EditIcon } from '../../assets/icons/editIcon.svg';
 import { ReactComponent as CancleIcon } from '../../assets/icons/cancleIcon.svg';
+import { userAddressGetAPI } from '../../api/address';
+import { useEffect, useState } from 'react';
 
 const MyPageAddress = () => {
-  const [list, setList] = useState([{}, {}, {}]);
+  const [address, setAddress] = useState([]);
+  useEffect(() => {
+    const init = async () => {
+      const body = 'userAddress';
+      const data = await userAddressGetAPI(body);
+      console.log('data', data);
+      setAddress(data.data);
+      console.log(address);
+    };
+    init();
+  }, []);
+
+  // const [list, setList] = useState([{}, {}, {}]);
   const [modal, setModal] = useState(false);
   const onRemove = () => {
     if (window.confirm('주소를 삭제하시겠습니까?')) {
@@ -41,20 +52,7 @@ const MyPageAddress = () => {
       alert('취소했습니다.');
     }
   };
-  const textLengthOverCut = (txt, len, lastTxt) => {
-    if (len === '' || len === null) {
-      // 기본값
-      len = 20;
-    }
-    if (lastTxt === '' || lastTxt === null) {
-      // 기본값
-      lastTxt = '...';
-    }
-    if (txt.length > len) {
-      txt = txt.substr(0, len) + lastTxt;
-    }
-    return txt;
-  };
+
   return (
     <>
       <MyPageHeader title={'주소관리'} />
@@ -63,10 +61,9 @@ const MyPageAddress = () => {
           <SelectTitle>기본 배송지</SelectTitle>
           <AddressTitle>주소</AddressTitle>
           <RecipientTitle>받는사람</RecipientTitle>
-          <PhoneNumberTitle>연락처</PhoneNumberTitle>
           <EditTitle>수정</EditTitle>
         </Addressheader>
-        {list.map((el, idx) => {
+        {address.map((el, idx) => {
           return (
             <AddressInfo key={idx}>
               <CheckIconContainer>
@@ -74,7 +71,6 @@ const MyPageAddress = () => {
               </CheckIconContainer>
               <AddressText>서울시 서초구 서초대로</AddressText>
               <RecipientText>최코딩</RecipientText>
-              <PhoneNumberText>010-1234-5678</PhoneNumberText>
               <EditIconContainer>
                 <EditIcon alt="주소 수정버튼입니다" />
                 <CancleIcon onClick={onRemove} alt="주소 삭제 버튼입니다" />
@@ -107,13 +103,6 @@ const MyPageAddress = () => {
                 <ModalViewBodyTableRightInput
                   type="Recipient"
                   aria-label="받는사람을 입력하세요."
-                />
-              </ModalViewBodyTable>
-              <ModalViewBodyTable>
-                <ModalViewBodyTableLeft>연락처</ModalViewBodyTableLeft>
-                <ModalViewBodyTableRightInput
-                  type="PhoneNumber"
-                  aria-label="연락처을 입력하세요."
                 />
               </ModalViewBodyTable>
             </ModalViewBody>

@@ -486,18 +486,18 @@ const OrderListContainer = styled.div`
 `;
 
 const LeftContent = styled.div`
-  width: 96px;
-  height: 96px;
+  width: 120px;
+  height: 120px;
   margin-top: 8px;
   margin-right: 12px;
 
   @media ${(props) => props.theme.tablet} {
-    width: 72px;
-    height: 72px;
+    width: 120px;
+    height: 120px;
   }
   @media ${(props) => props.theme.mobile} {
-    width: 30px;
-    height: 30px;
+    width: 80px;
+    height: 80px;
   }
 `;
 
@@ -519,24 +519,40 @@ const CenterContent = styled.div`
 
   @media ${(props) => props.theme.tablet} {
     width: 100%;
-    max-width: 399px;
+    max-width: 170px;
   }
   @media ${(props) => props.theme.mobile} {
     width: 100%;
+    max-width: 100px;
   }
 `;
 
 const ProductName = styled.div`
   margin-bottom: 4px;
+  font-size: 16px;
   font-weight: bold;
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 8px;
+  }
 `;
 
 const OrderListPrice = styled.div`
   margin-bottom: 4px;
+  font-size: 16px;
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 8px;
+  }
 `;
 
 const OrderQuantity = styled.div`
   margin-bottom: 4px;
+  font-size: 16px;
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 8px;
+  }
 `;
 
 const RightContent = styled.div`
@@ -545,32 +561,39 @@ const RightContent = styled.div`
   display: grid;
   align-items: center;
   font-size: 20px;
+
   @media ${(props) => props.theme.tablet} {
     width: 100%;
-    max-width: 399px;
+    max-width: 150px;
   }
   @media ${(props) => props.theme.mobile} {
-    width: 100%;
+    max-width: 100px;
   }
 
   svg {
     fill: ${(props) => props.theme.grayColor};
   }
 `;
-const CancleImgContainer = styled.button`
+const CancleImgContainer = styled.div`
   display: flex;
   width: 100%;
   justify-content: end;
 
   svg {
+    width: 16px;
+    height: 16px;
     fill: ${(props) => props.theme.grayColor};
   }
 `;
 
 const OrderStatus = styled.div`
-  margin-top: 12px;
+  margin: 12px 0 18px 0;
   font-size: 20px;
   font-weight: bold;
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 12px;
+  }
 `;
 
 //MyPageAddress
@@ -617,7 +640,7 @@ const AddressTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 25%;
+  width: 40%;
   font-size: 16px;
   font-weight: 700;
 
@@ -630,7 +653,7 @@ const RecipientTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20%;
+  width: 30%;
   font-size: 16px;
   font-weight: 700;
 
@@ -670,8 +693,8 @@ const CheckIconContainer = styled.div`
   align-items: center;
   justify-content: center;
   svg {
-    width: 24px;
-    height: 24px;
+    width: 16px;
+    height: 16px;
     fill: ${(props) => props.theme.grayColor};
   }
 
@@ -684,7 +707,7 @@ const CheckIconContainer = styled.div`
 `;
 
 const AddressText = styled.div`
-  width: 25%;
+  width: 40%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -696,7 +719,7 @@ const AddressText = styled.div`
 `;
 
 const RecipientText = styled.div`
-  width: 20%;
+  width: 30%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -725,8 +748,8 @@ const EditIconContainer = styled.div`
   align-items: center;
   justify-content: center;
   svg {
-    width: 24px;
-    height: 24px;
+    width: 16px;
+    height: 16px;
     fill: ${(props) => props.theme.grayColor};
   }
 
@@ -768,6 +791,7 @@ const ModalContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 24px;
   width: 100%;
   height: 100vh;
   background-color: rgba(173, 181, 189, 0.7);
@@ -800,8 +824,8 @@ const ModalViewBodyTableLeft = styled.div`
   width: 30%;
   height: 100%;
   font-size: 12px;
-  background-color: ${(props) => props.theme.primaryColor};
-  color: ${(props) => props.theme.whiteColor};
+
+  color: ${(props) => props.theme.primaryColor};
 `;
 
 const ModalViewBodyTableRightInput = styled.input`
@@ -812,7 +836,7 @@ const ModalViewBodyTableRightInput = styled.input`
   width: 70%;
   height: 100%;
   font-size: 12px;
-  border-bottom: 1px solid ${(props) => props.theme.grayColor};
+  border: 1px solid ${(props) => props.theme.grayColor};
 `;
 
 const ModalViewBodyTableButton = styled.button`
@@ -858,7 +882,7 @@ const ModalViewFooterButtonRight = styled.button`
   width: 23%;
   height: 50%;
   font-size: 12px;
-  border-radius: 5px;
+  border-radius: 4px;
   background-color: ${(props) => props.theme.primaryColor};
   color: ${(props) => props.theme.whiteColor};
 `;
@@ -886,6 +910,22 @@ const ReviewListContainer = styled.div`
     font-size: 8px;
   }
 `;
+const ReviewButton = styled.button`
+  width: 100%;
+  max-width: 100px;
+  height: 100%;
+  padding: 8px 4px 8px 4px;
+  font-size: 12px;
+  border-radius: 4px;
+  background-color: ${(props) => props.theme.primaryColor};
+  color: ${(props) => props.theme.whiteColor};
+
+  @media ${(props) => props.theme.mobile} {
+    max-width: 60px;
+    padding: 4px 0;
+    font-size: 8px;
+  }
+`;
 
 const ProductImg2 = styled.img`
   width: 100%;
@@ -893,11 +933,20 @@ const ProductImg2 = styled.img`
 `;
 
 const MyPageReviewImage = styled.div`
-  width: 100%;
-  height: 100%;
-  max-width: 160px;
-`;
+  width: 120px;
+  height: 120px;
+  margin-top: 8px;
+  margin-right: 12px;
 
+  @media ${(props) => props.theme.tablet} {
+    width: 120px;
+    height: 120px;
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: 80px;
+    height: 80px;
+  }
+`;
 const MyPageReviewContent = styled.div`
   padding: 10px;
   width: 70%;
@@ -909,16 +958,16 @@ const MyPageReviewContentTop = styled.div`
   align-items: center;
   width: 100%;
   height: 70%;
-  font-size: 8px;
+  font-size: 16px;
 
   @media ${(props) => props.theme.tablet} {
     width: 100%;
-    font-size: 8px;
+    font-size: 12px;
   }
 
   @media ${(props) => props.theme.mobile} {
     width: 100%;
-    font-size: 4px;
+    font-size: 8px;
   }
 `;
 
@@ -939,8 +988,9 @@ const MyPageReviewContent2 = styled.div`
 `;
 
 const MyPageReviewContentText = styled.div`
-  font-size: 8px;
   margin-right: 8px;
+  font-size: 16px;
+  font-weight: bold;
 `;
 
 const MyPageReviewDelete = styled.div`
@@ -950,8 +1000,14 @@ const MyPageReviewDelete = styled.div`
 
 const CancleImgContainer3 = styled.div`
   display: flex;
-  width: 100%;
+  align-items: center;
   justify-content: end;
+  width: 100%;
+  svg {
+    width: 16px;
+    height: 16px;
+    fill: ${(props) => props.theme.grayColor};
+  }
 
   svg {
     fill: ${(props) => props.theme.grayColor};
@@ -1041,6 +1097,7 @@ export {
   CancleImgContainer,
   OrderStatus,
   ProductImg,
+  ReviewButton,
   MyAddressContainer,
   Addressheader,
   AddressInfo,
