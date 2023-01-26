@@ -1,4 +1,4 @@
-package com.codestates.seb41_main_034.config;
+package com.codestates.seb41_main_034.auth.config;
 
 import com.codestates.seb41_main_034.auth.filter.JwtAuthenticationFilter;
 import com.codestates.seb41_main_034.auth.filter.JwtVerificationFilter;
@@ -22,7 +22,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
+import java.util.List;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -60,8 +60,11 @@ public class SecurityConfiguration {
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers(HttpMethod.POST, "/users/login").permitAll()
-                        .antMatchers(HttpMethod.GET, "/users/*").hasRole("USER")
+                        .antMatchers(HttpMethod.POST, "/api/v1/user/login").permitAll()
+                        .antMatchers(HttpMethod.GET, "/api/v1/user/duplicate-check").permitAll()
+                        .antMatchers(HttpMethod.GET, "/api/v1/user/*").hasRole("USER")
+                        .antMatchers(HttpMethod.PATCH, "/api/v1/user/*").hasRole("USER")
+                        .antMatchers(HttpMethod.DELETE, "/api/v1/user/*").hasRole("USER")
                         .anyRequest().permitAll()
                 );
         return http.build();
@@ -74,13 +77,15 @@ public class SecurityConfiguration {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        // "*"이 없으면 cors 뜸
-        configuration.setAllowedHeaders(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("*"));
-        configuration.addExposedHeader("Authorization");
+        configuration.setAllowedOriginPatterns(List.of("*"));
+        configuration.setAllowedMethods(List.of("*"));
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setExposedHeaders(List.of("Authorization", "refreshToken"));
+        configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
+
         return source;
     }
 
@@ -90,7 +95,7 @@ public class SecurityConfiguration {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
 
             JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
-            jwtAuthenticationFilter.setFilterProcessesUrl("/users/login");
+            jwtAuthenticationFilter.setFilterProcessesUrl("/api/v1/user/login");
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new UserAuthenticationSuccessHandler());
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new UserAuthenticationFailureHandler());
 

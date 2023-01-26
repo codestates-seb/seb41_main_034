@@ -29,10 +29,9 @@ image:
 
 #jwt 시스템 환경 변수 설정 필요
 jwt:
-  secret-key: ${JWT_SECRET_KEY}
+  secret-key: kasdhgkjashdlkgfhqwkejflklsdjglasjglkwje
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 420
 
 account:
-  address:
-    admin: admin
+  admin: admin

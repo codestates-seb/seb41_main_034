@@ -24,7 +24,7 @@ public class OrderAddressPatchDto {
     @NotBlank
     private String detailAddress;
 
-    @NotNull
+//    @NotNull
     @Pattern(regexp = "\\A\\d{10,12}\\z", message = "10자리에서 12자리의 숫자여야 합니다.")
     private String phone;
 

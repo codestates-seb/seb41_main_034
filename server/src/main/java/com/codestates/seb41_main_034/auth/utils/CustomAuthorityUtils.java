@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class CustomAuthorityUtils {
-    @Value("${account.address.admin}")
+    @Value("${account.admin}")
     private String adminAccount;
 
     private final List<GrantedAuthority> ADMIN_ROLES = AuthorityUtils.createAuthorityList("ROLE_ADMIN", "ROLE_USER");

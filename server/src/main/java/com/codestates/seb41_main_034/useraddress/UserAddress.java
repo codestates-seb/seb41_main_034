@@ -22,7 +22,9 @@ public class UserAddress extends Auditable {
 
     public UserAddressDto toDto(Long primaryId) {
         return new UserAddressDto(id, address.getRecipient(), address.getZonecode(), address.getAddress(),
-                address.getDetailAddress(), address.getPhone(), id.equals(primaryId),
+                address.getDetailAddress(),
+                address.getPhone(),
+                id.equals(primaryId),
                 getCreatedBy(), getModifiedBy(), getCreatedAt(), getModifiedAt());
     }
 
