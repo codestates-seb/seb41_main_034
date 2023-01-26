@@ -1,6 +1,4 @@
 import {
-  OrderDateContainer,
-  OrderDate,
   OrderListContainer,
   LeftContent,
   CenterContent,
@@ -14,7 +12,6 @@ import {
   ReviewButton
 } from '../../styles/myPageStyle';
 
-import MyPageHeader from './MyPageHeader';
 import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
 import { useState, useEffect } from 'react';
 import ReviewModal from './ReviewModal';
@@ -37,14 +34,9 @@ const MyPageOrderList = () => {
       alert('취소했습니다.');
     }
   };
+
   return (
     <>
-      <MyPageHeader title={'주문목록'} />
-      <OrderDateContainer>
-        {' '}
-        <OrderDate>2023.01.07</OrderDate>
-      </OrderDateContainer>
-
       <OrderListContainer>
         <LeftContent>
           <ProductImg

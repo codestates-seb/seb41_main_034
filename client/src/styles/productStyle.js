@@ -337,6 +337,7 @@ const BigInput = styled.textarea`
   width: 100%;
   height: 200px;
   margin: 16px 0 12px 0;
+  padding: 8px;
   border: 1px solid ${(props) => props.theme.borderColor};
   border-left: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
@@ -383,7 +384,7 @@ const CancleImgContainer = styled.div`
   display: flex;
   justify-content: end;
   width: 100%;
-  max-width: 425px;
+  max-width: 435px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   background-color: rgba(0, 0, 0, 0.5);
