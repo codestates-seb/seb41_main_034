@@ -26,3 +26,13 @@ logging:
 image:
   local-path: /Users/jmkim/Projects/seb41_main_034/images
   server-url: http://example.com/images/
+
+#jwt 시스템 환경 변수 설정 필요
+jwt:
+  secret-key: ${JWT_SECRET_KEY}
+  access-token-expiration-minutes: 30
+  refresh-token-expiration-minutes: 420
+
+account:
+  address:
+    admin: admin
