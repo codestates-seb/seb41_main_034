@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+// import { Link } from 'react-router-dom';
 
 const ProductImageContainer = styled.div`
   position: relative;
@@ -239,8 +240,6 @@ const ReviewModalContainer = styled.div`
   left: 50%;
   width: 100%;
   max-width: 425px;
-  padding: 24px 48px 48px 48px;
-  margin-top: 24px;
   border-radius: 4px;
   background-color: ${(props) => props.theme.whiteColor};
   transition: transform 0.5s;
@@ -286,7 +285,7 @@ const QuestionModalContainer = styled.div`
 
 const MiddleText = styled.div`
   display: flex;
-  margin: 4px 0 28px 0;
+  margin: 24px 0 24px 0;
   justify-content: center;
   font-size: 28px;
   color: ${(props) => props.theme.primaryColor};
@@ -314,7 +313,6 @@ const LeftText = styled.label`
 
 const MiddleContainer = styled.div`
   width: 100%;
-  margin: 20px 0px;
 `;
 
 const SmallInput = styled.input`
@@ -337,9 +335,8 @@ const SmallInput = styled.input`
 
 const BigInput = styled.textarea`
   width: 100%;
-  height: 100px;
-  padding: 4px 4px 4px 4px;
-  margin: 16px 0 32px 0;
+  height: 200px;
+  margin: 16px 0 12px 0;
   border: 1px solid ${(props) => props.theme.borderColor};
   border-left: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
@@ -356,8 +353,11 @@ const BigInput = styled.textarea`
   }
 `;
 
-const CompletButton = styled.button`
+const CompletButton = styled.div`
+  display: grid;
+  justify-content: center;
   width: 100%;
+  margin-top: 24px;
   padding: 8px;
   background-color: ${(props) => props.theme.primaryColor};
   border-radius: 4px;
@@ -374,9 +374,16 @@ const CompletButton = styled.button`
   }
 `;
 
+const ReviewWrapper = styled.div`
+  width: 100%;
+  padding: 0 48px 48px 48px;
+`;
+
 const CancleImgContainer = styled.div`
   display: flex;
   justify-content: end;
+  width: 100%;
+  max-width: 425px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   background-color: rgba(0, 0, 0, 0.5);
@@ -386,13 +393,14 @@ const CancleImgContainer = styled.div`
     height: 30px;
     margin-bottom: 4px;
     fill: ${(props) => props.theme.grayColor};
-    background-color: rgba(0, 0, 0, 0, 0.5);
+    /* background-color: rgba(0, 0, 0, 0, 0.5); */
   }
 `;
 
 const ReviewNotice = styled.div`
   font-size: 12px;
   margin-bottom: 10px;
+  color: ${(props) => props.theme.grayColor};
 `;
 
 const ProductWrapper = styled.div`
@@ -535,7 +543,6 @@ const ProductNavbarItem = styled.li`
   width: 25%;
   height: 100%;
   cursor: pointer;
-
   &:not(:last-child) {
     border-right: 1px solid ${(props) => props.theme.borderColor};
   }
@@ -823,5 +830,6 @@ export {
   ProductContent,
   ProductOrder,
   ProductWrapper,
-  ProductButtonContainer
+  ProductButtonContainer,
+  ReviewWrapper
 };

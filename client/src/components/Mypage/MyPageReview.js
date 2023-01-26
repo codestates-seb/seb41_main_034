@@ -11,6 +11,7 @@ import {
 } from '../../styles/myPageStyle';
 import MyPageHeader from './MyPageHeader';
 import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
+import { ReactComponent as EditIcon } from '../../assets/icons/editIcon.svg';
 //   import { Link } from 'react-router-dom';
 
 const MyPageReview = () => {
@@ -64,6 +65,7 @@ const MyPageReview = () => {
         </MyPageReviewContent>
         <MyPageReviewDelete>
           <CancleImgContainer3>
+            <EditIcon alt="후기 수정버튼입니다" />
             <CancelIcon onClick={onRemove} alt="후기 삭제 버튼입니다" />
           </CancleImgContainer3>
         </MyPageReviewDelete>
