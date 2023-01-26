@@ -11,17 +11,7 @@ import {
   EditIconContainer,
   CheckIconContainer,
   AddressButtonContainer,
-  AddressButton,
-  ModalContainer,
-  ModalView,
-  ModalViewBody,
-  ModalViewBodyTable,
-  ModalViewBodyTableLeft,
-  ModalViewBodyTableRightInput,
-  ModalViewFooter,
-  ModalViewBodyTableButton,
-  ModalViewFooterButtonLeft,
-  ModalViewFooterButtonRight
+  AddressButton
 } from '../../styles/myPageStyle';
 import MyPageHeader from './MyPageHeader';
 import { ReactComponent as CheckIcon } from '../../assets/icons/checkIcon.svg';
@@ -29,9 +19,13 @@ import { ReactComponent as EditIcon } from '../../assets/icons/editIcon.svg';
 import { ReactComponent as CancleIcon } from '../../assets/icons/cancleIcon.svg';
 import { userAddressGetAPI } from '../../api/address';
 import { useEffect, useState } from 'react';
+import EditAddressModal from './EditAddressModal';
+// import AddAddressModal from './AddAddressModal';
 
 const MyPageAddress = () => {
   const [address, setAddress] = useState([]);
+  const [modal, setModal] = useState(false);
+  // const [addmodal, setaddModal] = useState(false);
 
   useEffect(() => {
     const init = async () => {
@@ -39,13 +33,12 @@ const MyPageAddress = () => {
       const data = await userAddressGetAPI(body);
       console.log('data', data);
       setAddress(data.data);
-      console.log(address);
+      // console.log(address);
     };
     init();
-  }, [address]);
+  }, []);
 
   // const [list, setList] = useState([{}, {}, {}]);
-  const [modal, setModal] = useState(false);
   const onRemove = () => {
     if (window.confirm('주소를 삭제하시겠습니까?')) {
       alert('삭제되었습니다');
@@ -85,39 +78,9 @@ const MyPageAddress = () => {
           새 주소 추가
         </AddressButton>
       </AddressButtonContainer>
-      {/* modal */}
-      {modal ? (
-        <ModalContainer>
-          <ModalView>
-            <ModalViewBody>
-              <ModalViewBodyTable>
-                <ModalViewBodyTableLeft>주소</ModalViewBodyTableLeft>
-                <ModalViewBodyTableRightInput
-                  type="address"
-                  aria-label="주소를 입력하세요."
-                />
-                {/* 서울시 서초구 서초대로 */}
-                <ModalViewBodyTableButton>주소 변경</ModalViewBodyTableButton>
-              </ModalViewBodyTable>
-              <ModalViewBodyTable>
-                <ModalViewBodyTableLeft>받는사람</ModalViewBodyTableLeft>
-                <ModalViewBodyTableRightInput
-                  type="Recipient"
-                  aria-label="받는사람을 입력하세요."
-                />
-              </ModalViewBodyTable>
-            </ModalViewBody>
-            <ModalViewFooter>
-              <ModalViewFooterButtonLeft>
-                기본 주소 설정
-              </ModalViewFooterButtonLeft>
-              <ModalViewFooterButtonRight onClick={() => setModal((e) => !e)}>
-                수정 완료
-              </ModalViewFooterButtonRight>
-            </ModalViewFooter>
-          </ModalView>
-        </ModalContainer>
-      ) : null}
+
+      <EditAddressModal modal={modal} setModal={setModal} />
+      {/* <AddAddressModal modal={addmodal} setModal={setaddModal} /> */}
     </>
   );
 };
