@@ -10,15 +10,17 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity(name = "USERS")
+@Entity
+@Table(name = "users", indexes = @Index(name = "idx_username", columnList = "username", unique = true))
 public class User extends DateAuditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(nullable = false, updatable = false, unique = true)
     private String username;
@@ -37,13 +39,28 @@ public class User extends DateAuditable {
 
     public UserDto toDto(Address address) {
         return new UserDto(id, username, displayName, roles,
-                address.getZonecode(), address.getAddress(), address.getDetailAddress(), address.getPhone(),
+                Optional.ofNullable(address).map(Address::getAddress).orElse(null),
                 getCreatedAt(), getModifiedAt());
     }
 
     public UserDto toDto() {
-        return new UserDto(id, username, displayName, roles,
-                null, null, null, null,
-                getCreatedAt(), getModifiedAt());
+        return toDto(null);
+    }
+
+    public String getMaskedName() {
+        if (roles.contains("ADMIN")) {
+            return displayName;
+        }
+
+        if (displayName.length() <= 1) {
+            return "*";
+        }
+
+        if (displayName.length() == 2) {
+            return displayName.charAt(0) + "*";
+        }
+
+        return displayName.charAt(0) + "*".repeat(displayName.length() - 2) +
+                displayName.charAt(displayName.length() - 1);
     }
 }

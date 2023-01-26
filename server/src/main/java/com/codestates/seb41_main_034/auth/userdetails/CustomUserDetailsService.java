@@ -35,6 +35,10 @@ public class CustomUserDetailsService implements UserDetailsService {
             setDisplayName(user.getDisplayName());
             setPassword(user.getPassword());
             setRoles(user.getRoles());
+            setPrimaryAddressId(user.getPrimaryAddressId());
+            setCreatedAt(user.getCreatedAt());
+            setModifiedAt(user.getModifiedAt());
+            setDeleted(user.isDeleted());
         }
 
         @Override

@@ -10,6 +10,8 @@ import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.Collections;
+import java.util.Map;
 import java.util.Optional;
 
 @Getter
@@ -30,19 +32,21 @@ public class Question extends Auditable {
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "question")
     private Answer answer;
 
-    public QuestionDto toDto(JsonListHelper helper, Product product) {
+    public QuestionDto toDto(
+            JsonListHelper helper, Product product, Map<Integer, String> idNameMap) {
         Optional<Product> optionalProduct = Optional.ofNullable(product);
         String productName = optionalProduct.map(Product::getName).orElse(null);
         String productImageUrl = optionalProduct.map(Product::getImageUrls).map(helper::jsonToList)
                 .map(urlList -> urlList.isEmpty() ? null : urlList.get(0)).orElse(null);
-        AnswerDto answerDto = Optional.ofNullable(answer).map(Answer::toDto).orElse(null);
+        AnswerDto answerDto = Optional.ofNullable(answer)
+                .map(_answer -> _answer.toDto(idNameMap.get(_answer.getCreatedBy()))).orElse(null);
 
         return new QuestionDto(id, productId, productName, productImageUrl, body, answerDto,
-                getCreatedBy(), getModifiedBy(), getCreatedAt(), getModifiedAt());
+                getCreatedBy(), idNameMap.get(getCreatedBy()), getModifiedBy(), getCreatedAt(), getModifiedAt());
     }
 
     public QuestionDto toDto(JsonListHelper helper) {
-        return toDto(helper, null);
+        return toDto(helper, null, Collections.emptyMap());
     }
 
 }

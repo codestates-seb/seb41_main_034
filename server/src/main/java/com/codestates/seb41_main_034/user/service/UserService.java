@@ -12,12 +12,15 @@ import com.codestates.seb41_main_034.user.repository.UserRepository;
 import com.codestates.seb41_main_034.useraddress.UserAddress;
 import com.codestates.seb41_main_034.useraddress.UserAddressService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 @AllArgsConstructor
 @Service
@@ -42,31 +45,36 @@ public class UserService {
         List<String> roles = authorityUtils.createRoles(username);
         user.setRoles(roles);
 
-        Address address = new Address(user.getDisplayName(), userPostDto.getZonecode(), userPostDto.getAddress(),
-                userPostDto.getDetailAddress(), userPostDto.getPhone());
-        UserAddress userAddress = userAddressService.createUserPrimaryAddress(address);
-        user.setPrimaryAddressId(userAddress.getId());
-
         User createdUser = userRepository.save(user);
+
+        Address address = new Address(createdUser.getDisplayName(), userPostDto.getAddress());
+        UserAddress userAddress = userAddressService.createUserAddress(createdUser.getId(), address);
+        createdUser.setPrimaryAddressId(userAddress.getId());
 
         return createdUser.toDto(address);
     }
 
-    public UserDto findUser(long userId) {
-        User user = findVerifiedUserById(userId);
+    @Transactional(readOnly = true)
+    public UserDto findUser(int userId) {
+        User authUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (!authUser.getRoles().contains("ADMIN") && authUser.getId() != userId) {
+            throw new BusinessLogicException(ExceptionCode.AUTH_FORBIDDEN);
+        }
+
+        User user = authUser.getId() == userId ? authUser : findVerifiedUserById(userId);
+
         UserAddress userAddress = userAddressService.readUserAddress(user.getPrimaryAddressId());
 
         return user.toDto(userAddress.getAddress());
     }
 
-    public UserDto findUser(String username) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
+    public UserDto editUser(int userId, UserPatchDto userPatchDto) {
+        User authUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        return user.toDto();
-    }
-
-    public UserDto editUser(long userId, UserPatchDto userPatchDto) {
+        if (!authUser.getRoles().contains("ADMIN") && authUser.getId() != userId) {
+            throw new BusinessLogicException(ExceptionCode.AUTH_FORBIDDEN);
+        }
         User user = findVerifiedUserById(userId);
 
         Optional.ofNullable(userPatchDto.getDisplayName()).ifPresent(user::setDisplayName);
@@ -83,24 +91,50 @@ public class UserService {
         return user.toDto();
     }
 
-    public void deleteUser(long userId) {
+    public void deleteUser(int userId) {
         User user = findVerifiedUserById(userId);
+
+        User authUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (!authUser.getRoles().contains("ADMIN") && !Objects.equals(authUser.getId(), user.getId())) {
+            throw new BusinessLogicException(ExceptionCode.AUTH_FORBIDDEN);
+        }
 
         user.setDeleted(true);
     }
 
-    private User findVerifiedUserById(long userId) {
+    @Transactional(readOnly = true)
+    public User findVerifiedUserById(int userId) {
         Optional<User> optionalUser = userRepository.findById(userId);
         User foundUser = optionalUser.orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
 
         return foundUser;
     }
 
+    @Transactional(readOnly = true)
+    public User findVerifiedUserByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
+    }
+
+    @Transactional(readOnly = true)
     public void verifyExistsUsername(String username) {
         if (userRepository.existsByUsername(username)) {
             throw new BusinessLogicException(ExceptionCode.USER_USERNAME_EXISTS);
         }
     }
+
+    @Transactional(readOnly = true)
+    public List<User> getVerifiedUsers(Set<Integer> ids) {
+        List<User> users = userRepository.findAllById(ids);
+
+        if (users.size() != ids.size()) {
+            throw new BusinessLogicException(ExceptionCode.USER_NOT_FOUND);
+        }
+
+        return users;
+    }
+
 }
 
 

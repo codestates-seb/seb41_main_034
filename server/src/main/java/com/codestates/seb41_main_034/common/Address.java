@@ -18,16 +18,7 @@ public class Address {
     @Column(name = "recipient", nullable = false)
     private String recipient;
 
-    @Column(name = "zonecode", nullable = false)
-    private String zonecode;
-
     @Column(name = "address", nullable = false)
     private String address;
-
-    @Column(name = "detail_address", nullable = false)
-    private String detailAddress;
-
-    @Column(name = "phone")
-    private String phone;
 
 }

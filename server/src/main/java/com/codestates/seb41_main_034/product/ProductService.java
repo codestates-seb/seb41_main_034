@@ -88,14 +88,11 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public List<Product> getVerifiedProducts(Set<Integer> productIds) {
-        // 입력받은 ID 수 집계
-        long idCount = productIds.size();
-
         // 모든 ID에 해당하는 상품을 조회
         List<Product> products = productRepository.findAllById(productIds);
 
         // 조회된 상품 수가 ID 수보다 적으면 예외 발생
-        if (products.stream().distinct().count() != idCount) {
+        if (products.size() != productIds.size()) {
             throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
         }
 

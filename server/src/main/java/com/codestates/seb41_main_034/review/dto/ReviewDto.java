@@ -27,7 +27,9 @@ public class ReviewDto {
     private List<String> imageUrls;
 
     private int createdBy;
-    // TODO: 작성자 이름 필요
+
+    @JsonInclude(Include.NON_NULL)
+    private String createdByName;
 
     private int modifiedBy;
 

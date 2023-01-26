@@ -39,8 +39,7 @@ public class Order extends Auditable {
                     return orderProduct.toDto(helper, product);
                 }).collect(Collectors.toList());
 
-        return new OrderDto(id, orderProductDtos, address.getRecipient(), address.getZonecode(),
-                address.getAddress(), address.getDetailAddress(), address.getPhone(),
+        return new OrderDto(id, orderProductDtos, address.getRecipient(), address.getAddress(),
                 getCreatedBy(), getModifiedBy(), getCreatedAt(), getModifiedAt());
     }
 

@@ -12,7 +12,7 @@ public interface UserAddressRepository extends JpaRepository<UserAddress, Long> 
     @Query("select ua from UserAddress ua where ua.id = ?1 and ua.isDeleted = false")
     Optional<UserAddress> findById(Long id);
 
-    @Query("select ua from UserAddress ua where ua.createdBy = ?1 and ua.isDeleted = false")
-    List<UserAddress> findByCreatedBy(int createdBy);
+    @Query("select ua from UserAddress ua where ua.userId = ?1 and ua.isDeleted = false")
+    List<UserAddress> findByUserId(int userId);
 
 }

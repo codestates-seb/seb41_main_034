@@ -51,8 +51,7 @@ public class OrderService {
         order.setOrderProducts(new ArrayList<>(orderProductMap.values()));
 
         // 주소 입력
-        Address address = new Address(postDto.getRecipient(), postDto.getZonecode(),
-                postDto.getAddress(), postDto.getDetailAddress(), postDto.getPhone());
+        Address address = new Address(postDto.getRecipient(), postDto.getAddress());
         order.setAddress(address);
 
         // DB에 저장 후 반환
@@ -105,10 +104,7 @@ public class OrderService {
         // DTO에 입력된 값으로 주소 수정
         Address address = order.getAddress();
         address.setRecipient(addressPatchDto.getRecipient());
-        address.setZonecode(addressPatchDto.getZonecode());
         address.setAddress(addressPatchDto.getAddress());
-        address.setDetailAddress(addressPatchDto.getDetailAddress());
-        address.setPhone(addressPatchDto.getPhone());
 
         return order;
     }
