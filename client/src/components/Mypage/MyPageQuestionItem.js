@@ -14,6 +14,7 @@ import Loading from '../Layout/Loading';
 const MyPageQuestionItem = ({ question }) => {
   const [Question, setQuestion] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [date, setDate] = useState(null);
 
   const onRemove = () => {
     if (window.confirm('해당 상품에 대한 문의를 삭제하시겠습니까?')) {
@@ -27,8 +28,13 @@ const MyPageQuestionItem = ({ question }) => {
   };
 
   useEffect(() => {
-    setQuestion(question);
-    setIsLoading(true);
+    const QuestionAPI = async () => {
+      setQuestion(question);
+      setIsLoading(true);
+      const dater = new Date(question.createdAt).toLocaleDateString();
+      setDate(dater);
+    };
+    QuestionAPI();
   }, [question]);
 
   return isLoading ? (
@@ -43,7 +49,7 @@ const MyPageQuestionItem = ({ question }) => {
         </ItemLinkText>
       </LeftCotainer2>
       <RightContainer2>
-        <ItemText>{Question.createdAt}</ItemText>
+        <ItemText>{date}</ItemText>
         {Question.answer === null ? (
           <ItemText>답변대기</ItemText>
         ) : (

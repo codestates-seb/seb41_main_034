@@ -297,39 +297,40 @@ const LeftTextContainer = styled.div`
   display: flex;
   width: 100%;
   height: 50%;
-  justify-content: center;
+`;
+
+const SpaceDiv = styled.div`
+  width: 100%;
+  height: 30px;
 `;
 
 const LeftText = styled.label`
   width: 100%;
+  max-width: 60px;
   font-size: 16px;
+  margin-bottom: 12px;
+  color: ${(props) => props.theme.primaryColor};
 
   @media ${(props) => props.theme.mobile} {
     font-size: 12px;
   }
 `;
 
-const MiddleContainer = styled.div`
+const BottomText = styled.div`
   width: 100%;
-  margin: 20px 0px;
+  margin-bottom: 24px;
+  font-size: 12px;
+  color: ${(props) => props.theme.grayColor};
 `;
 
-const SmallInput = styled.input`
+const RightText = styled.div`
   width: 100%;
-  /* margin: 16px 0 32px 0; */
-  padding: 4px;
-  border: 1px solid ${(props) => props.theme.borderColor};
-  border-radius: 4px;
-  font-size: 12px;
+  max-width: 60px;
+  font-size: 16px;
+`;
 
-  @media ${(props) => props.theme.mobile} {
-    margin: 12px 0 20px 0;
-    font-size: 8px;
-  }
-
-  &:focus {
-    border: 1px solid ${(props) => props.theme.borderColor};
-  }
+const MiddleContainer = styled.div`
+  width: 100%;
 `;
 
 const BigInput = styled.textarea`
@@ -824,9 +825,9 @@ export {
   AnswerBox,
   CompletButton,
   BigInput,
-  SmallInput,
   MiddleContainer,
   LeftText,
+  RightText,
   LeftTextContainer,
   MiddleText,
   CancleImgContainer,
@@ -836,5 +837,7 @@ export {
   ProductOrder,
   ProductWrapper,
   ProductButtonContainer,
-  ModalView
+  ModalView,
+  SpaceDiv,
+  BottomText
 };

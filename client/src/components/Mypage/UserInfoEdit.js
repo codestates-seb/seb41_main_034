@@ -2,7 +2,6 @@ import {
   UserEditWrapper,
   UserEditContainer,
   EditCotainer,
-  // LeftBox,
   RightBox,
   InputBox,
   PasswordContainer,
@@ -83,17 +82,6 @@ const UserInfoEdit = () => {
               aria-label="이름을 입력해주세요"
               placeholder="이름을 입력해주세요"
               id="name"
-            />
-          </PasswordContainer>
-        </EditCotainer>
-        <EditCotainer>
-          <PasswordContainer>
-            <PasswordText htmlFor="number">연락처</PasswordText>
-            <InputBox
-              type="text"
-              aria-label="연락처를 입력해주세요"
-              placeholder="연락처를 입력해주세요"
-              id="number"
             />
           </PasswordContainer>
         </EditCotainer>
