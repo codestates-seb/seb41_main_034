@@ -193,6 +193,7 @@ const Container = styled.div`
 const Title = styled.div`
   width: 100%;
   font-size: 30px;
+  margin-bottom: 12px;
 
   @media ${(props) => props.theme.tablet} {
     font-size: 24px;
@@ -330,7 +331,6 @@ const LeftBox = styled.label`
 
 const RightBox = styled.div`
   width: 100%;
-  padding: 4px;
 `;
 
 const InputBox = styled.input`
@@ -378,8 +378,8 @@ const PasswordContainer = styled.div`
 const PasswordText = styled.label`
   width: 100%;
   max-width: 147px;
-  padding: 4px;
   font-size: 12px;
+  color: ${(props) => props.theme.primaryColor};
 
   @media ${(props) => props.theme.tablet} {
     max-width: 79px;
@@ -525,6 +525,10 @@ const CenterContent = styled.div`
     width: 100%;
     max-width: 100px;
   }
+`;
+
+const TextWrapper = styled.div`
+  width: 100%;
 `;
 
 const ProductName = styled.div`
@@ -1131,5 +1135,6 @@ export {
   MyPageReviewContent2,
   MyPageReviewContentText,
   MyPageReviewDelete,
-  CancleImgContainer3
+  CancleImgContainer3,
+  TextWrapper
 };

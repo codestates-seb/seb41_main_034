@@ -3,7 +3,8 @@ import {
   ListHeader,
   RightContainer,
   LeftCotainer,
-  Text
+  Text,
+  TextWrapper
 } from '../../styles/myPageStyle';
 import MyPageHeader from './MyPageHeader';
 import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
@@ -24,8 +25,6 @@ const MyPageQuestionList = () => {
     API();
   }, []);
 
-  // console.log(question);
-
   return isLoading ? (
     <>
       <MyPageHeader title={'나의문의'} />
@@ -34,8 +33,12 @@ const MyPageQuestionList = () => {
           <Text>제목 / 상품명</Text>
         </LeftCotainer>
         <RightContainer>
-          <Text>작성일</Text>
-          <Text>답변상태</Text>
+          <TextWrapper>
+            <Text>작성일</Text>
+          </TextWrapper>
+          <TextWrapper>
+            <Text>답변상태</Text>
+          </TextWrapper>
           <CancelIcon />
         </RightContainer>
       </ListHeader>

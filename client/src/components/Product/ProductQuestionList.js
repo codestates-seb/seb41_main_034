@@ -13,7 +13,7 @@ import Loading from '../Layout/Loading';
 
 const ProductQuestionList = () => {
   const [isOpenQuestion, setIsOpenQuestion] = useState(false);
-  const [Question, setQuestion] = useState(null);
+  const [question, setQuestion] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleQuestionOpen = () => {
@@ -23,13 +23,11 @@ const ProductQuestionList = () => {
   useEffect(() => {
     const API = async () => {
       const data = await itemQuestionGetAPI(0, 1);
-      setQuestion(data.data.content);
+      setQuestion(data.data.content.map((el) => el));
       setIsLoading(true);
     };
     API();
-  }, []);
-
-  // console.log(Question);
+  }, [isOpenQuestion]);
 
   return isLoading ? (
     <>
@@ -41,7 +39,7 @@ const ProductQuestionList = () => {
           </QuestionButton>
         </ProductDetailHeader>
         <ReviewListContainer>
-          {Question.map((e, idx) => (
+          {question.map((e, idx) => (
             <ProductQuestionItem key={idx} question={e} />
           ))}
         </ReviewListContainer>
@@ -50,7 +48,8 @@ const ProductQuestionList = () => {
       <QuestionModal
         isOpenQuestion={isOpenQuestion}
         setIsOpenQuestion={setIsOpenQuestion}
-        question={Question}
+        question={question}
+        setQuestion={setQuestion}
       />
     </>
   ) : (
