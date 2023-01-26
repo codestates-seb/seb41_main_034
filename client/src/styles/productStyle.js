@@ -759,7 +759,23 @@ const CategoryTitle = styled.h2`
   }
 `;
 
+const ModalView = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  max-width: 435px;
+  background-color: ${(props) => props.theme.whiteColor};
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  transition: transform 0.5s;
+  transform: translate(-50%, -50%)
+    ${(props) => (props.isOpenQuestion ? 'translateY(0)' : 'translateY(-200%)')};
+  z-index: 98;
+`;
+
 export {
+  ModalView,
   CategoryHeader,
   CategoryTitle,
   Text,

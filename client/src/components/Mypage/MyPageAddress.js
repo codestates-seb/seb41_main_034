@@ -32,6 +32,7 @@ import { useEffect, useState } from 'react';
 
 const MyPageAddress = () => {
   const [address, setAddress] = useState([]);
+
   useEffect(() => {
     const init = async () => {
       const body = 'userAddress';
@@ -41,7 +42,7 @@ const MyPageAddress = () => {
       console.log(address);
     };
     init();
-  }, []);
+  }, [address]);
 
   // const [list, setList] = useState([{}, {}, {}]);
   const [modal, setModal] = useState(false);
