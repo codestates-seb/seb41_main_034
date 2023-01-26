@@ -15,9 +15,9 @@ import {
   SignButton
 } from '../styles/signStyle';
 import { ReactComponent as LogoIcon } from '../assets/icons/foodmeet.svg';
-import { baseAPI, authAPI } from '../api/customAxios';
+import { baseAPI } from '../api/customAxios';
 import { useDispatch } from 'react-redux';
-import { loginDbId, loginUserId } from '../store/userSlice';
+import { loginUserId } from '../store/userSlice';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -38,12 +38,7 @@ const Login = () => {
     try {
       const res = await baseAPI.post(`/user/login`, body);
       localStorage.setItem('accessToken', JSON.stringify(res.headers));
-      const user = await authAPI.get(
-        '/user/login-status',
-        JSON.stringify({ username: form.id })
-      );
-      dispatch(loginDbId(user.data.id));
-      dispatch(loginUserId(user.data.username));
+      dispatch(loginUserId(form.id));
       navigate('/');
     } catch (err) {
       console.log(err);

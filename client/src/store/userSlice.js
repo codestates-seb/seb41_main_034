@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  dbId: '',
+  dbId: `${localStorage.getItem('userDbId')}`,
   userId: ''
 };
 
 const userSlice = createSlice({
-  name: 'login',
+  name: 'user',
   initialState,
   reducers: {
     loginDbId: (state, action) => {

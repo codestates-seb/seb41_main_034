@@ -28,8 +28,9 @@ import ShoppingCart from '../Order/ShoppingCart';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../store/userSlice';
 
-const Header = ({ location, isLogin }) => {
+const Header = ({ location }) => {
   const dispatch = useDispatch();
+  const login = useSelector((state) => state.user.dbId);
   const cart = useSelector((state) => state.order.cart);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isOpenCart, setIsOpenCart] = useState(false);
@@ -37,7 +38,7 @@ const Header = ({ location, isLogin }) => {
   const onClickLogout = () => {
     const isLogout = window.confirm('로그아웃 하시겠습니까?');
 
-    isLogout && localStorage.removeItem('accessToken');
+    isLogout && localStorage.clear();
     isLogout && dispatch(logoutUser());
   };
 
@@ -69,7 +70,7 @@ const Header = ({ location, isLogin }) => {
 
           <HeaderRight>
             <ButtonContainer>
-              {isLogin ? (
+              {login ? (
                 <>
                   <MyPageLink to={'/mypage'}>
                     <MyPageIcon />
@@ -107,11 +108,7 @@ const Header = ({ location, isLogin }) => {
 
       <ShoppingCart isOpenCart={isOpenCart} setIsOpenCart={setIsOpenCart} />
 
-      <MobileMenu
-        isLogin={isLogin}
-        isOpenMenu={isOpenMenu}
-        setIsOpenMenu={setIsOpenMenu}
-      />
+      <MobileMenu isOpenMenu={isOpenMenu} setIsOpenMenu={setIsOpenMenu} />
     </>
   );
 };
