@@ -774,6 +774,24 @@ const ModalView = styled.div`
   z-index: 98;
 `;
 
+const SmallInput = styled.input`
+  width: 100%;
+  margin: 16px 0 32px 0;
+  padding: 4px;
+  border: 1px solid ${(props) => props.theme.borderColor};
+  border-radius: 4px;
+  font-size: 12px;
+
+  @media ${(props) => props.theme.mobile} {
+    margin: 12px 0 20px 0;
+    font-size: 8px;
+  }
+
+  &:focus {
+    border: 1px solid ${(props) => props.theme.borderColor};
+  }
+`;
+
 export {
   ModalView,
   CategoryHeader,
@@ -849,5 +867,6 @@ export {
   ProductButtonContainer,
   ReviewWrapper,
   SpaceDiv,
-  BottomText
+  BottomText,
+  SmallInput
 };
