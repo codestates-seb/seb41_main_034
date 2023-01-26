@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Optional;
+import java.util.List;
 
 @Getter
 @Setter
@@ -46,12 +46,15 @@ public class OrderProduct extends Auditable {
     }
 
     public OrderProductDto toDto(JsonListHelper helper, Product product) {
-        Optional<Product> optionalProduct = Optional.ofNullable(product);
-        String name = optionalProduct.map(Product::getName).orElse(null);
-        String imageUrl = optionalProduct.map(Product::getImageUrls).map(helper::jsonToList)
-                .map(urlList -> urlList.isEmpty() ? null : urlList.get(0)).orElse(null);
+        List<String> urlList = helper.jsonToList(product.getImageUrls());
+        String imageUrl = urlList.isEmpty() ? null : urlList.get(0);
 
-        return new OrderProductDto(productId, name, imageUrl, price, quantity, status,
+        return new OrderProductDto(productId, product.getName(), imageUrl, price, quantity, status,
+                getCreatedBy(), getModifiedBy(), getCreatedAt(), getModifiedAt());
+    }
+
+    public OrderProductDto toDto() {
+        return new OrderProductDto(productId, null, null, price, quantity, status,
                 getCreatedBy(), getModifiedBy(), getCreatedAt(), getModifiedAt());
     }
 

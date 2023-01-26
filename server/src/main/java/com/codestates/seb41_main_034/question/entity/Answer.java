@@ -36,4 +36,8 @@ public class Answer extends Auditable {
         return new AnswerDto(body, getCreatedBy(), createdByName, getModifiedBy(), getCreatedAt(), getModifiedAt());
     }
 
+    public AnswerDto toDto() {
+        return toDto(null);
+    }
+
 }

@@ -12,7 +12,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Getter
@@ -33,18 +32,19 @@ public class Order extends Auditable {
 
     public OrderDto toDto(JsonListHelper helper, Map<Integer, Product> productMap) {
         List<OrderProductDto> orderProductDtos = orderProducts.stream()
-                .map(orderProduct -> {
-                    Product product = Optional.ofNullable(productMap)
-                            .map(map -> map.get(orderProduct.getProductId())).orElse(null);
-                    return orderProduct.toDto(helper, product);
-                }).collect(Collectors.toList());
+                .map(orderProduct -> orderProduct.toDto(helper, productMap.get(orderProduct.getProductId())))
+                .collect(Collectors.toList());
 
         return new OrderDto(id, orderProductDtos, address.getRecipient(), address.getAddress(),
                 getCreatedBy(), getModifiedBy(), getCreatedAt(), getModifiedAt());
     }
 
-    public OrderDto toDto(JsonListHelper helper) {
-        return toDto(helper, null);
+    public OrderDto toDto() {
+        List<OrderProductDto> orderProductDtos =
+                orderProducts.stream().map(OrderProduct::toDto).collect(Collectors.toList());
+
+        return new OrderDto(id, orderProductDtos, address.getRecipient(), address.getAddress(),
+                getCreatedBy(), getModifiedBy(), getCreatedAt(), getModifiedAt());
     }
 
 }

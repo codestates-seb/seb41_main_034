@@ -10,7 +10,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Getter
 @Setter
@@ -38,13 +37,11 @@ public class User extends DateAuditable {
     private long primaryAddressId;
 
     public UserDto toDto(Address address) {
-        return new UserDto(id, username, displayName, roles,
-                Optional.ofNullable(address).map(Address::getAddress).orElse(null),
-                getCreatedAt(), getModifiedAt());
+        return new UserDto(id, username, displayName, roles, address.getAddress(), getCreatedAt(), getModifiedAt());
     }
 
     public UserDto toDto() {
-        return toDto(null);
+        return new UserDto(id, username, displayName, roles, null, getCreatedAt(), getModifiedAt());
     }
 
     public String getMaskedName() {

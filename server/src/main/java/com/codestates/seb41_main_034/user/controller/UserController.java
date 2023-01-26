@@ -34,7 +34,7 @@ public class UserController {
     }
 
     @GetMapping("/duplicate-check")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void getDuplicateCheck(@NotBlank @RequestParam String username) {
         userService.verifyExistsUsername(username);
     }
@@ -43,7 +43,6 @@ public class UserController {
     public ResponseEntity getLoginStatus(@AuthenticationPrincipal User user) {
         return new ResponseEntity<>(Response.of(user.toDto()), HttpStatus.OK);
     }
-
 
     @GetMapping("/{user-id}")
     public ResponseEntity getUser(

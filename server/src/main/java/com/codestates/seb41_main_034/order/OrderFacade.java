@@ -124,7 +124,7 @@ public class OrderFacade {
         Order updatedOrder = orderService.updateOrderAddress(orderId, addressPatchDto);
 
         // DTO로 변환 후 반환
-        return updatedOrder.toDto(helper);
+        return updatedOrder.toDto();
     }
 
     @Transactional
@@ -183,7 +183,7 @@ public class OrderFacade {
         Order updatedOrder = orderService.updateOrderPay(orderId);
 
 
-        return updatedOrder.toDto(helper);
+        return updatedOrder.toDto();
     }
 
     public OrderDto updateOrderPrepare(long orderId) {
@@ -191,7 +191,7 @@ public class OrderFacade {
         Order updatedOrder = orderService.updateOrderPrepare(orderId);
 
         // DTO에 매핑 후 반환
-        return updatedOrder.toDto(helper);
+        return updatedOrder.toDto();
     }
 
     public OrderDto updateOrderShip(long orderId) {
@@ -199,7 +199,7 @@ public class OrderFacade {
         Order order = orderService.updateOrderShip(orderId);
 
         // DTO에 매핑 후 반환
-        return order.toDto(helper);
+        return order.toDto();
     }
 
     @Transactional
@@ -226,7 +226,7 @@ public class OrderFacade {
         productIdDeltaMap.forEach(productService::updateProductStock);
 
         // DTO에 매핑 후 반환
-        return updatedOrder.toDto(helper);
+        return updatedOrder.toDto();
     }
 
 }

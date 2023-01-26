@@ -133,7 +133,7 @@ public class QuestionFacade {
         Question updatedQuestion = questionService.updateQuestion(questionId, questionPatchDto);
 
         // DTO 매핑 후 반환
-        return updatedQuestion.toDto(helper);
+        return updatedQuestion.toDto();
     }
 
     public void deleteQuestion(long questionId) {
@@ -154,7 +154,7 @@ public class QuestionFacade {
         Question question = questionService.createAnswer(questionId, answerRequestDto);
 
         // DTO 매핑 후 반환
-        return question.toDto(helper);
+        return question.toDto();
     }
 
     public QuestionDto updateAnswer(long questionId, AnswerRequestDto answerRequestDto) {
@@ -162,7 +162,7 @@ public class QuestionFacade {
         Question question = questionService.updateAnswer(questionId, answerRequestDto);
 
         // DTO 매핑 후 반환
-        return question.toDto(helper);
+        return question.toDto();
     }
 
 }
