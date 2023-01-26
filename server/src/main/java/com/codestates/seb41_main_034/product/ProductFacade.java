@@ -14,7 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -54,11 +53,15 @@ public class ProductFacade {
         return product.toDto(helper);
     }
 
-    public PaginatedData<ProductDto> readProducts(ProductCategory category, Pageable pageable) {
+    public PaginatedData<ProductDto> readProducts(ProductCategory category, String q, Pageable pageable) {
         // 카테고리 지정 여부에 따라 다르게 조회
         Page<Product> productPage = Optional.ofNullable(category)
-                .map(productCategory -> productService.readProducts(productCategory, pageable))
-                .orElse(productService.readProducts(pageable));
+                .map(_category -> Optional.ofNullable(q)
+                        .map(_q -> productService.readProducts(_category, _q, pageable))
+                        .orElse(productService.readProducts(_category, pageable)))
+                .orElse(Optional.ofNullable(q)
+                        .map(_q -> productService.readProducts(_q, pageable))
+                        .orElse(productService.readProducts(pageable)));
 
         return PaginatedData.of(productPage.map(product -> product.toDto(helper)));
     }
@@ -70,24 +73,24 @@ public class ProductFacade {
 
         // 이미지 삭제
         Optional<ProductPatchDto> optionalPatchDto = Optional.ofNullable(patchDto);
-        List<String> imageUrlList = optionalPatchDto.map(ProductPatchDto::getDeleteImage)
-                .map(deleteImage ->
-                        imageStorageService.delete(helper.jsonToList(product.getImageUrls()), deleteImage))
-                .orElse(Collections.emptyList());
-        List<String> detailImageUrlList = optionalPatchDto.map(ProductPatchDto::getDeleteDetailImage)
-                .map(deleteImage ->
-                        imageStorageService.delete(helper.jsonToList(product.getDetailImageUrls()), deleteImage))
-                .orElse(Collections.emptyList());
+        List<String> imageUrlList = helper.jsonToList(product.getImageUrls());
+        List<String> detailImageUrlList = helper.jsonToList(product.getDetailImageUrls());
+        List<String> newImageUrlList = optionalPatchDto.map(ProductPatchDto::getDeleteImage)
+                .map(deleteImage -> imageStorageService.delete(imageUrlList, deleteImage))
+                .orElse(imageUrlList);
+        List<String> newDetailImageUrlList = optionalPatchDto.map(ProductPatchDto::getDeleteDetailImage)
+                .map(deleteImage -> imageStorageService.delete(detailImageUrlList, deleteImage))
+                .orElse(detailImageUrlList);
 
         // 이미지 추가 및 List -> JSON String 변환
         String imageUrls = Optional.ofNullable(images).map(imageStorageService::store)
                 .map(urlList ->
-                        Stream.concat(imageUrlList.stream(), urlList.stream()).collect(Collectors.toList()))
-                .map(helper::listToJson).orElse(null);
+                        Stream.concat(newImageUrlList.stream(), urlList.stream()).collect(Collectors.toList()))
+                .map(helper::listToJson).orElse(helper.listToJson(newImageUrlList));
         String detailImageUrls = Optional.ofNullable(detailImages).map(imageStorageService::store)
                 .map(urlList ->
-                        Stream.concat(detailImageUrlList.stream(), urlList.stream()).collect(Collectors.toList()))
-                .map(helper::listToJson).orElse(null);
+                        Stream.concat(newDetailImageUrlList.stream(), urlList.stream()).collect(Collectors.toList()))
+                .map(helper::listToJson).orElse(helper.listToJson(newDetailImageUrlList));
 
         // 상품 수정
         Product updatedProduct = productService.updateProduct(productId, patchDto, imageUrls, detailImageUrls);

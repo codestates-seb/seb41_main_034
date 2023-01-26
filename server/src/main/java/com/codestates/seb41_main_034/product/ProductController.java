@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @AllArgsConstructor
@@ -46,9 +47,10 @@ public class ProductController {
     @GetMapping
     public ResponseEntity<Response<PaginatedData<ProductDto>>> getProducts(
             @RequestParam(required = false) ProductCategory category,
+            @RequestParam(required = false) @Size(min = 1) String q,
             @PageableDefault(sort = "id", direction = Direction.DESC) Pageable pageable
     ) {
-        return new ResponseEntity<>(Response.of(productFacade.readProducts(category, pageable)), HttpStatus.OK);
+        return new ResponseEntity<>(Response.of(productFacade.readProducts(category, q, pageable)), HttpStatus.OK);
     }
 
     @PatchMapping("/{productId}")
