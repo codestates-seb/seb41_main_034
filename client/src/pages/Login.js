@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   SignWrapper,
   SignContainer,
@@ -15,23 +15,40 @@ import {
   SignButton
 } from '../styles/signStyle';
 import { ReactComponent as LogoIcon } from '../assets/icons/foodmeet.svg';
-// import { loginAPI } from '../api/sign';
+import { baseAPI, authAPI } from '../api/customAxios';
+import { useDispatch } from 'react-redux';
+import { loginDbId, loginUserId } from '../store/userSlice';
 
 const Login = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [form, setForm] = useState({
     id: '',
     password: ''
   });
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
-    // const body = JSON.stringify({
-    //   id: form.id,
-    //   password: form.password
-    // });
+    const body = JSON.stringify({
+      username: form.id,
+      password: form.password
+    });
 
-    // loginAPI(body);
+    try {
+      const res = await baseAPI.post(`/user/login`, body);
+      localStorage.setItem('accessToken', JSON.stringify(res.headers));
+      const user = await authAPI.get(
+        '/user/login-status',
+        JSON.stringify({ username: form.id })
+      );
+      dispatch(loginDbId(user.data.id));
+      dispatch(loginUserId(user.data.username));
+      navigate('/');
+    } catch (err) {
+      console.log(err);
+      window.alert('아이디, 비밀번호를 확인해주세요.');
+    }
   };
 
   return (

@@ -25,9 +25,11 @@ import { ReactComponent as MyPageIcon } from '../../assets/icons/myPageIcon.svg'
 import Menu from '../Menu/Menu';
 import MobileMenu from '../Menu/MobileMenu';
 import ShoppingCart from '../Order/ShoppingCart';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutUser } from '../../store/userSlice';
 
 const Header = ({ location, isLogin }) => {
+  const dispatch = useDispatch();
   const cart = useSelector((state) => state.order.cart);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isOpenCart, setIsOpenCart] = useState(false);
@@ -36,6 +38,7 @@ const Header = ({ location, isLogin }) => {
     const isLogout = window.confirm('로그아웃 하시겠습니까?');
 
     isLogout && localStorage.removeItem('accessToken');
+    isLogout && dispatch(logoutUser());
   };
 
   if (location.pathname === '/login' || location.pathname === '/signup') {

@@ -11,13 +11,13 @@ import ScrollToTop from './components/Layout/ScrollToTop';
 function App() {
   const location = useLocation();
 
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
 
-  // const token = localStorage.getItem('accessToken');
+  const accessToken = localStorage.getItem('accessToken');
 
-  // useEffect(() => {
-  //   setIsLogin(token ? true : false);
-  // }, [token]);
+  useEffect(() => {
+    setIsLogin(accessToken ? true : false);
+  }, [accessToken]);
 
   return (
     <ThemeProvider theme={theme}>

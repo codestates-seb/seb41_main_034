@@ -15,13 +15,17 @@ import { Logo } from '../../styles/layoutStyle';
 import { ReactComponent as LogoIcon } from '../../assets/icons/foodmeet.svg';
 import { ReactComponent as MyPageIcon } from '../../assets/icons/myPageIcon.svg';
 import { ReactComponent as DeleteIcon } from '../../assets/icons/cancleIcon.svg';
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '../../store/userSlice';
 
 const MobileMenu = ({ isLogin, isOpenMenu, setIsOpenMenu }) => {
+  const dispatch = useDispatch();
   const onClickLogout = () => {
     const isLogout = window.confirm('로그아웃 하시겠습니까?');
 
     isLogout && setIsOpenMenu(false);
     isLogout && localStorage.removeItem('accessToken');
+    isLogout && dispatch(logoutUser());
   };
 
   return (

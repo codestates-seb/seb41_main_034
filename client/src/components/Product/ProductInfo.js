@@ -7,7 +7,7 @@ import {
 const ProductInfo = () => {
   return (
     <ProductInfoContainer>
-      {[1, 2, 3, 4].map((el, idx) => {
+      {[1, 2, 3].map((el, idx) => {
         return (
           <ProductMainImage key={idx}>
             <ProductMainImg
