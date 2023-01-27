@@ -44,13 +44,13 @@ public class CartItem extends DateAuditable {
         List<String> urlList = helper.jsonToList(product.getImageUrls());
         String imageUrl = urlList.isEmpty() ? null : urlList.get(0);
 
-        return new CartItemDto(
-                id, userId, productId, product.getName(), imageUrl, quantity, getCreatedAt(), getModifiedAt());
+        return new CartItemDto(id, userId, productId, product.getName(), imageUrl, product.getPrice(), quantity,
+                getCreatedAt(), getModifiedAt());
     }
 
     public CartItemDto toDto() {
         return new CartItemDto(
-                id, userId, productId, null, null, quantity, getCreatedAt(), getModifiedAt());
+                id, userId, productId, null, null, null, quantity, getCreatedAt(), getModifiedAt());
     }
 
 }

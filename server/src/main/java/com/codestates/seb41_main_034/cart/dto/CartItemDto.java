@@ -21,6 +21,8 @@ public class CartItemDto {
 
     private String imageUrl;
 
+    private Integer price;
+
     private int quantity;
 
     private LocalDateTime createdAt;
