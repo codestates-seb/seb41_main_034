@@ -68,7 +68,11 @@ const MyPageQuestionItem = ({ question }) => {
         </RightContainer2>
       </ListHeader2>
 
-      <EditQuestionModal isEdit={isEdit} setIsEdit={setIsEdit} />
+      <EditQuestionModal
+        isEdit={isEdit}
+        setIsEdit={setIsEdit}
+        itemQuestion={itemQuestion}
+      />
     </>
   ) : (
     <Loading />
