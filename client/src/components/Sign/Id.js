@@ -31,8 +31,7 @@ const Id = ({ form, setForm, valid, setValid }) => {
       window.alert('사용가능한 아이디입니다');
       setValid({ ...valid, duplicateCheckId: true });
     } catch (err) {
-      console.log(err);
-      window.alert(err.message);
+      window.alert(err.response.data.error.message);
       setForm({ ...form, id: '' });
     }
   };
