@@ -17,7 +17,7 @@ import { ReactComponent as MyPageIcon } from '../../assets/icons/myPageIcon.svg'
 import { ReactComponent as DeleteIcon } from '../../assets/icons/cancleIcon.svg';
 
 const MobileMenu = ({ isOpenMenu, setIsOpenMenu }) => {
-  const accessToken = localStorage.getItem('accessToken');
+  const accessToken = localStorage.accessToken;
 
   const onClickLogout = () => {
     const isLogout = window.confirm('로그아웃 하시겠습니까?');

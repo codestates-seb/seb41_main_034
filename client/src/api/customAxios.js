@@ -14,6 +14,6 @@ export const authAPI = axios.create({
   baseURL: BASE_URL,
   headers: {
     'Content-Type': 'application/json',
-    Authorization: localStorage.getItem('accessToken') || '{}'
+    Authorization: localStorage.accessToken || '{}'
   }
 });

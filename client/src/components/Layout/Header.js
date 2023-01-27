@@ -31,7 +31,7 @@ const Header = ({ location }) => {
   const cart = useSelector((state) => state.order.cart);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isOpenCart, setIsOpenCart] = useState(false);
-  const accessToken = localStorage.getItem('accessToken');
+  const accessToken = localStorage.accessToken;
 
   const onClickLogout = () => {
     const isLogout = window.confirm('로그아웃 하시겠습니까?');

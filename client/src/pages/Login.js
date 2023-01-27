@@ -15,7 +15,7 @@ import {
   SignButton
 } from '../styles/signStyle';
 import { ReactComponent as LogoIcon } from '../assets/icons/foodmeet.svg';
-import { baseAPI } from '../api/customAxios';
+import { authAPI, baseAPI } from '../api/customAxios';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -34,10 +34,9 @@ const Login = () => {
 
     try {
       const res = await baseAPI.post(`/user/login`, body);
-      const authorization = `${res.headers.authorization}`;
-      localStorage.setItem('accessToken', authorization);
+      localStorage.accessToken = `${res.headers.authorization}`;
+      localStorage.userId = `${res.data.data.id}`;
       navigate('/');
-      window.location.reload();
     } catch (err) {
       console.log(err);
       window.alert('아이디, 비밀번호를 확인해주세요.');
