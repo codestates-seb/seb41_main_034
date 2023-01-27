@@ -34,7 +34,7 @@ const MyPageQuestionList = () => {
       <MyPageHeader title={'나의문의'} />
       <ListHeader>
         <LeftCotainer>
-          <Text>제목 / 상품명</Text>
+          <Text>상품명 / 내용</Text>
         </LeftCotainer>
         <RightContainer>
           <TextWrapper>

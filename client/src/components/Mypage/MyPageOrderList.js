@@ -29,12 +29,13 @@ const MyPageOrderList = () => {
           // YYYY-MM-DDThh:mm:ss => YYYY-MM-DD
           const yearMonthDay = e.createdAt.slice(0, 10);
           // newDateDataObj['YYYY-MM-DD']에 배열 미생성(undefined)일때 배열생성후 데이터 push
-          if (newDateDataObj[`${yearMonthDay}`] == undefined) {
+          if (newDateDataObj[`${yearMonthDay}`] === undefined) {
             newDateDataObj[`${yearMonthDay}`] = [];
             newDateDataObj[`${yearMonthDay}`].push(e);
           } else {
             newDateDataObj[`${yearMonthDay}`].push(e);
           }
+          return false;
         })
       );
       console.log('newDateDataObj', newDateDataObj);
@@ -55,12 +56,6 @@ const MyPageOrderList = () => {
       {viewList != null ? (
         <>
           {Object.entries(viewList).map(([key, value]) => {
-            {
-              /* YYYY.MM.DD */
-            }
-            {
-              console.log('key', key);
-            }
             return (
               <>
                 <OrderDateContainer>

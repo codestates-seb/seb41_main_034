@@ -22,35 +22,42 @@ const ListHeader = styled.div`
 
 const RightContainer = styled.div`
   display: flex;
-  width: 100%;
-  justify-content: space-between;
   align-items: center;
+  column-gap: 48px;
 
   svg {
     width: 1px;
     fill: ${(props) => props.theme.activeColor};
   }
+
+  @media ${(props) => props.theme.desktop} {
+    column-gap: 160px;
+  }
+
+  @media ${(props) => props.theme.tablet} {
+    column-gap: 140px;
+  }
 `;
 
 const LeftCotainer = styled.div`
-  width: 100%;
+  flex-grow: 1;
 `;
 
 const Text = styled.div`
   font-size: 12px;
 
   @media ${(props) => props.theme.tablet} {
-    font-size: 8px;
+    font-size: 12px;
   }
   @media ${(props) => props.theme.mobile} {
-    font-size: 4px;
+    font-size: 10px;
   }
 `;
 
 const ListHeader2 = styled.div`
   display: flex;
   width: 100%;
-  padding: 12px 16px;
+  padding: 12px 0 12px 16px;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid ${(props) => props.theme.borderColor};
@@ -68,7 +75,6 @@ const ListHeader2 = styled.div`
 
 const RightContainer2 = styled.div`
   display: flex;
-  width: 100%;
   justify-content: space-between;
   align-items: center;
 
@@ -88,10 +94,18 @@ const RightContainer2 = styled.div`
       margin-left: 13px;
     }
   }
+
+  @media ${(props) => props.theme.desktop} {
+    column-gap: 64px;
+  }
+
+  @media ${(props) => props.theme.tablet} {
+    column-gap: 56px;
+  }
 `;
 
 const LeftCotainer2 = styled.div`
-  width: 100%;
+  flex-grow: 1;
 `;
 
 const ItemLinkText = styled.button`
@@ -107,28 +121,24 @@ const ItemLinkText = styled.button`
 `;
 
 const ItemText = styled.div`
-  width: 100%;
-  max-width: 100px;
-  font-size: 12px;
+  margin-right: 88px;
+  font-size: 10px;
 
   @media ${(props) => props.theme.tablet} {
-    font-size: 8px;
+    margin-right: 68px;
   }
 
   @media ${(props) => props.theme.mobile} {
-    font-size: 4px;
+    margin-right: 36px;
   }
 `;
 
 const EditDeleteButton = styled.button`
-  width: 100%;
-  max-width: 60px;
-  margin: 0 4px 0 4px;
-  padding: 4px;
+  padding: 6px 12px;
   border-radius: 4px;
-  background-color: ${(props) => props.theme.primaryColor};
+  font-size: 10px;
   color: ${(props) => props.theme.whiteColor};
-  font-size: 8px;
+  background-color: ${(props) => props.theme.primaryColor};
 
   @media ${(props) => props.theme.desktop} {
     &:hover {
@@ -137,17 +147,32 @@ const EditDeleteButton = styled.button`
   }
 
   @media ${(props) => props.theme.mobile} {
-    margin: 4px;
+    font-size: 10px;
+    padding: 4px;
+  }
+`;
+
+const DeleteEditButton = styled(EditDeleteButton)`
+  border: 1px solid ${(props) => props.theme.borderColor};
+  color: ${(props) => props.theme.blackColor};
+  background-color: ${(props) => props.theme.whiteColor};
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      color: ${(props) => props.theme.whiteColor};
+      background-color: ${(props) => props.theme.hoverColor};
+    }
   }
 `;
 
 const EditDeleteContainer = styled.div`
   display: flex;
-  width: 100%;
-  max-width: 130px;
+  flex-shrink: 0;
+  column-gap: 4px;
 
   @media ${(props) => props.theme.mobile} {
-    display: grid;
+    flex-direction: column;
+    row-gap: 4px;
   }
 `;
 
@@ -174,13 +199,13 @@ const NavContainer = styled.div`
   }
 `;
 
-const CatagoryBox = styled(Link)`
+const ActiveCatagoryBox = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  background-color: ${(props) => props.theme.whiteColor};
-  transition: background-color 0.3s, color 0.3s;
+  color: ${(props) => props.theme.whiteColor};
+  background-color: ${(props) => props.theme.primaryColor};
   padding: 12px;
 
   &:not(:last-child) {
@@ -195,14 +220,26 @@ const CatagoryBox = styled(Link)`
     justify-content: space-between;
     align-items: center;
     padding: 16px;
+    font-size: 12px;
     border: 1px solid ${(props) => props.theme.borderColor};
     border-radius: 4px;
-    font-size: 12px;
 
     svg {
       display: block;
       width: 10px;
       height: 10px;
+      fill: ${(props) => props.theme.whiteColor};
+    }
+  }
+`;
+
+const CatagoryBox = styled(ActiveCatagoryBox)`
+  color: ${(props) => props.theme.blackColor};
+  background-color: ${(props) => props.theme.whiteColor};
+  transition: background-color 0.3s, color 0.3s;
+
+  @media ${(props) => props.theme.desktop} {
+    svg {
       transition: fill 0.3s;
     }
 
@@ -239,41 +276,24 @@ const Title = styled.div`
 `;
 
 const UserInfoContainer = styled.div`
-  width: 100%;
-  padding: 16px;
-  border: 1px solid ${(props) => props.theme.borderColor};
-  border-radius: 4px;
-`;
-
-const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 300px;
+  padding: 24px 0;
 `;
 
 const TextContainer = styled.div`
   display: flex;
   align-items: flex-end;
   column-gap: 12px;
-  margin-bottom: 12px;
 `;
 
 const WellcomText = styled.div`
-  font-size: 12px;
-  color: ${(props) => props.theme.primaryColor};
-
-  @media ${(props) => props.theme.mobile} {
-    font-size: 10px;
-  }
-`;
-
-const Name = styled.div`
-  display: flex;
-  align-items: flex-end;
-`;
-
-const NameText = styled.p`
   font-size: 16px;
+  color: ${(props) => props.theme.primaryColor};
 
   @media ${(props) => props.theme.tablet} {
     font-size: 14px;
@@ -284,18 +304,35 @@ const NameText = styled.p`
   }
 `;
 
-const NameNext = styled.span`
-  display: block;
-  margin-left: 2px;
-  font-size: 14px;
-  color: ${(props) => props.theme.grayColor};
+const Name = styled.div`
+  display: flex;
+  align-items: flex-end;
+`;
+
+const NameText = styled.p`
+  font-size: 24px;
 
   @media ${(props) => props.theme.tablet} {
-    font-size: 12px;
+    font-size: 20px;
   }
 
   @media ${(props) => props.theme.mobile} {
-    font-size: 10px;
+    font-size: 16px;
+  }
+`;
+
+const NameNext = styled.span`
+  display: block;
+  margin-left: 4px;
+  font-size: 16px;
+  color: ${(props) => props.theme.grayColor};
+
+  @media ${(props) => props.theme.tablet} {
+    font-size: 14px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 12px;
   }
 `;
 
@@ -304,20 +341,25 @@ const OtherText = styled.p`
   justify-content: center;
   align-items: center;
   width: 50px;
-  font-size: 12px;
+  font-size: 16px;
   color: ${(props) => props.theme.primaryColor};
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 14px;
+  }
 `;
 
 const EditbuttonContainer = styled.div`
   display: flex;
-  justify-content: center;
-  margin-top: 12px;
+  justify-content: flex-end;
+  width: 100%;
 `;
 
 const EditButton = styled(Link)`
   display: block;
-  padding: 4px 8px;
-  font-size: 10px;
+  margin-right: 12px;
+  padding: 6px 12px;
+  font-size: 12px;
   border-radius: 4px;
   background-color: ${(props) => props.theme.primaryColor};
   color: ${(props) => props.theme.whiteColor};
@@ -327,6 +369,10 @@ const EditButton = styled(Link)`
     &:hover {
       background-color: ${(props) => props.theme.hoverColor};
     }
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 10px;
   }
 `;
 
@@ -569,8 +615,7 @@ const CenterContent = styled.div`
 `;
 
 const TextWrapper = styled.div`
-  width: 100%;
-  max-width: 100px;
+  flex-shrink: 0;
 `;
 
 const ProductName = styled.div`
@@ -776,7 +821,7 @@ const EditIconContainer = styled.div`
 
 const EditButton2 = styled.button`
   display: block;
-  padding: px 24px;
+  padding: 6px 12px;
   font-size: 12px;
   border-radius: 4px;
   background-color: ${(props) => props.theme.primaryColor};
@@ -1154,7 +1199,7 @@ const MyPageNavbar = styled.nav`
   flex-shrink: 0;
   row-gap: 12px;
   width: 100%;
-  max-width: 500px;
+  max-width: 928px;
 
   @media ${(props) => props.theme.desktop} {
     max-width: 240px;
@@ -1168,15 +1213,8 @@ const MyPageContent = styled.div`
 
 const BottomTextContainer = styled.div`
   display: flex;
-  justify-content: space-between;
-
-  @media ${(props) => props.theme.tablet} {
-    padding: 0 24px 0 24px;
-  }
-
-  @media ${(props) => props.theme.mobile} {
-    padding: 0 24px 0 24px;
-  }
+  flex-direction: column;
+  row-gap: 12px;
 `;
 
 const OtherTextContainer = styled.div`
@@ -1190,7 +1228,11 @@ const TheOtherText = styled.div`
   justify-content: center;
   align-items: center;
   width: 50px;
-  font-size: 24px;
+  font-size: 30px;
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 24px;
+  }
 `;
 
 const UserModalContainer = styled.div`
@@ -1264,7 +1306,16 @@ const EditUserButton = styled.button`
   color: ${(props) => props.theme.whiteColor};
 `;
 
+const BottomTextWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  column-gap: 64px;
+`;
+
 export {
+  DeleteEditButton,
+  ActiveCatagoryBox,
+  BottomTextWrapper,
   Name,
   NameNext,
   MyPageContent,
@@ -1285,7 +1336,6 @@ export {
   Container,
   Title,
   UserInfoContainer,
-  InfoContainer,
   TextContainer,
   NameText,
   WellcomText,

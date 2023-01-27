@@ -17,16 +17,16 @@ const MyPage = () => {
   return (
     <MyPageContainer>
       <MyPageNavbar>
-        <UserInfo />
         <MyPageNav />
       </MyPageNavbar>
 
       <MyPageContent>
         <Routes>
-          <Route path="/" element={<MyPageAddress />} />
+          <Route path="/" element={<UserInfo />} />
+          <Route path="/address" element={<MyPageAddress />} />
           <Route path="/edit" element={<UserInfoEdit />} />
           <Route path="/confirmpw" element={<UserInfoConfirmPW />} />
-          <Route path="/orderlist" element={<MyPageOrderList />} />
+          <Route path="/order" element={<MyPageOrderList />} />
           <Route path="/review" element={<MyPageReview />} />
           <Route path="/question" element={<MyPageQuestionList />} />
         </Routes>

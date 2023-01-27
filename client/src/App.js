@@ -18,6 +18,7 @@ const App = () => {
       await authAPI.get('/user/login-status');
     } catch (err) {
       console.log(err);
+      err.response.data.error.status === 401 && console.log('토큰만료');
     }
   };
 
