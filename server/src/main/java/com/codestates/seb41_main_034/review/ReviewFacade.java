@@ -4,7 +4,8 @@ import com.codestates.seb41_main_034.common.JsonListHelper;
 import com.codestates.seb41_main_034.common.exception.BusinessLogicException;
 import com.codestates.seb41_main_034.common.exception.ExceptionCode;
 import com.codestates.seb41_main_034.common.response.PaginatedData;
-import com.codestates.seb41_main_034.common.storage.ImageStorageService;
+import com.codestates.seb41_main_034.order.OrderService;
+import com.codestates.seb41_main_034.order.entity.Order;
 import com.codestates.seb41_main_034.product.ProductService;
 import com.codestates.seb41_main_034.product.entity.Product;
 import com.codestates.seb41_main_034.review.dto.ReviewDto;
@@ -17,16 +18,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @AllArgsConstructor
 @Service
@@ -38,22 +36,29 @@ public class ReviewFacade {
 
     private final UserService userService;
 
-    private final ImageStorageService imageStorageService;
+    private final OrderService orderService;
 
     private final JsonListHelper helper;
 
-    public ReviewDto createReview(ReviewPostDto reviewPostDto, List<MultipartFile> images) {
+    public ReviewDto createReview(ReviewPostDto reviewPostDto) {
+        Order order = orderService.readOrder(reviewPostDto.getOrderId());
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (order.getCreatedBy() != user.getId()) {
+            throw new BusinessLogicException(ExceptionCode.REVIEW_WRONG_ORDER_ID);
+        }
+
+        order.getOrderProducts().stream()
+                .filter(orderProduct -> orderProduct.getProductId() == reviewPostDto.getProductId())
+                .findAny().orElseThrow(() -> new BusinessLogicException(ExceptionCode.REVIEW_NOT_ORDERED));
+
         // 상품 정보 조회
         Product product = productService.readProduct(reviewPostDto.getProductId());
 
-        // 이미지 저장
-        String imageUrls = Optional.ofNullable(images)
-                .map(imageStorageService::store).map(helper::listToJson).orElse(null);
-
         // 엔티티 객체 생성
-        Review review = reviewService.createReview(reviewPostDto, imageUrls);
+        Review review = reviewService.createReview(reviewPostDto);
 
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         // DTO 매핑 후 반환
         return review.toDto(helper, product, user.getMaskedName());
@@ -110,7 +115,7 @@ public class ReviewFacade {
                         review.toDto(helper, productMap.get(review.getProductId()), user.getMaskedName())));
     }
 
-    public ReviewDto updateReview(long reviewId, ReviewPatchDto reviewPatchDto, List<MultipartFile> images) {
+    public ReviewDto updateReview(long reviewId, ReviewPatchDto reviewPatchDto) {
         Review review = reviewService.readReview(reviewId);
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -119,22 +124,11 @@ public class ReviewFacade {
             throw new BusinessLogicException(ExceptionCode.AUTH_FORBIDDEN);
         }
 
-        // 이미지 삭제
-        List<String> imageUrlList = helper.jsonToList(review.getImageUrls());
-        List<String> newImageUrlList = Optional.ofNullable(reviewPatchDto).map(ReviewPatchDto::getDeleteImage)
-                .map(deleteImage -> imageStorageService.delete(imageUrlList, deleteImage))
-                .orElse(imageUrlList);
-
-        // 이미지 추가
-        String imageUrls = Optional.ofNullable(images).map(imageStorageService::store)
-                .map(urlList -> Stream.concat(newImageUrlList.stream(), urlList.stream()).collect(Collectors.toList()))
-                .map(helper::listToJson).orElse(helper.listToJson(newImageUrlList));
-
         // 후기 수정 후 반환
-        Review updateReview = reviewService.updateReview(reviewId, reviewPatchDto, imageUrls);
+        Review updateReview = reviewService.updateReview(reviewId, reviewPatchDto);
 
         // DTO 매핑 후 반환
-        return updateReview.toDto(helper);
+        return updateReview.toDto();
     }
 
     public void deleteReview(long reviewId) {
@@ -146,9 +140,6 @@ public class ReviewFacade {
         if (!user.getRoles().contains("ADMIN") && user.getId() != review.getCreatedBy()) {
             throw new BusinessLogicException(ExceptionCode.AUTH_FORBIDDEN);
         }
-
-        // 이미지 삭제
-        imageStorageService.delete(helper.jsonToList(review.getImageUrls()));
 
         // 후기 삭제
         reviewService.deleteReview(reviewId);

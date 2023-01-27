@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -23,8 +22,6 @@ public class ReviewDto {
     private String productImageUrl;
 
     private String body;
-
-    private List<String> imageUrls;
 
     private int createdBy;
 
