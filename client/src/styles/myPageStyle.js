@@ -107,6 +107,8 @@ const ItemLinkText = styled.button`
 `;
 
 const ItemText = styled.div`
+  width: 100%;
+  max-width: 100px;
   font-size: 12px;
 
   @media ${(props) => props.theme.tablet} {
@@ -115,6 +117,37 @@ const ItemText = styled.div`
 
   @media ${(props) => props.theme.mobile} {
     font-size: 4px;
+  }
+`;
+
+const EditDeleteButton = styled.button`
+  width: 100%;
+  max-width: 60px;
+  margin: 0 4px 0 4px;
+  padding: 4px;
+  border-radius: 4px;
+  background-color: ${(props) => props.theme.primaryColor};
+  color: ${(props) => props.theme.whiteColor};
+  font-size: 8px;
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      background-color: ${(props) => props.theme.hoverColor};
+    }
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    margin: 4px;
+  }
+`;
+
+const EditDeleteContainer = styled.div`
+  display: flex;
+  width: 100%;
+  max-width: 130px;
+
+  @media ${(props) => props.theme.mobile} {
+    display: grid;
   }
 `;
 
@@ -222,6 +255,7 @@ const TextContainer = styled.div`
   display: flex;
   align-items: flex-end;
   column-gap: 12px;
+  margin-bottom: 12px;
 `;
 
 const WellcomText = styled.div`
@@ -266,7 +300,12 @@ const NameNext = styled.span`
 `;
 
 const OtherText = styled.p`
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
   font-size: 12px;
+  color: ${(props) => props.theme.primaryColor};
 `;
 
 const EditbuttonContainer = styled.div`
@@ -295,6 +334,7 @@ const UserEditWrapper = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
+  margin-top: 12px;
 `;
 
 const UserEditContainer = styled.div`
@@ -356,6 +396,7 @@ const ConfirmMessage = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
+  height: 12px;
   color: ${(props) => props.theme.primaryColor};
   font-size: 12px;
 
@@ -529,6 +570,7 @@ const CenterContent = styled.div`
 
 const TextWrapper = styled.div`
   width: 100%;
+  max-width: 100px;
 `;
 
 const ProductName = styled.div`
@@ -1124,6 +1166,104 @@ const MyPageContent = styled.div`
   flex-grow: 1;
 `;
 
+const BottomTextContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  @media ${(props) => props.theme.tablet} {
+    padding: 0 24px 0 24px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    padding: 0 24px 0 24px;
+  }
+`;
+
+const OtherTextContainer = styled.div`
+  display: grid;
+  align-items: center;
+  justify-content: center;
+`;
+
+const TheOtherText = styled.div`
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  font-size: 24px;
+`;
+
+const UserModalContainer = styled.div`
+  width: 100%;
+  padding: 24px;
+  border-bottom: 1px solid ${(props) => props.theme.grayColor};
+`;
+
+const EditTextContainer = styled.div`
+  width: 100%;
+  margin: 24px 0;
+`;
+
+const TopText = styled.div`
+  font-size: 16px;
+  color: ${(props) => props.theme.secondaryColor};
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 12px;
+  }
+`;
+
+const BottomText = styled.div`
+  margin-top: 12px;
+  font-size: 12px;
+  color: ${(props) => props.theme.grayColor};
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 8px;
+  }
+`;
+
+const EditPasswordContainer = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 24px;
+`;
+
+const PasswordInput = styled.input`
+  width: 100%;
+  height: 32px;
+  max-width: 400px;
+  margin-left: 64px;
+  padding: 4px;
+  border-radius: 4px;
+  border: 1px solid ${(props) => props.theme.borderColor};
+
+  @media ${(props) => props.theme.tablet} {
+    max-width: 350px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    max-width: 300px;
+    margin-left: 32px;
+  }
+`;
+
+const EditButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;
+
+const EditUserButton = styled.button`
+  width: 100%;
+  max-width: 200px;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: ${(props) => props.theme.primaryColor};
+  color: ${(props) => props.theme.whiteColor};
+`;
+
 export {
   Name,
   NameNext,
@@ -1210,9 +1350,25 @@ export {
   MyPageReviewDelete,
   CancleImgContainer3,
   TextWrapper,
+<<<<<<< HEAD
   EditButton2,
   AddModalContainer,
   AddModalView,
   ModalViewBodyTableRightInput,
   AdInputBox
+=======
+  BottomTextContainer,
+  OtherTextContainer,
+  TheOtherText,
+  EditDeleteButton,
+  EditDeleteContainer,
+  UserModalContainer,
+  EditTextContainer,
+  TopText,
+  BottomText,
+  EditPasswordContainer,
+  PasswordInput,
+  EditButtonContainer,
+  EditUserButton
+>>>>>>> 10be998e34ec9dd7d45e79a911478a73704b5269
 };

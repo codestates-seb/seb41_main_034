@@ -157,6 +157,11 @@ const QuestionButton = styled.button`
   }
 `;
 
+const LoginText = styled.div`
+  font-size: 12px;
+  color: ${(props) => props.theme.primaryColor};
+`;
+
 const FlexContainer = styled.div`
   display: flex;
   width: 100%;
@@ -259,6 +264,17 @@ const ReviewModalContainer = styled.div`
   @media ${(props) => props.theme.mobile} {
     padding: 12px 24px 24px 24px;
   }
+`;
+
+const EditQuModal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: ${(props) => (props.isEdit ? 'block' : 'none')};
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 80;
 `;
 
 const QuestionModalWrapper = styled.div`
@@ -767,6 +783,21 @@ const CategoryTitle = styled.h2`
   }
 `;
 
+const EditQuModalView = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  max-width: 435px;
+  background-color: ${(props) => props.theme.whiteColor};
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  transition: transform 0.5s;
+  transform: translate(-50%, -50%)
+    ${(props) => (props.isEdit ? 'translateY(0)' : 'translateY(-200%)')};
+  z-index: 98;
+`;
+
 const ModalView = styled.div`
   position: fixed;
   top: 50%;
@@ -888,5 +919,8 @@ export {
   SpaceDiv,
   BottomText,
   SmallInput,
-  ReviewFlexBox
+  ReviewFlexBox,
+  LoginText,
+  EditQuModalView,
+  EditQuModal
 };

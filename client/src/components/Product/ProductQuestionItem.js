@@ -35,7 +35,7 @@ const ProductQuestionItem = ({ question }) => {
         )}
       </FlexContainer>
       <ItemText>
-        <Text>김응찬 /</Text>
+        <Text>{Question.createByName} /</Text>
         <TextBold>{Question.productName} /</TextBold>
         <TextGray>{date}</TextGray>
       </ItemText>
@@ -47,9 +47,7 @@ const ProductQuestionItem = ({ question }) => {
           <FlexContainer>
             <ItemText>푸드밋</ItemText>
           </FlexContainer>
-          <AnswerText>
-            죄송합니다. 빠른 시일 내에 처리해드리겠습니다.
-          </AnswerText>
+          <AnswerText>{Question.answer.body}</AnswerText>
         </>
       )}
     </ReviewItemContainer>

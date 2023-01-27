@@ -15,13 +15,10 @@ const ProductReviewList = () => {
   useEffect(() => {
     const Reviews = async () => {
       const data = await reviewGetAPI(1);
-      console.log('data', data);
       setReviews(data);
     };
     Reviews();
   }, []);
-
-  console.log(reviews);
 
   return (
     <>

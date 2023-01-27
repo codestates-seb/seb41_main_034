@@ -4,26 +4,30 @@ import {
   RightContainer,
   LeftCotainer,
   Text,
-  TextWrapper
+  TextWrapper,
+  EditDeleteContainer
 } from '../../styles/myPageStyle';
 import MyPageHeader from './MyPageHeader';
-import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
 import { useState, useEffect } from 'react';
-import { questionGetAPI } from '../../api/question';
 import Loading from '../Layout/Loading';
+import { authAPI } from '../../api/customAxios';
 
 const MyPageQuestionList = () => {
-  const [question, setQuestion] = useState(null);
+  const [question, setQuestion] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const API = async () => {
-      const data = await questionGetAPI();
-      setQuestion(data.data.content);
-      setIsLoading(true);
+    const QuestionAPI = async () => {
+      try {
+        const result = await authAPI.get(`/question/question-history`);
+        setQuestion(result.data.data.content.map((el) => el));
+      } catch (err) {
+        console.log(err);
+      }
     };
-    API();
-  }, []);
+    setIsLoading(true);
+    QuestionAPI();
+  }, [setQuestion]);
 
   return isLoading ? (
     <>
@@ -39,11 +43,11 @@ const MyPageQuestionList = () => {
           <TextWrapper>
             <Text>답변상태</Text>
           </TextWrapper>
-          <CancelIcon />
+          <EditDeleteContainer />
         </RightContainer>
       </ListHeader>
       {question.map((e, idx) => (
-        <MyPageQuestionItem key={idx} question={e} />
+        <MyPageQuestionItem key={idx} question={e} setQuestion={setQuestion} />
       ))}
     </>
   ) : (

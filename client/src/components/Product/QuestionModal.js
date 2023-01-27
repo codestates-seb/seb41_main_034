@@ -15,30 +15,32 @@ import {
 } from '../../styles/productStyle';
 import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
 import { useState } from 'react';
-import { questionPostAPI } from '../../api/question';
+import { authAPI } from '../../api/customAxios';
 
-const QuestionModal = ({
-  isOpenQuestion,
-  setIsOpenQuestion,
-  question,
-  setQuestion
-}) => {
+const QuestionModal = ({ isOpenQuestion, setIsOpenQuestion, params }) => {
   const [content, setContent] = useState('');
 
   const handleQuestionClose = () => {
     setIsOpenQuestion(false);
-    console.log('close');
   };
 
   const questionAdd = async () => {
     const body = {
-      productId: 1,
+      productId: params.productId,
       body: content
     };
-    await questionPostAPI(body);
-    setIsOpenQuestion(false);
-    // window.location.replace('/product/1');
-    // window.location.reload();
+
+    const QuestionPostAPI = async (body) => {
+      try {
+        await authAPI.post(`/question`, body);
+        handleQuestionClose();
+        setContent('');
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    QuestionPostAPI(body);
   };
 
   return (
@@ -53,7 +55,7 @@ const QuestionModal = ({
           <CancelIcon onClick={handleQuestionClose} />
         </CancleImgContainer>
         <QuestionModalContainer>
-          <MiddleText>문의하기</MiddleText>
+          <MiddleText>문의작성</MiddleText>
           <LeftTextContainer>
             <LeftText htmlFor="ItemName">작성자</LeftText>
             <RightText>홍길동</RightText>
@@ -72,6 +74,7 @@ const QuestionModal = ({
               id="Question"
               aria-label="문의내용을 입력하세요."
               placeholder="문의내용을 입력하세요."
+              value={content}
             />
           </MiddleContainer>
           <BottomText>문의작성 시 유의사항 !</BottomText>

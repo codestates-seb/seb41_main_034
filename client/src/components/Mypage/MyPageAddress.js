@@ -28,12 +28,32 @@ const MyPageAddress = () => {
 
   useEffect(() => {
     const init = async () => {
+<<<<<<< HEAD
       const AddressAPI = await userAddressGetAPI();
       setAddress(AddressAPI.data);
       // console.log(AddressAPI.data);
     };
     init();
   }, []);
+=======
+      const body = 'userAddress';
+      const data = await userAddressGetAPI(body);
+      setAddress(data.data);
+      // console.log(address);
+    };
+    init();
+  }, []);
+
+  // const [list, setList] = useState([{}, {}, {}]);
+  const [modal, setModal] = useState(false);
+  const onRemove = () => {
+    if (window.confirm('주소를 삭제하시겠습니까?')) {
+      alert('삭제되었습니다');
+    } else {
+      alert('취소했습니다.');
+    }
+  };
+>>>>>>> 10be998e34ec9dd7d45e79a911478a73704b5269
 
   return (
     <>

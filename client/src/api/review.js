@@ -10,4 +10,14 @@ const reviewGetAPI = async (productId) => {
   }
 };
 
-export { reviewGetAPI };
+//회원의 후기 목록 조회
+const userReviewGetAPI = async () => {
+  try {
+    const result = await authAPI.get(`/review/review-history`);
+    return result.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export { reviewGetAPI, userReviewGetAPI };

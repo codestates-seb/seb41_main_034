@@ -12,12 +12,12 @@ import {
   ConfirmMessage
 } from '../../styles/myPageStyle';
 import { useState } from 'react';
+import MyPageHeader from './MyPageHeader';
 
 const UserInfoEdit = () => {
   const [password, setPassword] = useState(null);
   const [newPassword, setNewPassword] = useState(null);
   const [ConfirmPW, setConfirmPW] = useState(null);
-  const [isPassword, setIsPassword] = useState(false);
   const [isNewPW, setIsPW] = useState(true);
   const [isConfirmPW, setIsConfirmPW] = useState(false);
 
@@ -36,16 +36,6 @@ const UserInfoEdit = () => {
       alert('탈퇴되었습니다');
     } else {
       alert('취소되었습니다.');
-    }
-  };
-
-  const VaildPW = async (e) => {
-    const currentPW = e.target.value;
-    setPassword(e.target.value);
-    if (currentPW === 'API') {
-      setIsPassword(false);
-    } else {
-      setIsPassword(true);
     }
   };
 
@@ -72,77 +62,84 @@ const UserInfoEdit = () => {
   };
 
   return (
-    <UserEditWrapper>
-      <UserEditContainer>
-        <EditCotainer>
-          <PasswordContainer>
-            <PasswordText htmlFor="number">이름</PasswordText>
-            <InputBox
-              type="text"
-              aria-label="이름을 입력해주세요"
-              placeholder="이름을 입력해주세요"
-              id="name"
-            />
-          </PasswordContainer>
-        </EditCotainer>
-        <EditCotainer>
-          <RightBox>
+    <>
+      <MyPageHeader title="회원정보수정" />
+      <UserEditWrapper>
+        <UserEditContainer>
+          <EditCotainer>
             <PasswordContainer>
-              <PasswordText htmlFor="password1">현재 비밀번호</PasswordText>
+              <PasswordText htmlFor="number">이름</PasswordText>
               <InputBox
-                onChange={VaildPW}
                 type="text"
-                aria-label="현재 비밀번호를 입력해주세요"
-                placeholder="현재 비밀번호를 입력해주세요"
-                id="password1"
+                aria-label="이름을 입력해주세요"
+                placeholder="이름을 입력해주세요"
+                id="name"
               />
             </PasswordContainer>
-            {isPassword ? (
-              <ConfirmMessage>현재 비밀번호를 확인해주세요.</ConfirmMessage>
-            ) : null}
-            <PasswordContainer>
-              <PasswordText htmlFor="password2">새 비밀번호</PasswordText>
-              <InputBox
-                onChange={VaildNewPW}
-                type="text"
-                aria-label="새 비밀번호를 입력해주세요"
-                placeholder="새 비밀번호를 입력해주세요"
-                id="password2"
-              />
-            </PasswordContainer>
-            {isNewPW ? (
-              <ConfirmMessage>
-                영문, 숫자를 포함한 8자 이상 비밀번호를 입력해주세요.
-              </ConfirmMessage>
-            ) : null}
-            <PasswordContainer>
-              <PasswordText htmlFor="password3">새 비밀번호 확인</PasswordText>
-              <InputBox
-                onChange={VaildConfirmPW}
-                type="text"
-                aria-label="새 비밀번호를 다시 입력해주세요"
-                placeholder="새 비밀번호를 다시 입력해주세요"
-                id="password3"
-              />
-            </PasswordContainer>
-            {isConfirmPW ? (
-              <ConfirmMessage>동일한 비밀번호를 입력해주세요.</ConfirmMessage>
-            ) : null}
-          </RightBox>
-        </EditCotainer>
-        <ButtonContainer>
-          <UserOutButton aria-label="탈퇴하기 버튼입니다." onClick={onUserOut}>
-            탈퇴하기
-          </UserOutButton>
-          <ConfirmButton
-            aria-label="수정완료 버튼입니다."
-            onClick={onEditComplete}
-          >
-            수정완료
-          </ConfirmButton>
-        </ButtonContainer>
-      </UserEditContainer>
-    </UserEditWrapper>
+          </EditCotainer>
+          <ConfirmMessage />
+          <EditCotainer>
+            <RightBox>
+              <PasswordContainer>
+                <PasswordText htmlFor="password1">현재 비밀번호</PasswordText>
+                <InputBox
+                  onChange={(e) => setPassword(e.target.value)}
+                  type="text"
+                  aria-label="현재 비밀번호를 입력해주세요"
+                  placeholder="현재 비밀번호를 입력해주세요"
+                  id="password1"
+                />
+              </PasswordContainer>
+              <ConfirmMessage />
+              <PasswordContainer>
+                <PasswordText htmlFor="password2">새 비밀번호</PasswordText>
+                <InputBox
+                  onChange={VaildNewPW}
+                  type="text"
+                  aria-label="새 비밀번호를 입력해주세요"
+                  placeholder="새 비밀번호를 입력해주세요"
+                  id="password2"
+                />
+              </PasswordContainer>
+              {isNewPW ? (
+                <ConfirmMessage>
+                  영문, 숫자를 포함한 8자 이상 비밀번호를 입력해주세요.
+                </ConfirmMessage>
+              ) : null}
+              <PasswordContainer>
+                <PasswordText htmlFor="password3">
+                  새 비밀번호 확인
+                </PasswordText>
+                <InputBox
+                  onChange={VaildConfirmPW}
+                  type="text"
+                  aria-label="새 비밀번호를 다시 입력해주세요"
+                  placeholder="새 비밀번호를 다시 입력해주세요"
+                  id="password3"
+                />
+              </PasswordContainer>
+              {isConfirmPW ? (
+                <ConfirmMessage>동일한 비밀번호를 입력해주세요.</ConfirmMessage>
+              ) : null}
+            </RightBox>
+          </EditCotainer>
+          <ButtonContainer>
+            <UserOutButton
+              aria-label="탈퇴하기 버튼입니다."
+              onClick={onUserOut}
+            >
+              탈퇴하기
+            </UserOutButton>
+            <ConfirmButton
+              aria-label="수정완료 버튼입니다."
+              onClick={onEditComplete}
+            >
+              수정완료
+            </ConfirmButton>
+          </ButtonContainer>
+        </UserEditContainer>
+      </UserEditWrapper>
+    </>
   );
 };
 

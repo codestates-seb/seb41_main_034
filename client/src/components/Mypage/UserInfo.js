@@ -9,12 +9,62 @@ import {
   EditButton,
   EditbuttonContainer,
   Name,
-  NameNext
+  NameNext,
+  BottomTextContainer,
+  TheOtherText
 } from '../../styles/myPageStyle';
-import { useSelector } from 'react-redux';
+import { authAPI } from '../../api/customAxios';
 
 const UserInfo = () => {
+<<<<<<< HEAD
   const [token, setToken] = useState(null);
+=======
+  const [question, setQuestion] = useState(null);
+  const [userName, setUserName] = useState(null);
+  const [order, setOrder] = useState(null);
+  const [review, setReview] = useState(null);
+  const userId = localStorage.getItem('userId');
+
+  useEffect(() => {
+    const UserAPI = async (userId) => {
+      try {
+        const result = await authAPI.get(`/user/${userId}`);
+        setUserName(result.data.data.displayName);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    const QuestionAPI = async () => {
+      try {
+        const result = await authAPI.get(`/question/question-history`);
+        setQuestion(result.data.data.totalElements);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    const OrderAPI = async () => {
+      try {
+        const result = await authAPI.get(`/order/order-history`);
+        setOrder(result.data.data.totalElements);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    const ReviewAPI = async () => {
+      try {
+        const result = await authAPI.get(`/review/review-history`);
+        setReview(result.data.data.totalElements);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    OrderAPI();
+    QuestionAPI();
+    UserAPI(userId);
+    ReviewAPI();
+  }, [userId]);
+>>>>>>> 10be998e34ec9dd7d45e79a911478a73704b5269
 
   return (
     <>
@@ -23,17 +73,23 @@ const UserInfo = () => {
           <TextContainer>
             <WellcomText>환영합니다 !</WellcomText>
             <Name>
-              <NameText>홍길동</NameText>
+              <NameText>{userName}</NameText>
               <NameNext>님</NameNext>
             </Name>
           </TextContainer>
-          <OtherText>주소 : 대한민국</OtherText>
-          <OtherText>주문 수 : 0</OtherText>
-          <OtherText>문의 수 : 0</OtherText>
-          <OtherText>리뷰 수 : 0</OtherText>
+          <BottomTextContainer>
+            <OtherText>주문 수</OtherText>
+            <OtherText>후기 수</OtherText>
+            <OtherText>문의 수</OtherText>
+          </BottomTextContainer>
+          <BottomTextContainer>
+            <TheOtherText>{order}</TheOtherText>
+            <TheOtherText>{review}</TheOtherText>
+            <TheOtherText>{question}</TheOtherText>
+          </BottomTextContainer>
         </InfoContainer>
         <EditbuttonContainer>
-          <EditButton to={'/mypage/edit'}>회원정보수정</EditButton>
+          <EditButton to={'/mypage/confirmpw'}>회원정보수정</EditButton>
         </EditbuttonContainer>
       </UserInfoContainer>
     </>
