@@ -18,7 +18,6 @@ const UserInfoEdit = () => {
   const [password, setPassword] = useState(null);
   const [newPassword, setNewPassword] = useState(null);
   const [ConfirmPW, setConfirmPW] = useState(null);
-  const [isPassword, setIsPassword] = useState(false);
   const [isNewPW, setIsPW] = useState(true);
   const [isConfirmPW, setIsConfirmPW] = useState(false);
 
@@ -37,16 +36,6 @@ const UserInfoEdit = () => {
       alert('탈퇴되었습니다');
     } else {
       alert('취소되었습니다.');
-    }
-  };
-
-  const VaildPW = async (e) => {
-    const currentPW = e.target.value;
-    setPassword(e.target.value);
-    if (currentPW === 'API') {
-      setIsPassword(false);
-    } else {
-      setIsPassword(true);
     }
   };
 
@@ -94,18 +83,14 @@ const UserInfoEdit = () => {
               <PasswordContainer>
                 <PasswordText htmlFor="password1">현재 비밀번호</PasswordText>
                 <InputBox
-                  onChange={VaildPW}
+                  onChange={(e) => setPassword(e.target.value)}
                   type="text"
                   aria-label="현재 비밀번호를 입력해주세요"
                   placeholder="현재 비밀번호를 입력해주세요"
                   id="password1"
                 />
               </PasswordContainer>
-              {isPassword ? (
-                <ConfirmMessage>현재 비밀번호를 확인해주세요.</ConfirmMessage>
-              ) : (
-                <ConfirmMessage />
-              )}
+              <ConfirmMessage />
               <PasswordContainer>
                 <PasswordText htmlFor="password2">새 비밀번호</PasswordText>
                 <InputBox

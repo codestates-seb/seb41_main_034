@@ -28,13 +28,15 @@ const UserInfoConfirmPW = () => {
         <EditPasswordContainer>
           <TopText>비밀번호*</TopText>
           <PasswordInput
-            aria-label="비밀번호 확인버튼입니다."
+            aria-label="비밀번호를 입력해주세요."
             type={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </EditPasswordContainer>
         <EditButtonContainer>
-          <EditUserButton>확인</EditUserButton>
+          <EditUserButton aria-label="비밀번호 입력완료 후 누르는 확인버튼입니다.">
+            확인
+          </EditUserButton>
         </EditButtonContainer>
       </UserModalContainer>
     </>
