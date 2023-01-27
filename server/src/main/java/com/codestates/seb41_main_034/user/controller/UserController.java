@@ -26,7 +26,7 @@ public class UserController {
 
     //회원가입
     @PostMapping("/signup")
-    public ResponseEntity postUser(@Valid @RequestBody UserPostDto userPostDto) {
+    public ResponseEntity<Response<UserDto>> postUser(@Valid @RequestBody UserPostDto userPostDto) {
         UserDto userDto = userService.createUser(userPostDto);
 
         return new ResponseEntity<>(Response.of(userDto),
@@ -39,13 +39,19 @@ public class UserController {
         userService.verifyExistsUsername(username);
     }
 
+    @GetMapping("/password-check")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void getPasswordCheck(@NotBlank @RequestParam String password) {
+        userService.checkPassword(password);
+    }
+
     @GetMapping("/login-status")
-    public ResponseEntity getLoginStatus(@AuthenticationPrincipal User user) {
+    public ResponseEntity<Response<UserDto>> getLoginStatus(@AuthenticationPrincipal User user) {
         return new ResponseEntity<>(Response.of(user.toDto()), HttpStatus.OK);
     }
 
     @GetMapping("/{user-id}")
-    public ResponseEntity getUser(
+    public ResponseEntity<Response<UserDto>> getUser(
             @PathVariable("user-id") @Positive int userId) {
         UserDto userDto = userService.findUser(userId);
         return new ResponseEntity<>(Response.of(userDto)
@@ -53,7 +59,7 @@ public class UserController {
     }
 
     @PatchMapping("/{user-id}")
-    public ResponseEntity<?> edit(
+    public ResponseEntity<Response<UserDto>> edit(
             @PathVariable("user-id") @Positive int userId, @RequestBody UserPatchDto userPatchDto) {
         UserDto userDto = userService.editUser(userId, userPatchDto);
 
