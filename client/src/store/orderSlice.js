@@ -16,8 +16,8 @@ const orderSlice = createSlice({
             img: action.payload.img,
             name: action.payload.name,
             price: action.payload.price,
-            priceAmount: action.payload.priceAmount,
             count: action.payload.count,
+            priceAmount: action.payload.price,
             check: true
           })
         : (state.cart = state.cart.map((el) =>
