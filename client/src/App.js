@@ -9,7 +9,7 @@ import ScrollToTop from './components/Layout/ScrollToTop';
 import { authAPI } from './api/customAxios';
 import { useEffect } from 'react';
 
-function App() {
+const App = () => {
   const location = useLocation();
   const accessToken = localStorage.getItem('accessToken');
 
@@ -40,6 +40,6 @@ function App() {
       <Footer location={location} />
     </ThemeProvider>
   );
-}
+};
 
 export default App;
