@@ -665,18 +665,6 @@ const RecipientTitle = styled.div`
     font-size: 12px;
   }
 `;
-const PhoneNumberTitle = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 25%;
-  font-size: 16px;
-  font-weight: 700;
-
-  @media ${(props) => props.theme.mobile} {
-    font-size: 12px;
-  }
-`;
 
 const EditTitle = styled.div`
   display: flex;
@@ -751,18 +739,18 @@ const EditIconContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  svg {
-    width: 16px;
-    height: 16px;
-    fill: ${(props) => props.theme.grayColor};
-  }
 
   @media ${(props) => props.theme.mobile} {
-    svg {
-      width: 12px;
-      height: 12px;
-    }
   }
+`;
+
+const EditButton2 = styled.button`
+  display: block;
+  padding: 4px 8px;
+  font-size: 10px;
+  border-radius: 4px;
+  background-color: ${(props) => props.theme.primaryColor};
+  color: ${(props) => props.theme.whiteColor};
 `;
 
 const AddressButtonContainer = styled.div`
@@ -799,7 +787,32 @@ const ModalContainer = styled.div`
   z-index: 97;
 `;
 
+const AddModalContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: ${(props) => (props.modal ? 'flex' : 'none')};
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 97;
+`;
+
 const ModalView = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  max-width: 900px;
+  background-color: ${(props) => props.theme.whiteColor};
+  border-radius: 4px;
+  z-index: 99;
+  transition: transform 0.5s;
+  transform: translate(-50%, -50%)
+    ${(props) => (props.modal ? 'translateY(0)' : 'translateY(-200%)')};
+`;
+
+const AddModalView = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
@@ -916,7 +929,24 @@ const ModalViewFooterButtonLeft = styled.button`
     font-size: 8px;
   }
 `;
+const ModalViewFooterButtonmiddle = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  width: 93px;
+  height: 33px;
+  font-size: 12px;
+  border-radius: 4px;
+  background-color: ${(props) => props.theme.primaryColor};
+  color: ${(props) => props.theme.whiteColor};
 
+  @media ${(props) => props.theme.mobile} {
+    max-width: 73px;
+    padding: 4px;
+    font-size: 8px;
+  }
+`;
 const ModalViewFooterButtonRight = styled.button`
   display: flex;
   align-items: center;
@@ -938,7 +968,6 @@ const ModalViewFooterButtonRight = styled.button`
 
 const ReviewListContainer = styled.div`
   display: flex;
-  // align-items: center;
   justify-content: space-between;
   margin: 40px 0 0 8px;
   width: 100%;
@@ -1004,7 +1033,7 @@ const MyPageReviewContent = styled.div`
   font-size: 20px;
 `;
 
-const MyPageReviewContentTop = styled.div`
+const MyPageReviewContentTopButton = styled.button`
   display: flex;
   // align-items: center;
   width: 100%;
@@ -1161,7 +1190,6 @@ export {
   SelectTitle,
   AddressTitle,
   RecipientTitle,
-  PhoneNumberTitle,
   EditTitle,
   AddressText,
   RecipientText,
@@ -1175,20 +1203,24 @@ export {
   ModalViewBody,
   ModalViewBodyTable,
   ModalViewBodyTableLeft,
-  ModalViewBodyTableRightInput,
   ModalViewFooter,
   ModalViewBodyTableButton,
   ModalViewFooterButtonLeft,
+  ModalViewFooterButtonmiddle,
   ModalViewFooterButtonRight,
   ReviewListContainer,
   ProductImg2,
   MyPageReviewImage,
   MyPageReviewContent,
-  MyPageReviewContentTop,
+  MyPageReviewContentTopButton,
   MyPageReviewContent2,
   MyPageReviewContentText,
   MyPageReviewDelete,
   CancleImgContainer3,
   TextWrapper,
+  EditButton2,
+  AddModalContainer,
+  AddModalView,
+  ModalViewBodyTableRightInput,
   AdInputBox
 };

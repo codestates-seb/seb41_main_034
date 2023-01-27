@@ -16,7 +16,7 @@ import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg'
 import { useState, useEffect } from 'react';
 import ReviewModal from './ReviewModal';
 
-const MyPageOrderList = () => {
+const MyPageOrderItem = () => {
   const [isOpenReview, setIsOpenReview] = useState(false);
 
   const handleReviewOpen = () => {
@@ -72,4 +72,4 @@ const MyPageOrderList = () => {
   );
 };
 
-export default MyPageOrderList;
+export default MyPageOrderItem;
