@@ -6,12 +6,20 @@ import {
   ModalCancle
 } from '../../styles/signStyle';
 import { ReactComponent as DeleteIcon } from '../../assets/icons/cancleIcon.svg';
+import { useEffect, useState } from 'react';
 
 const AddressModal = ({ form, setForm, isOpenPost, setIsOpenPost }) => {
+  const [daumAddress, setDaumAddress] = useState('');
+
   const onCompletePost = (data) => {
-    setForm({ ...form, address: data.address });
+    setDaumAddress(data.address);
     setIsOpenPost(false);
   };
+
+  useEffect(() => {
+    setForm({ ...form, address: daumAddress });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [daumAddress]);
 
   return (
     <>

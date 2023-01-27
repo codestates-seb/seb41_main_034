@@ -52,11 +52,6 @@ const OrderPayment = ({ onClickOrder, shippingFee, setShoppingFee }) => {
             </ReceiptAmount>
           </ReceiptContainer>
 
-          <ReceiptContainer>
-            <ReceiptAmount>총 할인금액</ReceiptAmount>
-            <ReceiptAmount>-{(0).toLocaleString('ko-KR')}원</ReceiptAmount>
-          </ReceiptContainer>
-
           <PaymentContainer>
             <ReceiptTitle>결제금액</ReceiptTitle>
             <ReceiptPayment>

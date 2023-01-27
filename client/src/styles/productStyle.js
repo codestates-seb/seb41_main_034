@@ -900,8 +900,8 @@ export {
   ReviewWrapper,
   SpaceDiv,
   BottomText,
-  SmallInput,
   LoginText,
-  EditQuModal,
-  EditQuModalView
+  SmallInput,
+  EditQuModalView,
+  EditQuModal
 };

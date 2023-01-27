@@ -9,8 +9,6 @@ const Home = () => {
       <ResponsiveCarousel />
 
       <HomeProduct title={'인기상품'} homeData={homeData} />
-
-      <HomeProduct title={'할인상품'} homeData={homeData} />
     </>
   );
 };

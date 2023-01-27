@@ -106,10 +106,12 @@ const DisabledConfirmButton = styled.button`
   color: ${(props) => props.theme.grayColor};
   border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
+  cursor: initial;
 `;
 
 const ConfirmButton = styled(DisabledConfirmButton)`
   transition: color 0.5s, border 0.5s;
+  cursor: pointer;
 
   @media ${(props) => props.theme.desktop} {
     &:hover {

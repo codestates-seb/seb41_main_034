@@ -16,7 +16,6 @@ import {
 
 import MyPageHeader from './MyPageHeader';
 import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
-import { ReactComponent as EditIcon } from '../../assets/icons/editIcon.svg';
 import { useState, useEffect } from 'react';
 import ReviewModal from './ReviewModal';
 

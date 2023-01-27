@@ -15,7 +15,7 @@ const CartContainer = styled.div`
   transform: translateY(-40%)
     ${(props) => (props.isOpenCart ? 'translateX(0)' : 'translateX(200%)')};
   overflow: hidden;
-  z-index: 97;
+  z-index: 80;
 
   @media ${(props) => props.theme.tablet} {
     right: 12px;
