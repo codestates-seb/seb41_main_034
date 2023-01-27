@@ -6,30 +6,25 @@ import Header from './components/Layout/Header';
 import Main from './components/Layout/Main';
 import Footer from './components/Layout/Footer';
 import ScrollToTop from './components/Layout/ScrollToTop';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
 import { authAPI } from './api/customAxios';
-import { loginDbId } from './store/userSlice';
+import { useEffect } from 'react';
 
 function App() {
   const location = useLocation();
-  const dispatch = useDispatch();
-  const userId = useSelector((state) => state.user.userId);
-  const dbId = useSelector((state) => state.user.dbId);
+  const accessToken = localStorage.getItem('accessToken');
 
   const checkLogin = async () => {
     try {
       const user = await authAPI.get('/user/login-status');
-      localStorage.setItem('DbId', user.data.data.id);
-      dbId === '' && dispatch(loginDbId(user.data.data.id));
+      const id = `${user.data.data.id}`;
+      localStorage.setItem('userId', id);
     } catch (err) {
       console.log(err);
-      dispatch(loginDbId(''));
     }
   };
 
   useEffect(() => {
-    userId && checkLogin();
+    accessToken && checkLogin();
   });
 
   return (
