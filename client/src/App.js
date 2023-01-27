@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { GlobalStyle } from './styles/globalStyle';
@@ -7,23 +6,35 @@ import Header from './components/Layout/Header';
 import Main from './components/Layout/Main';
 import Footer from './components/Layout/Footer';
 import ScrollToTop from './components/Layout/ScrollToTop';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { authAPI } from './api/customAxios';
+import { loginDbId } from './store/userSlice';
 
 function App() {
   const location = useLocation();
+  const dispatch = useDispatch();
+  const loginUserId = useSelector((state) => state.user.userId);
 
-  const [isLogin, setIsLogin] = useState(true);
+  const checkLogin = async () => {
+    try {
+      const user = await authAPI.get('/user/login-status');
+      localStorage.setItem('userDbId', user.data.data.id);
+      dispatch(loginDbId(user.data.data.id));
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  // const token = localStorage.getItem('accessToken');
-
-  // useEffect(() => {
-  //   setIsLogin(token ? true : false);
-  // }, [token]);
+  useEffect(() => {
+    loginUserId && checkLogin();
+  });
 
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
 
-      <Header location={location} isLogin={isLogin} />
+      <Header location={location} />
 
       <Main />
 

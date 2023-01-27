@@ -388,7 +388,7 @@ const ScrollToTopButton = styled.button`
   border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 100px;
   background-color: ${(props) => props.theme.whiteColor};
-  z-index: 80;
+  z-index: 60;
 
   svg {
     fill: ${(props) => props.theme.primaryColor};
