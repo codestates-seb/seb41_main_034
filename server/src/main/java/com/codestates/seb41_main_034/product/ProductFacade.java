@@ -48,8 +48,6 @@ public class ProductFacade {
         // 상품 조회
         Product product = productService.readProduct(productId);
 
-        // TODO: 인증이 없거나 인증된 사용자가 관리자가 아닌 경우 DRAFT 상태인 상품은 PRODUCT_NOT_FOUND 처리해야 한다.
-
         return product.toDto(helper);
     }
 

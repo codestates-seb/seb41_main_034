@@ -1,19 +1,15 @@
 package com.codestates.seb41_main_034.auth.config;
 
-import com.codestates.seb41_main_034.auth.filter.JwtAuthenticationFilter;
-import com.codestates.seb41_main_034.auth.filter.JwtVerificationFilter;
 import com.codestates.seb41_main_034.auth.handler.UserAccessDeniedHandler;
 import com.codestates.seb41_main_034.auth.handler.UserAuthenticationEntryPoint;
-import com.codestates.seb41_main_034.auth.handler.UserAuthenticationFailureHandler;
-import com.codestates.seb41_main_034.auth.handler.UserAuthenticationSuccessHandler;
 import com.codestates.seb41_main_034.auth.jwt.JwtTokenizer;
+import com.codestates.seb41_main_034.auth.userdetails.CustomUserDetailsService;
 import com.codestates.seb41_main_034.auth.utils.CustomAuthorityUtils;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,15 +22,13 @@ import java.util.List;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
+@AllArgsConstructor
 @EnableWebSecurity
 public class SecurityConfiguration {
+
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
-
-    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils) {
-        this.jwtTokenizer = jwtTokenizer;
-        this.authorityUtils = authorityUtils;
-    }
+    private final CustomUserDetailsService customUserDetailsService;
 
 //    @Value("${spring.security.oauth2.client.registration.google.clientId}")
 //    private String clientId;
@@ -57,18 +51,46 @@ public class SecurityConfiguration {
                 .authenticationEntryPoint(new UserAuthenticationEntryPoint())
                 .accessDeniedHandler(new UserAccessDeniedHandler())
                 .and()
-                .apply(new CustomFilterConfigurer())
+                .apply(new CustomFilterConfigurer(jwtTokenizer, authorityUtils, customUserDetailsService))
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers(HttpMethod.POST, "/api/v1/user/login").permitAll()
                         .antMatchers(HttpMethod.GET, "/api/v1/user/duplicate-check").permitAll()
                         .antMatchers(HttpMethod.GET, "/api/v1/user/*").hasRole("USER")
                         .antMatchers(HttpMethod.PATCH, "/api/v1/user/*").hasRole("USER")
                         .antMatchers(HttpMethod.DELETE, "/api/v1/user/*").hasRole("USER")
+                        .antMatchers(HttpMethod.POST, "/api/v1/user-address").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/api/v1/user-address").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/api/v1/user-address/*").hasRole("USER")
+                        .antMatchers(HttpMethod.PATCH, "/api/v1/user-address/*").hasRole("USER")
+                        .antMatchers(HttpMethod.DELETE, "/api/v1/user-address/*").hasRole("USER")
+                        .antMatchers(HttpMethod.POST, "/api/v1/product").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.PATCH, "/api/v1/product/*").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.POST, "/api/v1/cart").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/api/v1/cart").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/api/v1/cart/*").hasRole("USER")
+                        .antMatchers(HttpMethod.PATCH, "/api/v1/cart/*").hasRole("USER")
+                        .antMatchers(HttpMethod.DELETE, "/api/v1/cart/*").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/api/v1/order/*").hasRole("USER")
+                        .antMatchers(HttpMethod.POST, "/api/v1/ordering").hasRole("USER")
+                        .antMatchers(HttpMethod.PATCH, "/api/v1/ordering/*/prepare").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.PATCH, "/api/v1/ordering/*/ship").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.PATCH, "/api/v1/ordering/*/confirm-cancellation").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.PATCH, "/api/v1/ordering/**").hasRole("USER")
+                        .antMatchers(HttpMethod.POST, "/api/v1/question").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/api/v1/question/question-history").hasRole("USER")
+                        .antMatchers(HttpMethod.PATCH, "/api/v1/question/*").hasRole("USER")
+                        .antMatchers(HttpMethod.DELETE, "/api/v1/question/*").hasRole("USER")
+                        .antMatchers(HttpMethod.POST, "/api/v1/question/*/answer").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.PATCH, "/api/v1/question/*/answer").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.POST, "/api/v1/review").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/api/v1/review/review-history").hasRole("USER")
+                        .antMatchers(HttpMethod.PATCH, "/api/v1/review/*").hasRole("USER")
+                        .antMatchers(HttpMethod.DELETE, "/api/v1/review/*").hasRole("USER")
                         .anyRequest().permitAll()
                 );
         return http.build();
     }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
@@ -89,21 +111,4 @@ public class SecurityConfiguration {
         return source;
     }
 
-    public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {
-        @Override
-        public void configure(HttpSecurity builder) throws Exception {
-            AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
-
-            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
-            jwtAuthenticationFilter.setFilterProcessesUrl("/api/v1/user/login");
-            jwtAuthenticationFilter.setAuthenticationSuccessHandler(new UserAuthenticationSuccessHandler());
-            jwtAuthenticationFilter.setAuthenticationFailureHandler(new UserAuthenticationFailureHandler());
-
-            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
-
-            builder
-                    .addFilter(jwtAuthenticationFilter)
-                    .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
-        }
-    }
 }

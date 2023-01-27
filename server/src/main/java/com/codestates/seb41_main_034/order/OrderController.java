@@ -46,10 +46,7 @@ public class OrderController {
             @PastOrPresent @RequestParam(required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate to,
             @PageableDefault(sort = "id", direction = Direction.DESC) Pageable pageable
     ) {
-        // TODO: 인증된 회원의 ID를 가져와야 한다.
-        int createdBy = 1;
-
-        return new ResponseEntity<>(Response.of(orderFacade.readOrders(createdBy, from, to, pageable)), HttpStatus.OK);
+        return new ResponseEntity<>(Response.of(orderFacade.readOrders(from, to, pageable)), HttpStatus.OK);
     }
 
     @PatchMapping("/ordering/{orderId}/address")

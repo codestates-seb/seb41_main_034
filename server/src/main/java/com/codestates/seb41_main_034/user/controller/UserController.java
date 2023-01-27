@@ -4,6 +4,7 @@ import com.codestates.seb41_main_034.common.response.Response;
 import com.codestates.seb41_main_034.user.dto.UserDto;
 import com.codestates.seb41_main_034.user.dto.UserPatchDto;
 import com.codestates.seb41_main_034.user.dto.UserPostDto;
+import com.codestates.seb41_main_034.user.entity.User;
 import com.codestates.seb41_main_034.user.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,20 +34,19 @@ public class UserController {
     }
 
     @GetMapping("/duplicate-check")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void getDuplicateCheck(@NotBlank @RequestParam String username) {
         userService.verifyExistsUsername(username);
     }
 
     @GetMapping("/login-status")
-    public ResponseEntity getLoginStatus(@AuthenticationPrincipal String username) {
-        return new ResponseEntity<>(Response.of(userService.findUser(username)), HttpStatus.OK);
+    public ResponseEntity getLoginStatus(@AuthenticationPrincipal User user) {
+        return new ResponseEntity<>(Response.of(user.toDto()), HttpStatus.OK);
     }
-
 
     @GetMapping("/{user-id}")
     public ResponseEntity getUser(
-            @PathVariable("user-id") @Positive long userId) {
+            @PathVariable("user-id") @Positive int userId) {
         UserDto userDto = userService.findUser(userId);
         return new ResponseEntity<>(Response.of(userDto)
                 , HttpStatus.OK);
@@ -54,7 +54,7 @@ public class UserController {
 
     @PatchMapping("/{user-id}")
     public ResponseEntity<?> edit(
-            @PathVariable("user-id") @Positive long userId, @RequestBody UserPatchDto userPatchDto) {
+            @PathVariable("user-id") @Positive int userId, @RequestBody UserPatchDto userPatchDto) {
         UserDto userDto = userService.editUser(userId, userPatchDto);
 
         return new ResponseEntity<>(Response.of(userDto)
@@ -64,7 +64,7 @@ public class UserController {
     @DeleteMapping("/{user-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUser(
-            @PathVariable("user-id") @Positive long userId) {
+            @PathVariable("user-id") @Positive int userId) {
         userService.deleteUser(userId);
     }
 }

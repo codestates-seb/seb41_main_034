@@ -30,18 +30,18 @@ public class Review extends Auditable {
     @Type(type = "text")
     private String imageUrls = "[]";
 
-    public ReviewDto toDto(JsonListHelper helper, Product product) {
+    public ReviewDto toDto(JsonListHelper helper, Product product, String createdByName) {
         Optional<Product> optionalProduct = Optional.ofNullable(product);
         String productName = optionalProduct.map(Product::getName).orElse(null);
         String productImageUrl = optionalProduct.map(Product::getImageUrls).map(helper::jsonToList)
                 .map(urlList -> urlList.isEmpty() ? null : urlList.get(0)).orElse(null);
 
         return new ReviewDto(id, productId, productName, productImageUrl, body, helper.jsonToList(imageUrls),
-                getCreatedBy(), getModifiedBy(), getCreatedAt(), getModifiedAt());
+                getCreatedBy(), createdByName, getModifiedBy(), getCreatedAt(), getModifiedAt());
     }
 
     public ReviewDto toDto(JsonListHelper helper) {
-        return toDto(helper, null);
+        return toDto(helper, null, null);
     }
 
 }

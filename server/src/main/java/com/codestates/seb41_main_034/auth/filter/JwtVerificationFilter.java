@@ -1,13 +1,16 @@
 package com.codestates.seb41_main_034.auth.filter;
 
 import com.codestates.seb41_main_034.auth.jwt.JwtTokenizer;
+import com.codestates.seb41_main_034.auth.userdetails.CustomUserDetailsService;
 import com.codestates.seb41_main_034.auth.utils.CustomAuthorityUtils;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
+import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -19,14 +22,11 @@ import java.util.List;
 import java.util.Map;
 
 // JWT 검증 필터
+@AllArgsConstructor
 public class JwtVerificationFilter extends OncePerRequestFilter {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
-
-    public JwtVerificationFilter(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils) {
-        this.jwtTokenizer = jwtTokenizer;
-        this.authorityUtils = authorityUtils;
-    }
+    private final CustomUserDetailsService customUserDetailsService;
 
     @Override
     protected void doFilterInternal(
@@ -70,8 +70,9 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
 //
     private void setAuthenticationToContext(Map<String, Object> claims) {
         String username = (String) claims.get("username");
-        List<GrantedAuthority> authorities = authorityUtils.createAuthorities((List) claims.get("roles"));
-        Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, authorities);
+        List<GrantedAuthority> authorities = authorityUtils.createAuthorities((List<String>) claims.get("roles"));
+        UserDetails user = customUserDetailsService.loadUserByUsername(username);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, authorities);
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 }

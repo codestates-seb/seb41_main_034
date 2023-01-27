@@ -2,7 +2,8 @@ package com.codestates.seb41_main_034.useraddress;
 
 import com.codestates.seb41_main_034.common.response.Response;
 import com.codestates.seb41_main_034.useraddress.dto.UserAddressDto;
-import com.codestates.seb41_main_034.useraddress.dto.UserAddressRequestDto;
+import com.codestates.seb41_main_034.useraddress.dto.UserAddressPatchDto;
+import com.codestates.seb41_main_034.useraddress.dto.UserAddressPostDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +24,8 @@ public class UserAddressController {
 
     @PostMapping
     public ResponseEntity<Response<UserAddressDto>> postUserAddress(
-            @Valid @RequestBody UserAddressRequestDto requestDto) {
-        return new ResponseEntity<>(Response.of(userAddressFacade.createUserAddress(requestDto)), HttpStatus.CREATED);
+            @Valid @RequestBody UserAddressPostDto postDto) {
+        return new ResponseEntity<>(Response.of(userAddressFacade.createUserAddress(postDto)), HttpStatus.CREATED);
     }
 
     @GetMapping("/{userAddressId}")
@@ -39,9 +40,9 @@ public class UserAddressController {
 
     @PatchMapping("/{userAddressId}")
     public ResponseEntity<Response<UserAddressDto>> patchUserAddress(
-            @Positive @PathVariable long userAddressId, @Valid @RequestBody UserAddressRequestDto requestDto) {
+            @Positive @PathVariable long userAddressId, @Valid @RequestBody UserAddressPatchDto patchDto) {
         return new ResponseEntity<>(
-                Response.of(userAddressFacade.updateUserAddress(userAddressId, requestDto)), HttpStatus.OK);
+                Response.of(userAddressFacade.updateUserAddress(userAddressId, patchDto)), HttpStatus.OK);
     }
 
     @DeleteMapping("/{userAddressId}")

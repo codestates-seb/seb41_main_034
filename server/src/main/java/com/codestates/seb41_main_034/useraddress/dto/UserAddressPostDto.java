@@ -3,24 +3,18 @@ package com.codestates.seb41_main_034.useraddress.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
+import javax.validation.constraints.NotBlank;
 
 @Getter
 @AllArgsConstructor
-public class UserAddressDto {
+public class UserAddressPostDto {
 
-    private long id;
-
-    private int userId;
-
+    @NotBlank
     private String recipient;
 
+    @NotBlank
     private String address;
 
     private boolean isPrimary;
-
-    private LocalDateTime createdAt;
-
-    private LocalDateTime modifiedAt;
 
 }

@@ -15,14 +15,10 @@ public class UserDto {
     private String displayName;
     private List<String> roles;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String zonecode;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String address;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String detailAddress;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String phone;
     private LocalDateTime createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private LocalDateTime modifiedAt;
 
 }
