@@ -63,7 +63,7 @@ public class OrderFacade {
 
         // 주문한 만큼 재고 감소
         for (OrderProduct orderProduct : order.getOrderProducts()) {
-            productService.updateProductStock(orderProduct.getProductId(), -orderProduct.getQuantity());
+            productService.updateProductStockSold(orderProduct.getProductId(), -orderProduct.getQuantity());
         }
 
         // DTO로 매핑 후 반환
@@ -157,7 +157,7 @@ public class OrderFacade {
         }
 
         // 취소 완료된 만큼 재고 증가
-        productIdDeltaMap.forEach(productService::updateProductStock);
+        productIdDeltaMap.forEach(productService::updateProductStockSold);
 
         // 주문한 상품 정보 조회
         Set<Integer> productIds = updatedOrder.getOrderProducts().stream()
@@ -223,7 +223,7 @@ public class OrderFacade {
         }
 
         // 취소 완료된 만큼 재고 증가
-        productIdDeltaMap.forEach(productService::updateProductStock);
+        productIdDeltaMap.forEach(productService::updateProductStockSold);
 
         // DTO에 매핑 후 반환
         return updatedOrder.toDto();

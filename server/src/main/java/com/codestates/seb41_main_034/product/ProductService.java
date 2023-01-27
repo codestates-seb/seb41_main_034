@@ -66,8 +66,7 @@ public class ProductService {
         return productRepository.findByCategoryAndNameLike(category, q, pageable);
     }
 
-    public Product updateProduct(
-            int productId, ProductPatchDto patchDto, String imageUrls, String detailImageUrls) {
+    public Product updateProduct(int productId, ProductPatchDto patchDto, String imageUrls, String detailImageUrls) {
         // DB에서 상품 조회, 없는 경우 예외 발생
         Product product = readProduct(productId);
 
@@ -99,20 +98,23 @@ public class ProductService {
         return products;
     }
 
-    public void updateProductStock(int productId, int delta) {
+    public void updateProductStockSold(int productId, int delta) {
         // DB에서 상품 조회, 없는 경우 예외 발생
         Product product = readProduct(productId);
 
-        // 수정될 재고량 계산
+        // 수정될 재고량, 판매량 계산
+        // delta: 재고량 기준 변화량
         int updatedStock = product.getStock() + delta;
+        int updatedSold = product.getSold() - delta;
 
         // 재고가 부족한 경우 예외 발생
         if (updatedStock < 0) {
             throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_ENOUGH_STOCK);
         }
 
-        // 재고 수정
+        // 재고량 맟 판매량 수정
         product.setStock(updatedStock);
+        product.setSold(updatedSold);
     }
 
 }

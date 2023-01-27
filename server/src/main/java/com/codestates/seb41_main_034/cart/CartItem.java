@@ -18,6 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
+@Table(indexes = @Index(name = "idx_user_id_product_id", columnList = "user_id, product_id"))
 public class CartItem extends DateAuditable {
 
     @Id
