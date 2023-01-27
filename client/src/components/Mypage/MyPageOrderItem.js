@@ -15,8 +15,16 @@ import {
 import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
 import { useState, useEffect } from 'react';
 import ReviewModal from './ReviewModal';
+import { Link } from 'react-router-dom';
 
-const MyPageOrderItem = () => {
+const MyPageOrderItem = ({
+  productId,
+  image,
+  name,
+  price,
+  quantity,
+  orderState
+}) => {
   const [isOpenReview, setIsOpenReview] = useState(false);
 
   const handleReviewOpen = () => {
@@ -35,6 +43,19 @@ const MyPageOrderItem = () => {
     }
   };
 
+  const orderStateFunc = (e) => {
+    const stateObj = {
+      WAITING_FOR_PAYMENT: '결제 대기',
+      PAYMENT_FINISHED: '결제 완료',
+      PREPARING_FOR_DELIVERY: '배송 대기 중',
+      SHIPPING: '배송 중',
+      DELIVERED: '배송 완료',
+      WAITING_FOR_CANCELLATION: '취소 대기 중',
+      CANCELED: '취소 완료'
+    };
+    return stateObj[e];
+  };
+
   return (
     <>
       <OrderListContainer>
@@ -47,15 +68,18 @@ const MyPageOrderItem = () => {
           />
         </LeftContent>
         <CenterContent>
-          <ProductName>상품명: 사과</ProductName>
-          <OrderListPrice>가격: 10000원</OrderListPrice>
-          <OrderQuantity>수량: 1개</OrderQuantity>
+          {/* 상품 상세 이동 */}
+          <Link to={`/product/${productId}`}>
+            <ProductName>상품명: {name}</ProductName>
+          </Link>
+          <OrderListPrice>가격: {price}원</OrderListPrice>
+          <OrderQuantity>수량: {quantity}개</OrderQuantity>
         </CenterContent>
         <RightContent>
-          <CancleImgContainer>
+          {/* <CancleImgContainer>
             <CancelIcon onClick={onRemove} alt="주문목록 삭제 버튼입니다" />
-          </CancleImgContainer>
-          <OrderStatus>주문완료</OrderStatus>
+          </CancleImgContainer> */}
+          <OrderStatus>{orderStateFunc(orderState)}</OrderStatus>
           <ReviewButton
             onClick={handleReviewOpen}
             aria-label="후기작성 버튼입니다"
