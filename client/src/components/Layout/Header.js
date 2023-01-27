@@ -25,21 +25,19 @@ import { ReactComponent as MyPageIcon } from '../../assets/icons/myPageIcon.svg'
 import Menu from '../Menu/Menu';
 import MobileMenu from '../Menu/MobileMenu';
 import ShoppingCart from '../Order/ShoppingCart';
-import { useDispatch, useSelector } from 'react-redux';
-import { logoutUser } from '../../store/userSlice';
+import { useSelector } from 'react-redux';
 
 const Header = ({ location }) => {
-  const dispatch = useDispatch();
-  const login = useSelector((state) => state.user.dbId);
   const cart = useSelector((state) => state.order.cart);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isOpenCart, setIsOpenCart] = useState(false);
+  const accessToken = localStorage.getItem('accessToken');
 
   const onClickLogout = () => {
     const isLogout = window.confirm('로그아웃 하시겠습니까?');
 
     isLogout && localStorage.clear();
-    isLogout && dispatch(logoutUser());
+    isLogout && window.location.reload();
   };
 
   if (location.pathname === '/login' || location.pathname === '/signup') {
@@ -70,7 +68,7 @@ const Header = ({ location }) => {
 
           <HeaderRight>
             <ButtonContainer>
-              {login ? (
+              {accessToken ? (
                 <>
                   <MyPageLink to={'/mypage'}>
                     <MyPageIcon />
