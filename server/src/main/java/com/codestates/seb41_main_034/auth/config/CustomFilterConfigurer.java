@@ -7,6 +7,7 @@ import com.codestates.seb41_main_034.auth.handler.UserAuthenticationSuccessHandl
 import com.codestates.seb41_main_034.auth.jwt.JwtTokenizer;
 import com.codestates.seb41_main_034.auth.userdetails.CustomUserDetailsService;
 import com.codestates.seb41_main_034.auth.utils.CustomAuthorityUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,16 +18,17 @@ public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterC
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
     private final CustomUserDetailsService customUserDetailsService;
+    private final ObjectMapper mapper;
 
     @Override
-    public void configure(HttpSecurity builder) throws Exception {
+    public void configure(HttpSecurity builder) {
         AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
 
         JwtAuthenticationFilter jwtAuthenticationFilter =
-                new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
+                new JwtAuthenticationFilter(authenticationManager, jwtTokenizer, mapper);
         jwtAuthenticationFilter.setFilterProcessesUrl("/api/v1/user/login");
         jwtAuthenticationFilter.setAuthenticationSuccessHandler(new UserAuthenticationSuccessHandler());
-        jwtAuthenticationFilter.setAuthenticationFailureHandler(new UserAuthenticationFailureHandler());
+        jwtAuthenticationFilter.setAuthenticationFailureHandler(new UserAuthenticationFailureHandler(mapper));
 
         JwtVerificationFilter jwtVerificationFilter =
                 new JwtVerificationFilter(jwtTokenizer, authorityUtils, customUserDetailsService);

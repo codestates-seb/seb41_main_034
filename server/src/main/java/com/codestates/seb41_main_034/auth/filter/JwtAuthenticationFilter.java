@@ -2,8 +2,10 @@ package com.codestates.seb41_main_034.auth.filter;
 
 import com.codestates.seb41_main_034.auth.dto.LoginDto;
 import com.codestates.seb41_main_034.auth.jwt.JwtTokenizer;
+import com.codestates.seb41_main_034.common.response.Response;
 import com.codestates.seb41_main_034.user.entity.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,21 +21,17 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+@AllArgsConstructor
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenizer jwtTokenizer;
-
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenizer jwtTokenizer) {
-        this.authenticationManager = authenticationManager;
-        this.jwtTokenizer = jwtTokenizer;
-    }
+    private final ObjectMapper mapper;
 
     @SneakyThrows
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
 
-        ObjectMapper objectMapper = new ObjectMapper();    // (3-1)
-        LoginDto loginDto = objectMapper.readValue(request.getInputStream(), LoginDto.class); // (3-2)
+        LoginDto loginDto = mapper.readerFor(LoginDto.class).readValue(request.getInputStream());
 
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
@@ -45,8 +43,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest request,
                                             HttpServletResponse response,
                                             FilterChain chain,
-                                            Authentication authResult) throws ServletException, IOException
-    {
+                                            Authentication authResult) throws ServletException, IOException {
         User user = (User) authResult.getPrincipal();
 
         String accessToken = delegateAccessToken(user);
@@ -56,8 +53,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setHeader("Refresh", refreshToken);
 
         response.setContentType("application/json");
-        ObjectMapper objectMapper = new ObjectMapper();
-
+        response.getWriter().write(mapper.writerFor(Response.class).writeValueAsString(Response.of(user.toDto())));
 
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
     }

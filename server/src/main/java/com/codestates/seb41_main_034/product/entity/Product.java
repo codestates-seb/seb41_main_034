@@ -30,7 +30,7 @@ public class Product extends Auditable {
     private int stock;
 
     @Column(nullable = false)
-    private int sold;
+    private int sold = 0;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
