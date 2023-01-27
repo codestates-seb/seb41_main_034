@@ -53,6 +53,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setHeader("Refresh", refreshToken);
 
         response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
         response.getWriter().write(mapper.writerFor(Response.class).writeValueAsString(Response.of(user.toDto())));
 
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
