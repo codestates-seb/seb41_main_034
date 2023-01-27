@@ -527,9 +527,15 @@ const ProductNavbarList = styled.ol`
   }
 `;
 
-const NavbarItemName = styled.p`
+const NavbarItemName = styled.label`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
   font-size: 16px;
   transition: color 0.3s;
+  cursor: pointer;
 
   @media ${(props) => props.theme.mobile} {
     font-size: 14px;
@@ -542,7 +548,7 @@ const ProductNavbarItem = styled.li`
   align-items: center;
   width: 25%;
   height: 100%;
-  cursor: pointer;
+
   &:not(:last-child) {
     border-right: 1px solid ${(props) => props.theme.borderColor};
   }
@@ -792,7 +798,13 @@ const SmallInput = styled.input`
   }
 `;
 
+const TabInput = styled.input`
+  width: 0;
+  height: 0;
+`;
+
 export {
+  TabInput,
   ModalView,
   CategoryHeader,
   CategoryTitle,

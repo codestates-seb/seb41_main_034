@@ -3,7 +3,8 @@ import {
   QuestionButton,
   ProductDetailContainer,
   ProductDetailHeader,
-  ProductDetailTitle
+  ProductDetailTitle,
+  TabInput
 } from '../../styles/productStyle';
 import ProductQuestionItem from './ProductQuestionItem';
 import { useState, useEffect } from 'react';
@@ -32,6 +33,7 @@ const ProductQuestionList = () => {
   return isLoading ? (
     <>
       <ProductDetailContainer>
+        <TabInput id="question" readOnly />
         <ProductDetailHeader>
           <ProductDetailTitle>문의</ProductDetailTitle>
           <QuestionButton type="button" onClick={handleQuestionOpen}>

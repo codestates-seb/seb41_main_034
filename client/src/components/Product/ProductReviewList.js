@@ -2,7 +2,8 @@ import {
   ReviewListContainer,
   ProductDetailContainer,
   ProductDetailHeader,
-  ProductDetailTitle
+  ProductDetailTitle,
+  TabInput
 } from '../../styles/productStyle';
 import ProductReviewItem from './ProductReviewItem';
 import { reviewGetAPI } from '../../api/review';
@@ -25,6 +26,7 @@ const ProductReviewList = () => {
   return (
     <>
       <ProductDetailContainer>
+        <TabInput id="review" readOnly />
         <ProductDetailHeader>
           <ProductDetailTitle>후기</ProductDetailTitle>
         </ProductDetailHeader>

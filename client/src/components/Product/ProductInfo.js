@@ -1,12 +1,14 @@
 import {
   ProductInfoContainer,
   ProductMainImage,
-  ProductMainImg
+  ProductMainImg,
+  TabInput
 } from '../../styles/productStyle';
 
 const ProductInfo = () => {
   return (
     <ProductInfoContainer>
+      <TabInput id="productInfo" readOnly />
       {[1, 2, 3].map((el, idx) => {
         return (
           <ProductMainImage key={idx}>

@@ -3,12 +3,14 @@ import {
   ProductDetailHeader,
   ProductDetailTitle,
   ProductMainImage,
-  ProductMainImg
+  ProductMainImg,
+  TabInput
 } from '../../styles/productStyle';
 
 const ProductDetail = () => {
   return (
     <ProductDetailContainer>
+      <TabInput id="detailInfo" readOnly />
       <ProductDetailHeader>
         <ProductDetailTitle>상세정보</ProductDetailTitle>
       </ProductDetailHeader>
