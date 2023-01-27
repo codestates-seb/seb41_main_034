@@ -4,7 +4,7 @@ import {
   ProductImg2,
   MyPageReviewImage,
   MyPageReviewContent,
-  MyPageReviewContentTop,
+  MyPageReviewContentTopButton,
   MyPageReviewContent2,
   MyPageReviewContentText,
   MyPageReviewDelete
@@ -49,17 +49,17 @@ const MyPageReview = () => {
           />
         </MyPageReviewImage>
         <MyPageReviewContent>
-          <MyPageReviewContentTop>
+          <MyPageReviewContentTopButton>
             {textLengthOverCut(
               '구매한 상품에 대한 후기 제목은 구매한 상품에 대한 후기 제목은 구매한 상품에 대한 후기 제목은 구매한 상품에 대한 후기 제목은',
               20,
               '...'
             )}
-          </MyPageReviewContentTop>
+          </MyPageReviewContentTopButton>
           <MyPageReviewContent2>
             <MyPageReviewContentText>작성일</MyPageReviewContentText>
             <MyPageReviewContentText>2023.01.02</MyPageReviewContentText>
-            <MyPageReviewContentText>상품명 : 토마토</MyPageReviewContentText>
+            <MyPageReviewContentText>상품명 : 사과</MyPageReviewContentText>
           </MyPageReviewContent2>
         </MyPageReviewContent>
         <MyPageReviewDelete>
