@@ -9,6 +9,7 @@ const questionGetAPI = async () => {
     console.log(err);
   }
 };
+
 //특정상품의 문의기록조회
 const itemQuestionGetAPI = async (productId) => {
   try {

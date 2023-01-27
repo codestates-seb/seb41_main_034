@@ -8,17 +8,12 @@ import {
   EditDeleteButton,
   EditDeleteContainer
 } from '../../styles/myPageStyle';
-import { questionDeleteAPI } from '../../api/question';
 import { useState, useEffect } from 'react';
 import Loading from '../Layout/Loading';
 import EditQuestionModal from './EditQuestionModal';
+import { authAPI } from '../../api/customAxios';
 
-const MyPageQuestionItem = ({
-  question,
-  setQuestion,
-  setReLoading,
-  reLoading
-}) => {
+const MyPageQuestionItem = ({ question, setQuestion }) => {
   const [itemQuestion, setItemQuestion] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [date, setDate] = useState(null);
@@ -26,8 +21,14 @@ const MyPageQuestionItem = ({
 
   const onRemove = () => {
     if (window.confirm('해당 상품에 대한 문의를 삭제하시겠습니까?')) {
-      const body = question.id;
-      questionDeleteAPI(body);
+      const DeleteAPI = async (questionId) => {
+        try {
+          await authAPI.delete(`/question/${questionId}`);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      DeleteAPI(question.id);
       window.location.reload();
       alert('삭제되었습니다');
     } else {
@@ -83,8 +84,6 @@ const MyPageQuestionItem = ({
         isEdit={isEdit}
         setIsEdit={setIsEdit}
         itemQuestion={itemQuestion}
-        setReLoding={setReLoading}
-        reLoading={reLoading}
       />
     </>
   ) : (

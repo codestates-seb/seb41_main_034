@@ -9,22 +9,25 @@ import {
 } from '../../styles/myPageStyle';
 import MyPageHeader from './MyPageHeader';
 import { useState, useEffect } from 'react';
-import { questionGetAPI } from '../../api/question';
 import Loading from '../Layout/Loading';
+import { authAPI } from '../../api/customAxios';
 
 const MyPageQuestionList = () => {
-  const [question, setQuestion] = useState(null);
+  const [question, setQuestion] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [reLoading, setReLoading] = useState(false);
 
   useEffect(() => {
-    const API = async () => {
-      const data = await questionGetAPI();
-      setQuestion(data.data.content.map((el) => el));
-      setIsLoading(true);
+    const QuestionAPI = async () => {
+      try {
+        const result = await authAPI.get(`/question/question-history`);
+        setQuestion(result.data.data.content.map((el) => el));
+      } catch (err) {
+        console.log(err);
+      }
     };
-    API();
-  }, [setQuestion, reLoading]);
+    setIsLoading(true);
+    QuestionAPI();
+  }, [setQuestion]);
 
   return isLoading ? (
     <>
@@ -44,13 +47,7 @@ const MyPageQuestionList = () => {
         </RightContainer>
       </ListHeader>
       {question.map((e, idx) => (
-        <MyPageQuestionItem
-          key={idx}
-          question={e}
-          setQuestion={setQuestion}
-          setReLoading={setReLoading}
-          reLoading={reLoading}
-        />
+        <MyPageQuestionItem key={idx} question={e} setQuestion={setQuestion} />
       ))}
     </>
   ) : (

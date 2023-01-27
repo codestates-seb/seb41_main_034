@@ -8,10 +8,9 @@ import {
 import ProductQuestionItem from './ProductQuestionItem';
 import { useState, useEffect } from 'react';
 import QuestionModal from './QuestionModal';
-import { itemQuestionGetAPI } from '../../api/question';
 import Loading from '../Layout/Loading';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { authAPI } from '../../api/customAxios';
 
 const ProductQuestionList = () => {
   const [isOpenQuestion, setIsOpenQuestion] = useState(false);
@@ -20,7 +19,7 @@ const ProductQuestionList = () => {
   const [isLogin, setIsLogin] = useState('');
   const navigate = useNavigate();
   const params = useParams();
-  const Login = useSelector((state) => state.user.dbId);
+  const Login = localStorage.getItem('userId');
 
   const handleQuestionOpen = () => {
     if (isLogin === '') {
@@ -39,13 +38,18 @@ const ProductQuestionList = () => {
   };
 
   useEffect(() => {
-    const API = async () => {
-      const data = await itemQuestionGetAPI(params.productId);
-      setIsLogin(Login);
-      setQuestion(data.data.content.map((el) => el));
-      setIsLoading(true);
+    const ItemQuestionAPI = async (productId) => {
+      try {
+        const result = await authAPI.get(`/product/${productId}/question`);
+        setIsLogin(Login);
+        setIsLoading(true);
+        console.log(result.data.data);
+        setQuestion(result.data.data.content.map((el) => el));
+      } catch (err) {
+        console.log(err);
+      }
     };
-    API();
+    ItemQuestionAPI(params.productId);
   }, [Login, isOpenQuestion, params.productId]);
 
   return isLoading ? (

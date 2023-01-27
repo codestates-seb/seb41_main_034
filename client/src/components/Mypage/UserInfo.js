@@ -13,32 +13,54 @@ import {
   BottomTextContainer,
   TheOtherText
 } from '../../styles/myPageStyle';
-import { useSelector } from 'react-redux';
-import { questionGetAPI } from '../../api/question';
-import { UserGetAPI } from '../../api/user';
-import { OrderGetAPI } from '../../api/order';
-import { userReviewGetAPI } from '../../api/review';
+import { authAPI } from '../../api/customAxios';
 
 const UserInfo = () => {
   const [question, setQuestion] = useState(null);
   const [userName, setUserName] = useState(null);
   const [order, setOrder] = useState(null);
   const [review, setReview] = useState(null);
-  const User = useSelector((state) => state.user.dbId);
+  const userId = localStorage.getItem('userId');
 
   useEffect(() => {
-    const API = async () => {
-      const UserAPI = await UserGetAPI(User);
-      setUserName(UserAPI.data.displayName);
-      const QuestionAPI = await questionGetAPI();
-      setQuestion(QuestionAPI.data.totalElements);
-      const OrderAPI = await OrderGetAPI();
-      setOrder(OrderAPI.data.totalElements);
-      const ReviewAPI = await userReviewGetAPI();
-      setReview(ReviewAPI.data.totalElements);
+    const UserAPI = async (userId) => {
+      try {
+        const result = await authAPI.get(`/user/${userId}`);
+        setUserName(result.data.data.displayName);
+      } catch (err) {
+        console.log(err);
+      }
     };
-    API();
-  }, []);
+    const QuestionAPI = async () => {
+      try {
+        const result = await authAPI.get(`/question/question-history`);
+        setQuestion(result.data.data.totalElements);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    const OrderAPI = async () => {
+      try {
+        const result = await authAPI.get(`/order/order-history`);
+        setOrder(result.data.data.totalElements);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    const ReviewAPI = async () => {
+      try {
+        const result = await authAPI.get(`/review/review-history`);
+        setReview(result.data.data.totalElements);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    OrderAPI();
+    QuestionAPI();
+    UserAPI(userId);
+    ReviewAPI();
+  }, [userId]);
 
   return (
     <>

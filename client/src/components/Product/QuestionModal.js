@@ -15,7 +15,7 @@ import {
 } from '../../styles/productStyle';
 import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
 import { useState } from 'react';
-import { questionPostAPI } from '../../api/question';
+import { authAPI } from '../../api/customAxios';
 
 const QuestionModal = ({ isOpenQuestion, setIsOpenQuestion, params }) => {
   const [content, setContent] = useState('');
@@ -29,11 +29,20 @@ const QuestionModal = ({ isOpenQuestion, setIsOpenQuestion, params }) => {
       productId: params.productId,
       body: content
     };
-    await questionPostAPI(body);
-    setIsOpenQuestion(false);
-    setContent('');
-  };
 
+    const QuestionPostAPI = async (body) => {
+      try {
+        await authAPI.post(`/question`, body);
+        handleQuestionClose();
+        setContent('');
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    QuestionPostAPI(body);
+  };
+  console.log(params.productId, content);
   return (
     <>
       <QuestionModalWrapper

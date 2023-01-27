@@ -13,27 +13,23 @@ import {
   EditQuModalView
 } from '../../styles/productStyle';
 import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
-import { questionPatchAPI } from '../../api/question';
 import { useState } from 'react';
+import { authAPI } from '../../api/customAxios';
 
-const EditQuestionModal = ({
-  isEdit,
-  setIsEdit,
-  itemQuestion,
-  setReLoading,
-  reLoading
-}) => {
+const EditQuestionModal = ({ isEdit, setIsEdit, itemQuestion }) => {
   const [content, setContent] = useState('');
 
-  const EditQuestion = () => {
-    const Edit = async () => {
-      const questionId = itemQuestion.id;
-      await questionPatchAPI(questionId, content);
+  const EditQuestion = async () => {
+    const QuestionPatchAPI = async (questionId, body) => {
+      try {
+        await authAPI.patch(`/question/${questionId}`, { body });
+      } catch (error) {
+        console.log(error);
+      }
     };
-    Edit();
     setIsEdit(false);
+    await QuestionPatchAPI(itemQuestion.id, content);
     window.location.reload();
-    setReLoading(true);
   };
 
   return (
