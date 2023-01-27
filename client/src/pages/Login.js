@@ -19,10 +19,43 @@ import { authAPI, baseAPI } from '../api/customAxios';
 
 const Login = () => {
   const navigate = useNavigate();
+  const cart = JSON.parse(localStorage.cart || `[]`);
   const [form, setForm] = useState({
     id: '',
     password: ''
   });
+
+  const postAPI = async (el) => {
+    try {
+      await authAPI.post(
+        `/cart`,
+        JSON.stringify({ productId: el.productId, quantity: el.count })
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const patchAPI = async (cartId, el) => {
+    try {
+      await authAPI.patch(
+        `/cart/${cartId}`,
+        JSON.stringify({ quantity: el.count })
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const checkCart = async () => {
+    const res = await authAPI.get(`/cart`);
+
+    cart.map((el) => {
+      return res.data.data.filter((ele) =>
+        ele.id === el.id ? patchAPI(ele.id, el.count) : postAPI(el)
+      );
+    });
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -35,7 +68,8 @@ const Login = () => {
     try {
       const res = await baseAPI.post(`/user/login`, body);
       localStorage.accessToken = `${res.headers.authorization}`;
-      localStorage.userId = `${res.data.data.id}`;
+      localStorage.userId = JSON.stringify(res.data.data.id);
+      checkCart();
       navigate('/');
     } catch (err) {
       console.log(err);
