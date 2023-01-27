@@ -8,14 +8,14 @@ import {
   Writer,
   Reviews,
   CreationDate,
-  Detail
+  Detail,
+  ReviewFlexBox
 } from '../../styles/productStyle';
 
 const ProductReviewItem = () => {
   return (
     <ReviewItemContainer>
       <FirstInfo>
-        <ReviewProductName>상품명: 사과</ReviewProductName>
         <CreationDate>2023.01.10</CreationDate>
       </FirstInfo>
       <SecondInfo>
@@ -26,9 +26,11 @@ const ProductReviewItem = () => {
             }
             alt=""
           />
-
           <Detail>
-            <Writer>최*화</Writer>
+            <ReviewFlexBox>
+              <Writer>최*화</Writer>/
+              <ReviewProductName> 사과</ReviewProductName>
+            </ReviewFlexBox>
             <Reviews>당근이 너무 싱싱하고 맛있어요!</Reviews>
           </Detail>
         </ReviewImageContainer>

@@ -248,7 +248,8 @@ const ReviewModalContainer = styled.div`
   left: 50%;
   width: 100%;
   max-width: 425px;
-  border-radius: 4px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
   background-color: ${(props) => props.theme.whiteColor};
   transition: transform 0.5s;
   transform: translate(-50%, -50%)
@@ -687,7 +688,7 @@ const ReviewItemContainer = styled.li`
 
 const FirstInfo = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
   width: 100%;
 `;
 
@@ -698,7 +699,7 @@ const SecondInfo = styled.div`
 `;
 
 const ReviewProductName = styled.div`
-  margin-bottom: 24px;
+  margin: 0 24px 0 8px;
   font-size: 16px;
   font-weight: bold;
 `;
@@ -725,6 +726,7 @@ const Detail = styled.div`
 
 const Writer = styled.div`
   font-size: 16px;
+  margin-right: 8px;
 `;
 const Reviews = styled.div`
   font-size: 14px;
@@ -791,6 +793,11 @@ const SmallInput = styled.input`
   &:focus {
     border: 1px solid ${(props) => props.theme.borderColor};
   }
+`;
+
+const ReviewFlexBox = styled.div`
+  width: 100%;
+  display: flex;
 `;
 
 export {
@@ -869,5 +876,6 @@ export {
   ReviewWrapper,
   SpaceDiv,
   BottomText,
-  SmallInput
+  SmallInput,
+  ReviewFlexBox
 };

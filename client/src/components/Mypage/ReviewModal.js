@@ -32,7 +32,6 @@ const ReviewModal = ({ isOpenReview, setIsOpenReview }) => {
         </CancleImgContainer>
         <ReviewWrapper>
           <MiddleText>후기작성</MiddleText>
-
           <MiddleContainer>
             <BigInput
               id="Review"
