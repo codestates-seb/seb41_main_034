@@ -37,7 +37,8 @@ const Login = () => {
 
     try {
       const res = await baseAPI.post(`/user/login`, body);
-      localStorage.setItem('accessToken', JSON.stringify(res.headers));
+      const authorization = `${res.headers.authorization}`;
+      localStorage.setItem('accessToken', authorization);
       dispatch(loginUserId(form.id));
       navigate('/');
     } catch (err) {
