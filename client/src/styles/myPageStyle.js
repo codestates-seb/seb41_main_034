@@ -734,7 +734,7 @@ const EditIconContainer = styled.div`
 
 const EditButton2 = styled.button`
   display: block;
-  padding: 4px 24px;
+  padding: px 24px;
   font-size: 12px;
   border-radius: 4px;
   background-color: ${(props) => props.theme.primaryColor};

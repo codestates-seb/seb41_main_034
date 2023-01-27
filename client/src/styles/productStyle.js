@@ -395,7 +395,6 @@ const CancleImgContainer = styled.div`
     height: 30px;
     margin-bottom: 4px;
     fill: ${(props) => props.theme.grayColor};
-    /* background-color: rgba(0, 0, 0, 0, 0.5); */
   }
 `;
 

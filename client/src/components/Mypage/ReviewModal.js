@@ -1,10 +1,7 @@
 import {
   CompletButton,
   BigInput,
-  SmallInput,
   MiddleContainer,
-  LeftText,
-  LeftTextContainer,
   MiddleText,
   CancleImgContainer,
   ReviewNotice,
