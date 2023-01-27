@@ -19,10 +19,12 @@ function App() {
   const checkLogin = async () => {
     try {
       const user = await authAPI.get('/user/login-status');
-      localStorage.setItem('userDbId', user.data.data.id);
+      const userId = await user.data.data.id;
+      localStorage.setItem('userDbId', userId);
       dispatch(loginDbId(user.data.data.id));
     } catch (err) {
       console.log(err);
+      dispatch(loginDbId(''));
     }
   };
 
