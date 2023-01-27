@@ -14,14 +14,17 @@ import { loginDbId } from './store/userSlice';
 function App() {
   const location = useLocation();
   const dispatch = useDispatch();
-  const loginUserId = useSelector((state) => state.user.userId);
+  const userId = useSelector((state) => state.user.userId);
+  const dbId = useSelector((state) => state.user.dbId);
+
+  console.log(dbId === '');
 
   const checkLogin = async () => {
     try {
       const user = await authAPI.get('/user/login-status');
       const userId = await user.data.data.id;
       localStorage.setItem('userDbId', userId);
-      dispatch(loginDbId(user.data.data.id));
+      dbId === '' && dispatch(loginDbId(user.data.data.id));
     } catch (err) {
       console.log(err);
       dispatch(loginDbId(''));
@@ -29,7 +32,7 @@ function App() {
   };
 
   useEffect(() => {
-    loginUserId && checkLogin();
+    userId && checkLogin();
   });
 
   return (
