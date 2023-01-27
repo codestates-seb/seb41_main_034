@@ -17,13 +17,7 @@ import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg'
 import { useState } from 'react';
 import { questionPostAPI } from '../../api/question';
 
-const QuestionModal = ({
-  isOpenQuestion,
-  setIsOpenQuestion,
-  question,
-  setQuestion,
-  params
-}) => {
+const QuestionModal = ({ isOpenQuestion, setIsOpenQuestion, params }) => {
   const [content, setContent] = useState('');
 
   const handleQuestionClose = () => {
@@ -37,6 +31,7 @@ const QuestionModal = ({
     };
     await questionPostAPI(body);
     setIsOpenQuestion(false);
+    setContent('');
   };
 
   return (
@@ -51,7 +46,7 @@ const QuestionModal = ({
           <CancelIcon onClick={handleQuestionClose} />
         </CancleImgContainer>
         <QuestionModalContainer>
-          <MiddleText>문의하기</MiddleText>
+          <MiddleText>문의작성</MiddleText>
           <LeftTextContainer>
             <LeftText htmlFor="ItemName">작성자</LeftText>
             <RightText>홍길동</RightText>
@@ -70,6 +65,7 @@ const QuestionModal = ({
               id="Question"
               aria-label="문의내용을 입력하세요."
               placeholder="문의내용을 입력하세요."
+              value={content}
             />
           </MiddleContainer>
           <BottomText>문의작성 시 유의사항 !</BottomText>

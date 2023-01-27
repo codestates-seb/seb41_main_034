@@ -16,16 +16,26 @@ import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg'
 import { questionPatchAPI } from '../../api/question';
 import { useState } from 'react';
 
-const EditQuestionModal = ({ isEdit, setIsEdit, itemQuestion }) => {
-  const [content, setContent] = useState(null);
+const EditQuestionModal = ({
+  isEdit,
+  setIsEdit,
+  itemQuestion,
+  setReLoading,
+  reLoading
+}) => {
+  const [content, setContent] = useState('');
 
   const EditQuestion = () => {
     const Edit = async () => {
-      await questionPatchAPI(content, itemQuestion.id);
+      const questionId = itemQuestion.id;
+      await questionPatchAPI(questionId, content);
     };
     Edit();
     setIsEdit(false);
+    window.location.reload();
+    setReLoading(true);
   };
+
   return (
     <>
       <EditQuModal onClick={() => setIsEdit(false)} isEdit={isEdit} />

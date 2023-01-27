@@ -11,17 +11,19 @@ import QuestionModal from './QuestionModal';
 import { itemQuestionGetAPI } from '../../api/question';
 import Loading from '../Layout/Loading';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const ProductQuestionList = () => {
   const [isOpenQuestion, setIsOpenQuestion] = useState(false);
   const [question, setQuestion] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState('');
   const navigate = useNavigate();
   const params = useParams();
+  const Login = useSelector((state) => state.user.dbId);
 
   const handleQuestionOpen = () => {
-    if (isLogin === false) {
+    if (isLogin === '') {
       if (
         window.confirm(
           '로그인하셔야 본 서비스를 이용하실 수 있습니다.\n로그인페이지로 이동하시겠습니까?'
@@ -38,12 +40,13 @@ const ProductQuestionList = () => {
 
   useEffect(() => {
     const API = async () => {
-      const data = await itemQuestionGetAPI(0, 1);
+      const data = await itemQuestionGetAPI(params.productId);
+      setIsLogin(Login);
       setQuestion(data.data.content.map((el) => el));
       setIsLoading(true);
     };
     API();
-  }, [isOpenQuestion]);
+  }, [Login, isOpenQuestion, params.productId]);
 
   return isLoading ? (
     <>
@@ -64,8 +67,6 @@ const ProductQuestionList = () => {
       <QuestionModal
         isOpenQuestion={isOpenQuestion}
         setIsOpenQuestion={setIsOpenQuestion}
-        question={question}
-        setQuestion={setQuestion}
         params={params}
       />
     </>

@@ -14,14 +14,31 @@ import {
   TheOtherText
 } from '../../styles/myPageStyle';
 import { useSelector } from 'react-redux';
+import { questionGetAPI } from '../../api/question';
+import { UserGetAPI } from '../../api/user';
+import { OrderGetAPI } from '../../api/order';
+import { userReviewGetAPI } from '../../api/review';
 
 const UserInfo = () => {
-  const [token, setToken] = useState(null);
-  const Token = useSelector((state) => state.user.userId);
+  const [question, setQuestion] = useState(null);
+  const [userName, setUserName] = useState(null);
+  const [order, setOrder] = useState(null);
+  const [review, setReview] = useState(null);
+  const User = useSelector((state) => state.user.dbId);
 
   useEffect(() => {
-    setToken(Token);
-  }, [Token, token]);
+    const API = async () => {
+      const UserAPI = await UserGetAPI(User);
+      setUserName(UserAPI.data.displayName);
+      const QuestionAPI = await questionGetAPI();
+      setQuestion(QuestionAPI.data.totalElements);
+      const OrderAPI = await OrderGetAPI();
+      setOrder(OrderAPI.data.totalElements);
+      const ReviewAPI = await userReviewGetAPI();
+      setReview(ReviewAPI.data.totalElements);
+    };
+    API();
+  }, []);
 
   return (
     <>
@@ -30,7 +47,7 @@ const UserInfo = () => {
           <TextContainer>
             <WellcomText>환영합니다 !</WellcomText>
             <Name>
-              <NameText>홍길동</NameText>
+              <NameText>{userName}</NameText>
               <NameNext>님</NameNext>
             </Name>
           </TextContainer>
@@ -40,13 +57,13 @@ const UserInfo = () => {
             <OtherText>문의 수</OtherText>
           </BottomTextContainer>
           <BottomTextContainer>
-            <TheOtherText>0</TheOtherText>
-            <TheOtherText>0</TheOtherText>
-            <TheOtherText>0</TheOtherText>
+            <TheOtherText>{order}</TheOtherText>
+            <TheOtherText>{review}</TheOtherText>
+            <TheOtherText>{question}</TheOtherText>
           </BottomTextContainer>
         </InfoContainer>
         <EditbuttonContainer>
-          <EditButton to={'/mypage/edit'}>회원정보수정</EditButton>
+          <EditButton to={'/mypage/editmodal'}>회원정보수정</EditButton>
         </EditbuttonContainer>
       </UserInfoContainer>
     </>

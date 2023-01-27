@@ -4,16 +4,21 @@ import {
   LeftCotainer2,
   ItemText,
   MarginSpace,
-  ItemLinkText
+  ItemLinkText,
+  EditDeleteButton,
+  EditDeleteContainer
 } from '../../styles/myPageStyle';
-import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
 import { questionDeleteAPI } from '../../api/question';
 import { useState, useEffect } from 'react';
 import Loading from '../Layout/Loading';
-import { ReactComponent as EditIcon } from '../../assets/icons/editIcon.svg';
 import EditQuestionModal from './EditQuestionModal';
 
-const MyPageQuestionItem = ({ question }) => {
+const MyPageQuestionItem = ({
+  question,
+  setQuestion,
+  setReLoading,
+  reLoading
+}) => {
   const [itemQuestion, setItemQuestion] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [date, setDate] = useState(null);
@@ -22,7 +27,7 @@ const MyPageQuestionItem = ({ question }) => {
   const onRemove = () => {
     if (window.confirm('해당 상품에 대한 문의를 삭제하시겠습니까?')) {
       const body = question.id;
-      questionDeleteAPI('1', body);
+      questionDeleteAPI(body);
       window.location.reload();
       alert('삭제되었습니다');
     } else {
@@ -42,7 +47,7 @@ const MyPageQuestionItem = ({ question }) => {
       setDate(dater);
     };
     QuestionAPI();
-  }, [question]);
+  }, [question, setIsEdit]);
 
   return isLoading ? (
     <>
@@ -63,8 +68,14 @@ const MyPageQuestionItem = ({ question }) => {
           ) : (
             <ItemText>답변완료</ItemText>
           )}
-          <EditIcon onClick={onEdit} alt="문의수정 버튼입니다" />
-          <CancelIcon onClick={onRemove} alt="문의 삭제 버튼입니다" />
+          <EditDeleteContainer>
+            <EditDeleteButton onClick={onEdit} alt="문의수정 버튼입니다">
+              수정
+            </EditDeleteButton>
+            <EditDeleteButton onClick={onRemove} alt="문의 삭제 버튼입니다">
+              삭제
+            </EditDeleteButton>
+          </EditDeleteContainer>
         </RightContainer2>
       </ListHeader2>
 
@@ -72,6 +83,8 @@ const MyPageQuestionItem = ({ question }) => {
         isEdit={isEdit}
         setIsEdit={setIsEdit}
         itemQuestion={itemQuestion}
+        setReLoding={setReLoading}
+        reLoading={reLoading}
       />
     </>
   ) : (

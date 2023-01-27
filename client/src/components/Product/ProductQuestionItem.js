@@ -35,7 +35,7 @@ const ProductQuestionItem = ({ question }) => {
         )}
       </FlexContainer>
       <ItemText>
-        <Text>김응찬 /</Text>
+        <Text>{Question.createByName} /</Text>
         <TextBold>{Question.productName} /</TextBold>
         <TextGray>{date}</TextGray>
       </ItemText>

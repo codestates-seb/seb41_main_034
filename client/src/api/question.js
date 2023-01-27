@@ -1,9 +1,9 @@
-import { authAPI, baseAPI } from './customAxios';
+import { authAPI } from './customAxios';
 
 //회원의 문의기록조회
 const questionGetAPI = async () => {
   try {
-    const result = await baseAPI.get(`/question/question-history`);
+    const result = await authAPI.get(`/question/question-history`);
     return result.data;
   } catch (err) {
     console.log(err);
@@ -12,7 +12,7 @@ const questionGetAPI = async () => {
 //특정상품의 문의기록조회
 const itemQuestionGetAPI = async (productId) => {
   try {
-    const result = await baseAPI.get(`/product/${productId}/question`);
+    const result = await authAPI.get(`/product/${productId}/question`);
     return result.data;
   } catch (err) {
     console.log(err);
@@ -28,9 +28,11 @@ const questionPostAPI = async (body) => {
   }
 };
 //특정 회원의 문의수정
-const questionPatchAPI = async (body, questionId) => {
+const questionPatchAPI = async (questionId, body) => {
   try {
-    const result = await authAPI.patch(`/question/${questionId}`, body);
+    const result = await authAPI.patch(`/question/${questionId}`, {
+      body
+    });
     return result;
   } catch (error) {
     console.log(error);

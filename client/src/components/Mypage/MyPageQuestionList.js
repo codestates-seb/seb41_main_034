@@ -4,30 +4,27 @@ import {
   RightContainer,
   LeftCotainer,
   Text,
-  TextWrapper
+  TextWrapper,
+  EditDeleteContainer
 } from '../../styles/myPageStyle';
 import MyPageHeader from './MyPageHeader';
-import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
 import { useState, useEffect } from 'react';
 import { questionGetAPI } from '../../api/question';
 import Loading from '../Layout/Loading';
-import { useParams } from 'react-router-dom';
 
 const MyPageQuestionList = () => {
   const [question, setQuestion] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const params = useParams();
-
-  console.log(params);
+  const [reLoading, setReLoading] = useState(false);
 
   useEffect(() => {
     const API = async () => {
       const data = await questionGetAPI();
-      setQuestion(data.data.content);
+      setQuestion(data.data.content.map((el) => el));
       setIsLoading(true);
     };
     API();
-  }, []);
+  }, [setQuestion, reLoading]);
 
   return isLoading ? (
     <>
@@ -43,11 +40,17 @@ const MyPageQuestionList = () => {
           <TextWrapper>
             <Text>답변상태</Text>
           </TextWrapper>
-          <CancelIcon />
+          <EditDeleteContainer />
         </RightContainer>
       </ListHeader>
       {question.map((e, idx) => (
-        <MyPageQuestionItem key={idx} question={e} />
+        <MyPageQuestionItem
+          key={idx}
+          question={e}
+          setQuestion={setQuestion}
+          setReLoading={setReLoading}
+          reLoading={reLoading}
+        />
       ))}
     </>
   ) : (
