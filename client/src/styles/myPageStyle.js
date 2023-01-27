@@ -665,18 +665,6 @@ const RecipientTitle = styled.div`
     font-size: 12px;
   }
 `;
-const PhoneNumberTitle = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 25%;
-  font-size: 16px;
-  font-weight: 700;
-
-  @media ${(props) => props.theme.mobile} {
-    font-size: 12px;
-  }
-`;
 
 const EditTitle = styled.div`
   display: flex;
@@ -734,34 +722,27 @@ const RecipientText = styled.div`
   }
 `;
 
-const PhoneNumberText = styled.div`
-  width: 25%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-
-  @media ${(props) => props.theme.mobile} {
-    font-size: 12px;
-  }
-`;
-
 const EditIconContainer = styled.div`
   width: 15%;
   display: flex;
   align-items: center;
   justify-content: center;
-  svg {
-    width: 16px;
-    height: 16px;
-    fill: ${(props) => props.theme.grayColor};
-  }
 
   @media ${(props) => props.theme.mobile} {
-    svg {
-      width: 12px;
-      height: 12px;
-    }
+  }
+`;
+
+const EditButton2 = styled.button`
+  display: block;
+  padding: px 24px;
+  font-size: 12px;
+  border-radius: 4px;
+  background-color: ${(props) => props.theme.primaryColor};
+  color: ${(props) => props.theme.whiteColor};
+
+  @media ${(props) => props.theme.mobile} {
+    padding: 6px 16px;
+    font-size: 10px;
   }
 `;
 
@@ -775,7 +756,7 @@ const AddressButtonContainer = styled.div`
 const AddressButton = styled.button`
   width: 130px;
   padding: 5px 0px;
-  font-size: 16px;
+  font-size: 12px;
   border: 1px solid;
   border-radius: 4px;
   background-color: ${(props) => props.theme.primaryColor};
@@ -789,70 +770,129 @@ const AddressButton = styled.button`
 
 //MyPageAddressModal
 const ModalContainer = styled.div`
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: ${(props) => (props.modal ? 'flex' : 'none')};
   width: 100%;
   height: 100vh;
-  background-color: rgba(173, 181, 189, 0.7);
-  /* border-bottom: solid ${(props) => props.theme.borderColor};  */
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 97;
+`;
+
+const AddModalContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: ${(props) => (props.modal ? 'flex' : 'none')};
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 97;
 `;
 
 const ModalView = styled.div`
-  width: 90%;
-  height: 35%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  max-width: 500px;
   background-color: ${(props) => props.theme.whiteColor};
   border-radius: 4px;
+  z-index: 99;
+  transition: transform 0.5s;
+  transform: translate(-50%, -50%)
+    ${(props) => (props.modal ? 'translateY(0)' : 'translateY(-200%)')};
+`;
+
+const AddModalView = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  max-width: 425px;
+  background-color: ${(props) => props.theme.whiteColor};
+  border-radius: 4px;
+  z-index: 99;
+  transition: transform 0.5s;
+  transform: translate(-50%, -50%)
+    ${(props) => (props.modal ? 'translateY(0)' : 'translateY(-200%)')};
 `;
 
 const ModalViewBody = styled.div`
   width: 100%;
-  height: 60%;
 `;
 
 const ModalViewBodyTable = styled.div`
-  width: 100%;
-  height: 33%;
   display: flex;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
+  margin-top: 12px;
 `;
 
 const ModalViewBodyTableLeft = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 8px;
-  width: 30%;
-  height: 100%;
+  width: 100%;
+  max-width: 100px;
   font-size: 12px;
-
   color: ${(props) => props.theme.primaryColor};
+
+  @media ${(props) => props.theme.mobile} {
+    max-width: 100px;
+  }
 `;
 
-const ModalViewBodyTableRightInput = styled.input`
+const ModalViewBodyTableRightInput = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+`;
+
+const AdInputBox = styled.input`
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0px 20px;
-  width: 70%;
-  height: 100%;
+  justify-content: center;
+  padding: 6px;
+  margin: 12px 20px 12px 2px;
+  width: 100%;
+  max-width: 300px;
   font-size: 12px;
-  border: 1px solid ${(props) => props.theme.grayColor};
+  border: 1px solid ${(props) => props.theme.borderColor};
+  border-radius: 4px;
+  font-size: 12px;
+
+  @media ${(props) => props.theme.tablet} {
+    padding: 8px;
+    font-size: 12px;
+    zoom: 0.9;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 8px;
+  }
 `;
 
 const ModalViewBodyTableButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 8px;
-  width: 30%;
-  height: 70%;
+  margin: 0 20px 0 0;
+  padding: 8px;
+  width: 100%;
+  max-width: 93px;
+  border-radius: 4px;
   font-size: 12px;
   background-color: ${(props) => props.theme.primaryColor};
   color: ${(props) => props.theme.whiteColor};
+
+  @media ${(props) => props.theme.mobile} {
+    max-width: 73px;
+    padding: 8px 4px 8px 4px;
+    font-size: 8px;
+  }
 `;
 
 const ModalViewFooter = styled.div`
@@ -861,45 +901,70 @@ const ModalViewFooter = styled.div`
   justify-content: end;
   padding: 0px 20px;
   width: 100%;
-  height: 40%;
 `;
 
 const ModalViewFooterButtonLeft = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 15% 0px;
-  width: 23%;
-  height: 50%;
+  margin: 15px 0px;
+  width: 93px;
+  height: 33px;
   font-size: 12px;
   border: 1px solid ${(props) => props.theme.grayColor};
   border-radius: 5px;
   background-color: ${(props) => props.theme.whiteColor};
   color: ${(props) => props.theme.primaryColor};
-`;
 
+  @media ${(props) => props.theme.mobile} {
+    max-width: 73px;
+    padding: 4px;
+    font-size: 8px;
+  }
+`;
+const ModalViewFooterButtonmiddle = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  width: 93px;
+  height: 33px;
+  font-size: 12px;
+  border-radius: 4px;
+  background-color: ${(props) => props.theme.primaryColor};
+  color: ${(props) => props.theme.whiteColor};
+
+  @media ${(props) => props.theme.mobile} {
+    max-width: 73px;
+    padding: 4px;
+    font-size: 8px;
+  }
+`;
 const ModalViewFooterButtonRight = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
   margin-left: 10px;
-  width: 23%;
-  height: 50%;
+  width: 93px;
+  height: 33px;
   font-size: 12px;
   border-radius: 4px;
   background-color: ${(props) => props.theme.primaryColor};
   color: ${(props) => props.theme.whiteColor};
+
+  @media ${(props) => props.theme.mobile} {
+    max-width: 73px;
+    padding: 4px;
+    font-size: 8px;
+  }
 `;
 
 const ReviewListContainer = styled.div`
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 24px;
-  margin-bottom: 8px;
+  margin: 40px 0 0 8px;
   width: 100%;
-  max-width: 100%;
-  height: 185px;
+  padding: 12px 0 12px 0;
   font-size: 16px;
   border-top: 1px solid ${(props) => props.theme.borderColor};
   border-bottom: 1px solid ${(props) => props.theme.borderColor};
@@ -939,8 +1004,7 @@ const ProductImg2 = styled.img`
 const MyPageReviewImage = styled.div`
   width: 120px;
   height: 120px;
-  margin-top: 8px;
-  margin-right: 12px;
+  margin: 10px 0 0 28px;
 
   @media ${(props) => props.theme.tablet} {
     width: 120px;
@@ -952,17 +1016,40 @@ const MyPageReviewImage = styled.div`
   }
 `;
 const MyPageReviewContent = styled.div`
-  padding: 10px;
-  width: 70%;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  row-gap: 8px;
+  max-width: 300px;
+
+  font-size: 20px;
 `;
 
-const MyPageReviewContentTop = styled.div`
+const MyPageReviewContentTopButton = styled.button`
+  display: flex;
+  // align-items: center;
+  width: 100%;
+  height: 30%;
+  font-size: 16px;
+  font-weight: bold;
+
+  @media ${(props) => props.theme.tablet} {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    width: 100%;
+    font-size: 12px;
+  }
+`;
+
+const MyPageReviewContent2 = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  height: 70%;
-  font-size: 16px;
+  height: 30%;
 
   @media ${(props) => props.theme.tablet} {
     width: 100%;
@@ -975,45 +1062,33 @@ const MyPageReviewContentTop = styled.div`
   }
 `;
 
-const MyPageReviewContent2 = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 30%;
-  @media ${(props) => props.theme.tablet} {
-    width: 100%;
-    font-size: 8px;
-  }
-
-  @media ${(props) => props.theme.mobile} {
-    width: 100%;
-    font-size: 4px;
-  }
-`;
-
 const MyPageReviewContentText = styled.div`
   margin-right: 8px;
   font-size: 16px;
-  font-weight: bold;
 `;
 
 const MyPageReviewDelete = styled.div`
-  width: 10%;
-  height: 100%;
+  width: 100%;
+  max-width: 100px;
+  // margin-bottom: 40px;
+
+  @media ${(props) => props.theme.tablet} {
+    width: 100%;
+    max-width: 150px;
+  }
+  @media ${(props) => props.theme.mobile} {
+    max-width: 100px;
+  }
 `;
 
 const CancleImgContainer3 = styled.div`
   display: flex;
-  align-items: center;
   justify-content: end;
   width: 100%;
+
   svg {
     width: 16px;
     height: 16px;
-    fill: ${(props) => props.theme.grayColor};
-  }
-
-  svg {
     fill: ${(props) => props.theme.grayColor};
   }
 `;
@@ -1108,11 +1183,9 @@ export {
   SelectTitle,
   AddressTitle,
   RecipientTitle,
-  PhoneNumberTitle,
   EditTitle,
   AddressText,
   RecipientText,
-  PhoneNumberText,
   EditIconContainer,
   CheckIconContainer,
   AddressButtonContainer,
@@ -1122,19 +1195,24 @@ export {
   ModalViewBody,
   ModalViewBodyTable,
   ModalViewBodyTableLeft,
-  ModalViewBodyTableRightInput,
   ModalViewFooter,
   ModalViewBodyTableButton,
   ModalViewFooterButtonLeft,
+  ModalViewFooterButtonmiddle,
   ModalViewFooterButtonRight,
   ReviewListContainer,
   ProductImg2,
   MyPageReviewImage,
   MyPageReviewContent,
-  MyPageReviewContentTop,
+  MyPageReviewContentTopButton,
   MyPageReviewContent2,
   MyPageReviewContentText,
   MyPageReviewDelete,
   CancleImgContainer3,
-  TextWrapper
+  TextWrapper,
+  EditButton2,
+  AddModalContainer,
+  AddModalView,
+  ModalViewBodyTableRightInput,
+  AdInputBox
 };

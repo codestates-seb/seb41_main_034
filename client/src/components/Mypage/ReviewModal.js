@@ -1,10 +1,7 @@
 import {
   CompletButton,
   BigInput,
-  SmallInput,
   MiddleContainer,
-  LeftText,
-  LeftTextContainer,
   MiddleText,
   CancleImgContainer,
   ReviewNotice,
@@ -32,19 +29,6 @@ const ReviewModal = ({ isOpenReview, setIsOpenReview }) => {
         </CancleImgContainer>
         <ReviewWrapper>
           <MiddleText>후기작성</MiddleText>
-          <LeftTextContainer>
-            <LeftText htmlFor="title">제목</LeftText>
-          </LeftTextContainer>
-          <MiddleContainer>
-            <SmallInput
-              id="title"
-              aria-label="제목을 입력하세요."
-              placeholder="제목을 입력하세요."
-            />
-          </MiddleContainer>
-          <LeftTextContainer>
-            <LeftText htmlFor="Review">후기내용</LeftText>
-          </LeftTextContainer>
           <MiddleContainer>
             <BigInput
               id="Review"

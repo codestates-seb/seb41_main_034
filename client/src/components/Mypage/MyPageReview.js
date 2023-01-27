@@ -4,14 +4,13 @@ import {
   ProductImg2,
   MyPageReviewImage,
   MyPageReviewContent,
-  MyPageReviewContentTop,
+  MyPageReviewContentTopButton,
   MyPageReviewContent2,
   MyPageReviewContentText,
   MyPageReviewDelete
 } from '../../styles/myPageStyle';
 import MyPageHeader from './MyPageHeader';
 import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
-import { ReactComponent as EditIcon } from '../../assets/icons/editIcon.svg';
 //   import { Link } from 'react-router-dom';
 
 const MyPageReview = () => {
@@ -50,22 +49,21 @@ const MyPageReview = () => {
           />
         </MyPageReviewImage>
         <MyPageReviewContent>
-          <MyPageReviewContentTop>
+          <MyPageReviewContentTopButton>
             {textLengthOverCut(
               '구매한 상품에 대한 후기 제목은 구매한 상품에 대한 후기 제목은 구매한 상품에 대한 후기 제목은 구매한 상품에 대한 후기 제목은',
               20,
               '...'
             )}
-          </MyPageReviewContentTop>
+          </MyPageReviewContentTopButton>
           <MyPageReviewContent2>
             <MyPageReviewContentText>작성일</MyPageReviewContentText>
             <MyPageReviewContentText>2023.01.02</MyPageReviewContentText>
-            <MyPageReviewContentText>상품명 : 토마토</MyPageReviewContentText>
+            <MyPageReviewContentText>상품명 : 사과</MyPageReviewContentText>
           </MyPageReviewContent2>
         </MyPageReviewContent>
         <MyPageReviewDelete>
           <CancleImgContainer3>
-            <EditIcon alt="후기 수정버튼입니다" />
             <CancelIcon onClick={onRemove} alt="후기 삭제 버튼입니다" />
           </CancleImgContainer3>
         </MyPageReviewDelete>

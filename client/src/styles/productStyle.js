@@ -248,7 +248,8 @@ const ReviewModalContainer = styled.div`
   left: 50%;
   width: 100%;
   max-width: 425px;
-  border-radius: 4px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
   background-color: ${(props) => props.theme.whiteColor};
   transition: transform 0.5s;
   transform: translate(-50%, -50%)
@@ -337,6 +338,7 @@ const BigInput = styled.textarea`
   width: 100%;
   height: 200px;
   margin: 16px 0 12px 0;
+  padding: 8px;
   border: 1px solid ${(props) => props.theme.borderColor};
   border-left: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
@@ -383,7 +385,7 @@ const CancleImgContainer = styled.div`
   display: flex;
   justify-content: end;
   width: 100%;
-  max-width: 425px;
+  max-width: 435px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   background-color: rgba(0, 0, 0, 0.5);
@@ -393,7 +395,6 @@ const CancleImgContainer = styled.div`
     height: 30px;
     margin-bottom: 4px;
     fill: ${(props) => props.theme.grayColor};
-    /* background-color: rgba(0, 0, 0, 0, 0.5); */
   }
 `;
 
@@ -692,7 +693,7 @@ const ReviewItemContainer = styled.li`
 
 const FirstInfo = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
   width: 100%;
 `;
 
@@ -703,7 +704,7 @@ const SecondInfo = styled.div`
 `;
 
 const ReviewProductName = styled.div`
-  margin-bottom: 24px;
+  margin: 0 24px 0 8px;
   font-size: 16px;
   font-weight: bold;
 `;
@@ -730,6 +731,7 @@ const Detail = styled.div`
 
 const Writer = styled.div`
   font-size: 16px;
+  margin-right: 8px;
 `;
 const Reviews = styled.div`
   font-size: 14px;
@@ -801,6 +803,11 @@ const SmallInput = styled.input`
 const TabInput = styled.input`
   width: 0;
   height: 0;
+`;
+
+const ReviewFlexBox = styled.div`
+  width: 100%;
+  display: flex;
 `;
 
 export {
@@ -880,5 +887,6 @@ export {
   ReviewWrapper,
   SpaceDiv,
   BottomText,
-  SmallInput
+  SmallInput,
+  ReviewFlexBox
 };
