@@ -722,18 +722,6 @@ const RecipientText = styled.div`
   }
 `;
 
-const PhoneNumberText = styled.div`
-  width: 25%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-
-  @media ${(props) => props.theme.mobile} {
-    font-size: 12px;
-  }
-`;
-
 const EditIconContainer = styled.div`
   width: 15%;
   display: flex;
@@ -746,11 +734,16 @@ const EditIconContainer = styled.div`
 
 const EditButton2 = styled.button`
   display: block;
-  padding: 4px 8px;
-  font-size: 10px;
+  padding: 4px 24px;
+  font-size: 12px;
   border-radius: 4px;
   background-color: ${(props) => props.theme.primaryColor};
   color: ${(props) => props.theme.whiteColor};
+
+  @media ${(props) => props.theme.mobile} {
+    padding: 6px 16px;
+    font-size: 10px;
+  }
 `;
 
 const AddressButtonContainer = styled.div`
@@ -763,7 +756,7 @@ const AddressButtonContainer = styled.div`
 const AddressButton = styled.button`
   width: 130px;
   padding: 5px 0px;
-  font-size: 16px;
+  font-size: 12px;
   border: 1px solid;
   border-radius: 4px;
   background-color: ${(props) => props.theme.primaryColor};
@@ -803,7 +796,7 @@ const ModalView = styled.div`
   top: 50%;
   left: 50%;
   width: 100%;
-  max-width: 900px;
+  max-width: 500px;
   background-color: ${(props) => props.theme.whiteColor};
   border-radius: 4px;
   z-index: 99;
@@ -817,7 +810,7 @@ const AddModalView = styled.div`
   top: 50%;
   left: 50%;
   width: 100%;
-  max-width: 900px;
+  max-width: 425px;
   background-color: ${(props) => props.theme.whiteColor};
   border-radius: 4px;
   z-index: 99;
@@ -843,7 +836,7 @@ const ModalViewBodyTableLeft = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 200px;
+  max-width: 100px;
   font-size: 12px;
   color: ${(props) => props.theme.primaryColor};
 
@@ -865,9 +858,9 @@ const AdInputBox = styled.input`
   padding: 6px;
   margin: 12px 20px 12px 2px;
   width: 100%;
-  max-width: 400px;
+  max-width: 300px;
   font-size: 12px;
-  border: 1px solid ${(props) => props.theme.grayColor};
+  border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
   font-size: 12px;
 
@@ -1193,7 +1186,6 @@ export {
   EditTitle,
   AddressText,
   RecipientText,
-  PhoneNumberText,
   EditIconContainer,
   CheckIconContainer,
   AddressButtonContainer,

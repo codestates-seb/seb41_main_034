@@ -5,7 +5,6 @@ const userAddressGetAPI = async () => {
   try {
     // await authAPI.get(`/user-address/${userAddressId}/`);
     const address = await authAPI.get(`/user-address`);
-    console.log(address);
     return address.data;
   } catch (err) {
     console.log(err);

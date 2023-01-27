@@ -32,6 +32,7 @@ const EditAddressModal = ({ modal, setModal }) => {
             <ModalViewBody>
               <ModalViewBodyTable>
                 <ModalViewBodyTableLeft>주소</ModalViewBodyTableLeft>
+                <AdInputBox />
                 <ModalViewBodyTableButton>주소 추가</ModalViewBodyTableButton>
               </ModalViewBodyTable>
               <ModalViewBodyTable>

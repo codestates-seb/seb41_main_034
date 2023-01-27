@@ -28,10 +28,9 @@ const MyPageAddress = () => {
 
   useEffect(() => {
     const init = async () => {
-      const data = await userAddressGetAPI();
-      console.log('data', data);
-      setAddress(data.data);
-      // console.log(address);
+      const AddressAPI = await userAddressGetAPI();
+      setAddress(AddressAPI.data);
+      // console.log(AddressAPI.data);
     };
     init();
   }, []);
@@ -52,8 +51,8 @@ const MyPageAddress = () => {
               <CheckIconContainer>
                 <CheckIcon />
               </CheckIconContainer>
-              <AddressText>서울시 서초구 서초대로</AddressText>
-              <RecipientText>최코딩</RecipientText>
+              <AddressText>{el.address}</AddressText>
+              <RecipientText>{el.recipient}</RecipientText>
               <EditIconContainer>
                 <EditButton2 onClick={() => setModal((e) => !e)}>
                   수정

@@ -13,14 +13,6 @@ import {
 } from './../../styles/myPageStyle';
 
 const AddAddressModal = ({ modal, setModal }) => {
-  const onRemove = () => {
-    if (window.confirm('주소를 삭제하시겠습니까?')) {
-      alert('삭제되었습니다');
-    } else {
-      alert('취소했습니다.');
-    }
-  };
-
   return (
     <>
       {modal ? (
@@ -31,6 +23,7 @@ const AddAddressModal = ({ modal, setModal }) => {
             <ModalViewBody>
               <ModalViewBodyTable>
                 <ModalViewBodyTableLeft>주소</ModalViewBodyTableLeft>
+                <AdInputBox />
                 <ModalViewBodyTableButton onClick={() => setModal((e) => !e)}>
                   주소 추가
                 </ModalViewBodyTableButton>
