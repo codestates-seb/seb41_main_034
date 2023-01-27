@@ -157,6 +157,11 @@ const QuestionButton = styled.button`
   }
 `;
 
+const LoginText = styled.div`
+  font-size: 12px;
+  color: ${(props) => props.theme.primaryColor};
+`;
+
 const FlexContainer = styled.div`
   display: flex;
   width: 100%;
@@ -260,6 +265,17 @@ const ReviewModalContainer = styled.div`
   }
 `;
 
+const EditQuModal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: ${(props) => (props.isEdit ? 'block' : 'none')};
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 80;
+`;
+
 const QuestionModalWrapper = styled.div`
   position: fixed;
   top: 0;
@@ -337,6 +353,7 @@ const BigInput = styled.textarea`
   width: 100%;
   height: 200px;
   margin: 16px 0 12px 0;
+  padding: 8px;
   border: 1px solid ${(props) => props.theme.borderColor};
   border-left: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
@@ -383,7 +400,7 @@ const CancleImgContainer = styled.div`
   display: flex;
   justify-content: end;
   width: 100%;
-  max-width: 425px;
+  max-width: 435px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   background-color: rgba(0, 0, 0, 0.5);
@@ -759,6 +776,21 @@ const CategoryTitle = styled.h2`
   }
 `;
 
+const EditQuModalView = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  max-width: 435px;
+  background-color: ${(props) => props.theme.whiteColor};
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  transition: transform 0.5s;
+  transform: translate(-50%, -50%)
+    ${(props) => (props.isEdit ? 'translateY(0)' : 'translateY(-200%)')};
+  z-index: 98;
+`;
+
 const ModalView = styled.div`
   position: fixed;
   top: 50%;
@@ -868,5 +900,8 @@ export {
   ReviewWrapper,
   SpaceDiv,
   BottomText,
-  SmallInput
+  SmallInput,
+  LoginText,
+  EditQuModal,
+  EditQuModalView
 };

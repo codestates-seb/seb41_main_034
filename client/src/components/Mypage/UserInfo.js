@@ -9,7 +9,9 @@ import {
   EditButton,
   EditbuttonContainer,
   Name,
-  NameNext
+  NameNext,
+  BottomTextContainer,
+  TheOtherText
 } from '../../styles/myPageStyle';
 import { useSelector } from 'react-redux';
 
@@ -32,10 +34,16 @@ const UserInfo = () => {
               <NameNext>님</NameNext>
             </Name>
           </TextContainer>
-          <OtherText>주소 : 대한민국</OtherText>
-          <OtherText>주문 수 : 0</OtherText>
-          <OtherText>문의 수 : 0</OtherText>
-          <OtherText>리뷰 수 : 0</OtherText>
+          <BottomTextContainer>
+            <OtherText>주문 수</OtherText>
+            <OtherText>후기 수</OtherText>
+            <OtherText>문의 수</OtherText>
+          </BottomTextContainer>
+          <BottomTextContainer>
+            <TheOtherText>0</TheOtherText>
+            <TheOtherText>0</TheOtherText>
+            <TheOtherText>0</TheOtherText>
+          </BottomTextContainer>
         </InfoContainer>
         <EditbuttonContainer>
           <EditButton to={'/mypage/edit'}>회원정보수정</EditButton>

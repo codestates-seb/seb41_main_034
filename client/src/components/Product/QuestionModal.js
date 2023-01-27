@@ -21,24 +21,22 @@ const QuestionModal = ({
   isOpenQuestion,
   setIsOpenQuestion,
   question,
-  setQuestion
+  setQuestion,
+  params
 }) => {
   const [content, setContent] = useState('');
 
   const handleQuestionClose = () => {
     setIsOpenQuestion(false);
-    console.log('close');
   };
 
   const questionAdd = async () => {
     const body = {
-      productId: 1,
+      productId: params.productId,
       body: content
     };
     await questionPostAPI(body);
     setIsOpenQuestion(false);
-    // window.location.replace('/product/1');
-    // window.location.reload();
   };
 
   return (

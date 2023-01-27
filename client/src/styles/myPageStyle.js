@@ -222,6 +222,7 @@ const TextContainer = styled.div`
   display: flex;
   align-items: flex-end;
   column-gap: 12px;
+  margin-bottom: 12px;
 `;
 
 const WellcomText = styled.div`
@@ -266,7 +267,12 @@ const NameNext = styled.span`
 `;
 
 const OtherText = styled.p`
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
   font-size: 12px;
+  color: ${(props) => props.theme.primaryColor};
 `;
 
 const EditbuttonContainer = styled.div`
@@ -295,6 +301,7 @@ const UserEditWrapper = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
+  margin-top: 12px;
 `;
 
 const UserEditContainer = styled.div`
@@ -356,6 +363,7 @@ const ConfirmMessage = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
+  height: 12px;
   color: ${(props) => props.theme.primaryColor};
   font-size: 12px;
 
@@ -1049,6 +1057,33 @@ const MyPageContent = styled.div`
   flex-grow: 1;
 `;
 
+const BottomTextContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  @media ${(props) => props.theme.tablet} {
+    padding: 0 24px 0 24px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    padding: 0 24px 0 24px;
+  }
+`;
+
+const OtherTextContainer = styled.div`
+  display: grid;
+  align-items: center;
+  justify-content: center;
+`;
+
+const TheOtherText = styled.div`
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  font-size: 12px;
+`;
+
 export {
   Name,
   NameNext,
@@ -1136,5 +1171,8 @@ export {
   MyPageReviewContentText,
   MyPageReviewDelete,
   CancleImgContainer3,
-  TextWrapper
+  TextWrapper,
+  BottomTextContainer,
+  OtherTextContainer,
+  TheOtherText
 };
