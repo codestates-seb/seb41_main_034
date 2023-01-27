@@ -37,7 +37,6 @@ const MyPageAddress = () => {
     const init = async () => {
       const body = 'userAddress';
       const data = await userAddressGetAPI(body);
-      console.log('data', data);
       setAddress(data.data);
       // console.log(address);
     };

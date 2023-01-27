@@ -43,7 +43,6 @@ const ProductQuestionList = () => {
         const result = await authAPI.get(`/product/${productId}/question`);
         setIsLogin(Login);
         setIsLoading(true);
-        console.log(result.data.data);
         setQuestion(result.data.data.content.map((el) => el));
       } catch (err) {
         console.log(err);

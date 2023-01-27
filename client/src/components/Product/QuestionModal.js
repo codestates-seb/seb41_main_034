@@ -42,7 +42,7 @@ const QuestionModal = ({ isOpenQuestion, setIsOpenQuestion, params }) => {
 
     QuestionPostAPI(body);
   };
-  console.log(params.productId, content);
+
   return (
     <>
       <QuestionModalWrapper
