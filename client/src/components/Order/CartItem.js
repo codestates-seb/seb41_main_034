@@ -42,7 +42,7 @@ const CartItem = ({ cart }) => {
       <CartItemDelete>
         <DeleteButton
           type="button"
-          onClick={() => dispatch(deleteCart({ productId: cart.productId }))}
+          onClick={() => dispatch(deleteCart({ id: cart.id }))}
         >
           <DeleteIcon />
         </DeleteButton>

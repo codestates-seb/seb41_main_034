@@ -23,11 +23,12 @@ const ProductItem = () => {
 
     dispatch(
       addCart({
+        id: cartFilter === undefined ? cart.length + 1 : cart.length,
         productId: 1,
         img: 'https://thumbnail9.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/493405785878144-be8efa56-f85d-43e2-bbe2-79dcf26f6eac.jpg',
         name: '사과',
         price: 1000,
-        count: cartFilter !== undefined ? cartFilter.count + 1 : 1
+        count: cartFilter === undefined ? 1 : cartFilter.count + 1
       })
     );
   };

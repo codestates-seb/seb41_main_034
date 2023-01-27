@@ -8,9 +8,6 @@ const initialState = {
   orderAmount: 0
 };
 
-console.log(initialState.cart);
-console.log(initialState.orderAmount);
-
 const logoutCart = (cart) => {
   localStorage.cart = JSON.stringify(cart);
 };
@@ -53,13 +50,13 @@ const addCartState = (cart, data) => {
   });
 
   cart.push({
-    id: cart.length + 1,
+    id: data.id,
     productId: data.productId,
     img: data.img,
     name: data.name,
     price: data.price,
     count: data.count,
-    priceAmount: data.price,
+    priceAmount: data.price * data.count,
     check: true
   });
 
@@ -71,15 +68,8 @@ const updataCartState = (cart, data) => {
     quantity: data.count
   });
 
-  cart = cart.map((el) =>
-    el.Id === data.Id
-      ? {
-          ...el,
-          priceAmount: el.price * data.count,
-          count: data.count
-        }
-      : el
-  );
+  cart[data.id - 1].count = data.count;
+  cart[data.id - 1].priceAmount = cart[[data.id - 1]].price * data.count;
 
   accessToken && patchAPI(data.id, body);
 };
@@ -89,9 +79,9 @@ const orderSlice = createSlice({
   initialState,
   reducers: {
     addCart: (state, action) => {
-      state.cart.filter((el) => el.Id === action.payload.Id)[0] === undefined
-        ? addCartState(state.cart, action.payload)
-        : updataCartState(state.cart, action.payload);
+      state.cart[action.payload.id - 1]
+        ? updataCartState(state.cart, action.payload)
+        : addCartState(state.cart, action.payload);
 
       state.orderAmount = orderAmount(state.cart);
 
@@ -107,18 +97,14 @@ const orderSlice = createSlice({
     deleteCart: (state, action) => {
       accessToken && deleteAPI(action.payload.id);
 
-      state.cart = state.cart.filter((el) => el.Id !== action.payload.Id);
+      state.cart.splice(action.payload.id - 1, 1);
 
       state.orderAmount = orderAmount(state.cart);
 
       accessToken === undefined && logoutCart(state.cart);
     },
     checkCart: (state, action) => {
-      state.cart = state.cart.map((el) =>
-        el.id === action.payload.id
-          ? { ...el, check: action.payload.check }
-          : el
-      );
+      state.cart[action.payload.id - 1].check = action.payload.check;
 
       state.orderAmount = orderAmount(state.cart);
 
@@ -126,21 +112,18 @@ const orderSlice = createSlice({
     },
     allCheckCart: (state) => {
       state.cart.filter((el) => el.check === false)[0] === undefined
-        ? (state.cart = state.cart.map((el) => {
-            return { ...el, check: false };
-          }))
-        : (state.cart = state.cart.map((el) => {
-            return { ...el, check: true };
-          }));
+        ? state.cart.map((el) => (el.check = false))
+        : state.cart.map((el) => (el.check = true));
 
       state.orderAmount = orderAmount(state.cart);
 
       accessToken === undefined && logoutCart(state.cart);
     },
     deleteCheckCart: (state) => {
-      state.cart
-        .filter((el) => el.check === true)
-        .map((el) => deleteAPI(el.id));
+      accessToken &&
+        state.cart
+          .filter((el) => el.check === true)
+          .map((el) => deleteAPI(el.id));
 
       state.cart = state.cart.filter((el) => el.check !== true);
 
