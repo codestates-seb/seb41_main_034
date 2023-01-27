@@ -63,7 +63,7 @@ const UserInfo = () => {
           </BottomTextContainer>
         </InfoContainer>
         <EditbuttonContainer>
-          <EditButton to={'/mypage/editmodal'}>회원정보수정</EditButton>
+          <EditButton to={'/mypage/confirmpw'}>회원정보수정</EditButton>
         </EditbuttonContainer>
       </UserInfoContainer>
     </>

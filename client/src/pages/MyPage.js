@@ -11,7 +11,7 @@ import {
   MyPageNavbar,
   MyPageContent
 } from '../styles/myPageStyle';
-import UserEditModal from '../components/MyPage/UserInfoModal';
+import UserInfoConfirmPW from '../components/MyPage/UserInfoConfirmPW';
 
 const MyPage = () => {
   return (
@@ -25,7 +25,7 @@ const MyPage = () => {
         <Routes>
           <Route path="/" element={<MyPageAddress />} />
           <Route path="/edit" element={<UserInfoEdit />} />
-          <Route path="/editmodal" element={<UserEditModal />} />
+          <Route path="/confirmpw" element={<UserInfoConfirmPW />} />
           <Route path="/orderlist" element={<MyPageOrderList />} />
           <Route path="/review" element={<MyPageReview />} />
           <Route path="/question" element={<MyPageQuestionList />} />

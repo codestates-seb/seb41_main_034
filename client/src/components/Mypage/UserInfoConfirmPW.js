@@ -9,8 +9,11 @@ import {
   EditButtonContainer,
   EditUserButton
 } from '../../styles/myPageStyle';
+import { useState } from 'react';
 
-const UserEditModal = () => {
+const UserInfoConfirmPW = () => {
+  const [password, setPassword] = useState(null);
+
   return (
     <>
       <MyPageHeader title={'회원정보수정'}></MyPageHeader>
@@ -24,7 +27,11 @@ const UserEditModal = () => {
         </EditTextContainer>
         <EditPasswordContainer>
           <TopText>비밀번호*</TopText>
-          <PasswordInput />
+          <PasswordInput
+            aria-label="비밀번호 확인버튼입니다."
+            type={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </EditPasswordContainer>
         <EditButtonContainer>
           <EditUserButton>확인</EditUserButton>
@@ -34,4 +41,4 @@ const UserEditModal = () => {
   );
 };
 
-export default UserEditModal;
+export default UserInfoConfirmPW;
