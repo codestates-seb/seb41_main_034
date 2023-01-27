@@ -16,9 +16,6 @@ import {
 import { authAPI } from '../../api/customAxios';
 
 const UserInfo = () => {
-<<<<<<< HEAD
-  const [token, setToken] = useState(null);
-=======
   const [question, setQuestion] = useState(null);
   const [userName, setUserName] = useState(null);
   const [order, setOrder] = useState(null);
@@ -64,7 +61,6 @@ const UserInfo = () => {
     UserAPI(userId);
     ReviewAPI();
   }, [userId]);
->>>>>>> 10be998e34ec9dd7d45e79a911478a73704b5269
 
   return (
     <>

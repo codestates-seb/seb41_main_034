@@ -1350,13 +1350,11 @@ export {
   MyPageReviewDelete,
   CancleImgContainer3,
   TextWrapper,
-<<<<<<< HEAD
   EditButton2,
   AddModalContainer,
   AddModalView,
   ModalViewBodyTableRightInput,
-  AdInputBox
-=======
+  AdInputBox,
   BottomTextContainer,
   OtherTextContainer,
   TheOtherText,
@@ -1370,5 +1368,4 @@ export {
   PasswordInput,
   EditButtonContainer,
   EditUserButton
->>>>>>> 10be998e34ec9dd7d45e79a911478a73704b5269
 };
