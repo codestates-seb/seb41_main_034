@@ -16,12 +16,9 @@ import {
 } from '../styles/signStyle';
 import { ReactComponent as LogoIcon } from '../assets/icons/foodmeet.svg';
 import { baseAPI } from '../api/customAxios';
-import { useDispatch } from 'react-redux';
-import { loginUserId } from '../store/userSlice';
 
 const Login = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [form, setForm] = useState({
     id: '',
     password: ''
@@ -39,8 +36,8 @@ const Login = () => {
       const res = await baseAPI.post(`/user/login`, body);
       const authorization = `${res.headers.authorization}`;
       localStorage.setItem('accessToken', authorization);
-      dispatch(loginUserId(form.id));
       navigate('/');
+      window.location.reload();
     } catch (err) {
       console.log(err);
       window.alert('아이디, 비밀번호를 확인해주세요.');

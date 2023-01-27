@@ -15,19 +15,16 @@ import { Logo } from '../../styles/layoutStyle';
 import { ReactComponent as LogoIcon } from '../../assets/icons/foodmeet.svg';
 import { ReactComponent as MyPageIcon } from '../../assets/icons/myPageIcon.svg';
 import { ReactComponent as DeleteIcon } from '../../assets/icons/cancleIcon.svg';
-import { useDispatch, useSelector } from 'react-redux';
-import { logoutUser } from '../../store/userSlice';
 
 const MobileMenu = ({ isOpenMenu, setIsOpenMenu }) => {
-  const dispatch = useDispatch();
-  const login = useSelector((state) => state.user.dbId);
+  const accessToken = localStorage.getItem('accessToken');
 
   const onClickLogout = () => {
     const isLogout = window.confirm('로그아웃 하시겠습니까?');
 
     isLogout && setIsOpenMenu(false);
     isLogout && localStorage.clear();
-    isLogout && dispatch(logoutUser());
+    isLogout && window.location.reload();
   };
 
   return (
@@ -48,7 +45,7 @@ const MobileMenu = ({ isOpenMenu, setIsOpenMenu }) => {
             </Link>
           </Logo>
           <MobileButtonContainer>
-            {login ? (
+            {accessToken ? (
               <>
                 <MobileMyPageLink
                   to={'/mypage'}
