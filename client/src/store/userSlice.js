@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  dbId: `${localStorage.getItem('userDbId')}`,
+  dbId: `${localStorage.getItem('userDbId') || ''}`,
   userId: ''
 };
 
