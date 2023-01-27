@@ -5,14 +5,23 @@ import {
   ModalViewBodyTable,
   ModalViewBodyTableLeft,
   ModalViewBodyTableRightInput,
+  AdInputBox,
   ModalViewFooter,
   ModalViewBodyTableButton,
   ModalViewFooterButtonLeft,
   ModalViewFooterButtonRight,
-  AdInputBox
+  ModalViewFooterButtonmiddle
 } from '../../styles/myPageStyle';
 
 const EditAddressModal = ({ modal, setModal }) => {
+  const onRemove = () => {
+    if (window.confirm('주소를 삭제하시겠습니까?')) {
+      alert('삭제되었습니다');
+    } else {
+      alert('취소했습니다.');
+    }
+  };
+
   return (
     <>
       {modal ? (
@@ -23,11 +32,7 @@ const EditAddressModal = ({ modal, setModal }) => {
             <ModalViewBody>
               <ModalViewBodyTable>
                 <ModalViewBodyTableLeft>주소</ModalViewBodyTableLeft>
-                <ModalViewBodyTableRightInput>
-                  <AdInputBox type="address" aria-label="주소를 입력하세요." />
-                  {/* 서울시 서초구 서초대로 */}
-                </ModalViewBodyTableRightInput>
-                <ModalViewBodyTableButton>주소 변경</ModalViewBodyTableButton>
+                <ModalViewBodyTableButton>주소 추가</ModalViewBodyTableButton>
               </ModalViewBodyTable>
               <ModalViewBodyTable>
                 <ModalViewBodyTableLeft>받는사람</ModalViewBodyTableLeft>
@@ -40,11 +45,14 @@ const EditAddressModal = ({ modal, setModal }) => {
               </ModalViewBodyTable>
             </ModalViewBody>
             <ModalViewFooter>
-              <ModalViewFooterButtonLeft>
+              <ModalViewFooterButtonLeft onClick>
                 기본 주소 설정
               </ModalViewFooterButtonLeft>
-              <ModalViewFooterButtonRight onClick={() => setModal((e) => !e)}>
+              <ModalViewFooterButtonmiddle onClick={() => setModal((e) => !e)}>
                 수정 완료
+              </ModalViewFooterButtonmiddle>
+              <ModalViewFooterButtonRight onClick={onRemove}>
+                삭제
               </ModalViewFooterButtonRight>
             </ModalViewFooter>
           </ModalView>
