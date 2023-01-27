@@ -63,7 +63,7 @@ public class ReviewController {
     @PatchMapping("/review/{reviewId}")
     public ResponseEntity<Response<ReviewDto>> patchReview(
             @Positive @PathVariable long reviewId,
-            @Valid @RequestPart("data-json") ReviewPatchDto reviewPatchDto
+            @Valid @RequestBody ReviewPatchDto reviewPatchDto
     ) {
         return new ResponseEntity<>(
                 Response.of(reviewFacade.updateReview(reviewId, reviewPatchDto)), HttpStatus.OK);
