@@ -11,10 +11,14 @@ import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg'
 import { useState, useEffect } from 'react';
 import { questionGetAPI } from '../../api/question';
 import Loading from '../Layout/Loading';
+import { useParams } from 'react-router-dom';
 
 const MyPageQuestionList = () => {
   const [question, setQuestion] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const params = useParams();
+
+  console.log(params);
 
   useEffect(() => {
     const API = async () => {

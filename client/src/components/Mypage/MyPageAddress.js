@@ -39,10 +39,10 @@ const MyPageAddress = () => {
       const data = await userAddressGetAPI(body);
       console.log('data', data);
       setAddress(data.data);
-      console.log(address);
+      // console.log(address);
     };
     init();
-  }, [address]);
+  }, []);
 
   // const [list, setList] = useState([{}, {}, {}]);
   const [modal, setModal] = useState(false);
