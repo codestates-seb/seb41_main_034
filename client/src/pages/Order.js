@@ -13,12 +13,14 @@ import {
   CheckDelete,
   OrderListContianer,
   OrderListHeader,
-  MobileOrderButton
+  MobileOrderButton,
+  MobileDisabledButton
 } from '../styles/orderStyle';
 
 const Order = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const accessToken = localStorage.getItem('accessToken');
   const cart = useSelector((state) => state.order.cart);
   const orderAmount = useSelector((state) => state.order.orderAmount);
   const [shippingFee, setShoppingFee] = useState(3000);
@@ -84,9 +86,15 @@ const Order = () => {
         setShoppingFee={setShoppingFee}
       />
 
-      <MobileOrderButton type="button" onClick={onClickOrder}>
-        결제하기
-      </MobileOrderButton>
+      {accessToken ? (
+        <MobileOrderButton type="button" onClick={onClickOrder}>
+          결제하기
+        </MobileOrderButton>
+      ) : (
+        <MobileDisabledButton type="button" disabled>
+          로그인 후 결제가능
+        </MobileDisabledButton>
+      )}
     </OrderContainer>
   );
 };

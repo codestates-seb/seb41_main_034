@@ -12,12 +12,14 @@ import {
   OrderButton,
   OrderButtonContainer,
   ShippingCotainer,
-  ShippingInfo
+  ShippingInfo,
+  OrderDisabledButton
 } from '../../styles/orderStyle';
 
 const OrderPayment = ({ onClickOrder, shippingFee, setShoppingFee }) => {
   const cart = useSelector((state) => state.order.cart);
   const orderAmount = useSelector((state) => state.order.orderAmount);
+  const accessToken = localStorage.getItem('accessToken');
 
   useEffect(() => {
     const cartCheckFilter = cart.filter((el) => el.check === true)[0];
@@ -61,9 +63,15 @@ const OrderPayment = ({ onClickOrder, shippingFee, setShoppingFee }) => {
         </OrderReceipt>
 
         <OrderButtonContainer>
-          <OrderButton type="button" onClick={onClickOrder}>
-            결제하기
-          </OrderButton>
+          {accessToken ? (
+            <OrderButton type="button" onClick={onClickOrder}>
+              결제하기
+            </OrderButton>
+          ) : (
+            <OrderDisabledButton type="button" disabled>
+              로그인 후 결제가능
+            </OrderDisabledButton>
+          )}
         </OrderButtonContainer>
       </OrderPaymentContainer>
     </OrderPaymentWrapper>

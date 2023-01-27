@@ -581,7 +581,7 @@ const ModalButtonContainer = styled.div`
   }
 `;
 
-const OrderButton = styled.button`
+const OrderDisabledButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -589,10 +589,17 @@ const OrderButton = styled.button`
   height: 40px;
   font-size: 18px;
   font-weight: 700;
+  border-radius: 4px;
+  color: ${(props) => props.theme.whiteColor};
+  background-color: ${(props) => props.theme.grayColor};
+  cursor: initial;
+`;
+
+const OrderButton = styled(OrderDisabledButton)`
   color: ${(props) => props.theme.whiteColor};
   background-color: ${(props) => props.theme.primaryColor};
   transition: background-color 0.5s;
-  border-radius: 4px;
+  cursor: pointer;
 
   @media ${(props) => props.theme.desktop} {
     &:hover {
@@ -653,7 +660,7 @@ const ProductOrderButton = styled.button`
   }
 `;
 
-const MobileOrderButton = styled.button`
+const MobileDisabledButton = styled.button`
   position: sticky;
   bottom: 0px;
   display: flex;
@@ -665,13 +672,20 @@ const MobileOrderButton = styled.button`
   font-weight: 700;
   border-radius: 4px;
   color: ${(props) => props.theme.whiteColor};
-  background-color: ${(props) => props.theme.primaryColor};
-  transition: background-color 0.5s;
+  background-color: ${(props) => props.theme.grayColor};
   z-index: 70;
+  cursor: initial;
 
   @media ${(props) => props.theme.desktop} {
     display: none;
   }
+`;
+
+const MobileOrderButton = styled(MobileDisabledButton)`
+  color: ${(props) => props.theme.whiteColor};
+  background-color: ${(props) => props.theme.primaryColor};
+  transition: background-color 0.5s;
+  cursor: pointer;
 `;
 
 const OrderModalContainer = styled.div`
@@ -693,6 +707,8 @@ const OrderModalContainer = styled.div`
 `;
 
 export {
+  MobileDisabledButton,
+  OrderDisabledButton,
   ShippingCotainer,
   ShippingInfo,
   ModalButtonContainer,
