@@ -5,6 +5,7 @@ import com.codestates.seb41_main_034.auth.handler.UserAuthenticationEntryPoint;
 import com.codestates.seb41_main_034.auth.jwt.JwtTokenizer;
 import com.codestates.seb41_main_034.auth.userdetails.CustomUserDetailsService;
 import com.codestates.seb41_main_034.auth.utils.CustomAuthorityUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -29,6 +30,7 @@ public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
     private final CustomUserDetailsService customUserDetailsService;
+    private final ObjectMapper mapper;
 
 //    @Value("${spring.security.oauth2.client.registration.google.clientId}")
 //    private String clientId;
@@ -37,7 +39,7 @@ public class SecurityConfiguration {
 //    private String clientSecret;
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .headers().frameOptions().sameOrigin()
                 .and()
@@ -48,10 +50,10 @@ public class SecurityConfiguration {
                 .formLogin().disable()
                 .httpBasic().disable()
                 .exceptionHandling()
-                .authenticationEntryPoint(new UserAuthenticationEntryPoint())
-                .accessDeniedHandler(new UserAccessDeniedHandler())
+                .authenticationEntryPoint(new UserAuthenticationEntryPoint(mapper))
+                .accessDeniedHandler(new UserAccessDeniedHandler(mapper))
                 .and()
-                .apply(new CustomFilterConfigurer(jwtTokenizer, authorityUtils, customUserDetailsService))
+                .apply(new CustomFilterConfigurer(jwtTokenizer, authorityUtils, customUserDetailsService, mapper))
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
                         .antMatchers(HttpMethod.GET, "/api/v1/user/duplicate-check").permitAll()
