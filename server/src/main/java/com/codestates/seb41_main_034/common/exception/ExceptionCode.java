@@ -13,6 +13,7 @@ public enum ExceptionCode {
     AUTH_FORBIDDEN(HttpStatus.FORBIDDEN, HttpStatus.FORBIDDEN.getReasonPhrase()),
     PRODUCT_NOT_FOUND(HttpStatus.NOT_FOUND, "상품을 찾을 수 없습니다."),
     PRODUCT_NOT_ENOUGH_STOCK(HttpStatus.FORBIDDEN, "재고가 부족합니다."),
+    CART_ITEM_NOT_FOUND(HttpStatus.NOT_FOUND, "장바구니 항목이 존재하지 않습니다."),
     ORDER_UNAVAILABLE_PRODUCT(HttpStatus.FORBIDDEN, "구매할 수 없는 상품입니다."),
     ORDER_NOT_FOUND(HttpStatus.NOT_FOUND, "주문을 찾을 수 없습니다."),
     ORDER_MISMATCHED_PRICE(HttpStatus.BAD_REQUEST, "상품 주문 가격이 상품 가격과 맞지 않습니다."),
