@@ -10,9 +10,25 @@ import {
   EditUserButton
 } from '../../styles/myPageStyle';
 import { useState } from 'react';
+import { authAPI } from '../../api/customAxios';
+import { useNavigate } from 'react-router-dom';
 
 const UserInfoConfirmPW = () => {
   const [password, setPassword] = useState(null);
+  const navigate = useNavigate();
+
+  const Confirm = () => {
+    const ConfirmAPI = async (password) => {
+      try {
+        await authAPI.get(`/user/password-check?password=${password}`);
+        navigate(`/mypage/edit`);
+      } catch (error) {
+        alert('비밀번호가 일치하지 않습니다.');
+        console.log(error);
+      }
+    };
+    ConfirmAPI(password);
+  };
 
   return (
     <>
@@ -29,12 +45,15 @@ const UserInfoConfirmPW = () => {
           <TopText>비밀번호*</TopText>
           <PasswordInput
             aria-label="비밀번호를 입력해주세요."
-            type={password}
+            type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
         </EditPasswordContainer>
         <EditButtonContainer>
-          <EditUserButton aria-label="비밀번호 입력완료 후 누르는 확인버튼입니다.">
+          <EditUserButton
+            onClick={Confirm}
+            aria-label="비밀번호 입력완료 후 누르는 확인버튼입니다."
+          >
             확인
           </EditUserButton>
         </EditButtonContainer>

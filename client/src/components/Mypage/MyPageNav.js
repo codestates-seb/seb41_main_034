@@ -7,7 +7,6 @@ import {
 
 const MyPageNav = () => {
   const currentPath = decodeURI(window.location.pathname).substring(8);
-  console.log(currentPath);
 
   return (
     <NavContainer>

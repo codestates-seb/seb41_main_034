@@ -9,22 +9,46 @@ import {
   ButtonContainer,
   ConfirmButton,
   UserOutButton,
-  ConfirmMessage
+  ConfirmMessage,
+  DisabledButton
 } from '../../styles/myPageStyle';
 import { useState } from 'react';
 import MyPageHeader from './MyPageHeader';
+import { authAPI } from '../../api/customAxios';
 
 const UserInfoEdit = () => {
-  const [password, setPassword] = useState(null);
-  const [newPassword, setNewPassword] = useState(null);
-  const [ConfirmPW, setConfirmPW] = useState(null);
-  const [isNewPW, setIsPW] = useState(true);
+  const [name, setName] = useState('');
+  const [password] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPW, setConfirmPW] = useState('');
+  const [isName, setIsName] = useState(false);
+  const [isNewPW, setIsPW] = useState(false);
   const [isConfirmPW, setIsConfirmPW] = useState(false);
-
-  console.log('PW,ConfirmPW :'[(password, ConfirmPW)]);
+  const [vaild, setVaild] = useState({
+    name: false,
+    pw: false,
+    newPw: false,
+    newPwConfirm: false
+  });
+  const userId = localStorage.getItem('userId');
 
   const onEditComplete = () => {
     if (window.confirm('회원정보를 변경하시겠습니까?')) {
+      const body = {
+        displayName: name,
+        oldPassword: password,
+        newPassword: confirmPW
+      };
+
+      const EditAPI = async (userId, body) => {
+        try {
+          await authAPI.patch(`/user/${userId}`, body);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+      EditAPI(userId, body);
       alert('변경되었습니다');
     } else {
       alert('취소되었습니다.');
@@ -33,20 +57,50 @@ const UserInfoEdit = () => {
 
   const onUserOut = () => {
     if (window.confirm('탈퇴하시겠습니까?')) {
+      const DeleteAPI = async (userId) => {
+        try {
+          await authAPI.delete(`user/${userId}`);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      DeleteAPI(userId);
       alert('탈퇴되었습니다');
     } else {
       alert('취소되었습니다.');
     }
   };
 
+  const VaildId = (e) => {
+    const currentId = e.target.value;
+    const idRegExp = /^(?=.*[a-zA-z])(?=.*[0-9]).{6,20}$/;
+    setName(currentId);
+
+    idRegExp.test(currentId)
+      ? setVaild({ ...vaild, name: true }, setIsName(true))
+      : setVaild({ ...vaild, name: false }, setIsName(false));
+  };
+
+  const VaildPW = (e) => {
+    const currentPW = e.target.value;
+    if (currentPW.length >= 1) {
+      setVaild({ ...vaild, pw: true });
+    } else {
+      setVaild({ ...vaild, pw: false });
+    }
+  };
+
   const VaildNewPW = (e) => {
-    const NewPasswordRegExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,}$/;
+    const passwordRegExp =
+      /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,20}$/;
     const currentNewPW = e.target.value;
     setNewPassword(e.target.value);
-    if (!NewPasswordRegExp.test(currentNewPW)) {
+    if (passwordRegExp.test(currentNewPW)) {
       setIsPW(true);
+      setVaild({ ...vaild, newPw: true });
     } else {
       setIsPW(false);
+      setVaild({ ...vaild, newPw: false });
     }
   };
 
@@ -55,9 +109,11 @@ const UserInfoEdit = () => {
     const currentConfirmPW = e.target.value;
 
     if (currentConfirmPW === newPassword) {
-      setIsConfirmPW(false);
-    } else {
+      setVaild({ ...vaild, newPwConfirm: true });
       setIsConfirmPW(true);
+    } else {
+      setVaild({ ...vaild, newPwConfirm: false });
+      setIsConfirmPW(false);
     }
   };
 
@@ -70,6 +126,7 @@ const UserInfoEdit = () => {
             <PasswordContainer>
               <PasswordText htmlFor="number">이름</PasswordText>
               <InputBox
+                onChange={VaildId}
                 type="text"
                 aria-label="이름을 입력해주세요"
                 placeholder="이름을 입력해주세요"
@@ -77,14 +134,20 @@ const UserInfoEdit = () => {
               />
             </PasswordContainer>
           </EditCotainer>
-          <ConfirmMessage />
+          {isName ? (
+            <ConfirmMessage />
+          ) : (
+            <ConfirmMessage>
+              영문, 숫자를 포함한 6~20자를 입력하세요.
+            </ConfirmMessage>
+          )}
           <EditCotainer>
             <RightBox>
               <PasswordContainer>
                 <PasswordText htmlFor="password1">현재 비밀번호</PasswordText>
                 <InputBox
-                  onChange={(e) => setPassword(e.target.value)}
-                  type="text"
+                  onChange={VaildPW}
+                  type="password"
                   aria-label="현재 비밀번호를 입력해주세요"
                   placeholder="현재 비밀번호를 입력해주세요"
                   id="password1"
@@ -95,32 +158,36 @@ const UserInfoEdit = () => {
                 <PasswordText htmlFor="password2">새 비밀번호</PasswordText>
                 <InputBox
                   onChange={VaildNewPW}
-                  type="text"
+                  type="password"
                   aria-label="새 비밀번호를 입력해주세요"
                   placeholder="새 비밀번호를 입력해주세요"
                   id="password2"
                 />
               </PasswordContainer>
               {isNewPW ? (
+                <ConfirmMessage />
+              ) : (
                 <ConfirmMessage>
-                  영문, 숫자를 포함한 8자 이상 비밀번호를 입력해주세요.
+                  영문, 숫자, 특수문자를 포함한 8~20자를 입력하세요.
                 </ConfirmMessage>
-              ) : null}
+              )}
               <PasswordContainer>
                 <PasswordText htmlFor="password3">
                   새 비밀번호 확인
                 </PasswordText>
                 <InputBox
                   onChange={VaildConfirmPW}
-                  type="text"
+                  type="password"
                   aria-label="새 비밀번호를 다시 입력해주세요"
                   placeholder="새 비밀번호를 다시 입력해주세요"
                   id="password3"
                 />
               </PasswordContainer>
               {isConfirmPW ? (
+                <ConfirmMessage />
+              ) : (
                 <ConfirmMessage>동일한 비밀번호를 입력해주세요.</ConfirmMessage>
-              ) : null}
+              )}
             </RightBox>
           </EditCotainer>
           <ButtonContainer>
@@ -130,12 +197,16 @@ const UserInfoEdit = () => {
             >
               탈퇴하기
             </UserOutButton>
-            <ConfirmButton
-              aria-label="수정완료 버튼입니다."
-              onClick={onEditComplete}
-            >
-              수정완료
-            </ConfirmButton>
+            {vaild.name && vaild.pw && vaild.newPw && vaild.newPwConfirm ? (
+              <ConfirmButton
+                aria-label="수정완료 버튼입니다."
+                onClick={onEditComplete}
+              >
+                수정완료
+              </ConfirmButton>
+            ) : (
+              <DisabledButton>수정완료</DisabledButton>
+            )}
           </ButtonContainer>
         </UserEditContainer>
       </UserEditWrapper>

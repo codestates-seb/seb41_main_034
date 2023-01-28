@@ -8,12 +8,12 @@ import {
   ModalViewFooter,
   ModalViewBodyTableButton,
   ModalViewFooterButtonLeft,
-  ModalViewFooterButtonRight,
   AdInputBox,
   AddModalView,
   AddModalContainer,
   AddFlexContainer,
-  EmptyTableLeft
+  EmptyTableLeft,
+  ModalViewFooterButtonmiddle
 } from './../../styles/myPageStyle';
 import AddAddressAdd from './AddAddressAdd';
 import { ReactComponent as CheckIcon } from '../../assets/icons/checkIcon.svg';
@@ -67,7 +67,7 @@ const AddAddressModal = ({ addModal, setAddModal }) => {
                 <ModalViewBodyTableLeft>주소</ModalViewBodyTableLeft>
                 <AdInputBox value={address} readOnly />
                 <ModalViewBodyTableButton onClick={() => setIsAddressAdd(true)}>
-                  주소 추가
+                  주소 검색
                 </ModalViewBodyTableButton>
               </ModalViewBodyTable>
               {isDetailAddress ? (
@@ -99,9 +99,9 @@ const AddAddressModal = ({ addModal, setAddModal }) => {
                 <CheckIcon />
                 기본 주소로 설정
               </ModalViewFooterButtonLeft>
-              <ModalViewFooterButtonRight onClick={AddComplete}>
+              <ModalViewFooterButtonmiddle onClick={AddComplete}>
                 완료
-              </ModalViewFooterButtonRight>
+              </ModalViewFooterButtonmiddle>
             </ModalViewFooter>
           </AddModalView>
 

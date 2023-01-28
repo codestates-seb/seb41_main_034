@@ -22,9 +22,7 @@ const MyPageAddress = ({ el }) => {
             <CheckIcon />
           </CheckIconContainer>
         ) : (
-          <GrayCheckIconContainer>
-            <CheckIcon />
-          </GrayCheckIconContainer>
+          <GrayCheckIconContainer>{/* <CheckIcon /> */}</GrayCheckIconContainer>
         )}
         <AddressText>{el.address}</AddressText>
         <RecipientText>{el.recipient}</RecipientText>

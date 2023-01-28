@@ -32,7 +32,9 @@ const MyPageOrderItem = ({
     setIsOpenReview(!isOpenReview);
   };
 
-  useEffect(() => {}, [isOpenReview]);
+  useEffect(() => {
+    // console.log(isOpenReview);
+  }, [isOpenReview]);
 
   // const onRemove = () => {
   //   if (window.confirm('해당 상품에 대한 주문목록을 삭제하시겠습니까?')) {

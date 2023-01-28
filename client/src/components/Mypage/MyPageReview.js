@@ -9,7 +9,8 @@ import {
   MyPageReviewContentText,
   MyPageReviewDelete,
   MyReviewEditButton,
-  ReviewRightContainer
+  ReviewRightContainer,
+  MyReviewDeleteButton
 } from '../../styles/myPageStyle';
 import { useState } from 'react';
 import EditReviewModal from './EditReviewModal';
@@ -83,9 +84,12 @@ const MyPageReview = ({ userReview }) => {
               >
                 수정
               </MyReviewEditButton>
-              <MyReviewEditButton onClick={onRemove} alt="후기 삭제 버튼입니다">
+              <MyReviewDeleteButton
+                onClick={onRemove}
+                alt="후기 삭제 버튼입니다"
+              >
                 삭제
-              </MyReviewEditButton>
+              </MyReviewDeleteButton>
             </CancleImgContainer3>
           </MyPageReviewDelete>
         </ReviewRightContainer>
