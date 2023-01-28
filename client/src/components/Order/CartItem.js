@@ -17,6 +17,7 @@ import OrderCounter from './OrderCounter';
 
 const CartItem = ({ cart }) => {
   const dispatch = useDispatch();
+  const priceAmount = cart.price * cart.count;
 
   return (
     <CartItemContainer>
@@ -34,9 +35,7 @@ const CartItem = ({ cart }) => {
 
       <PriceContainer>
         <OrderCounter cart={cart} />
-        <ProductPrice>
-          {cart.priceAmount.toLocaleString('ko-KR')}원
-        </ProductPrice>
+        <ProductPrice>{priceAmount.toLocaleString('ko-KR')}원</ProductPrice>
       </PriceContainer>
 
       <CartItemDelete>

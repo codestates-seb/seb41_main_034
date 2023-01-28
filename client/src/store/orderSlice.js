@@ -15,7 +15,7 @@ const logoutCart = (cart) => {
 const orderAmount = (cart) => {
   return cart
     .filter((el) => el.check === true)
-    .map((el) => el.priceAmount)
+    .map((el) => el.price * el.count)
     .reduce((acc, cur) => acc + cur, 0);
 };
 
@@ -56,7 +56,6 @@ const addCartState = (cart, data) => {
     name: data.name,
     price: data.price,
     count: data.count,
-    priceAmount: data.price * data.count,
     check: true
   });
 
@@ -69,7 +68,6 @@ const updataCartState = (cart, data) => {
   });
 
   cart[data.id - 1].count = data.count;
-  cart[data.id - 1].priceAmount = cart[[data.id - 1]].price * data.count;
 
   accessToken && patchAPI(data.id, body);
 };

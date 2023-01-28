@@ -20,7 +20,7 @@ const ProductMain = () => {
 
       <Info>
         <ProductMainName>사과</ProductMainName>
-        <ProductMainPrice>{(12000).toLocaleString('ko-KR')}원</ProductMainPrice>
+        <ProductMainPrice>{(1000).toLocaleString('ko-KR')}원</ProductMainPrice>
       </Info>
     </ProductMainContainer>
   );

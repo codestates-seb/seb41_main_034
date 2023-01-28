@@ -19,6 +19,7 @@ import { deleteCart, checkCart } from '../../store/orderSlice';
 
 const OrderItem = ({ cart }) => {
   const dispatch = useDispatch();
+  const priceAmount = cart.price * cart.count;
 
   return (
     <OrderItemWrapper>
@@ -43,7 +44,7 @@ const OrderItem = ({ cart }) => {
 
         <OrderItemRight>
           <OrderCounter cart={cart} />
-          <OrderPrice>{cart.priceAmount.toLocaleString('ko-KR')}원</OrderPrice>
+          <OrderPrice>{priceAmount.toLocaleString('ko-KR')}원</OrderPrice>
         </OrderItemRight>
       </OrderItemContainer>
 
