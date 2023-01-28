@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { authAPI } from '../../api/customAxios';
 import {
   ModalViewBody,
   ModalViewBodyTable,
@@ -9,42 +11,106 @@ import {
   ModalViewFooterButtonRight,
   AdInputBox,
   AddModalView,
-  AddModalContainer
+  AddModalContainer,
+  AddFlexContainer,
+  EmptyTableLeft
 } from './../../styles/myPageStyle';
+import AddAddressAdd from './AddAddressAdd';
+import { ReactComponent as CheckIcon } from '../../assets/icons/checkIcon.svg';
 
-const AddAddressModal = ({ modal, setModal }) => {
+const AddAddressModal = ({ addModal, setAddModal }) => {
+  const [isAddressAdd, setIsAddressAdd] = useState(false);
+  const [isDetailAddress, setIsDetailAddress] = useState(false);
+  const [address, setAddress] = useState('');
+  const [addressDetail, setAddressDetail] = useState('');
+  const [recipient, setResipient] = useState('');
+  const [isPrimaryCheck, setIsPrimaryCheck] = useState(false);
+
+  const AddComplete = () => {
+    const body = {
+      recipient,
+      address: `${address} ${addressDetail}`,
+      isPrimary: isPrimaryCheck ? 'true' : 'false'
+    };
+    const AddressPostAPI = async (body) => {
+      try {
+        await authAPI.post(`user-address`, body);
+        setIsAddressAdd(false);
+        setAddModal(false);
+        window.location.reload();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    console.log(body);
+    AddressPostAPI(body);
+    alert('새로운 주소가 추가되었습니다.');
+  };
+
   return (
     <>
-      {modal ? (
+      {addModal ? (
         <>
-          <AddModalContainer onClick={() => setModal(false)} modal={modal} />
+          <AddModalContainer
+            onClick={() => {
+              setAddModal(false);
+              setIsAddressAdd(false);
+              setIsDetailAddress(false);
+              setAddress('');
+            }}
+            modal={addModal}
+          />
 
-          <AddModalView modal={modal}>
+          <AddModalView modal={addModal}>
             <ModalViewBody>
               <ModalViewBodyTable>
                 <ModalViewBodyTableLeft>주소</ModalViewBodyTableLeft>
-                <AdInputBox />
-                <ModalViewBodyTableButton onClick={() => setModal((e) => !e)}>
+                <AdInputBox value={address} readOnly />
+                <ModalViewBodyTableButton onClick={() => setIsAddressAdd(true)}>
                   주소 추가
                 </ModalViewBodyTableButton>
               </ModalViewBodyTable>
+              {isDetailAddress ? (
+                <AddFlexContainer>
+                  <EmptyTableLeft />
+                  <AdInputBox
+                    aria-label="상세주소를 입력해주세요"
+                    placeholder="상세주소를 입력해주세요."
+                    onChange={(e) => setAddressDetail(e.target.value)}
+                  />
+                </AddFlexContainer>
+              ) : null}
               <ModalViewBodyTable>
-                <ModalViewBodyTableLeft>받는사람</ModalViewBodyTableLeft>
+                <ModalViewBodyTableLeft>수신인</ModalViewBodyTableLeft>
                 <ModalViewBodyTableRightInput>
                   <AdInputBox
-                    type="Recipient"
-                    aria-label="받는사람을 입력하세요."
+                    aria-label="수신인을 입력하세요."
+                    placeholder="수신인을 입력해주세요."
+                    onChange={(e) => setResipient(e.target.value)}
                   />
                 </ModalViewBodyTableRightInput>
               </ModalViewBodyTable>
             </ModalViewBody>
             <ModalViewFooter>
-              <ModalViewFooterButtonLeft>
-                기본 주소 설정
+              <ModalViewFooterButtonLeft
+                onClick={() => setIsPrimaryCheck((e) => !e)}
+                isPrimaryCheck={isPrimaryCheck}
+              >
+                <CheckIcon />
+                기본 주소로 설정
               </ModalViewFooterButtonLeft>
-              <ModalViewFooterButtonRight>완료</ModalViewFooterButtonRight>
+              <ModalViewFooterButtonRight onClick={AddComplete}>
+                완료
+              </ModalViewFooterButtonRight>
             </ModalViewFooter>
           </AddModalView>
+
+          <AddAddressAdd
+            isAddressAdd={isAddressAdd}
+            setIsAddressAdd={setIsAddressAdd}
+            setAddress={setAddress}
+            setIsDetailAddress={setIsDetailAddress}
+          />
         </>
       ) : null}
     </>

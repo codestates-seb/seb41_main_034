@@ -54,13 +54,9 @@ const MyPageQuestionItem = ({ question, setQuestion }) => {
     <>
       <ListHeader2>
         <LeftCotainer2>
-          <ItemLinkText aria-label="상품명에 대한 문의보기 버튼입니다.">
-            {itemQuestion.productName}
-          </ItemLinkText>
+          <ItemLinkText>{itemQuestion.body}</ItemLinkText>
           <MarginSpace />
-          <ItemLinkText aria-label="상품명에 대한 문의보기 버튼입니다.">
-            {itemQuestion.body}
-          </ItemLinkText>
+          <ItemText>{itemQuestion.productName}</ItemText>
         </LeftCotainer2>
         <RightContainer2>
           <ItemText>{date}</ItemText>

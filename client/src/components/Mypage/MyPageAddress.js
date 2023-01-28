@@ -1,75 +1,43 @@
+import { ReactComponent as CheckIcon } from '../../assets/icons/checkIcon.svg';
 import {
-  MyAddressContainer,
-  Addressheader,
   AddressInfo,
-  SelectTitle,
-  AddressTitle,
-  RecipientTitle,
-  EditTitle,
   AddressText,
   RecipientText,
   EditIconContainer,
   EditButton2,
   CheckIconContainer,
-  AddressButtonContainer,
-  AddressButton
+  GrayCheckIconContainer
 } from '../../styles/myPageStyle';
-import MyPageHeader from './MyPageHeader';
-import { ReactComponent as CheckIcon } from '../../assets/icons/checkIcon.svg';
-import { userAddressGetAPI } from '../../api/address';
-import { useEffect, useState } from 'react';
 import EditAddressModal from './EditAddressModal';
-import AddAddressModal from './AddAddressModal';
+import { useState } from 'react';
 
-const MyPageAddress = () => {
-  const [address, setAddress] = useState([]);
-  const [modal, setModal] = useState(false);
-  const [addModal, setAddModal] = useState(false);
-
-  useEffect(() => {
-    const init = async () => {
-      const AddressAPI = await userAddressGetAPI();
-      setAddress(AddressAPI.data);
-      // console.log(AddressAPI.data);
-    };
-    init();
-  }, []);
+const MyPageAddress = ({ el }) => {
+  const [editModal, setEditModal] = useState(false);
 
   return (
     <>
-      <MyPageHeader title={'주소관리'} />
-      <MyAddressContainer>
-        <Addressheader>
-          <SelectTitle>기본 배송지</SelectTitle>
-          <AddressTitle>주소</AddressTitle>
-          <RecipientTitle>받는사람</RecipientTitle>
-          <EditTitle>수정</EditTitle>
-        </Addressheader>
-        {address.map((el, idx) => {
-          return (
-            <AddressInfo key={idx}>
-              <CheckIconContainer>
-                <CheckIcon />
-              </CheckIconContainer>
-              <AddressText>{el.address}</AddressText>
-              <RecipientText>{el.recipient}</RecipientText>
-              <EditIconContainer>
-                <EditButton2 onClick={() => setModal((e) => !e)}>
-                  수정
-                </EditButton2>
-              </EditIconContainer>
-            </AddressInfo>
-          );
-        })}
-      </MyAddressContainer>
-      <AddressButtonContainer>
-        <AddressButton onClick={() => setAddModal(true)}>
-          새 주소 추가
-        </AddressButton>
-      </AddressButtonContainer>
+      <AddressInfo>
+        {el.primary ? (
+          <CheckIconContainer>
+            <CheckIcon />
+          </CheckIconContainer>
+        ) : (
+          <GrayCheckIconContainer>
+            <CheckIcon />
+          </GrayCheckIconContainer>
+        )}
+        <AddressText>{el.address}</AddressText>
+        <RecipientText>{el.recipient}</RecipientText>
+        <EditIconContainer>
+          <EditButton2 onClick={() => setEditModal(true)}>수정</EditButton2>
+        </EditIconContainer>
+      </AddressInfo>
 
-      <EditAddressModal modal={modal} setModal={setModal} />
-      <AddAddressModal modal={addModal} setModal={setAddModal} />
+      <EditAddressModal
+        editModal={editModal}
+        setEditModal={setEditModal}
+        el={el}
+      />
     </>
   );
 };

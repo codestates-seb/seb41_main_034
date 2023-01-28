@@ -1,10 +1,10 @@
 import { Routes, Route } from 'react-router-dom';
 import MyPageNav from '../components/MyPage/MyPageNav';
 import UserInfo from '../components/MyPage/UserInfo';
-import MyPageAddress from '../components/MyPage/MyPageAddress';
+import MyPageAddressList from '../components/MyPage/MyPageAddressList';
 import UserInfoEdit from '../components/MyPage/UserInfoEdit';
 import MyPageOrderList from '../components/MyPage/MyPageOrderList';
-import MyPageReview from '../components/MyPage/MyPageReview';
+import MyPageReviewList from '../components/MyPage/MyPageReviewList';
 import MyPageQuestionList from '../components/MyPage/MyPageQuestionList';
 import {
   MyPageContainer,
@@ -23,11 +23,11 @@ const MyPage = () => {
 
       <MyPageContent>
         <Routes>
-          <Route path="/" element={<MyPageAddress />} />
+          <Route path="/" element={<MyPageAddressList />} />
           <Route path="/edit" element={<UserInfoEdit />} />
           <Route path="/confirmpw" element={<UserInfoConfirmPW />} />
           <Route path="/orderlist" element={<MyPageOrderList />} />
-          <Route path="/review" element={<MyPageReview />} />
+          <Route path="/review" element={<MyPageReviewList />} />
           <Route path="/question" element={<MyPageQuestionList />} />
         </Routes>
       </MyPageContent>
