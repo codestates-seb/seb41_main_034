@@ -11,7 +11,7 @@ import { useEffect } from 'react';
 
 const App = () => {
   const location = useLocation();
-  const accessToken = localStorage.accessToken;
+  const accessToken = localStorage.accessToken || '';
 
   const checkLogin = async () => {
     try {

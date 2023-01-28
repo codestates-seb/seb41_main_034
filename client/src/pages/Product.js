@@ -17,10 +17,33 @@ import {
 } from '../styles/productStyle';
 import { OrderButton, DeleteButton } from '../styles/orderStyle';
 import { ReactComponent as DeleteIcon } from '../assets/icons/cancleIcon.svg';
+import { baseAPI } from '../api/customAxios';
+import { useEffect } from 'react';
 
 const Product = () => {
+  const productId = decodeURI(window.location.pathname).substring(9);
   const [isOpenOrder, setIsOpenOrder] = useState(false);
   const [count, setCount] = useState(1);
+  const [product, setProduct] = useState(
+    JSON.parse(localStorage.product || '{}')
+  );
+
+  const getProduct = async () => {
+    try {
+      const res = await baseAPI.get(`/product/${productId}`);
+      console.log(res.data.data);
+      setProduct(res.data.data);
+      localStorage.product = JSON.stringify(res.data.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getProduct();
+    console.log('호출');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
@@ -39,20 +62,21 @@ const Product = () => {
         setIsOpenOrder={setIsOpenOrder}
         count={count}
         setCount={setCount}
+        product={product}
       />
 
       <ProductWrapper>
         <ProductContent>
-          <ProductMain />
+          <ProductMain product={product} />
           <ProductNavbar />
-          <ProductInfo />
-          <ProductDetail />
+          <ProductInfo product={product} />
+          <ProductDetail product={product} />
           <ProductReviewList />
           <ProductQuestionList />
         </ProductContent>
 
         <ProductOrder>
-          <OrderProduct count={count} setCount={setCount} />
+          <OrderProduct count={count} setCount={setCount} product={product} />
         </ProductOrder>
 
         <ProductButtonContainer>

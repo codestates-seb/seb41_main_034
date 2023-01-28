@@ -15,7 +15,7 @@ import {
 } from '../../styles/orderStyle';
 import ProductCounter from '../Product/ProductCounter';
 
-const OrderProduct = ({ count, setCount }) => {
+const OrderProduct = ({ count, setCount, product }) => {
   const dispatch = useDispatch();
 
   const onClickAddCart = (e) => {
@@ -23,10 +23,10 @@ const OrderProduct = ({ count, setCount }) => {
 
     dispatch(
       addCart({
-        productId: 1,
-        img: 'https://thumbnail9.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/493405785878144-be8efa56-f85d-43e2-bbe2-79dcf26f6eac.jpg',
-        name: '사과',
-        price: 1000,
+        productId: product.id,
+        img: product.imageUrls[0],
+        name: product.name,
+        price: product.price,
         count: count
       })
     );
@@ -36,14 +36,14 @@ const OrderProduct = ({ count, setCount }) => {
     <OrderPaymentContainer>
       <OrderReceipt>
         <ReceiptContainer>
-          <ReceiptAmount>사과</ReceiptAmount>
+          <ReceiptAmount>{product.name}</ReceiptAmount>
           <ProductCounter count={count} setCount={setCount} />
         </ReceiptContainer>
 
         <PaymentContainer>
           <ReceiptTitle>주문금액</ReceiptTitle>
           <ReceiptPayment>
-            {(1000 * count).toLocaleString('ko-KR')}원
+            {(product.price * count).toLocaleString('ko-KR')}원
           </ReceiptPayment>
         </PaymentContainer>
       </OrderReceipt>

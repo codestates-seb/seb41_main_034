@@ -6,7 +6,7 @@ import {
 import { ProductList } from '../../styles/productStyle';
 import ProductItem from './ProductItem';
 
-const HomeProduct = ({ title, homeData }) => {
+const HomeProduct = ({ title, data }) => {
   return (
     <HomeProductContainer>
       <HomeProductHeader>
@@ -14,8 +14,8 @@ const HomeProduct = ({ title, homeData }) => {
       </HomeProductHeader>
 
       <ProductList>
-        {homeData.map((el, idx) => (
-          <ProductItem key={idx} />
+        {data.map((el, idx) => (
+          <ProductItem product={el} key={idx} />
         ))}
       </ProductList>
     </HomeProductContainer>

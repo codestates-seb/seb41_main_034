@@ -8,6 +8,7 @@ import Loading from '../Layout/Loading';
 const MyPageOrderList = () => {
   const [totalList, setTotalList] = useState([]);
   const [viewList, setViewList] = useState(null);
+  console.log(totalList);
 
   useEffect(() => {
     init();

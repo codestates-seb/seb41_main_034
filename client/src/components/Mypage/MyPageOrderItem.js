@@ -6,13 +6,12 @@ import {
   ProductName,
   OrderListPrice,
   OrderQuantity,
-  CancleImgContainer,
+  // CancleImgContainer,
   OrderStatus,
   ProductImg,
   ReviewButton
 } from '../../styles/myPageStyle';
-
-import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
+// import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
 import { useState, useEffect } from 'react';
 import ReviewModal from './ReviewModal';
 import { Link } from 'react-router-dom';
@@ -35,13 +34,13 @@ const MyPageOrderItem = ({
     console.log(isOpenReview);
   }, [isOpenReview]);
 
-  const onRemove = () => {
-    if (window.confirm('해당 상품에 대한 주문목록을 삭제하시겠습니까?')) {
-      alert('삭제되었습니다');
-    } else {
-      alert('취소했습니다.');
-    }
-  };
+  // const onRemove = () => {
+  //   if (window.confirm('해당 상품에 대한 주문목록을 삭제하시겠습니까?')) {
+  //     alert('삭제되었습니다');
+  //   } else {
+  //     alert('취소했습니다.');
+  //   }
+  // };
 
   const orderStateFunc = (e) => {
     const stateObj = {

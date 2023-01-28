@@ -7,7 +7,7 @@ import {
   TabInput
 } from '../../styles/productStyle';
 
-const ProductDetail = () => {
+const ProductDetail = ({ product }) => {
   return (
     <ProductDetailContainer>
       <TabInput id="detailInfo" readOnly />
@@ -16,11 +16,7 @@ const ProductDetail = () => {
       </ProductDetailHeader>
 
       <ProductMainImage>
-        <ProductMainImg
-          img={
-            'https://thumbnail9.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/493405785878144-be8efa56-f85d-43e2-bbe2-79dcf26f6eac.jpg'
-          }
-        />
+        <ProductMainImg img={product.detailImageUrls[0]} />
       </ProductMainImage>
     </ProductDetailContainer>
   );
