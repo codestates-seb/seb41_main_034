@@ -28,8 +28,7 @@ const ProductReviewItem = () => {
           />
           <Detail>
             <ReviewFlexBox>
-              <Writer>최*화</Writer>/
-              <ReviewProductName> 사과</ReviewProductName>
+              <Writer>최*화</Writer>/<ReviewProductName>사과</ReviewProductName>
             </ReviewFlexBox>
             <Reviews>당근이 너무 싱싱하고 맛있어요!</Reviews>
           </Detail>

@@ -44,7 +44,7 @@ const EditQuestionModal = ({ isEdit, setIsEdit, itemQuestion }) => {
           <MiddleText>문의수정</MiddleText>
           <LeftTextContainer>
             <LeftText htmlFor="ItemName">작성자</LeftText>
-            <RightText>홍길동</RightText>
+            <RightText>{itemQuestion.createByName}</RightText>
           </LeftTextContainer>
           <LeftTextContainer>
             <LeftText htmlFor="ItemName">상품명</LeftText>
