@@ -32,7 +32,7 @@ const MyPageOrderItem = ({
   };
 
   useEffect(() => {
-    console.log(isOpenReview);
+    // console.log(isOpenReview);
   }, [isOpenReview]);
 
   const onRemove = () => {
