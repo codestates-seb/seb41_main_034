@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { authAPI } from '../../api/customAxios';
 import {
   OrderPaymentWrapper,
   OrderPaymentContainer,
@@ -13,15 +15,31 @@ import {
   OrderButtonContainer,
   ShippingCotainer,
   ShippingInfo,
-  OrderDisabledButton
+  OrderDisabledButton,
+  OrderAddress,
+  OrderAddressContainer,
+  MyAddress
 } from '../../styles/orderStyle';
 
 const OrderPayment = ({ onClickOrder, shippingFee, setShoppingFee }) => {
   const cart = useSelector((state) => state.order.cart);
   const orderAmount = useSelector((state) => state.order.orderAmount);
   const accessToken = localStorage.getItem('accessToken');
+  const userId = localStorage.getItem('userId');
+  const [address, setAddress] = useState('');
+
+  const checkAddress = async () => {
+    try {
+      const res = await authAPI.get(`user/${userId}`);
+      setAddress(res.data.data.address);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
+    accessToken && checkAddress();
+
     const cartCheckFilter = cart.filter((el) => el.check === true)[0];
 
     setShoppingFee(
@@ -31,11 +49,19 @@ const OrderPayment = ({ onClickOrder, shippingFee, setShoppingFee }) => {
         ? 0
         : 3000
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart, orderAmount, setShoppingFee]);
 
   return (
     <OrderPaymentWrapper>
       <OrderPaymentContainer>
+        {accessToken && (
+          <OrderAddressContainer>
+            <OrderAddress>배송지: {address}</OrderAddress>
+            <MyAddress to={'/mypage/address'}>주소변경</MyAddress>
+          </OrderAddressContainer>
+        )}
+
         <OrderReceipt>
           <ReceiptContainer>
             <ReceiptAmount>총 상품금액</ReceiptAmount>

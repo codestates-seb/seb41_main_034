@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const CartContainer = styled.div`
@@ -488,12 +489,12 @@ const OrderPaymentWrapper = styled.div`
 `;
 
 const OrderPaymentContainer = styled.div`
-  position: sticky;
-  top: 168px;
+  position: relative;
+  top: 0;
 
-  @media ${(props) => props.theme.mobile} {
-    position: relative;
-    top: 0;
+  @media ${(props) => props.theme.desktop} {
+    position: sticky;
+    top: 192px;
   }
 `;
 
@@ -706,7 +707,36 @@ const OrderModalContainer = styled.div`
   }
 `;
 
+const OrderAddressContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  padding: 10px 20px;
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
+`;
+
+const OrderAddress = styled.p`
+  font-size: 12px;
+`;
+
+const MyAddress = styled(Link)`
+  display: block;
+  font-size: 10px;
+  color: ${(props) => props.theme.grayColor};
+  transition: color 0.3s;
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      color: ${(props) => props.theme.hoverColor};
+    }
+  }
+`;
+
 export {
+  OrderAddressContainer,
+  OrderAddress,
+  MyAddress,
   MobileDisabledButton,
   OrderDisabledButton,
   ShippingCotainer,

@@ -3,11 +3,6 @@ import { authAPI } from '../api/customAxios';
 
 const accessToken = localStorage.accessToken;
 
-const initialState = {
-  cart: JSON.parse(localStorage.cart || `[]`),
-  orderAmount: 0
-};
-
 const logoutCart = (cart) => {
   localStorage.cart = JSON.stringify(cart);
 };
@@ -70,6 +65,11 @@ const updataCartState = (cart, data) => {
   cart[data.id - 1].count = data.count;
 
   accessToken && patchAPI(data.id, body);
+};
+
+const initialState = {
+  cart: JSON.parse(localStorage.cart || `[]`),
+  orderAmount: orderAmount(JSON.parse(localStorage.cart || `[]`))
 };
 
 const orderSlice = createSlice({
