@@ -105,7 +105,7 @@ const RightContainer2 = styled.div`
 `;
 
 const LeftCotainer2 = styled.div`
-  width: 100%;
+  flex-grow: 1;
 `;
 
 const ItemLinkText = styled.button`
@@ -844,7 +844,7 @@ const EditIconContainer = styled.div`
 
 const EditButton2 = styled.button`
   display: block;
-  padding: px 24px;
+  padding: 6px 12px;
   font-size: 12px;
   border-radius: 4px;
   background-color: ${(props) => props.theme.primaryColor};

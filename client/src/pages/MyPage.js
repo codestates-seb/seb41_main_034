@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import MyPageNav from '../components/MyPage/MyPageNav';
-// import UserInfo from '../components/MyPage/UserInfo';
+import UserInfo from '../components/MyPage/UserInfo';
 import MyPageAddressList from '../components/MyPage/MyPageAddressList';
 import UserInfoEdit from '../components/MyPage/UserInfoEdit';
 import MyPageOrderList from '../components/MyPage/MyPageOrderList';
@@ -22,10 +22,11 @@ const MyPage = () => {
 
       <MyPageContent>
         <Routes>
-          <Route path="/" element={<MyPageAddressList />} />
+          <Route path="/" element={<UserInfo />} />
+          <Route path="/address" element={<MyPageAddressList />} />
           <Route path="/edit" element={<UserInfoEdit />} />
           <Route path="/confirmpw" element={<UserInfoConfirmPW />} />
-          <Route path="/orderlist" element={<MyPageOrderList />} />
+          <Route path="/order" element={<MyPageOrderList />} />
           <Route path="/review" element={<MyPageReviewList />} />
           <Route path="/question" element={<MyPageQuestionList />} />
         </Routes>
