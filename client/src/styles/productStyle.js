@@ -277,6 +277,17 @@ const EditQuModal = styled.div`
   z-index: 80;
 `;
 
+const EditReModal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: ${(props) => (props.isEditModal ? 'block' : 'none')};
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 80;
+`;
+
 const QuestionModalWrapper = styled.div`
   position: fixed;
   top: 0;
@@ -289,7 +300,7 @@ const QuestionModalWrapper = styled.div`
 `;
 
 const QuestionModalContainer = styled.div`
-  padding: 36px;
+  padding: 12px 36px 36px 36px;
   border-radius: 4px;
   background-color: ${(props) => props.theme.whiteColor};
 
@@ -751,6 +762,7 @@ const Writer = styled.div`
 `;
 const Reviews = styled.div`
   font-size: 14px;
+  margin: 8px 12px 0 12px;
 `;
 
 const CreationDate = styled.div`
@@ -795,6 +807,21 @@ const EditQuModalView = styled.div`
   transition: transform 0.5s;
   transform: translate(-50%, -50%)
     ${(props) => (props.isEdit ? 'translateY(0)' : 'translateY(-200%)')};
+  z-index: 98;
+`;
+
+const EditReModalView = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  max-width: 435px;
+  background-color: ${(props) => props.theme.whiteColor};
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  transition: transform 0.5s;
+  transform: translate(-50%, -50%)
+    ${(props) => (props.isEditModal ? 'translateY(0)' : 'translateY(-200%)')};
   z-index: 98;
 `;
 
@@ -922,5 +949,7 @@ export {
   ReviewFlexBox,
   LoginText,
   EditQuModalView,
-  EditQuModal
+  EditQuModal,
+  EditReModal,
+  EditReModalView
 };

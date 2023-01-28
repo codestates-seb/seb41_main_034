@@ -110,6 +110,8 @@ const LeftCotainer2 = styled.div`
 
 const ItemLinkText = styled.button`
   font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 4px;
 
   @media ${(props) => props.theme.tablet} {
     font-size: 8px;
@@ -719,7 +721,7 @@ const SelectTitle = styled.div`
   align-items: center;
   justify-content: center;
   width: 15%;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
 
   @media ${(props) => props.theme.mobile} {
@@ -732,7 +734,7 @@ const AddressTitle = styled.div`
   align-items: center;
   justify-content: center;
   width: 40%;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
 
   @media ${(props) => props.theme.mobile} {
@@ -745,7 +747,7 @@ const RecipientTitle = styled.div`
   align-items: center;
   justify-content: center;
   width: 30%;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
 
   @media ${(props) => props.theme.mobile} {
@@ -766,15 +768,36 @@ const EditTitle = styled.div`
   }
 `;
 
+const GrayCheckIconContainer = styled.div`
+  width: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    fill: ${(props) => props.theme.grayColor};
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
+`;
+
 const CheckIconContainer = styled.div`
   width: 15%;
   display: flex;
   align-items: center;
   justify-content: center;
+
   svg {
     width: 16px;
     height: 16px;
-    fill: ${(props) => props.theme.grayColor};
+    fill: ${(props) => props.theme.primaryColor};
   }
 
   @media ${(props) => props.theme.mobile} {
@@ -790,7 +813,7 @@ const AddressText = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 12px;
 
   @media ${(props) => props.theme.mobile} {
     font-size: 12px;
@@ -802,7 +825,7 @@ const RecipientText = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 12px;
 
   @media ${(props) => props.theme.mobile} {
     font-size: 12px;
@@ -897,7 +920,7 @@ const AddModalView = styled.div`
   top: 50%;
   left: 50%;
   width: 100%;
-  max-width: 425px;
+  max-width: 500px;
   background-color: ${(props) => props.theme.whiteColor};
   border-radius: 4px;
   z-index: 99;
@@ -908,14 +931,24 @@ const AddModalView = styled.div`
 
 const ModalViewBody = styled.div`
   width: 100%;
+  margin: 24px 0 24px 0;
+`;
+
+const EditModalViewBodyTable = styled.div`
+  display: grid;
+  width: 100%;
+  margin-top: 12px;
 `;
 
 const ModalViewBodyTable = styled.div`
   display: flex;
-  align-items: center;
   width: 100%;
-  border-bottom: 1px solid ${(props) => props.theme.borderColor};
   margin-top: 12px;
+`;
+
+const EmptyTableLeft = styled.div`
+  width: 100%;
+  max-width: 100px;
 `;
 
 const ModalViewBodyTableLeft = styled.div`
@@ -923,6 +956,7 @@ const ModalViewBodyTableLeft = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
+  margin-bottom: 12px;
   max-width: 100px;
   font-size: 12px;
   color: ${(props) => props.theme.primaryColor};
@@ -938,12 +972,18 @@ const ModalViewBodyTableRightInput = styled.div`
   align-items: center;
 `;
 
+const AddFlexContainer = styled.div`
+  display: flex;
+  width: 100%;
+  margin: 4px 0 0 0;
+`;
+
 const AdInputBox = styled.input`
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 6px;
-  margin: 12px 20px 12px 2px;
+  margin: 0 20px 12px 2px;
   width: 100%;
   max-width: 300px;
   font-size: 12px;
@@ -970,6 +1010,7 @@ const ModalViewBodyTableButton = styled.button`
   padding: 8px;
   width: 100%;
   max-width: 93px;
+  height: 28px;
   border-radius: 4px;
   font-size: 12px;
   background-color: ${(props) => props.theme.primaryColor};
@@ -990,23 +1031,48 @@ const ModalViewFooter = styled.div`
   width: 100%;
 `;
 
-const ModalViewFooterButtonLeft = styled.button`
+const EditModalFooterButtonLeft = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 15px 0px;
-  width: 93px;
+  width: 110px;
   height: 33px;
+  border: 1px solid ${(props) => props.theme.borderColor};
+  border-radius: 4px;
   font-size: 12px;
-  border: 1px solid ${(props) => props.theme.grayColor};
-  border-radius: 5px;
-  background-color: ${(props) => props.theme.whiteColor};
   color: ${(props) => props.theme.primaryColor};
+  background-color: ${(props) => props.theme.whiteColor};
 
   @media ${(props) => props.theme.mobile} {
-    max-width: 73px;
+    max-width: 100px;
     padding: 4px;
     font-size: 8px;
+  }
+`;
+
+const ModalViewFooterButtonLeft = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 15px 0 15px 12px;
+  width: 130px;
+  height: 33px;
+  font-size: 12px;
+  color: ${(props) => (props.isPrimaryCheck ? '#F03E3E' : 'black')};
+
+  @media ${(props) => props.theme.mobile} {
+    max-width: 100px;
+    padding: 4px;
+    font-size: 8px;
+    margin: 15px 0 15px 12px;
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 4px;
+    fill: ${(props) => (props.isPrimaryCheck ? '#F03E3E' : 'black')};
   }
 `;
 const ModalViewFooterButtonmiddle = styled.button`
@@ -1048,22 +1114,20 @@ const ModalViewFooterButtonRight = styled.button`
 
 const ReviewListContainer = styled.div`
   display: flex;
-  justify-content: space-between;
-  margin: 40px 0 0 8px;
+  padding: 12px;
   width: 100%;
-  padding: 12px 0 12px 0;
-  font-size: 16px;
-  border-top: 1px solid ${(props) => props.theme.borderColor};
   border-bottom: 1px solid ${(props) => props.theme.borderColor};
 
   @media ${(props) => props.theme.tablet} {
     width: 100%;
     font-size: 12px;
+    padding: 12px 24px 12px 24px;
   }
 
   @media ${(props) => props.theme.mobile} {
     width: 100%;
     font-size: 8px;
+    padding: 0 0 12px 0;
   }
 `;
 const ReviewButton = styled.button`
@@ -1089,35 +1153,46 @@ const ProductImg2 = styled.img`
 `;
 
 const MyPageReviewImage = styled.div`
-  width: 120px;
+  width: 100%;
+  max-width: 120px;
   height: 120px;
   margin: 10px 0 0 28px;
 
   @media ${(props) => props.theme.tablet} {
-    width: 120px;
-    height: 120px;
+    max-width: 100px;
+    height: 100px;
   }
   @media ${(props) => props.theme.mobile} {
-    width: 80px;
+    max-width: 80px;
     height: 80px;
   }
 `;
 const MyPageReviewContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  display: grid;
+  width: 100%;
+  max-width: 250px;
 
-  row-gap: 8px;
-  max-width: 300px;
+  @media ${(props) => props.theme.tablet} {
+    margin: 0 0 0 8px;
+  }
 
-  font-size: 20px;
+  @media ${(props) => props.theme.mobile} {
+    margin: 0 0 0 8px;
+  }
 `;
 
-const MyPageReviewContentTopButton = styled.button`
+const ReviewRightContainer = styled.div`
   display: flex;
-  // align-items: center;
+  justify-content: space-between;
   width: 100%;
-  height: 30%;
+  margin: 0 0 0 24px;
+`;
+
+const MyPageReviewContentTopButton = styled.div`
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  max-width: 300px;
   font-size: 16px;
   font-weight: bold;
 
@@ -1136,7 +1211,6 @@ const MyPageReviewContent2 = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  height: 30%;
 
   @media ${(props) => props.theme.tablet} {
     width: 100%;
@@ -1150,14 +1224,16 @@ const MyPageReviewContent2 = styled.div`
 `;
 
 const MyPageReviewContentText = styled.div`
-  margin-right: 8px;
-  font-size: 16px;
+  margin: 0 4px 0 0;
+  font-size: 12px;
+  color: ${(props) => props.theme.grayColor};
 `;
 
 const MyPageReviewDelete = styled.div`
+  display: flex;
   width: 100%;
-  max-width: 100px;
-  // margin-bottom: 40px;
+  max-width: 150px;
+  align-items: center;
 
   @media ${(props) => props.theme.tablet} {
     width: 100%;
@@ -1170,13 +1246,29 @@ const MyPageReviewDelete = styled.div`
 
 const CancleImgContainer3 = styled.div`
   display: flex;
-  justify-content: end;
   width: 100%;
+`;
 
-  svg {
-    width: 16px;
-    height: 16px;
-    fill: ${(props) => props.theme.grayColor};
+const MyReviewEditButton = styled.button`
+  width: 100%;
+  max-width: 100px;
+  margin-left: 8px;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: ${(props) => props.theme.primaryColor};
+  color: ${(props) => props.theme.whiteColor};
+  font-size: 8px;
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      background-color: ${(props) => props.theme.hoverColor};
+    }
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    max-width: 100px;
+    padding: 4px;
+    margin-left: 4px;
   }
 `;
 
@@ -1417,5 +1509,12 @@ export {
   EditPasswordContainer,
   PasswordInput,
   EditButtonContainer,
-  EditUserButton
+  EditUserButton,
+  MyReviewEditButton,
+  ReviewRightContainer,
+  GrayCheckIconContainer,
+  AddFlexContainer,
+  EmptyTableLeft,
+  EditModalFooterButtonLeft,
+  EditModalViewBodyTable
 };
