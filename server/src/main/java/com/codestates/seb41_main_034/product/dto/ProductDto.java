@@ -20,6 +20,10 @@ public class ProductDto {
 
     private int stock;
 
+    private int sold;
+
+    private int reviewed;
+
     private ProductStatus status;
 
     private ProductCategory category;

@@ -62,7 +62,6 @@ public class ReviewFacade {
         // 엔티티 객체 생성
         Review review = reviewService.createReview(reviewPostDto);
 
-
         // DTO 매핑 후 반환
         return review.toDto(helper, product, user.getDisplayName());
     }
@@ -143,6 +142,9 @@ public class ReviewFacade {
         if (!user.getRoles().contains("ADMIN") && user.getId() != review.getCreatedBy()) {
             throw new BusinessLogicException(ExceptionCode.AUTH_FORBIDDEN);
         }
+
+        Product product = productService.readProduct(review.getProductId());
+        product.setReviewed(product.getReviewed() - 1);
 
         // 후기 삭제
         reviewService.deleteReview(reviewId);

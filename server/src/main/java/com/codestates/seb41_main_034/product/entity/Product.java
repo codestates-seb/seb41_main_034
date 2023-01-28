@@ -63,7 +63,7 @@ public class Product extends Auditable {
 
     public ProductDto toDto(JsonListHelper helper) {
         return new ProductDto(
-                id, name, price, stock, status, category,
+                id, name, price, stock, sold, reviewed, status, category,
                 helper.jsonToList(imageUrls), helper.jsonToList(detailImageUrls),
                 getCreatedBy(), getModifiedBy(), getCreatedAt(), getModifiedAt()
         );
