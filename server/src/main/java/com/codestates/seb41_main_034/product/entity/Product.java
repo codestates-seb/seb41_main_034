@@ -37,6 +37,9 @@ public class Product extends Auditable {
     private int sold;
 
     @Column(nullable = false)
+    private int reviewed;
+
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private ProductStatus status = ProductStatus.ACTIVE;
 

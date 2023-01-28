@@ -50,7 +50,7 @@ public class QuestionFacade {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         // DTO 매핑 후 반환
-        return question.toDto(helper, product, Map.of(user.getId(), user.getMaskedName()));
+        return question.toDto(helper, product, Map.of(user.getId(), user.getDisplayName()));
     }
 
     public QuestionDto readQuestion(long questionId) {
@@ -112,7 +112,11 @@ public class QuestionFacade {
         });
 
         Map<Integer, String> idNameMap = userService.getVerifiedUsers(userIds).stream()
-                .collect(Collectors.toMap(User::getId, User::getMaskedName));
+                .collect(Collectors.toMap(
+                        User::getId,
+                        user -> user.getId() == createdBy ? user.getDisplayName() : user.getMaskedName()
+                ));
+
 
         // DTO 매핑 후 반환
         return PaginatedData.of(

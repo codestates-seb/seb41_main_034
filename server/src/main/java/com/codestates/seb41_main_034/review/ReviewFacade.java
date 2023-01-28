@@ -18,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.Map;
@@ -40,6 +41,7 @@ public class ReviewFacade {
 
     private final JsonListHelper helper;
 
+    @Transactional
     public ReviewDto createReview(ReviewPostDto reviewPostDto) {
         Order order = orderService.readOrder(reviewPostDto.getOrderId());
 
@@ -55,13 +57,14 @@ public class ReviewFacade {
 
         // 상품 정보 조회
         Product product = productService.readProduct(reviewPostDto.getProductId());
+        product.setReviewed(product.getReviewed() + 1);
 
         // 엔티티 객체 생성
         Review review = reviewService.createReview(reviewPostDto);
 
 
         // DTO 매핑 후 반환
-        return review.toDto(helper, product, user.getMaskedName());
+        return review.toDto(helper, product, user.getDisplayName());
     }
 
     public ReviewDto readReview(long reviewId) {
@@ -112,7 +115,7 @@ public class ReviewFacade {
         // DTO 매핑 후 반환
         return PaginatedData.of(
                 reviewPage.map(review ->
-                        review.toDto(helper, productMap.get(review.getProductId()), user.getMaskedName())));
+                        review.toDto(helper, productMap.get(review.getProductId()), user.getDisplayName())));
     }
 
     public ReviewDto updateReview(long reviewId, ReviewPatchDto reviewPatchDto) {
