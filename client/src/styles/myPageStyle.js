@@ -360,7 +360,7 @@ const EditbuttonContainer = styled.div`
 const EditButton = styled(Link)`
   display: block;
   margin-right: 12px;
-  padding: 6px 12px;
+  padding: 8px 20px;
   font-size: 12px;
   border-radius: 4px;
   background-color: ${(props) => props.theme.primaryColor};
@@ -488,6 +488,28 @@ const ButtonContainer = styled.div`
   margin: 12px 0 12px 0;
 `;
 
+const DisabledButton = styled.button`
+  width: 98px;
+  height: 34px;
+  margin: 4px 0 0 4px;
+  color: ${(props) => props.theme.whiteColor};
+  background-color: ${(props) => props.theme.grayColor};
+  border-radius: 4px;
+  font-size: 12px;
+
+  @media ${(props) => props.theme.tablet} {
+    width: 84px;
+    height: 28px;
+    font-size: 8px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    width: 64px;
+    height: 24px;
+    font-size: 8px;
+  }
+`;
+
 const ConfirmButton = styled.button`
   width: 98px;
   height: 34px;
@@ -504,8 +526,8 @@ const ConfirmButton = styled.button`
   }
 
   @media ${(props) => props.theme.tablet} {
-    width: 64px;
-    height: 24px;
+    width: 84px;
+    height: 28px;
     font-size: 8px;
   }
 
@@ -534,8 +556,8 @@ const UserOutButton = styled.button`
   }
 
   @media ${(props) => props.theme.tablet} {
-    width: 64px;
-    height: 24px;
+    width: 84px;
+    height: 28px;
     font-size: 8px;
   }
 
@@ -1038,11 +1060,10 @@ const EditModalFooterButtonLeft = styled.button`
   margin: 15px 0px;
   width: 110px;
   height: 33px;
-  border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
   font-size: 12px;
-  color: ${(props) => props.theme.primaryColor};
-  background-color: ${(props) => props.theme.whiteColor};
+  color: ${(props) => props.theme.whiteColor};
+  background-color: ${(props) => props.theme.primaryColor};
 
   @media ${(props) => props.theme.mobile} {
     max-width: 100px;
@@ -1101,9 +1122,10 @@ const ModalViewFooterButtonRight = styled.button`
   width: 93px;
   height: 33px;
   font-size: 12px;
+  border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
-  background-color: ${(props) => props.theme.primaryColor};
-  color: ${(props) => props.theme.whiteColor};
+  background-color: ${(props) => props.theme.whiteColor};
+  color: ${(props) => props.theme.primaryColor};
 
   @media ${(props) => props.theme.mobile} {
     max-width: 73px;
@@ -1237,6 +1259,29 @@ const MyPageReviewDelete = styled.div`
 const CancleImgContainer3 = styled.div`
   display: flex;
   width: 100%;
+`;
+
+const MyReviewDeleteButton = styled.button`
+  width: 100%;
+  max-width: 100px;
+  margin-left: 8px;
+  padding: 8px;
+  border: 1px solid ${(props) => props.theme.borderColor};
+  border-radius: 4px;
+  color: ${(props) => props.theme.primaryColor};
+  font-size: 8px;
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      background-color: ${(props) => props.theme.hoverColor};
+    }
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    max-width: 100px;
+    padding: 4px;
+    margin-left: 4px;
+  }
 `;
 
 const MyReviewEditButton = styled.button`
@@ -1513,5 +1558,7 @@ export {
   AddFlexContainer,
   EmptyTableLeft,
   EditModalFooterButtonLeft,
-  EditModalViewBodyTable
+  EditModalViewBodyTable,
+  MyReviewDeleteButton,
+  DisabledButton
 };
