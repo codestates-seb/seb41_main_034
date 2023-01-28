@@ -116,7 +116,7 @@ const EditAddressModal = ({ editModal, setEditModal, el }) => {
                   <ModalViewBodyTableButton
                     onClick={() => setIsAddressModal(true)}
                   >
-                    주소 추가
+                    주소 검색
                   </ModalViewBodyTableButton>
                 </AddFlexContainer>
                 {isDetailAddress ? (
