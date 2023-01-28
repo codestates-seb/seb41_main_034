@@ -8,12 +8,9 @@ import Footer from './components/Layout/Footer';
 import ScrollToTop from './components/Layout/ScrollToTop';
 import { authAPI } from './api/customAxios';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { addCart } from './store/orderSlice';
 
 const App = () => {
   const location = useLocation();
-  const dispatch = useDispatch();
   const accessToken = localStorage.accessToken;
 
   const checkLogin = async () => {
@@ -21,24 +18,14 @@ const App = () => {
       await authAPI.get('/user/login-status');
     } catch (err) {
       console.log(err);
+      err.response.data.error.status === 401 && console.log('토큰만료');
     }
   };
 
   const checkCart = async () => {
     try {
       const cart = await authAPI.get('/cart');
-
-      cart.data.data.map((el) =>
-        dispatch(
-          addCart({
-            id: el.id,
-            img: el.imageUrl,
-            name: el.productName,
-            price: el.productPrice,
-            count: el.quantity
-          })
-        )
-      );
+      localStorage.cart = JSON.stringify(cart.data.data);
     } catch (err) {
       console.log(err);
     }

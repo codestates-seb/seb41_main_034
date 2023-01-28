@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import {
   UserInfoContainer,
-  InfoContainer,
   TextContainer,
   NameText,
   WellcomText,
@@ -11,7 +10,8 @@ import {
   Name,
   NameNext,
   BottomTextContainer,
-  TheOtherText
+  TheOtherText,
+  BottomTextWrapper
 } from '../../styles/myPageStyle';
 import { authAPI } from '../../api/customAxios';
 
@@ -65,25 +65,27 @@ const UserInfo = () => {
   return (
     <>
       <UserInfoContainer>
-        <InfoContainer>
-          <TextContainer>
-            <WellcomText>환영합니다 !</WellcomText>
-            <Name>
-              <NameText>{userName}</NameText>
-              <NameNext>님</NameNext>
-            </Name>
-          </TextContainer>
+        <TextContainer>
+          <WellcomText>환영합니다 !</WellcomText>
+          <Name>
+            <NameText>{userName}</NameText>
+            <NameNext>님</NameNext>
+          </Name>
+        </TextContainer>
+        <BottomTextWrapper>
           <BottomTextContainer>
-            <OtherText>주문 수</OtherText>
-            <OtherText>후기 수</OtherText>
-            <OtherText>문의 수</OtherText>
+            <OtherText>주문</OtherText>
+            <TheOtherText>{order}</TheOtherText>
           </BottomTextContainer>
           <BottomTextContainer>
-            <TheOtherText>{order}</TheOtherText>
+            <OtherText>후기</OtherText>
             <TheOtherText>{review}</TheOtherText>
+          </BottomTextContainer>
+          <BottomTextContainer>
+            <OtherText>문의</OtherText>
             <TheOtherText>{question}</TheOtherText>
           </BottomTextContainer>
-        </InfoContainer>
+        </BottomTextWrapper>
         <EditbuttonContainer>
           <EditButton to={'/mypage/confirmpw'}>회원정보수정</EditButton>
         </EditbuttonContainer>

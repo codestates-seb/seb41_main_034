@@ -77,11 +77,9 @@ const spin = keyframes`
 `;
 
 const Container = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
 `;
 
 const LoadingSpinner = styled.div`

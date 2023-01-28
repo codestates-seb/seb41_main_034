@@ -6,7 +6,8 @@ import {
   MarginSpace,
   ItemLinkText,
   EditDeleteButton,
-  EditDeleteContainer
+  EditDeleteContainer,
+  DeleteEditButton
 } from '../../styles/myPageStyle';
 import { useState, useEffect } from 'react';
 import Loading from '../Layout/Loading';
@@ -65,15 +66,23 @@ const MyPageQuestionItem = ({ question, setQuestion }) => {
           ) : (
             <ItemText>답변완료</ItemText>
           )}
-          <EditDeleteContainer>
-            <EditDeleteButton onClick={onEdit} alt="문의수정 버튼입니다">
-              수정
-            </EditDeleteButton>
-            <EditDeleteButton onClick={onRemove} alt="문의 삭제 버튼입니다">
-              삭제
-            </EditDeleteButton>
-          </EditDeleteContainer>
         </RightContainer2>
+        <EditDeleteContainer>
+          <EditDeleteButton
+            type="button"
+            onClick={onEdit}
+            alt="문의수정 버튼입니다"
+          >
+            수정
+          </EditDeleteButton>
+          <DeleteEditButton
+            type="button"
+            onClick={onRemove}
+            alt="문의 삭제 버튼입니다"
+          >
+            삭제
+          </DeleteEditButton>
+        </EditDeleteContainer>
       </ListHeader2>
 
       <EditQuestionModal

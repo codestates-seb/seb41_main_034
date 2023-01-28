@@ -23,11 +23,10 @@ const OrderProduct = ({ count, setCount }) => {
 
     dispatch(
       addCart({
-        id: 1,
+        productId: 1,
         img: 'https://thumbnail9.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/493405785878144-be8efa56-f85d-43e2-bbe2-79dcf26f6eac.jpg',
         name: '사과',
         price: 1000,
-        priceAmount: 1000,
         count: count
       })
     );
