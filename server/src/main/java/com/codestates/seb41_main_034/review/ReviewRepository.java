@@ -14,6 +14,9 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     @Query("select r from Review r where r.id = ?1 and r.isDeleted = false")
     Optional<Review> findById(Long id);
 
+    @Query("select r from Review r where r.orderId = ?1 and r.productId = ?2 and r.isDeleted = false")
+    Optional<Review> findByOrderIdAndProductId(long orderId, int productId);
+
     @Query("select r from Review r where r.productId = ?1 and r.isDeleted = false")
     Page<Review> findByProductId(int productId, Pageable pageable);
 

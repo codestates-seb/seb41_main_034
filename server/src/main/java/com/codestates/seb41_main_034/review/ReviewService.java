@@ -21,10 +21,15 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
 
     public Review createReview(ReviewPostDto reviewPostDto) {
+        long orderId = reviewPostDto.getOrderId();
+        int productId = reviewPostDto.getProductId();
+
+        if (reviewRepository.findByOrderIdAndProductId(orderId, productId).isPresent()) {
+            throw new BusinessLogicException(ExceptionCode.REVIEW_ALREADY_WRITTEN);
+        }
+
         // 엔티티 객체 생성 및 데이터 입력
-        Review review = new Review();
-        review.setProductId(reviewPostDto.getProductId());
-        review.setBody(reviewPostDto.getBody());
+        Review review = new Review(orderId, productId, reviewPostDto.getBody());
 
         // 엔티티 DB에 저장 및 반환
         return reviewRepository.save(review);
