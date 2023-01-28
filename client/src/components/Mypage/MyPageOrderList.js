@@ -13,16 +13,13 @@ const MyPageOrderList = () => {
   useEffect(() => {
     init();
   }, []);
-  useEffect(() => {
-    console.log('viewList', viewList);
-  }, [viewList]);
+  useEffect(() => {}, [viewList]);
 
   // 데이터 초기화
   const init = async () => {
     // 주문 목록
     try {
       const result = await authAPI.get(`/order/order-history`);
-      console.log('result', result.data.data.content);
       // 동일 날짜로 그룹화
       let newDateDataObj = {};
       await Promise.all(
@@ -39,14 +36,11 @@ const MyPageOrderList = () => {
           return false;
         })
       );
-      console.log('newDateDataObj', newDateDataObj);
       // 단순 전체 목록
       setTotalList(result.data.data.content);
       // 날짜별 정렬된 오브젝트
       setViewList(newDateDataObj);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   return (
@@ -71,11 +65,13 @@ const MyPageOrderList = () => {
                           // 주문상품 컨텐츠
                           <MyPageOrderItem
                             productId={el.productId}
-                            image={el}
+                            image={el.imageUrl}
                             name={el.productName}
                             price={el.price}
                             quantity={el.quantity}
                             orderState={el.status}
+                            recipient={e.recipient}
+                            address={e.address}
                           />
                         );
                       })}

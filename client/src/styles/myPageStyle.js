@@ -577,8 +577,8 @@ const OrderListContainer = styled.div`
 const LeftContent = styled.div`
   width: 120px;
   height: 120px;
-  margin-top: 8px;
-  margin-right: 12px;
+  margin: 8px;
+  margin-right: 24px;
 
   @media ${(props) => props.theme.tablet} {
     width: 120px;
@@ -591,19 +591,45 @@ const LeftContent = styled.div`
 `;
 
 const ProductImg = styled.img`
-  width: 100%;
-  height: 100%;
+  width: 120px;
+  height: 120px;
+  /* background-size: contain; */
+  @media ${(props) => props.theme.mobile} {
+    width: 80px;
+    height: 80px;
+  }
 `;
 
 const CenterContent = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 8px;
+  padding: 30px 15px 30px 15px;
+  row-gap: 8px;
+  width: 100%;
+  max-width: 100px;
+
+  font-size: 20px;
+
+  @media ${(props) => props.theme.tablet} {
+    width: 100%;
+    max-width: 170px;
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: 100%;
+    max-width: 100px;
+  }
+`;
+
+const ShippingInfo = styled.div`
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   margin-top: 8px;
+  padding: 24px 12px 12px 6px;
   row-gap: 8px;
   width: 100%;
   max-width: 200px;
-
   font-size: 20px;
 
   @media ${(props) => props.theme.tablet} {
@@ -639,7 +665,25 @@ const OrderListPrice = styled.div`
   }
 `;
 
+const Receiver = styled.div`
+  margin-bottom: 4px;
+  font-size: 16px;
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 8px;
+  }
+`;
+
 const OrderQuantity = styled.div`
+  margin-bottom: 4px;
+  font-size: 16px;
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 8px;
+  }
+`;
+
+const ShippingAddress = styled.div`
   margin-bottom: 4px;
   font-size: 16px;
 
@@ -653,6 +697,7 @@ const RightContent = styled.div`
   max-width: 200px;
   display: grid;
   align-items: center;
+  padding-left: 30px;
   font-size: 20px;
 
   @media ${(props) => props.theme.tablet} {
@@ -1516,5 +1561,8 @@ export {
   AddFlexContainer,
   EmptyTableLeft,
   EditModalFooterButtonLeft,
-  EditModalViewBodyTable
+  EditModalViewBodyTable,
+  ShippingInfo,
+  Receiver,
+  ShippingAddress
 };
