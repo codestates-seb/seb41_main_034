@@ -7,10 +7,16 @@ const logoutCart = (cart) => {
   localStorage.cart = JSON.stringify(cart);
 };
 
+const cartAmount = (cart) => {
+  return cart
+    .map((el) => el.price * el.quantity)
+    .reduce((acc, cur) => acc + cur, 0);
+};
+
 const orderAmount = (cart) => {
   return cart
     .filter((el) => el.check === true)
-    .map((el) => el.price * el.count)
+    .map((el) => el.price * el.quantity)
     .reduce((acc, cur) => acc + cur, 0);
 };
 
@@ -41,16 +47,15 @@ const deleteAPI = async (cartId) => {
 const addCartState = (cart, data) => {
   const body = JSON.stringify({
     productId: data.productId,
-    quantity: data.count
+    quantity: data.quantity
   });
 
   cart.push({
-    id: data.id,
     productId: data.productId,
-    img: data.img,
-    name: data.name,
+    imageUrl: data.imageUrl,
+    productName: data.productName,
     price: data.price,
-    count: data.count,
+    quantity: data.quantity,
     check: true
   });
 
@@ -59,17 +64,25 @@ const addCartState = (cart, data) => {
 
 const updataCartState = (cart, data) => {
   const body = JSON.stringify({
-    quantity: data.count
+    quantity: data.quantity
   });
 
-  cart[data.id - 1].count = data.count;
+  cart.map(
+    (el) => el.productId === data.productId && (el.quantity = data.quantity)
+  );
 
-  accessToken && patchAPI(data.id, body);
+  accessToken &&
+    cart.map((el) => el.productId === data.productId && patchAPI(el.id, body));
 };
 
+const localCart = localStorage.cart
+  ? JSON.parse(localStorage.cart).map((el) => ({ ...el, check: true }))
+  : [];
+
 const initialState = {
-  cart: JSON.parse(localStorage.cart || `[]`),
-  orderAmount: orderAmount(JSON.parse(localStorage.cart || `[]`))
+  cart: localCart,
+  cartAmount: cartAmount(localCart),
+  orderAmount: orderAmount(localCart)
 };
 
 const orderSlice = createSlice({
@@ -77,45 +90,59 @@ const orderSlice = createSlice({
   initialState,
   reducers: {
     addCart: (state, action) => {
-      state.cart[action.payload.id - 1]
+      state.cart.filter((el) => el.productId === action.payload.productId)[0]
         ? updataCartState(state.cart, action.payload)
         : addCartState(state.cart, action.payload);
 
+      state.cartAmount = cartAmount(state.cart);
       state.orderAmount = orderAmount(state.cart);
 
-      accessToken === undefined && logoutCart(state.cart);
+      logoutCart(state.cart);
     },
     updateCart: (state, action) => {
       updataCartState(state.cart, action.payload);
 
+      state.cartAmount = cartAmount(state.cart);
       state.orderAmount = orderAmount(state.cart);
 
-      accessToken === undefined && logoutCart(state.cart);
+      logoutCart(state.cart);
     },
     deleteCart: (state, action) => {
-      accessToken && deleteAPI(action.payload.id);
+      accessToken &&
+        state.cart.map(
+          (el) => el.productId === action.payload.productId && deleteAPI(el.id)
+        );
 
-      state.cart.splice(action.payload.id - 1, 1);
+      state.cart = state.cart.filter(
+        (el) => el.productId !== action.payload.productId
+      );
 
+      state.cartAmount = cartAmount(state.cart);
       state.orderAmount = orderAmount(state.cart);
 
-      accessToken === undefined && logoutCart(state.cart);
+      logoutCart(state.cart);
     },
     checkCart: (state, action) => {
-      state.cart[action.payload.id - 1].check = action.payload.check;
+      state.cart.map(
+        (el) =>
+          el.productId === action.payload.productId &&
+          (el.check = action.payload.check)
+      );
 
+      state.cartAmount = cartAmount(state.cart);
       state.orderAmount = orderAmount(state.cart);
 
-      accessToken === undefined && logoutCart(state.cart);
+      logoutCart(state.cart);
     },
     allCheckCart: (state) => {
       state.cart.filter((el) => el.check === false)[0] === undefined
         ? state.cart.map((el) => (el.check = false))
         : state.cart.map((el) => (el.check = true));
 
+      state.cartAmount = cartAmount(state.cart);
       state.orderAmount = orderAmount(state.cart);
 
-      accessToken === undefined && logoutCart(state.cart);
+      logoutCart(state.cart);
     },
     deleteCheckCart: (state) => {
       accessToken &&
@@ -125,9 +152,10 @@ const orderSlice = createSlice({
 
       state.cart = state.cart.filter((el) => el.check !== true);
 
+      state.cartAmount = cartAmount(state.cart);
       state.orderAmount = orderAmount(state.cart);
 
-      accessToken === undefined && logoutCart(state.cart);
+      logoutCart(state.cart);
     }
   }
 });

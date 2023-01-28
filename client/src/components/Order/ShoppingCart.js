@@ -11,7 +11,7 @@ import CartItem from './CartItem';
 
 const ShoppingCart = ({ isOpenCart, setIsOpenCart }) => {
   const cart = useSelector((state) => state.order.cart);
-  const orderAmount = useSelector((state) => state.order.orderAmount);
+  const cartAmount = useSelector((state) => state.order.cartAmount);
 
   return (
     <CartContainer isOpenCart={isOpenCart}>
@@ -19,12 +19,12 @@ const ShoppingCart = ({ isOpenCart, setIsOpenCart }) => {
         <h2>장바구니</h2>
       </CartHeader>
       <CartList>
-        {cart.map((el) => (
-          <CartItem cart={el} key={el.id} />
+        {cart.map((el, idx) => (
+          <CartItem cart={el} key={idx} />
         ))}
       </CartList>
       <OrderAmount>
-        주문금액: {orderAmount.toLocaleString('ko-KR')}원
+        주문금액: {cartAmount.toLocaleString('ko-KR')}원
       </OrderAmount>
       <CartFooter>
         <Link to="/order" onClick={() => setIsOpenCart(false)}>

@@ -23,12 +23,11 @@ const ProductItem = ({ product, category }) => {
 
     dispatch(
       addCart({
-        id: cartFilter === undefined ? cart.length + 1 : cart.length,
         productId: product.id,
-        img: product.imageUrls[0],
-        name: product.name,
+        imageUrl: product.imageUrls[0],
+        productName: product.name,
         price: product.price,
-        count: cartFilter === undefined ? 1 : cartFilter.count + 1
+        quantity: cartFilter === undefined ? 1 : cartFilter.quantity + 1
       })
     );
   };

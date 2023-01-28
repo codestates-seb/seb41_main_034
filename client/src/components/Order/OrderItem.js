@@ -19,7 +19,7 @@ import { deleteCart, checkCart } from '../../store/orderSlice';
 
 const OrderItem = ({ cart }) => {
   const dispatch = useDispatch();
-  const priceAmount = cart.price * cart.count;
+  const priceAmount = cart.price * cart.quantity;
 
   return (
     <OrderItemWrapper>
@@ -27,18 +27,18 @@ const OrderItem = ({ cart }) => {
         type={'checkbox'}
         checked={cart.check}
         onChange={() =>
-          dispatch(checkCart({ id: cart.id, check: !cart.check }))
+          dispatch(checkCart({ productId: cart.productId, check: !cart.check }))
         }
       />
       <OrderItemContainer>
         <OrderItemLeft>
           <OrderItemImage>
             <Link to={'/product/1'}>
-              <OrderItemImg img={cart.img} />
+              <OrderItemImg img={cart.imageUrl} />
             </Link>
           </OrderItemImage>
           <OrderItemName>
-            <Link to={'/product/1'}>{cart.name}</Link>
+            <Link to={'/product/1'}>{cart.productName}</Link>
           </OrderItemName>
         </OrderItemLeft>
 
@@ -51,7 +51,7 @@ const OrderItem = ({ cart }) => {
       <CartItemDelete>
         <DeleteButton
           type="button"
-          onClick={() => dispatch(deleteCart({ id: cart.id }))}
+          onClick={() => dispatch(deleteCart({ productId: cart.productId }))}
         >
           <DeleteIcon />
         </DeleteButton>

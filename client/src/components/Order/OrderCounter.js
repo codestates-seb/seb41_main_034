@@ -7,12 +7,17 @@ const OrderCounter = ({ cart }) => {
 
   return (
     <ProductCount>
-      {cart.count <= 1 ? (
+      {cart.quantity <= 1 ? (
         <CountButton disabled>-</CountButton>
       ) : (
         <CountButton
           onClick={() =>
-            dispatch(updateCart({ id: cart.id, count: cart.count - 1 }))
+            dispatch(
+              updateCart({
+                productId: cart.productId,
+                quantity: cart.quantity - 1
+              })
+            )
           }
         >
           -
@@ -20,14 +25,14 @@ const OrderCounter = ({ cart }) => {
       )}
       <Count
         type={'number'}
-        value={cart.count}
+        value={cart.quantity}
         min={'1'}
         max={'40'}
         onChange={(e) =>
           dispatch(
             updateCart({
-              id: cart.id,
-              count:
+              productId: cart.productId,
+              quantity:
                 Number(e.target.value) <= 1 || ''
                   ? ''
                   : Number(e.target.value) >= 40
@@ -37,12 +42,17 @@ const OrderCounter = ({ cart }) => {
           )
         }
       />
-      {cart.count >= 40 ? (
+      {cart.quantity >= 40 ? (
         <CountButton disabled>+</CountButton>
       ) : (
         <CountButton
           onClick={() =>
-            dispatch(updateCart({ id: cart.id, count: cart.count + 1 }))
+            dispatch(
+              updateCart({
+                productId: cart.productId,
+                quantity: cart.quantity + 1
+              })
+            )
           }
         >
           +

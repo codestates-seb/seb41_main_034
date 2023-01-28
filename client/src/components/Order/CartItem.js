@@ -17,19 +17,19 @@ import OrderCounter from './OrderCounter';
 
 const CartItem = ({ cart }) => {
   const dispatch = useDispatch();
-  const priceAmount = cart.price * cart.count;
+  const priceAmount = cart.price * cart.quantity;
 
   return (
     <CartItemContainer>
       <CartItemInfo>
         <CartItemImage>
           <Link>
-            <CartItemImg img={cart.img} />
+            <CartItemImg img={cart.imageUrl} />
           </Link>
         </CartItemImage>
 
         <ProductName>
-          <Link>{cart.name}</Link>
+          <Link>{cart.productName}</Link>
         </ProductName>
       </CartItemInfo>
 
@@ -41,7 +41,7 @@ const CartItem = ({ cart }) => {
       <CartItemDelete>
         <DeleteButton
           type="button"
-          onClick={() => dispatch(deleteCart({ id: cart.id }))}
+          onClick={() => dispatch(deleteCart({ productId: cart.productId }))}
         >
           <DeleteIcon />
         </DeleteButton>

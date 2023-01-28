@@ -74,8 +74,8 @@ const Order = () => {
           </CheckDelete>
         </OrderListHeader>
         <OrderList>
-          {cart.map((el) => (
-            <OrderItem cart={el} key={el.id} />
+          {cart.map((el, idx) => (
+            <OrderItem cart={el} key={idx} />
           ))}
         </OrderList>
       </OrderListContianer>
