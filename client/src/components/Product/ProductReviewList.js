@@ -6,19 +6,21 @@ import {
   TabInput
 } from '../../styles/productStyle';
 import ProductReviewItem from './ProductReviewItem';
-import { reviewGetAPI } from '../../api/review';
 import { useEffect, useState } from 'react';
+import { authAPI } from '../../api/customAxios';
+import { useParams } from 'react-router-dom';
 
 const ProductReviewList = () => {
-  const [reviews, setReviews] = useState(null);
+  const [reviews, setReviews] = useState([]);
+  const params = useParams();
 
   useEffect(() => {
-    const Reviews = async () => {
-      const data = await reviewGetAPI(1);
-      setReviews(data);
+    const reviewAPI = async (productId) => {
+      const result = await authAPI.get(`/product/${productId}/review`);
+      setReviews(result.data.data.content);
     };
-    Reviews();
-  }, []);
+    reviewAPI(params.productId);
+  }, [params.productId]);
 
   return (
     <>
@@ -29,8 +31,9 @@ const ProductReviewList = () => {
         </ProductDetailHeader>
 
         <ReviewListContainer>
-          <ProductReviewItem />
-          <ProductReviewItem />
+          {reviews.map((e, idx) => (
+            <ProductReviewItem key={idx} review={e} />
+          ))}
         </ReviewListContainer>
       </ProductDetailContainer>
     </>
