@@ -71,7 +71,7 @@ const MobileMenu = ({ isOpenMenu, setIsOpenMenu }) => {
         </MobileMenuHeader>
 
         <MobileCategoryContainer>
-          {['채소', '과일', '육류', '해산물', '견과류'].map((el, idx) => (
+          {['채소', '과일'].map((el, idx) => (
             <MobileCategoryButton
               to={`/products/${el}`}
               key={idx}

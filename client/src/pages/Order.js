@@ -77,30 +77,6 @@ const Order = () => {
           {cart.map((el) => (
             <OrderItem cart={el} key={el.id} />
           ))}
-          <div>12</div>
-          <div>12</div>
-          <div>12</div>
-          <div>12</div>
-          <div>12</div>
-          <div>12</div>
-          <div>12</div>
-          <div>12</div>
-          <div>12</div>
-          <div>12</div>
-          <div>12</div>
-          <div>12</div>
-          <div>12</div>
-          <div>12</div>
-          <div>12</div>
-          <div>12</div>
-          <div>12</div>
-          <div>12</div>
-          <div>12</div>
-          <div>12</div>
-          <div>12</div>
-          <div>12</div>
-          <div>12</div>
-          <div>12</div>
         </OrderList>
       </OrderListContianer>
 
