@@ -16,6 +16,10 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
+@Table(indexes = {
+        @Index(name = "idx_review_product_id_order_id", columnList = "productId, orderId"),
+        @Index(name = "idx_review_created_by_created_at", columnList = "createdBy, createdAt")
+})
 public class Review extends Auditable {
 
     @Id

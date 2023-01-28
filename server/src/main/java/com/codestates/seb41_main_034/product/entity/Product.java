@@ -14,6 +14,10 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Entity
+@Table(indexes = {
+        @Index(name = "idx_product_name", columnList = "name"),
+        @Index(name = "idx_product_category_name", columnList = "category, name"),
+})
 public class Product extends Auditable {
 
     @Id

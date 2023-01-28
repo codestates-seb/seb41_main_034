@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "users")
+@Table(name = "users", indexes = @Index(name = "idx_user_username", columnList = "username"))
 public class User extends DateAuditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

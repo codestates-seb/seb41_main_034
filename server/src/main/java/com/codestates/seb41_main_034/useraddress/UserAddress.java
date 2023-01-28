@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@Table(indexes = @Index(name = "idx_user_address_user_id", columnList = "userId"))
 public class UserAddress extends DateAuditable {
 
     @Id

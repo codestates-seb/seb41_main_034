@@ -17,6 +17,10 @@ import java.util.Optional;
 @Getter
 @Setter
 @Entity
+@Table(indexes = {
+        @Index(name = "idx_question_product_id", columnList = "productId"),
+        @Index(name = "idx_question_created_by_created_at", columnList = "createdBy, createdAt")
+})
 public class Question extends Auditable {
 
     @Id
