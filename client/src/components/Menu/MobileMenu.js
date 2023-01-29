@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   MobileLink,
   MobileButtonContainer,
@@ -17,6 +17,7 @@ import { ReactComponent as MyPageIcon } from '../../assets/icons/myPageIcon.svg'
 import { ReactComponent as DeleteIcon } from '../../assets/icons/cancleIcon.svg';
 
 const MobileMenu = ({ isOpenMenu, setIsOpenMenu }) => {
+  const navigate = useNavigate();
   const accessToken = localStorage.accessToken;
 
   const onClickLogout = () => {
@@ -24,6 +25,7 @@ const MobileMenu = ({ isOpenMenu, setIsOpenMenu }) => {
 
     isLogout && setIsOpenMenu(false);
     isLogout && localStorage.clear();
+    isLogout && navigate('/');
     isLogout && window.location.reload();
   };
 
@@ -45,7 +47,7 @@ const MobileMenu = ({ isOpenMenu, setIsOpenMenu }) => {
             </Link>
           </Logo>
           <MobileButtonContainer>
-            {accessToken ? (
+            {accessToken !== undefined ? (
               <>
                 <MobileMyPageLink
                   to={'/mypage'}
@@ -71,7 +73,7 @@ const MobileMenu = ({ isOpenMenu, setIsOpenMenu }) => {
         </MobileMenuHeader>
 
         <MobileCategoryContainer>
-          {['vegetable', 'fruit', 'nut', 'meat'].map((el, idx) => (
+          {['vegetable', 'fruit', 'nut', 'meat', 'seafood'].map((el, idx) => (
             <MobileCategoryButton
               to={`/products/${el}`}
               key={idx}
@@ -85,7 +87,7 @@ const MobileMenu = ({ isOpenMenu, setIsOpenMenu }) => {
                 ? '견과류'
                 : el === 'meat'
                 ? '육류'
-                : ''}
+                : '해산물'}
             </MobileCategoryButton>
           ))}
         </MobileCategoryContainer>

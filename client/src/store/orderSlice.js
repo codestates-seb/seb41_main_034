@@ -2,22 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import { authAPI } from '../api/customAxios';
 
 const accessToken = localStorage.accessToken;
-const logoutCart = !localStorage.cart
-  ? []
-  : localStorage.cart === '[]'
-  ? []
-  : JSON.parse(localStorage.cart).map((el) => ({ ...el, check: true }));
-
-let loginCart = [];
-const loginCartState = async () => {
-  try {
-    const res = await authAPI.get('/cart');
-    loginCart = res.data.data.map((el) => ({ ...el, check: true }));
-  } catch (err) {
-    console.log(err);
-  }
-};
-accessToken !== undefined && loginCartState();
 
 const cartAmountState = (cart) => {
   return cart
@@ -32,10 +16,7 @@ const orderAmountState = (cart) => {
 };
 
 const cartCheck = (state) => {
-  state.cart =
-    accessToken === undefined
-      ? JSON.parse(localStorage.cart)
-      : loginCartState();
+  state.cart = JSON.parse(localStorage.cart);
 
   state.cartAmount = cartAmountState(state.cart);
   state.orderAmount = orderAmountState(state.cart);
@@ -48,16 +29,32 @@ const postAPI = async (body) => {
     console.log(err);
   }
 };
-const patchAPI = async (cartId, body) => {
+const patchAPI = async (cart, body) => {
   try {
-    await authAPI.patch(`/cart/${cartId}`, body);
+    const res = await authAPI.get('cart');
+    const cartId = res.data.data.filter(
+      (el) => el.productId === cart.productId
+    )[0].id;
+    try {
+      await authAPI.patch(`/cart/${cartId}`, body);
+    } catch (err) {
+      console.log(err);
+    }
   } catch (err) {
     console.log(err);
   }
 };
-const deleteAPI = async (cartId) => {
+const deleteAPI = async (cart) => {
   try {
-    await authAPI.delete(`/cart/${cartId}`);
+    const res = await authAPI.get('cart');
+    const cartId = res.data.data.filter(
+      (el) => el.productId === cart.productId
+    )[0].id;
+    try {
+      await authAPI.delete(`/cart/${cartId}`);
+    } catch (err) {
+      console.log(err);
+    }
   } catch (err) {
     console.log(err);
   }
@@ -68,58 +65,50 @@ const addCartState = (cart, data) => {
     productId: data.productId,
     quantity: data.quantity
   });
+  accessToken !== undefined && postAPI(body);
 
-  accessToken === undefined
-    ? (localStorage.cart = JSON.stringify([
-        ...cart,
-        {
-          productId: data.productId,
-          imageUrl: data.imageUrl,
-          productName: data.productName,
-          price: data.price,
-          quantity: data.quantity,
-          check: true
-        }
-      ]))
-    : postAPI(body);
+  localStorage.cart = JSON.stringify([
+    ...cart,
+    {
+      productId: data.productId,
+      imageUrl: data.imageUrl,
+      productName: data.productName,
+      price: data.price,
+      quantity: data.quantity,
+      check: true
+    }
+  ]);
 };
 const updataCartState = (cart, data) => {
   const body = JSON.stringify({
     quantity: data.quantity
   });
+  accessToken !== undefined && patchAPI(data, body);
 
-  accessToken === undefined
-    ? (localStorage.cart = JSON.stringify(
-        cart.map((el) =>
-          el.productId === data.productId
-            ? { ...el, quantity: data.quantity }
-            : el
-        )
-      ))
-    : loginCart.map(
-        (el) => el.productId === data.productId && patchAPI(el.id, body)
-      );
+  localStorage.cart = JSON.stringify(
+    cart.map((el) =>
+      el.productId === data.productId ? { ...el, quantity: data.quantity } : el
+    )
+  );
 };
 const deleteCartState = (cart, data) => {
-  accessToken === undefined
-    ? (localStorage.cart = JSON.stringify(
-        cart.filter((el) => el.productId !== data.productId)
-      ))
-    : loginCart.map(
-        (el) => el.productId === data.productId && deleteAPI(el.id)
-      );
+  accessToken !== undefined && deleteAPI(data);
+
+  localStorage.cart = JSON.stringify(
+    cart.filter((el) => el.productId !== data.productId)
+  );
 };
 
+const userCart = !localStorage.cart
+  ? []
+  : localStorage.cart === '[]'
+  ? []
+  : JSON.parse(localStorage.cart).map((el) => ({ ...el, check: true }));
+
 const initialState = {
-  cart: accessToken === undefined ? logoutCart : loginCart,
-  cartAmount:
-    accessToken === undefined
-      ? cartAmountState(logoutCart)
-      : cartAmountState(loginCart),
-  orderAmount:
-    accessToken === undefined
-      ? orderAmountState(logoutCart)
-      : orderAmountState(loginCart)
+  cart: userCart,
+  cartAmount: cartAmountState(userCart),
+  orderAmount: orderAmountState(userCart)
 };
 
 const orderSlice = createSlice({
@@ -161,14 +150,13 @@ const orderSlice = createSlice({
       state.cartAmount = cartAmountState(state.cart);
       state.orderAmount = orderAmountState(state.cart);
     },
-    deleteCheckCart: (state) => {
-      accessToken === undefined
-        ? (localStorage.cart = JSON.stringify(
-            state.cart.filter((el) => el.check !== true)
-          ))
-        : state.cart
-            .filter((el) => el.check === true)
-            .map((el) => deleteAPI(el.id));
+    deleteCheckCart: (state, action) => {
+      accessToken !== undefined &&
+        action.payload.product.map((el) => deleteAPI(el));
+
+      localStorage.cart = JSON.stringify(
+        state.cart.filter((el) => el.check !== true)
+      );
 
       cartCheck(state);
     }

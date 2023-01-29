@@ -68,7 +68,13 @@ const Order = () => {
           </CheckBox>
           <CheckDelete
             type={'button'}
-            onClick={() => dispatch(deleteCheckCart())}
+            onClick={() =>
+              dispatch(
+                deleteCheckCart({
+                  product: cart.map((el) => el.check === true && el)
+                })
+              )
+            }
           >
             선택삭제
           </CheckDelete>

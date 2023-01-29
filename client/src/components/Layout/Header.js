@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   ButtonContainer,
   HeaderContainer,
@@ -28,15 +28,17 @@ import ShoppingCart from '../Order/ShoppingCart';
 import { useSelector } from 'react-redux';
 
 const Header = ({ location }) => {
-  const cart = useSelector((state) => state.order.cart);
+  const navigate = useNavigate();
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isOpenCart, setIsOpenCart] = useState(false);
   const accessToken = localStorage.accessToken;
+  const cart = useSelector((state) => state.order.cart);
 
   const onClickLogout = () => {
     const isLogout = window.confirm('로그아웃 하시겠습니까?');
 
     isLogout && localStorage.clear();
+    isLogout && navigate('/');
     isLogout && window.location.reload();
   };
 
@@ -68,7 +70,7 @@ const Header = ({ location }) => {
 
           <HeaderRight>
             <ButtonContainer>
-              {accessToken ? (
+              {accessToken !== undefined ? (
                 <>
                   <MyPageLink to={'/mypage'}>
                     <MyPageIcon />

@@ -31,6 +31,9 @@ const Products = () => {
       case 'meat':
         setCategoryName('육류');
         break;
+      case 'seafood':
+        setCategoryName('육류');
+        break;
       default:
     }
   };

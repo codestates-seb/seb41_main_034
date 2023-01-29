@@ -16,29 +16,26 @@ import {
 } from '../styles/signStyle';
 import { ReactComponent as LogoIcon } from '../assets/icons/foodmeet.svg';
 import { authAPI, baseAPI } from '../api/customAxios';
+import { useSelector } from 'react-redux';
 
 const Login = () => {
   const navigate = useNavigate();
-  const cart = JSON.parse(localStorage.cart || `[]`);
+  const cart = useSelector((state) => state.order.cart);
   const [form, setForm] = useState({
     id: '',
     password: ''
   });
 
-  const postAPI = async (el) => {
-    try {
-      await authAPI.post(
-        `/cart`,
-        JSON.stringify({ productId: el.productId, quantity: el.quantity })
-      );
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const checkCart = async () => {
-    cart.map((el) => postAPI(el));
-  };
+  // const postAPI = async (el) => {
+  //   try {
+  //     await authAPI.post(
+  //       `/cart`,
+  //       JSON.stringify({ productId: el.productId, quantity: el.quantity })
+  //     );
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -52,8 +49,9 @@ const Login = () => {
       const res = await baseAPI.post(`/user/login`, body);
       localStorage.accessToken = `${res.headers.authorization}`;
       localStorage.userId = JSON.stringify(res.data.data.id);
-      checkCart();
+      // cart && cart.map((el) => postAPI(el));
       navigate('/');
+      window.location.reload();
     } catch (err) {
       console.log(err);
       window.alert('아이디, 비밀번호를 확인해주세요.');

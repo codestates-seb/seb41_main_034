@@ -7,17 +7,35 @@ import Main from './components/Layout/Main';
 import Footer from './components/Layout/Footer';
 import ScrollToTop from './components/Layout/ScrollToTop';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { userToken } from './store/userSlice';
+import { authAPI } from './api/customAxios';
 
 const App = () => {
   const location = useLocation();
-  const dispatch = useDispatch();
-  const accessToken = useSelector((state) => state.user.accessToken);
+  const accessToken = localStorage.accessToken;
+
+  const checkToken = async () => {
+    try {
+      await authAPI.get('/user/login-status');
+    } catch (err) {
+      err.response.data.error.status === 401 && localStorage.clear();
+    }
+  };
+
+  const getUserCart = async () => {
+    try {
+      const res = await authAPI.get('cart');
+      localStorage.cart = JSON.stringify(
+        res.data.data.map((el) => ({ ...el, check: true }))
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
-    accessToken !== undefined && dispatch(userToken());
-  }, [accessToken, dispatch]);
+    accessToken !== undefined && checkToken();
+    accessToken !== undefined && getUserCart();
+  });
 
   return (
     <ThemeProvider theme={theme}>

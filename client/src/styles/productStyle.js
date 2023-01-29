@@ -639,8 +639,6 @@ const ProductDetailTitle = styled.h3`
 const CarouselContainer = styled.div`
   position: relative;
   top: -63px;
-  border-radius: 4px;
-  overflow: hidden;
 
   .carousel.carousel-slider .control-arrow:hover {
     background: rgba(0, 0, 0, 0);

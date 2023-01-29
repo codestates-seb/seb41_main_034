@@ -8,7 +8,7 @@ const Menu = () => {
   return (
     <CatagoryWrapper>
       <CatagoryContainer>
-        {['vegetable', 'fruit', 'nut', 'meat'].map((el, idx) => (
+        {['vegetable', 'fruit', 'nut', 'meat', 'seafood'].map((el, idx) => (
           <CatagoryButton to={`/products/${el}`} key={idx}>
             {el === 'vegetable'
               ? '채소'
@@ -18,7 +18,7 @@ const Menu = () => {
               ? '견과류'
               : el === 'meat'
               ? '육류'
-              : ''}
+              : '해산물'}
           </CatagoryButton>
         ))}
       </CatagoryContainer>
