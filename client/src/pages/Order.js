@@ -16,16 +16,50 @@ import {
   MobileOrderButton,
   MobileDisabledButton
 } from '../styles/orderStyle';
+import { authAPI } from '../api/customAxios';
 
 const Order = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const accessToken = localStorage.getItem('accessToken');
+  const accessToken = localStorage.accessToken;
+  const userId = localStorage.userId;
   const cart = useSelector((state) => state.order.cart);
   const orderAmount = useSelector((state) => state.order.orderAmount);
   const [shippingFee, setShoppingFee] = useState(3000);
+  const [user, setUser] = useState(null);
 
-  const onClickOrder = (e) => {
+  const userAPI = async () => {
+    try {
+      const res = await authAPI.get(`/user/${userId}`);
+      setUser(res.data.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const orderAPI = async () => {
+    const body = JSON.stringify({
+      products: cart.map(
+        (el) =>
+          el.check === true && {
+            productId: el.id,
+            price: el.price,
+            quantity: el.quantity
+          }
+      ),
+      recipient: user.displayName,
+      address: user.address
+    });
+
+    try {
+      await authAPI.post('ordering', body);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const onClickOrder = () => {
+    userAPI();
     const { IMP } = window;
     IMP.init('imp04631732');
     IMP.request_pay(
@@ -35,12 +69,18 @@ const Order = () => {
         merchant_uid: 'merchant_' + new Date().getTime(),
         name: '푸드밋',
         amount: orderAmount + shippingFee,
-        buyer_name: '구매자이름',
+        buyer_name: `${user.displayName}`,
         buyer_email: ''
       },
       (rsp) => {
         if (rsp.success) {
           alert('결제완료');
+          dispatch(
+            deleteCheckCart({
+              product: cart.map((el) => el.check === true && el)
+            })
+          );
+          orderAPI();
           navigate('/mypage/orderlist');
         } else {
           alert(rsp.error_msg);

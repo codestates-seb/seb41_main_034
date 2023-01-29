@@ -13,7 +13,7 @@ import {
   Receiver,
   ShippingAddress
 } from '../../styles/myPageStyle';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import ReviewModal from './ReviewModal';
 import { Link } from 'react-router-dom';
 
@@ -31,10 +31,6 @@ const MyPageOrderItem = ({
   const handleReviewOpen = () => {
     setIsOpenReview(!isOpenReview);
   };
-
-  useEffect(() => {
-    // console.log(isOpenReview);
-  }, [isOpenReview]);
 
   // const onRemove = () => {
   //   if (window.confirm('해당 상품에 대한 주문목록을 삭제하시겠습니까?')) {
