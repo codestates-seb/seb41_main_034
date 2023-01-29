@@ -14,6 +14,7 @@ const ListHeader = styled.div`
   @media ${(props) => props.theme.tablet} {
     width: 100%;
   }
+
   @media ${(props) => props.theme.mobile} {
     width: 100%;
     border-top: 1px solid ${(props) => props.theme.borderColor};
@@ -588,9 +589,11 @@ const OrderListContainer = styled.div`
   border-top: 1px solid ${(props) => props.theme.borderColor};
   border-bottom: 1px solid ${(props) => props.theme.borderColor};
   margin-bottom: 8px;
+
   @media ${(props) => props.theme.tablet} {
     width: 100%;
   }
+
   @media ${(props) => props.theme.mobile} {
     width: 100%;
   }
@@ -606,6 +609,7 @@ const LeftContent = styled.div`
     width: 120px;
     height: 120px;
   }
+
   @media ${(props) => props.theme.mobile} {
     width: 80px;
     height: 80px;
@@ -632,6 +636,7 @@ const CenterContent = styled.div`
     width: 100%;
     max-width: 170px;
   }
+
   @media ${(props) => props.theme.mobile} {
     width: 100%;
     max-width: 100px;
@@ -681,6 +686,7 @@ const RightContent = styled.div`
     width: 100%;
     max-width: 150px;
   }
+
   @media ${(props) => props.theme.mobile} {
     max-width: 100px;
   }
@@ -711,7 +717,6 @@ const OrderStatus = styled.div`
   }
 `;
 
-//MyPageAddress
 const MyAddressContainer = styled.div`
   width: 100%;
   max-width: 100%;
@@ -900,7 +905,6 @@ const AddressButton = styled.button`
   }
 `;
 
-//MyPageAddressModal
 const ModalContainer = styled.div`
   position: fixed;
   top: 0;
@@ -1202,7 +1206,6 @@ const MyPageReviewContent = styled.div`
 
 const MyPageReviewContentTopButton = styled.button`
   display: flex;
-  // align-items: center;
   width: 100%;
   height: 30%;
   font-size: 16px;
@@ -1251,6 +1254,7 @@ const MyPageReviewDelete = styled.div`
     width: 100%;
     max-width: 150px;
   }
+
   @media ${(props) => props.theme.mobile} {
     max-width: 100px;
   }

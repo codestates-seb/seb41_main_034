@@ -6,13 +6,10 @@ import {
   ProductName,
   OrderListPrice,
   OrderQuantity,
-  CancleImgContainer,
   OrderStatus,
   ProductImg,
   ReviewButton
 } from '../../styles/myPageStyle';
-
-import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
 import { useState, useEffect } from 'react';
 import ReviewModal from './ReviewModal';
 import { Link } from 'react-router-dom';
