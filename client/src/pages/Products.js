@@ -8,12 +8,14 @@ import SortNavbar from '../components/Product/SortNavbar';
 import { useState } from 'react';
 import { baseAPI } from '../api/customAxios';
 import { useEffect } from 'react';
+import Loading from '../components/Layout/Loading';
 
 const Products = () => {
   const category = decodeURI(window.location.pathname).substring(10);
   const [categoryName, setCategoryName] = useState('');
   const [sort, setSort] = useState(localStorage.sort || '');
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const checkCategory = (category) => {
     switch (category) {
@@ -39,6 +41,7 @@ const Products = () => {
         `/product?category=${category.toUpperCase()}&size=12&sort=${sort}`
       );
       setProducts(res.data.data.content);
+      setLoading(false);
     } catch (err) {
       console.log(err);
     }
@@ -51,16 +54,22 @@ const Products = () => {
 
   return (
     <>
-      <CategoryHeader>
-        <CategoryTitle>{categoryName}</CategoryTitle>
-        <SortNavbar sort={sort} setSort={setSort} />
-      </CategoryHeader>
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <CategoryHeader>
+            <CategoryTitle>{categoryName}</CategoryTitle>
+            <SortNavbar sort={sort} setSort={setSort} />
+          </CategoryHeader>
 
-      <ProductList>
-        {products.map((el, idx) => (
-          <ProductItem product={el} category={category} key={idx} />
-        ))}
-      </ProductList>
+          <ProductList>
+            {products.map((el, idx) => (
+              <ProductItem product={el} category={category} key={idx} />
+            ))}
+          </ProductList>
+        </>
+      )}
     </>
   );
 };

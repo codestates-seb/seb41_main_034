@@ -13,7 +13,7 @@ import {
 } from '../../styles/productStyle';
 import { ReactComponent as CartIcon } from '../../assets/icons/cartIcon.svg';
 
-const ProductItem = ({ product, category }) => {
+const ProductItem = ({ product }) => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.order.cart);
   const cartFilter = cart.filter((el) => el.productId === product.id)[0];
@@ -45,7 +45,7 @@ const ProductItem = ({ product, category }) => {
         <ProductInfo>
           <ProductName>{product.name}</ProductName>
           <ProductPrice>{product.price.toLocaleString('ko-KR')}</ProductPrice>
-          <ProductReview>후기 0</ProductReview>
+          <ProductReview>후기 {product.reviewed}</ProductReview>
         </ProductInfo>
       </Link>
     </ProductContainer>

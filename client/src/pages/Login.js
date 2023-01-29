@@ -29,18 +29,7 @@ const Login = () => {
     try {
       await authAPI.post(
         `/cart`,
-        JSON.stringify({ productId: el.productId, quantity: el.count })
-      );
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const patchAPI = async (cartId, el) => {
-    try {
-      await authAPI.patch(
-        `/cart/${cartId}`,
-        JSON.stringify({ quantity: el.count })
+        JSON.stringify({ productId: el.productId, quantity: el.quantity })
       );
     } catch (err) {
       console.log(err);
@@ -48,13 +37,7 @@ const Login = () => {
   };
 
   const checkCart = async () => {
-    const res = await authAPI.get(`/cart`);
-
-    cart.map((el) => {
-      return res.data.data.filter((ele) =>
-        ele.id === el.id ? patchAPI(ele.id, el.count) : postAPI(el)
-      );
-    });
+    cart.map((el) => postAPI(el));
   };
 
   const onSubmit = async (e) => {

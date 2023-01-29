@@ -19,72 +19,79 @@ import { OrderButton, DeleteButton } from '../styles/orderStyle';
 import { ReactComponent as DeleteIcon } from '../assets/icons/cancleIcon.svg';
 import { baseAPI } from '../api/customAxios';
 import { useEffect } from 'react';
+import Loading from '../components/Layout/Loading';
 
 const Product = () => {
   const productId = decodeURI(window.location.pathname).substring(9);
   const [isOpenOrder, setIsOpenOrder] = useState(false);
   const [count, setCount] = useState(1);
-  const [product, setProduct] = useState(
-    JSON.parse(localStorage.product || '{}')
-  );
+  const [product, setProduct] = useState({});
+  const [loading, setLoading] = useState(true);
 
-  const getProduct = async () => {
+  const getProduct = async (productId) => {
     try {
       const res = await baseAPI.get(`/product/${productId}`);
-      console.log(res.data.data);
       setProduct(res.data.data);
-      localStorage.product = JSON.stringify(res.data.data);
+      setLoading(false);
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
-    getProduct();
-    console.log('호출');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    getProduct(productId);
+  }, [productId]);
 
   return (
     <>
-      <ProductModalWrapper
-        isOpenOrder={isOpenOrder}
-        onClick={() => setIsOpenOrder(false)}
-      >
-        <ProductModalCancle>
-          <DeleteButton>
-            <DeleteIcon />
-          </DeleteButton>
-        </ProductModalCancle>
-      </ProductModalWrapper>
-      <OrderModal
-        isOpenOrder={isOpenOrder}
-        setIsOpenOrder={setIsOpenOrder}
-        count={count}
-        setCount={setCount}
-        product={product}
-      />
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          {' '}
+          <ProductModalWrapper
+            isOpenOrder={isOpenOrder}
+            onClick={() => setIsOpenOrder(false)}
+          >
+            <ProductModalCancle>
+              <DeleteButton>
+                <DeleteIcon />
+              </DeleteButton>
+            </ProductModalCancle>
+          </ProductModalWrapper>
+          <OrderModal
+            isOpenOrder={isOpenOrder}
+            setIsOpenOrder={setIsOpenOrder}
+            count={count}
+            setCount={setCount}
+            product={product}
+          />
+          <ProductWrapper>
+            <ProductContent>
+              <ProductMain product={product} />
+              <ProductNavbar />
+              <ProductInfo product={product} />
+              <ProductDetail product={product} />
+              <ProductReviewList />
+              <ProductQuestionList />
+            </ProductContent>
 
-      <ProductWrapper>
-        <ProductContent>
-          <ProductMain product={product} />
-          <ProductNavbar />
-          <ProductInfo product={product} />
-          <ProductDetail product={product} />
-          <ProductReviewList />
-          <ProductQuestionList />
-        </ProductContent>
+            <ProductOrder>
+              <OrderProduct
+                count={count}
+                setCount={setCount}
+                product={product}
+              />
+            </ProductOrder>
 
-        <ProductOrder>
-          <OrderProduct count={count} setCount={setCount} product={product} />
-        </ProductOrder>
-
-        <ProductButtonContainer>
-          <OrderButton onClick={() => setIsOpenOrder(true)}>
-            구매하기
-          </OrderButton>
-        </ProductButtonContainer>
-      </ProductWrapper>
+            <ProductButtonContainer>
+              <OrderButton onClick={() => setIsOpenOrder(true)}>
+                구매하기
+              </OrderButton>
+            </ProductButtonContainer>
+          </ProductWrapper>
+        </>
+      )}
     </>
   );
 };

@@ -24,10 +24,10 @@ const OrderProduct = ({ count, setCount, product }) => {
     dispatch(
       addCart({
         productId: product.id,
-        img: product.imageUrls[0],
-        name: product.name,
+        imageUrl: product.imageUrls[0],
+        productName: product.name,
         price: product.price,
-        count: count
+        quantity: count
       })
     );
   };

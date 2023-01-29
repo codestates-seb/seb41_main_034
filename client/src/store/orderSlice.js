@@ -2,22 +2,43 @@ import { createSlice } from '@reduxjs/toolkit';
 import { authAPI } from '../api/customAxios';
 
 const accessToken = localStorage.accessToken;
+const logoutCart = !localStorage.cart
+  ? []
+  : localStorage.cart === '[]'
+  ? []
+  : JSON.parse(localStorage.cart).map((el) => ({ ...el, check: true }));
 
-const logoutCart = (cart) => {
-  localStorage.cart = JSON.stringify(cart);
+let loginCart = [];
+const loginCartState = async () => {
+  try {
+    const res = await authAPI.get('/cart');
+    loginCart = res.data.data.map((el) => ({ ...el, check: true }));
+  } catch (err) {
+    console.log(err);
+  }
 };
+accessToken !== undefined && loginCartState();
 
-const cartAmount = (cart) => {
+const cartAmountState = (cart) => {
   return cart
     .map((el) => el.price * el.quantity)
     .reduce((acc, cur) => acc + cur, 0);
 };
-
-const orderAmount = (cart) => {
+const orderAmountState = (cart) => {
   return cart
     .filter((el) => el.check === true)
     .map((el) => el.price * el.quantity)
     .reduce((acc, cur) => acc + cur, 0);
+};
+
+const cartCheck = (state) => {
+  state.cart =
+    accessToken === undefined
+      ? JSON.parse(localStorage.cart)
+      : loginCartState();
+
+  state.cartAmount = cartAmountState(state.cart);
+  state.orderAmount = orderAmountState(state.cart);
 };
 
 const postAPI = async (body) => {
@@ -27,7 +48,6 @@ const postAPI = async (body) => {
     console.log(err);
   }
 };
-
 const patchAPI = async (cartId, body) => {
   try {
     await authAPI.patch(`/cart/${cartId}`, body);
@@ -35,7 +55,6 @@ const patchAPI = async (cartId, body) => {
     console.log(err);
   }
 };
-
 const deleteAPI = async (cartId) => {
   try {
     await authAPI.delete(`/cart/${cartId}`);
@@ -50,39 +69,57 @@ const addCartState = (cart, data) => {
     quantity: data.quantity
   });
 
-  cart.push({
-    productId: data.productId,
-    imageUrl: data.imageUrl,
-    productName: data.productName,
-    price: data.price,
-    quantity: data.quantity,
-    check: true
-  });
-
-  accessToken && postAPI(body);
+  accessToken === undefined
+    ? (localStorage.cart = JSON.stringify([
+        ...cart,
+        {
+          productId: data.productId,
+          imageUrl: data.imageUrl,
+          productName: data.productName,
+          price: data.price,
+          quantity: data.quantity,
+          check: true
+        }
+      ]))
+    : postAPI(body);
 };
-
 const updataCartState = (cart, data) => {
   const body = JSON.stringify({
     quantity: data.quantity
   });
 
-  cart.map(
-    (el) => el.productId === data.productId && (el.quantity = data.quantity)
-  );
-
-  accessToken &&
-    cart.map((el) => el.productId === data.productId && patchAPI(el.id, body));
+  accessToken === undefined
+    ? (localStorage.cart = JSON.stringify(
+        cart.map((el) =>
+          el.productId === data.productId
+            ? { ...el, quantity: data.quantity }
+            : el
+        )
+      ))
+    : loginCart.map(
+        (el) => el.productId === data.productId && patchAPI(el.id, body)
+      );
+};
+const deleteCartState = (cart, data) => {
+  accessToken === undefined
+    ? (localStorage.cart = JSON.stringify(
+        cart.filter((el) => el.productId !== data.productId)
+      ))
+    : loginCart.map(
+        (el) => el.productId === data.productId && deleteAPI(el.id)
+      );
 };
 
-const localCart = localStorage.cart
-  ? JSON.parse(localStorage.cart).map((el) => ({ ...el, check: true }))
-  : [];
-
 const initialState = {
-  cart: localCart,
-  cartAmount: cartAmount(localCart),
-  orderAmount: orderAmount(localCart)
+  cart: accessToken === undefined ? logoutCart : loginCart,
+  cartAmount:
+    accessToken === undefined
+      ? cartAmountState(logoutCart)
+      : cartAmountState(loginCart),
+  orderAmount:
+    accessToken === undefined
+      ? orderAmountState(logoutCart)
+      : orderAmountState(loginCart)
 };
 
 const orderSlice = createSlice({
@@ -94,68 +131,46 @@ const orderSlice = createSlice({
         ? updataCartState(state.cart, action.payload)
         : addCartState(state.cart, action.payload);
 
-      state.cartAmount = cartAmount(state.cart);
-      state.orderAmount = orderAmount(state.cart);
-
-      logoutCart(state.cart);
+      cartCheck(state);
     },
     updateCart: (state, action) => {
       updataCartState(state.cart, action.payload);
 
-      state.cartAmount = cartAmount(state.cart);
-      state.orderAmount = orderAmount(state.cart);
-
-      logoutCart(state.cart);
+      cartCheck(state);
     },
     deleteCart: (state, action) => {
-      accessToken &&
-        state.cart.map(
-          (el) => el.productId === action.payload.productId && deleteAPI(el.id)
-        );
+      deleteCartState(state.cart, action.payload);
 
-      state.cart = state.cart.filter(
-        (el) => el.productId !== action.payload.productId
-      );
-
-      state.cartAmount = cartAmount(state.cart);
-      state.orderAmount = orderAmount(state.cart);
-
-      logoutCart(state.cart);
+      cartCheck(state);
     },
     checkCart: (state, action) => {
-      state.cart.map(
-        (el) =>
-          el.productId === action.payload.productId &&
-          (el.check = action.payload.check)
+      state.cart = state.cart.map((el) =>
+        el.productId === action.payload.productId
+          ? { ...el, check: action.payload.check }
+          : el
       );
 
-      state.cartAmount = cartAmount(state.cart);
-      state.orderAmount = orderAmount(state.cart);
-
-      logoutCart(state.cart);
+      state.cartAmount = cartAmountState(state.cart);
+      state.orderAmount = orderAmountState(state.cart);
     },
     allCheckCart: (state) => {
       state.cart.filter((el) => el.check === false)[0] === undefined
         ? state.cart.map((el) => (el.check = false))
         : state.cart.map((el) => (el.check = true));
 
-      state.cartAmount = cartAmount(state.cart);
-      state.orderAmount = orderAmount(state.cart);
-
-      logoutCart(state.cart);
+      state.cartAmount = cartAmountState(state.cart);
+      state.orderAmount = orderAmountState(state.cart);
     },
     deleteCheckCart: (state) => {
-      accessToken &&
-        state.cart
-          .filter((el) => el.check === true)
-          .map((el) => deleteAPI(el.id));
+      accessToken === undefined
+        ? (localStorage.cart = JSON.stringify(
+            state.cart.filter((el) => el.check !== true)
+          ))
+        : state.cart
+            .filter((el) => el.check === true)
+            .map((el) => deleteAPI(el.id));
 
-      state.cart = state.cart.filter((el) => el.check !== true);
-
-      state.cartAmount = cartAmount(state.cart);
-      state.orderAmount = orderAmount(state.cart);
-
-      logoutCart(state.cart);
+      cartCheck(state);
     }
   }
 });

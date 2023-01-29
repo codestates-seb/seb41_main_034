@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addCart } from '../../store/orderSlice';
 import {
@@ -23,20 +23,17 @@ const OrderModal = ({
   product
 }) => {
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.order.cart);
-  const cartFilter = cart.filter((el) => el.productId === product.id)[0];
 
   const onClickAddCart = (e) => {
     e.preventDefault();
 
     dispatch(
       addCart({
-        id: cartFilter === undefined ? cart.length + 1 : cart.length,
         productId: product.id,
-        img: product.imageUrls[0],
-        name: product.name,
+        imageUrl: product.imageUrls[0],
+        productName: product.name,
         price: product.price,
-        count: count
+        quantity: count
       })
     );
 
