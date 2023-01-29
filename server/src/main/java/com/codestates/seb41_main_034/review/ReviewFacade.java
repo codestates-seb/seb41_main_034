@@ -133,6 +133,7 @@ public class ReviewFacade {
         return updateReview.toDto();
     }
 
+    @Transactional
     public void deleteReview(long reviewId) {
         // 후기 조회
         Review review = reviewService.readReview(reviewId);
