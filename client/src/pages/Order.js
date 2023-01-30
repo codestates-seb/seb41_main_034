@@ -43,7 +43,7 @@ const Order = () => {
       products: cart
         .filter((el) => el.check === true)
         .map((el) => ({
-          productId: el.id,
+          productId: el.productId,
           price: el.price,
           quantity: el.quantity
         })),
@@ -55,7 +55,7 @@ const Order = () => {
       await authAPI.post('ordering', body);
       dispatch(
         deleteCheckCart({
-          product: cart.map((el) => el.check === true && el)
+          product: cart.filter((el) => el.check === true)
         })
       );
     } catch (err) {
@@ -89,9 +89,9 @@ const Order = () => {
   };
 
   useEffect(() => {
-    userAPI();
+    accessToken !== undefined && userAPI();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [accessToken]);
 
   return (
     <OrderContainer>
@@ -115,7 +115,7 @@ const Order = () => {
             onClick={() =>
               dispatch(
                 deleteCheckCart({
-                  product: cart.map((el) => el.check === true && el)
+                  product: cart.filter((el) => el.check === true)
                 })
               )
             }
