@@ -5,7 +5,8 @@ import {
   AddressTitle,
   RecipientTitle,
   AddressButtonContainer,
-  AddressButton
+  AddressButton,
+  EditIconContainer
 } from '../../styles/myPageStyle';
 import MyPageHeader from './MyPageHeader';
 import { useEffect, useState } from 'react';
@@ -37,6 +38,7 @@ const MyPageAddressList = () => {
           <SelectTitle>기본 배송지</SelectTitle>
           <AddressTitle>주소</AddressTitle>
           <RecipientTitle>받는사람</RecipientTitle>
+          <EditIconContainer />
         </Addressheader>
         {address.map((el, idx) => {
           return <MyPageAddress key={idx} el={el} />;

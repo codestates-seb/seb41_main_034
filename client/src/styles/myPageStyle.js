@@ -772,6 +772,7 @@ const MyAddressContainer = styled.div`
 
 const Addressheader = styled.div`
   display: flex;
+  justify-content: space-between;
   width: 100%;
   padding: 12px 0;
   border-bottom: 1px solid ${(props) => props.theme.grayColor};
@@ -780,6 +781,7 @@ const Addressheader = styled.div`
 
 const AddressInfo = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
   max-height: 300px;
   width: 100%;
@@ -807,7 +809,7 @@ const AddressTitle = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 240px;
+  max-width: 360px;
   font-size: 14px;
   font-weight: 700;
 
@@ -821,7 +823,7 @@ const RecipientTitle = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 150px;
+  max-width: 210px;
   font-size: 14px;
   font-weight: 700;
 
@@ -844,7 +846,8 @@ const EditTitle = styled.div`
 `;
 
 const GrayCheckIconContainer = styled.div`
-  width: 15%;
+  width: 100%;
+  max-width: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -864,7 +867,8 @@ const GrayCheckIconContainer = styled.div`
 `;
 
 const CheckIconContainer = styled.div`
-  width: 15%;
+  width: 100%;
+  max-width: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -884,7 +888,8 @@ const CheckIconContainer = styled.div`
 `;
 
 const AddressText = styled.div`
-  width: 40%;
+  width: 100%;
+  max-width: 360px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -896,7 +901,8 @@ const AddressText = styled.div`
 `;
 
 const RecipientText = styled.div`
-  width: 30%;
+  width: 100%;
+  max-width: 210px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -908,7 +914,8 @@ const RecipientText = styled.div`
 `;
 
 const EditIconContainer = styled.div`
-  width: 15%;
+  width: 100%;
+  max-width: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
