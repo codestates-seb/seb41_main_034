@@ -10,10 +10,28 @@ import {
   ReviewWrapper
 } from '../../styles/productStyle';
 import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
+import { authAPI } from '../../api/customAxios';
+import { useState } from 'react';
 
-const ReviewModal = ({ isOpenReview, setIsOpenReview }) => {
+const ReviewModal = ({ isOpenReview, setIsOpenReview, productId, orderId }) => {
+  const [content, setContent] = useState('');
+
   const handleReviewClose = () => {
     setIsOpenReview(false);
+  };
+
+  const Complete = () => {
+    const body = {
+      orderId: orderId,
+      productId: productId,
+      body: content
+    };
+    const reviewPostAPI = async (body) => {
+      await authAPI.post(`/review`, body);
+    };
+    reviewPostAPI(body);
+    setIsOpenReview(false);
+    alert('후기 작성을 완료했습니다.');
   };
 
   return (
@@ -31,6 +49,7 @@ const ReviewModal = ({ isOpenReview, setIsOpenReview }) => {
           <MiddleText>후기작성</MiddleText>
           <MiddleContainer>
             <BigInput
+              onChange={(e) => setContent(e.target.value)}
               id="Review"
               aria-label="후기내용을 입력하세요."
               placeholder="후기내용을 입력하세요."
@@ -47,7 +66,7 @@ const ReviewModal = ({ isOpenReview, setIsOpenReview }) => {
             </ReviewNotice>
           </MiddleContainer>
           <MiddleContainer>
-            <CompletButton>완료</CompletButton>
+            <CompletButton onClick={Complete}>완료</CompletButton>
           </MiddleContainer>
         </ReviewWrapper>
       </ReviewModalContainer>
