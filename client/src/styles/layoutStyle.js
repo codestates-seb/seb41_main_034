@@ -207,9 +207,11 @@ const MyPageLink = styled(Link)`
     height: 24px;
   }
 
-  &:hover {
-    svg {
-      fill: ${(props) => props.theme.hoverColor};
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      svg {
+        fill: ${(props) => props.theme.hoverColor};
+      }
     }
   }
 

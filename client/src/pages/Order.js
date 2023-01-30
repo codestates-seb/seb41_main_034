@@ -17,6 +17,7 @@ import {
   MobileDisabledButton
 } from '../styles/orderStyle';
 import { authAPI } from '../api/customAxios';
+import { useEffect } from 'react';
 
 const Order = () => {
   const navigate = useNavigate();
@@ -39,27 +40,30 @@ const Order = () => {
 
   const orderAPI = async () => {
     const body = JSON.stringify({
-      products: cart.map(
-        (el) =>
-          el.check === true && {
-            productId: el.id,
-            price: el.price,
-            quantity: el.quantity
-          }
-      ),
+      products: cart
+        .filter((el) => el.check === true)
+        .map((el) => ({
+          productId: el.id,
+          price: el.price,
+          quantity: el.quantity
+        })),
       recipient: user.displayName,
       address: user.address
     });
 
     try {
       await authAPI.post('ordering', body);
+      dispatch(
+        deleteCheckCart({
+          product: cart.map((el) => el.check === true && el)
+        })
+      );
     } catch (err) {
       console.log(err);
     }
   };
 
   const onClickOrder = () => {
-    userAPI();
     const { IMP } = window;
     IMP.init('imp04631732');
     IMP.request_pay(
@@ -75,19 +79,19 @@ const Order = () => {
       (rsp) => {
         if (rsp.success) {
           alert('결제완료');
-          dispatch(
-            deleteCheckCart({
-              product: cart.map((el) => el.check === true && el)
-            })
-          );
           orderAPI();
-          navigate('/mypage/orderlist');
+          navigate('/mypage/order');
         } else {
           alert(rsp.error_msg);
         }
       }
     );
   };
+
+  useEffect(() => {
+    userAPI();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <OrderContainer>

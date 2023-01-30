@@ -12,6 +12,7 @@ import { authAPI } from './api/customAxios';
 const App = () => {
   const location = useLocation();
   const accessToken = localStorage.accessToken;
+  const xCart = JSON.parse(localStorage.xCart || `[]`);
 
   const checkToken = async () => {
     try {
@@ -32,7 +33,20 @@ const App = () => {
     }
   };
 
+  const postAPI = async (el) => {
+    try {
+      await authAPI.post(
+        `/cart`,
+        JSON.stringify({ productId: el.productId, quantity: el.quantity })
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
+    xCart !== [] && xCart.map((el) => postAPI(el));
+    localStorage.removeItem('xCart');
     accessToken !== undefined && checkToken();
     accessToken !== undefined && getUserCart();
   });

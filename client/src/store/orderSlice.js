@@ -99,11 +99,9 @@ const deleteCartState = (cart, data) => {
   );
 };
 
-const userCart = !localStorage.cart
-  ? []
-  : localStorage.cart === '[]'
-  ? []
-  : JSON.parse(localStorage.cart).map((el) => ({ ...el, check: true }));
+const userCart = localStorage.cart
+  ? JSON.parse(localStorage.cart).map((el) => ({ ...el, check: true }))
+  : [];
 
 const initialState = {
   cart: userCart,
@@ -159,6 +157,9 @@ const orderSlice = createSlice({
       );
 
       cartCheck(state);
+    },
+    myCart: (state, action) => {
+      state.cart = action.payload.cart;
     }
   }
 });
@@ -170,5 +171,6 @@ export const {
   updateCart,
   checkCart,
   allCheckCart,
-  deleteCheckCart
+  deleteCheckCart,
+  myCart
 } = orderSlice.actions;

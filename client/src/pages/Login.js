@@ -15,27 +15,14 @@ import {
   SignButton
 } from '../styles/signStyle';
 import { ReactComponent as LogoIcon } from '../assets/icons/foodmeet.svg';
-import { authAPI, baseAPI } from '../api/customAxios';
-import { useSelector } from 'react-redux';
+import { baseAPI } from '../api/customAxios';
 
 const Login = () => {
   const navigate = useNavigate();
-  const cart = useSelector((state) => state.order.cart);
   const [form, setForm] = useState({
     id: '',
     password: ''
   });
-
-  // const postAPI = async (el) => {
-  //   try {
-  //     await authAPI.post(
-  //       `/cart`,
-  //       JSON.stringify({ productId: el.productId, quantity: el.quantity })
-  //     );
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -49,7 +36,7 @@ const Login = () => {
       const res = await baseAPI.post(`/user/login`, body);
       localStorage.accessToken = `${res.headers.authorization}`;
       localStorage.userId = JSON.stringify(res.data.data.id);
-      // cart && cart.map((el) => postAPI(el));
+      localStorage.xCart = localStorage.cart || `[]`;
       navigate('/');
       window.location.reload();
     } catch (err) {
