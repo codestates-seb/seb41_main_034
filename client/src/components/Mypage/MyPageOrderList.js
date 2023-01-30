@@ -6,7 +6,6 @@ import { authAPI } from '../../api/customAxios';
 import Loading from '../Layout/Loading';
 
 const MyPageOrderList = () => {
-  const [totalList, setTotalList] = useState([]);
   const [viewList, setViewList] = useState(null);
 
   useEffect(() => {
@@ -30,7 +29,6 @@ const MyPageOrderList = () => {
           return false;
         })
       );
-      setTotalList(result.data.data.content);
       setViewList(newDateDataObj);
     } catch (err) {}
   };
@@ -41,16 +39,16 @@ const MyPageOrderList = () => {
 
       {viewList != null ? (
         <>
-          {Object.entries(viewList).map(([key, value], idx) => {
+          {Object.entries(viewList).map(([key, value]) => {
             return (
-              <>
-                <OrderDateContainer key={idx}>
+              <div key={key}>
+                <OrderDateContainer>
                   {' '}
                   <OrderDate>{key}</OrderDate>
                 </OrderDateContainer>
-                {value.map((e, idx) => {
+                {value.map((e) => {
                   return (
-                    <>
+                    <div key={e.id}>
                       {e.products.map((el, idx) => {
                         return (
                           <MyPageOrderItem
@@ -66,10 +64,10 @@ const MyPageOrderList = () => {
                           />
                         );
                       })}
-                    </>
+                    </div>
                   );
                 })}
-              </>
+              </div>
             );
           })}
         </>
