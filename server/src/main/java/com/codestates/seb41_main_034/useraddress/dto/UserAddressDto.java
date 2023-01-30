@@ -11,21 +11,13 @@ public class UserAddressDto {
 
     private long id;
 
-    private String recipient;
+    private int userId;
 
-    private String zonecode;
+    private String recipient;
 
     private String address;
 
-    private String detailAddress;
-
-    private String phone;
-
     private boolean isPrimary;
-
-    private int createdBy;
-
-    private int modifiedBy;
 
     private LocalDateTime createdAt;
 

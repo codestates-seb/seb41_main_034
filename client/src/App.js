@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { GlobalStyle } from './styles/globalStyle';
@@ -6,7 +7,6 @@ import Header from './components/Layout/Header';
 import Main from './components/Layout/Main';
 import Footer from './components/Layout/Footer';
 import ScrollToTop from './components/Layout/ScrollToTop';
-import { useEffect } from 'react';
 import { authAPI } from './api/customAxios';
 
 const App = () => {

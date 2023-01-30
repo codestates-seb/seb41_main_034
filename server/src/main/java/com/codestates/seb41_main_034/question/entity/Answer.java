@@ -32,8 +32,12 @@ public class Answer extends Auditable {
         this.body = body;
     }
 
+    public AnswerDto toDto(String createdByName) {
+        return new AnswerDto(body, getCreatedBy(), createdByName, getModifiedBy(), getCreatedAt(), getModifiedAt());
+    }
+
     public AnswerDto toDto() {
-        return new AnswerDto(body, getCreatedBy(), getModifiedBy(), getCreatedAt(), getModifiedAt());
+        return toDto(null);
     }
 
 }

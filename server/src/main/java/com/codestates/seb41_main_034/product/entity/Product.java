@@ -14,6 +14,10 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Entity
+@Table(indexes = {
+        @Index(name = "idx_product_name", columnList = "name"),
+        @Index(name = "idx_product_category_name", columnList = "category, name"),
+})
 public class Product extends Auditable {
 
     @Id
@@ -30,8 +34,14 @@ public class Product extends Auditable {
     private int stock;
 
     @Column(nullable = false)
+    private int sold;
+
+    @Column(nullable = false)
+    private int reviewed;
+
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private ProductStatus status = ProductStatus.DRAFT;
+    private ProductStatus status = ProductStatus.ACTIVE;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -53,7 +63,7 @@ public class Product extends Auditable {
 
     public ProductDto toDto(JsonListHelper helper) {
         return new ProductDto(
-                id, name, price, stock, status, category,
+                id, name, price, stock, sold, reviewed, status, category,
                 helper.jsonToList(imageUrls), helper.jsonToList(detailImageUrls),
                 getCreatedBy(), getModifiedBy(), getCreatedAt(), getModifiedAt()
         );

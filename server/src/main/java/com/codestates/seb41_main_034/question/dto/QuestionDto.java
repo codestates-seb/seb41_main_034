@@ -26,7 +26,9 @@ public class QuestionDto {
     private AnswerDto answer;
 
     private int createdBy;
-    // TODO: 작성자 이름 필요
+
+    @JsonInclude(Include.NON_NULL)
+    private String createByName;
 
     private int modifiedBy;
 

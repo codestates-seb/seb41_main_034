@@ -16,13 +16,7 @@ public class OrderDto {
 
     private String recipient;
 
-    private String zonecode;
-
     private String address;
-
-    private String detailAddress;
-
-    private String phone;
 
     private int createdBy;
 

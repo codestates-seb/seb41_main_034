@@ -1,9 +1,17 @@
 package com.codestates.seb41_main_034.useraddress;
 
+import com.codestates.seb41_main_034.common.Address;
+import com.codestates.seb41_main_034.common.exception.BusinessLogicException;
+import com.codestates.seb41_main_034.common.exception.ExceptionCode;
+import com.codestates.seb41_main_034.user.entity.User;
+import com.codestates.seb41_main_034.user.service.UserService;
 import com.codestates.seb41_main_034.useraddress.dto.UserAddressDto;
-import com.codestates.seb41_main_034.useraddress.dto.UserAddressRequestDto;
+import com.codestates.seb41_main_034.useraddress.dto.UserAddressPatchDto;
+import com.codestates.seb41_main_034.useraddress.dto.UserAddressPostDto;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,12 +22,26 @@ public class UserAddressFacade {
 
     private final UserAddressService userAddressService;
 
-    public UserAddressDto createUserAddress(UserAddressRequestDto requestDto) {
-        UserAddress userAddress = userAddressService.createUserAddress(requestDto);
+    private final UserService userService;
 
-        // TODO: 회원 정보에서 대표 주소로 설정해야 한다.
+    @Transactional
+    public UserAddressDto createUserAddress(UserAddressPostDto postDto) {
+        int userId = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
 
-        return userAddress.toDto(null);
+        Address address = new Address(postDto.getRecipient(), postDto.getAddress());
+
+        UserAddress userAddress = userAddressService.createUserAddress(userId, address);
+
+        User user = userService.findVerifiedUserById(userId);
+        long primaryId;
+        if (postDto.isPrimary()) {
+            primaryId = userAddress.getId();
+            user.setPrimaryAddressId(primaryId);
+        } else {
+            primaryId = user.getPrimaryAddressId();
+        }
+
+        return userAddress.toDto(primaryId);
     }
 
     // TODO: 조회, 수정, 삭제는 회원 인증 정보로 인가해야 한다.
@@ -27,37 +49,74 @@ public class UserAddressFacade {
     public UserAddressDto readUserAddress(long userAddressId) {
         UserAddress userAddress = userAddressService.readUserAddress(userAddressId);
 
-        // TODO: 회원 정보에서 대표 주소 ID를 알아내야 한다.
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        return userAddress.toDto(null);
+        if (!user.getRoles().contains("ADMIN") && user.getId() != userAddress.getUserId()) {
+            throw new BusinessLogicException(ExceptionCode.AUTH_FORBIDDEN);
+        }
+
+        return userAddress.toDto(user.getPrimaryAddressId());
     }
 
     public List<UserAddressDto> readUserAddressList() {
-        // TODO: 인증된 회원 ID를 가져와야 한다.
-        int createdBy = 1;
+        int userId = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
 
-        List<UserAddress> userAddressList = userAddressService.readUserAddressList(createdBy);
+        List<UserAddress> userAddressList = userAddressService.readUserAddressList(userId);
 
-        // TODO: 회원 정보에서 대표 주소 ID를 알아내야 한다.
-        //       대표 주소를 맨 앞으로 빼야한다.
+        long primaryId = userService.findVerifiedUserById(userId).getPrimaryAddressId();
 
         return userAddressList.stream()
-                .map(userAddress -> userAddress.toDto(null)).collect(Collectors.toList());
+                .map(userAddress -> userAddress.toDto(primaryId)).sorted((dto1, dto2) -> {
+                    if (dto1.isPrimary() == dto2.isPrimary()) {
+                        return 0;
+                    }
+                    if (dto1.isPrimary()) {
+                        return -1;
+                    }
+                    return 1;
+                }).collect(Collectors.toList());
     }
 
-    public UserAddressDto updateUserAddress(long userAddressId, UserAddressRequestDto requestDto) {
-        UserAddress userAddress = userAddressService.updateUserAddress(userAddressId, requestDto);
+    @Transactional
+    public UserAddressDto updateUserAddress(long userAddressId, UserAddressPatchDto patchDto) {
+        UserAddress userAddress = userAddressService.readUserAddress(userAddressId);
 
-        // TODO: 회원 정보에서 대표 주소를 설정해야 한다.
-        //       회원 정보에서 대표 주소 ID를 알아내야 한다.
+        User authUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        return userAddress.toDto(null);
+        if (!authUser.getRoles().contains("ADMIN") && authUser.getId() != userAddress.getUserId()) {
+            throw new BusinessLogicException(ExceptionCode.AUTH_FORBIDDEN);
+        }
+
+        UserAddress updatedUserAddress = userAddressService.updateUserAddress(userAddressId, patchDto);
+
+        User user = userService.findVerifiedUserById(updatedUserAddress.getUserId());
+        long primaryId;
+        if (patchDto.isPrimary()) {
+            primaryId = updatedUserAddress.getId();
+            user.setPrimaryAddressId(primaryId);
+        } else {
+            primaryId = user.getPrimaryAddressId();
+        }
+
+        return updatedUserAddress.toDto(primaryId);
     }
 
     public void deleteUserAddress(long userAddressId) {
-        userAddressService.deleteUserAddress(userAddressId);
+        UserAddress userAddress = userAddressService.readUserAddress(userAddressId);
 
-        // TODO: 삭제된 주소가 대표 주소였다면 남은 주소 중 하나를 회원 정보에서 대표 주소로 설정해야 한다.
+        User authUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (!authUser.getRoles().contains("ADMIN") && authUser.getId() != userAddress.getUserId()) {
+            throw new BusinessLogicException(ExceptionCode.AUTH_FORBIDDEN);
+        }
+
+        User user = userService.findVerifiedUserById(userAddress.getUserId());
+
+        if (userAddress.getId() == user.getPrimaryAddressId()) {
+            throw new BusinessLogicException(ExceptionCode.USER_ADDRESS_CANNOT_DELETE);
+        }
+
+        userAddressService.deleteUserAddress(userAddressId);
     }
 
 }

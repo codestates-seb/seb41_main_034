@@ -20,12 +20,16 @@ public class ReviewService {
 
     private final ReviewRepository reviewRepository;
 
-    public Review createReview(ReviewPostDto reviewPostDto, String imageUrls) {
+    public Review createReview(ReviewPostDto reviewPostDto) {
+        long orderId = reviewPostDto.getOrderId();
+        int productId = reviewPostDto.getProductId();
+
+        if (reviewRepository.findByOrderIdAndProductId(orderId, productId).isPresent()) {
+            throw new BusinessLogicException(ExceptionCode.REVIEW_ALREADY_WRITTEN);
+        }
+
         // 엔티티 객체 생성 및 데이터 입력
-        Review review = new Review();
-        review.setProductId(reviewPostDto.getProductId());
-        review.setBody(reviewPostDto.getBody());
-        Optional.ofNullable(imageUrls).ifPresent(review::setImageUrls);
+        Review review = new Review(orderId, productId, reviewPostDto.getBody());
 
         // 엔티티 DB에 저장 및 반환
         return reviewRepository.save(review);
@@ -51,15 +55,13 @@ public class ReviewService {
         return reviewRepository.findByCreatedByAndDateBetween(createdBy, from, to, pageable);
     }
 
-    public Review updateReview(long reviewId, ReviewPatchDto reviewPatchDto, String imageUrls) {
+    public Review updateReview(long reviewId, ReviewPatchDto reviewPatchDto) {
         // DB에서 후기 ID 조회, 없는 경우 예외 발생
         Review review = readReview(reviewId);
 
         // 후기 내용 변경
         Optional.ofNullable(reviewPatchDto).map(ReviewPatchDto::getBody).ifPresent(review::setBody);
 
-        // 이미지 주소 변경
-        Optional.ofNullable(imageUrls).ifPresent(review::setImageUrls);
 
         return review;
     }

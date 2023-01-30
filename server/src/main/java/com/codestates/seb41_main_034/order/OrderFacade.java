@@ -10,9 +10,12 @@ import com.codestates.seb41_main_034.order.entity.OrderProduct;
 import com.codestates.seb41_main_034.order.entity.OrderProductStatus;
 import com.codestates.seb41_main_034.product.ProductService;
 import com.codestates.seb41_main_034.product.entity.Product;
+import com.codestates.seb41_main_034.product.entity.ProductStatus;
+import com.codestates.seb41_main_034.user.entity.User;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,11 +45,8 @@ public class OrderFacade {
         Map<Integer, Product> productMap = productService.getVerifiedProducts(productIds)
                 .stream()
                 .peek(product -> {
-                    switch (product.getStatus()) {
-                        case UNAVAILABLE:
-                            throw new BusinessLogicException(ExceptionCode.ORDER_UNAVAILABLE_PRODUCT);
-                        case DRAFT:
-                            throw new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND);
+                    if (product.getStatus() == ProductStatus.UNAVAILABLE) {
+                        throw new BusinessLogicException(ExceptionCode.ORDER_UNAVAILABLE_PRODUCT);
                     }
                 })
                 .collect(Collectors.toMap(Product::getId, Function.identity()));
@@ -63,18 +63,22 @@ public class OrderFacade {
 
         // 주문한 만큼 재고 감소
         for (OrderProduct orderProduct : order.getOrderProducts()) {
-            productService.updateProductStock(orderProduct.getProductId(), -orderProduct.getQuantity());
+            productService.updateProductStockSold(orderProduct.getProductId(), -orderProduct.getQuantity());
         }
 
         // DTO로 매핑 후 반환
         return order.toDto(helper, productMap);
     }
 
-    // TODO: 주문 조회, 수정 시 인증된 회원에게만 인가되도록 처리 필요
-
     public OrderDto readOrder(long orderId) {
         // 주문 조회
         Order order = orderService.readOrder(orderId);
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (!user.getRoles().contains("ADMIN") && user.getId() != order.getCreatedBy()) {
+            throw new BusinessLogicException(ExceptionCode.AUTH_FORBIDDEN);
+        }
 
         // 주문한 상품 정보 조회
         Set<Integer> productIds = order.getOrderProducts().stream()
@@ -86,7 +90,9 @@ public class OrderFacade {
         return order.toDto(helper, productDtoMap);
     }
 
-    public PaginatedData<OrderDto> readOrders(int createdBy, LocalDate from, LocalDate to, Pageable pageable) {
+    public PaginatedData<OrderDto> readOrders(LocalDate from, LocalDate to, Pageable pageable) {
+        int createdBy = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+
         // from, to 기본값 설정
         from = Optional.ofNullable(from).orElse(LocalDate.of(2023, 1, 1));
         to = Optional.ofNullable(to).orElse(LocalDate.now());
@@ -105,17 +111,32 @@ public class OrderFacade {
     }
 
     public OrderDto updateOrderAddress(long orderId, OrderAddressPatchDto addressPatchDto) {
+        // 주문 조회
+        Order order = orderService.readOrder(orderId);
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (!user.getRoles().contains("ADMIN") && user.getId() != order.getCreatedBy()) {
+            throw new BusinessLogicException(ExceptionCode.AUTH_FORBIDDEN);
+        }
+
         // 주문 주소 수정
-        Order order = orderService.updateOrderAddress(orderId, addressPatchDto);
+        Order updatedOrder = orderService.updateOrderAddress(orderId, addressPatchDto);
 
         // DTO로 변환 후 반환
-        return order.toDto(helper);
+        return updatedOrder.toDto();
     }
 
     @Transactional
     public OrderDto updateOrderCancel(long orderId, OrderCancelDto cancelDto) {
         // 주문 조회
         Order order = orderService.readOrder(orderId);
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (!user.getRoles().contains("ADMIN") && user.getId() != order.getCreatedBy()) {
+            throw new BusinessLogicException(ExceptionCode.AUTH_FORBIDDEN);
+        }
 
         // 기존 취소된 수량 집계
         Map<Integer, Integer> productIdDeltaMap = new HashMap<>();
@@ -136,7 +157,7 @@ public class OrderFacade {
         }
 
         // 취소 완료된 만큼 재고 증가
-        productIdDeltaMap.forEach(productService::updateProductStock);
+        productIdDeltaMap.forEach(productService::updateProductStockSold);
 
         // 주문한 상품 정보 조회
         Set<Integer> productIds = updatedOrder.getOrderProducts().stream()
@@ -149,18 +170,28 @@ public class OrderFacade {
     }
 
     public OrderDto updateOrderPay(long orderId) {
-        // TODO: 결제 정보 확인 필요
-        Order order = orderService.updateOrderPay(orderId);
+        // 주문 조회
+        Order order = orderService.readOrder(orderId);
 
-        return order.toDto(helper);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (!user.getRoles().contains("ADMIN") && user.getId() != order.getCreatedBy()) {
+            throw new BusinessLogicException(ExceptionCode.AUTH_FORBIDDEN);
+        }
+
+        // TODO: 결제 정보 확인 필요
+        Order updatedOrder = orderService.updateOrderPay(orderId);
+
+
+        return updatedOrder.toDto();
     }
 
     public OrderDto updateOrderPrepare(long orderId) {
         // 주문 배송 준비 처리
-        Order order = orderService.updateOrderPrepare(orderId);
+        Order updatedOrder = orderService.updateOrderPrepare(orderId);
 
         // DTO에 매핑 후 반환
-        return order.toDto(helper);
+        return updatedOrder.toDto();
     }
 
     public OrderDto updateOrderShip(long orderId) {
@@ -168,7 +199,7 @@ public class OrderFacade {
         Order order = orderService.updateOrderShip(orderId);
 
         // DTO에 매핑 후 반환
-        return order.toDto(helper);
+        return order.toDto();
     }
 
     @Transactional
@@ -192,10 +223,10 @@ public class OrderFacade {
         }
 
         // 취소 완료된 만큼 재고 증가
-        productIdDeltaMap.forEach(productService::updateProductStock);
+        productIdDeltaMap.forEach(productService::updateProductStockSold);
 
         // DTO에 매핑 후 반환
-        return updatedOrder.toDto(helper);
+        return updatedOrder.toDto();
     }
 
 }

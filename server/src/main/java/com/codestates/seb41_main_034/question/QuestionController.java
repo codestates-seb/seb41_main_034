@@ -55,11 +55,8 @@ public class QuestionController {
             @PastOrPresent @RequestParam(required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate to,
             @PageableDefault(sort = "id", direction = Direction.DESC) Pageable pageable
     ) {
-        // TODO: 인증된 회원 ID를 받아와야 한다.
-        int createdBy = 1;
-
         return new ResponseEntity<>(
-                Response.of(questionFacade.readQuestionHistory(createdBy, from, to, pageable)), HttpStatus.OK);
+                Response.of(questionFacade.readQuestionHistory(from, to, pageable)), HttpStatus.OK);
     }
 
     @PatchMapping("/question/{questionId}")
