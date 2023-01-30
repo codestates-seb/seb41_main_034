@@ -159,6 +159,8 @@ const orderSlice = createSlice({
       cartCheck(state);
     },
     myCart: (state, action) => {
+      localStorage.removeItem('shop');
+
       state.cart = action.payload.cart;
     }
   }

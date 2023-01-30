@@ -36,7 +36,7 @@ const Login = () => {
       const res = await baseAPI.post(`/user/login`, body);
       localStorage.accessToken = `${res.headers.authorization}`;
       localStorage.userId = JSON.stringify(res.data.data.id);
-      localStorage.xCart = localStorage.cart || `[]`;
+      localStorage.shop = localStorage.cart || `[]`;
       navigate('/');
       window.location.reload();
     } catch (err) {
