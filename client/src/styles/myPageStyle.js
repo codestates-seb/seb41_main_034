@@ -3,28 +3,17 @@ import styled from 'styled-components';
 
 const ListHeader = styled.div`
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   padding: 12px 16px;
-  width: 100%;
   border-bottom: 1px solid ${(props) => props.theme.borderColor};
-  border-radius: 4px;
   color: ${(props) => props.theme.primaryColor};
-
-  @media ${(props) => props.theme.tablet} {
-    width: 100%;
-  }
-
-  @media ${(props) => props.theme.mobile} {
-    width: 100%;
-    border-top: 1px solid ${(props) => props.theme.borderColor};
-  }
 `;
 
 const RightContainer = styled.div`
   display: flex;
   align-items: center;
-  column-gap: 48px;
+  column-gap: 24px;
 
   svg {
     width: 1px;
@@ -32,11 +21,11 @@ const RightContainer = styled.div`
   }
 
   @media ${(props) => props.theme.desktop} {
-    column-gap: 160px;
+    margin-right: 64px;
   }
 
   @media ${(props) => props.theme.tablet} {
-    column-gap: 140px;
+    margin-right: 56px;
   }
 `;
 
@@ -57,27 +46,16 @@ const Text = styled.div`
 
 const ListHeader2 = styled.div`
   display: flex;
-  width: 100%;
-  padding: 12px 0 12px 16px;
-  justify-content: space-between;
   align-items: center;
+  padding: 16px 0 16px 12px;
   border-bottom: 1px solid ${(props) => props.theme.borderColor};
-  border-radius: 4px;
   color: ${(props) => props.theme.blackColor};
-
-  @media ${(props) => props.theme.tablet} {
-    width: 100%;
-  }
-
-  @media ${(props) => props.theme.mobile} {
-    width: 100%;
-  }
 `;
 
 const RightContainer2 = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  column-gap: 16px;
 
   svg {
     width: 20px;
@@ -95,14 +73,6 @@ const RightContainer2 = styled.div`
       margin-left: 13px;
     }
   }
-
-  @media ${(props) => props.theme.desktop} {
-    column-gap: 64px;
-  }
-
-  @media ${(props) => props.theme.tablet} {
-    column-gap: 56px;
-  }
 `;
 
 const LeftCotainer2 = styled.div`
@@ -110,30 +80,26 @@ const LeftCotainer2 = styled.div`
 `;
 
 const ItemLinkText = styled.button`
-  font-size: 12px;
+  font-size: 14px;
   font-weight: bold;
   margin-bottom: 4px;
 
   @media ${(props) => props.theme.tablet} {
-    font-size: 8px;
+    font-size: 12px;
   }
 
   @media ${(props) => props.theme.mobile} {
-    font-size: 4px;
+    font-size: 10px;
   }
 `;
 
 const ItemText = styled.div`
-  margin-right: 88px;
   font-size: 10px;
+  margin-bottom: 4px;
+`;
 
-  @media ${(props) => props.theme.tablet} {
-    margin-right: 68px;
-  }
-
-  @media ${(props) => props.theme.mobile} {
-    margin-right: 36px;
-  }
+const ItemText2 = styled(ItemText)`
+  margin-right: 12px;
 `;
 
 const EditDeleteButton = styled.button`
@@ -571,24 +537,30 @@ const UserOutButton = styled.button`
 
 const OrderDateContainer = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   font-weight: bold;
   padding: 12px 0;
+  border-bottom: 1px solid ${(props) => props.theme.grayColor};
 `;
 
 const OrderDate = styled.div`
+  flex-shrink: 0;
+  margin-right: 24px;
   font-size: 20px;
   color: ${(props) => props.theme.grayColor};
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 16px;
+  }
 `;
+
 const OrderListContainer = styled.div`
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
   padding: 24px;
   border-top: 1px solid ${(props) => props.theme.borderColor};
-  border-bottom: 1px solid ${(props) => props.theme.borderColor};
-  margin-bottom: 8px;
 
   @media ${(props) => props.theme.tablet} {
     width: 100%;
@@ -600,72 +572,50 @@ const OrderListContainer = styled.div`
 `;
 
 const LeftContent = styled.div`
-  width: 120px;
-  height: 120px;
-  margin: 8px;
-  margin-right: 24px;
+  width: 72px;
+  height: 72px;
+  margin-right: 48px;
+  border-radius: 4px;
+  overflow: hidden;
 
-  @media ${(props) => props.theme.tablet} {
-    width: 120px;
-    height: 120px;
+  a {
+    display: block;
+    width: 100%;
+    height: 100%;
   }
 
   @media ${(props) => props.theme.mobile} {
-    width: 80px;
-    height: 80px;
+    width: 64px;
+    height: 64px;
   }
 `;
 
 const ProductImg = styled.img`
-  width: 120px;
-  height: 120px;
-  /* background-size: contain; */
-  @media ${(props) => props.theme.mobile} {
-    width: 80px;
-    height: 80px;
-  }
+  width: 100%;
+  height: 100%;
 `;
 
 const CenterContent = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 8px;
-  padding: 30px 15px 30px 15px;
   row-gap: 8px;
-  width: 100%;
-  max-width: 100px;
-
+  flex-grow: 1;
   font-size: 20px;
-
-  @media ${(props) => props.theme.tablet} {
-    width: 100%;
-    max-width: 170px;
-  }
-  @media ${(props) => props.theme.mobile} {
-    width: 100%;
-    max-width: 100px;
-  }
 `;
 
 const ShippingInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 8px;
-  padding: 24px 12px 12px 6px;
   row-gap: 8px;
-  width: 100%;
-  max-width: 200px;
-  font-size: 20px;
+  font-size: 16px;
 
   @media ${(props) => props.theme.tablet} {
-    width: 100%;
-    max-width: 170px;
+    font-size: 14px;
   }
 
   @media ${(props) => props.theme.mobile} {
-    width: 100%;
-    max-width: 100px;
+    font-size: 12px;
   }
 `;
 
@@ -693,11 +643,13 @@ const OrderListPrice = styled.div`
 `;
 
 const Receiver = styled.div`
-  margin-bottom: 4px;
-  font-size: 16px;
+  flex-shrink: 0;
+  margin-right: 12px;
+  font-size: 14px;
+  color: ${(props) => props.theme.grayColor};
 
   @media ${(props) => props.theme.mobile} {
-    font-size: 8px;
+    font-size: 10px;
   }
 `;
 
@@ -711,30 +663,19 @@ const OrderQuantity = styled.div`
 `;
 
 const ShippingAddress = styled.div`
-  margin-bottom: 4px;
-  font-size: 16px;
+  font-size: 14px;
+  color: ${(props) => props.theme.grayColor};
 
   @media ${(props) => props.theme.mobile} {
-    font-size: 8px;
+    font-size: 10px;
   }
 `;
 
 const RightContent = styled.div`
-  width: 100%;
-  max-width: 200px;
-  display: grid;
-  align-items: center;
-  padding-left: 30px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
   font-size: 20px;
-
-  @media ${(props) => props.theme.tablet} {
-    width: 100%;
-    max-width: 150px;
-  }
-
-  @media ${(props) => props.theme.mobile} {
-    max-width: 100px;
-  }
 
   svg {
     fill: ${(props) => props.theme.grayColor};
@@ -753,7 +694,6 @@ const CancleImgContainer = styled.div`
 `;
 
 const OrderStatus = styled.div`
-  margin: 12px 0 18px 0;
   font-size: 20px;
   font-weight: bold;
 
@@ -896,7 +836,7 @@ const AddressText = styled.div`
   font-size: 12px;
 
   @media ${(props) => props.theme.mobile} {
-    font-size: 12px;
+    font-size: 10px;
   }
 `;
 
@@ -909,7 +849,7 @@ const RecipientText = styled.div`
   font-size: 12px;
 
   @media ${(props) => props.theme.mobile} {
-    font-size: 12px;
+    font-size: 10px;
   }
 `;
 
@@ -1195,20 +1135,18 @@ const ModalViewFooterButtonRight = styled.button`
 
 const ReviewListContainer = styled.div`
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 12px;
   width: 100%;
   border-bottom: 1px solid ${(props) => props.theme.borderColor};
 
   @media ${(props) => props.theme.tablet} {
-    width: 100%;
     font-size: 12px;
-    padding: 12px 24px 12px 24px;
   }
 
   @media ${(props) => props.theme.mobile} {
-    width: 100%;
-    font-size: 8px;
-    padding: 0 0 12px 0;
+    font-size: 10px;
   }
 `;
 const ReviewButton = styled.button`
@@ -1228,34 +1166,29 @@ const ReviewButton = styled.button`
   }
 `;
 
+const MyPageReviewImage = styled.div`
+  width: 72px;
+  height: 72px;
+  margin-right: 24px;
+  border-radius: 4px;
+  overflow: hidden;
+
+  @media ${(props) => props.theme.mobile} {
+    width: 64px;
+    height: 64px;
+  }
+`;
+
 const ProductImg2 = styled.img`
   width: 100%;
   height: 100%;
 `;
 
-const MyPageReviewImage = styled.div`
-  width: 100%;
-  max-width: 120px;
-  height: 120px;
-  margin: 10px 0 0 28px;
-
-  @media ${(props) => props.theme.tablet} {
-    max-width: 100px;
-    height: 100px;
-  }
-  @media ${(props) => props.theme.mobile} {
-    max-width: 80px;
-    height: 80px;
-  }
-`;
 const MyPageReviewContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  row-gap: 8px;
-  max-width: 300px;
-
+  row-gap: 16px;
   font-size: 20px;
 `;
 
@@ -1301,17 +1234,11 @@ const MyPageReviewContentText = styled.div`
 
 const MyPageReviewDelete = styled.div`
   display: flex;
-  width: 100%;
-  max-width: 150px;
-  align-items: center;
-
-  @media ${(props) => props.theme.tablet} {
-    width: 100%;
-    max-width: 150px;
-  }
+  column-gap: 4px;
 
   @media ${(props) => props.theme.mobile} {
-    max-width: 100px;
+    flex-direction: column;
+    row-gap: 4px;
   }
 `;
 
@@ -1321,14 +1248,11 @@ const CancleImgContainer3 = styled.div`
 `;
 
 const MyReviewDeleteButton = styled.button`
-  width: 100%;
-  max-width: 100px;
-  margin-left: 8px;
-  padding: 8px;
+  padding: 2px 8px;
   border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
   color: ${(props) => props.theme.primaryColor};
-  font-size: 8px;
+  font-size: 10px;
 
   @media ${(props) => props.theme.desktop} {
     &:hover {
@@ -1337,21 +1261,16 @@ const MyReviewDeleteButton = styled.button`
   }
 
   @media ${(props) => props.theme.mobile} {
-    max-width: 100px;
     padding: 4px;
-    margin-left: 4px;
   }
 `;
 
 const MyReviewEditButton = styled.button`
-  width: 100%;
-  max-width: 100px;
-  margin-left: 8px;
-  padding: 8px;
+  padding: 4px 8px;
   border-radius: 4px;
   background-color: ${(props) => props.theme.primaryColor};
   color: ${(props) => props.theme.whiteColor};
-  font-size: 8px;
+  font-size: 10px;
 
   @media ${(props) => props.theme.desktop} {
     &:hover {
@@ -1360,9 +1279,7 @@ const MyReviewEditButton = styled.button`
   }
 
   @media ${(props) => props.theme.mobile} {
-    max-width: 100px;
     padding: 4px;
-    margin-left: 4px;
   }
 `;
 
@@ -1496,16 +1413,19 @@ const BottomTextWrapper = styled.div`
   display: flex;
   align-items: center;
   column-gap: 64px;
+  margin-top: 24px;
+  padding: 64px;
+  border: 1px solid ${(props) => props.theme.borderColor};
+  border-radius: 4px;
 `;
 
 const ReviewRightContainer = styled.div`
   display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin: 0 0 0 24px;
+  flex-grow: 1;
 `;
 
 export {
+  ItemText2,
   DeleteEditButton,
   ActiveCatagoryBox,
   BottomTextWrapper,

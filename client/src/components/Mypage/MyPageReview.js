@@ -1,6 +1,5 @@
 import {
   ReviewListContainer,
-  CancleImgContainer3,
   ProductImg2,
   MyPageReviewImage,
   MyPageReviewContent,
@@ -39,11 +38,9 @@ const MyPageReview = ({ userReview }) => {
 
   const textLengthOverCut = (txt, len, lastTxt) => {
     if (len === '' || len === null) {
-      // 기본값
       len = 30;
     }
     if (lastTxt === '' || lastTxt === null) {
-      // 기본값
       lastTxt = '...';
     }
     if (txt.length > len) {
@@ -58,6 +55,7 @@ const MyPageReview = ({ userReview }) => {
         <MyPageReviewImage>
           <ProductImg2 src={userReview.productImageUrl} alt="" />
         </MyPageReviewImage>
+
         <ReviewRightContainer>
           <MyPageReviewContent>
             <MyPageReviewContentTopButton>
@@ -71,23 +69,19 @@ const MyPageReview = ({ userReview }) => {
               <MyPageReviewContentText>{dater}</MyPageReviewContentText>
             </MyPageReviewContent2>
           </MyPageReviewContent>
-          <MyPageReviewDelete>
-            <CancleImgContainer3>
-              <MyReviewEditButton
-                alt="후기 수정 버튼입니다."
-                onClick={() => setIsEditModal(true)}
-              >
-                수정
-              </MyReviewEditButton>
-              <MyReviewDeleteButton
-                onClick={onRemove}
-                alt="후기 삭제 버튼입니다"
-              >
-                삭제
-              </MyReviewDeleteButton>
-            </CancleImgContainer3>
-          </MyPageReviewDelete>
         </ReviewRightContainer>
+
+        <MyPageReviewDelete>
+          <MyReviewDeleteButton onClick={onRemove} alt="후기 삭제 버튼입니다">
+            삭제
+          </MyReviewDeleteButton>
+          <MyReviewEditButton
+            alt="후기 수정 버튼입니다."
+            onClick={() => setIsEditModal(true)}
+          >
+            수정
+          </MyReviewEditButton>
+        </MyPageReviewDelete>
       </ReviewListContainer>
 
       <EditReviewModal

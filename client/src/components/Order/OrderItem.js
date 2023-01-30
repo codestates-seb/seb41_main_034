@@ -33,12 +33,12 @@ const OrderItem = ({ cart }) => {
       <OrderItemContainer>
         <OrderItemLeft>
           <OrderItemImage>
-            <Link to={'/product/1'}>
+            <Link to={`/product/${cart.productId}`}>
               <OrderItemImg img={cart.imageUrl} />
             </Link>
           </OrderItemImage>
           <OrderItemName>
-            <Link to={'/product/1'}>{cart.productName}</Link>
+            <Link to={`/product/${cart.productId}`}>{cart.productName}</Link>
           </OrderItemName>
         </OrderItemLeft>
 

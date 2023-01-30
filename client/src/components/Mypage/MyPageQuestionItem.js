@@ -3,11 +3,11 @@ import {
   RightContainer2,
   LeftCotainer2,
   ItemText,
-  MarginSpace,
   ItemLinkText,
   EditDeleteButton,
   EditDeleteContainer,
-  DeleteEditButton
+  DeleteEditButton,
+  ItemText2
 } from '../../styles/myPageStyle';
 import { useState, useEffect } from 'react';
 import Loading from '../Layout/Loading';
@@ -55,18 +55,20 @@ const MyPageQuestionItem = ({ question, setQuestion }) => {
     <>
       <ListHeader2>
         <LeftCotainer2>
-          <ItemLinkText>{itemQuestion.body}</ItemLinkText>
-          <MarginSpace />
           <ItemText>{itemQuestion.productName}</ItemText>
+          <ItemLinkText>{itemQuestion.body}</ItemLinkText>
         </LeftCotainer2>
+
         <RightContainer2>
           <ItemText>{date}</ItemText>
+
           {itemQuestion.answer === null ? (
-            <ItemText>답변대기</ItemText>
+            <ItemText2>답변대기</ItemText2>
           ) : (
-            <ItemText>답변완료</ItemText>
+            <ItemText2>답변완료</ItemText2>
           )}
         </RightContainer2>
+
         <EditDeleteContainer>
           <EditDeleteButton
             type="button"

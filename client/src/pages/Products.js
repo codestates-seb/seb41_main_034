@@ -32,7 +32,7 @@ const Products = () => {
         setCategoryName('육류');
         break;
       case 'seafood':
-        setCategoryName('육류');
+        setCategoryName('해산물');
         break;
       default:
     }

@@ -36,6 +36,7 @@ const MyPageQuestionList = () => {
         <LeftCotainer>
           <Text>상품명 / 내용</Text>
         </LeftCotainer>
+
         <RightContainer>
           <TextWrapper>
             <Text>작성일</Text>
@@ -46,6 +47,7 @@ const MyPageQuestionList = () => {
           <EditDeleteContainer />
         </RightContainer>
       </ListHeader>
+
       {question.map((e, idx) => (
         <MyPageQuestionItem key={idx} question={e} setQuestion={setQuestion} />
       ))}

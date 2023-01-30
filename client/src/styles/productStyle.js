@@ -484,7 +484,7 @@ const ProductMainImg = styled.div`
   width: 100%;
   height: 0;
   padding-top: calc(928 / 928 * 100%);
-  background: url(${(props) => props.img}) center center / auto no-repeat;
+  background: url(${(props) => props.img}) center center / cover no-repeat;
 `;
 
 const Info = styled.div`

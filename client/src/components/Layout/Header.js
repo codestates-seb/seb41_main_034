@@ -87,6 +87,7 @@ const Header = ({ location }) => {
                 type="button"
                 aria-label="장바구니 보기"
                 onClick={() => setIsOpenCart(!isOpenCart)}
+                isOpenCart={isOpenCart}
               >
                 <CartIcon />
                 {cart.length !== 0 && <CartCount>{cart.length}</CartCount>}

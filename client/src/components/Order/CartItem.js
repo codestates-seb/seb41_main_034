@@ -23,13 +23,13 @@ const CartItem = ({ cart }) => {
     <CartItemContainer>
       <CartItemInfo>
         <CartItemImage>
-          <Link>
+          <Link to={`/product/${cart.productId}`}>
             <CartItemImg img={cart.imageUrl} />
           </Link>
         </CartItemImage>
 
         <ProductName>
-          <Link>{cart.productName}</Link>
+          <Link to={`/product/${cart.productId}`}>{cart.productName}</Link>
         </ProductName>
       </CartItemInfo>
 

@@ -1,5 +1,10 @@
 import { useEffect, useState } from 'react';
-import { OrderDateContainer, OrderDate } from '../../styles/myPageStyle';
+import {
+  OrderDateContainer,
+  OrderDate,
+  Receiver,
+  ShippingAddress
+} from '../../styles/myPageStyle';
 import MyPageHeader from './MyPageHeader';
 import MyPageOrderItem from './MyPageOrderItem';
 import { authAPI } from '../../api/customAxios';
@@ -45,6 +50,8 @@ const MyPageOrderList = () => {
                 <OrderDateContainer>
                   {' '}
                   <OrderDate>{key}</OrderDate>
+                  <Receiver>받는사람: {value[0].recipient}</Receiver>
+                  <ShippingAddress>배송지: {value[0].address}</ShippingAddress>
                 </OrderDateContainer>
                 {value.map((e) => {
                   return (

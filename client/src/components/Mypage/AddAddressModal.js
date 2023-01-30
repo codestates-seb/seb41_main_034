@@ -42,7 +42,6 @@ const AddAddressModal = ({ addModal, setAddModal }) => {
         console.log(error);
       }
     };
-    console.log(body);
     AddressPostAPI(body);
     alert('새로운 주소가 추가되었습니다.');
   };

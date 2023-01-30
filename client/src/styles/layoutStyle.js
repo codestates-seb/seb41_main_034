@@ -170,6 +170,15 @@ const CartButton = styled.button`
   position: relative;
   margin-right: 8px;
 
+  svg {
+    g {
+      g {
+        stroke: ${(props) =>
+          props.isOpenCart ? props.theme.primaryColor : props.theme.blackColor};
+      }
+    }
+  }
+
   @media ${(props) => props.theme.desktop} {
     svg {
       &:hover {

@@ -8,10 +8,7 @@ import {
   OrderQuantity,
   OrderStatus,
   ProductImg,
-  ReviewButton,
-  ShippingInfo,
-  Receiver,
-  ShippingAddress
+  ReviewButton
 } from '../../styles/myPageStyle';
 import { useState } from 'react';
 import ReviewModal from './ReviewModal';
@@ -37,26 +34,19 @@ const MyPageOrderItem = ({
     <>
       <OrderListContainer>
         <LeftContent>
-          <ProductImg
-            src={
-              image
-              // 'https://thumbnail9.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/493405785878144-be8efa56-f85d-43e2-bbe2-79dcf26f6eac.jpg'
-            }
-            alt=""
-          />
+          <Link to={`/product/${productId}`}>
+            <ProductImg src={image} alt="" />
+          </Link>
         </LeftContent>
+
         <CenterContent>
-          {/* 상품 상세 이동 */}
           <Link to={`/product/${productId}`}>
             <ProductName>{name}</ProductName>
           </Link>
           <OrderListPrice>{price}원 </OrderListPrice>
           <OrderQuantity>{quantity}개</OrderQuantity>
         </CenterContent>
-        <ShippingInfo>
-          <Receiver>받는사람: {recipient}</Receiver>
-          <ShippingAddress>주소: {address}</ShippingAddress>
-        </ShippingInfo>
+
         <RightContent>
           <OrderStatus>주문완료</OrderStatus>
           <ReviewButton
