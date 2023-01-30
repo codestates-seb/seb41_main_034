@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   SignWrapper,
   SignContainer,
@@ -15,23 +15,34 @@ import {
   SignButton
 } from '../styles/signStyle';
 import { ReactComponent as LogoIcon } from '../assets/icons/foodmeet.svg';
-// import { loginAPI } from '../api/sign';
+import { baseAPI } from '../api/customAxios';
 
 const Login = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     id: '',
     password: ''
   });
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
-    // const body = JSON.stringify({
-    //   id: form.id,
-    //   password: form.password
-    // });
+    const body = JSON.stringify({
+      username: form.id,
+      password: form.password
+    });
 
-    // loginAPI(body);
+    try {
+      const res = await baseAPI.post(`/user/login`, body);
+      localStorage.accessToken = `${res.headers.authorization}`;
+      localStorage.userId = JSON.stringify(res.data.data.id);
+      localStorage.shop = localStorage.cart || `[]`;
+      navigate('/');
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+      window.alert('아이디, 비밀번호를 확인해주세요.');
+    }
   };
 
   return (

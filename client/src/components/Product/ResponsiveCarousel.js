@@ -3,10 +3,10 @@ import { Carousel } from 'react-responsive-carousel';
 import { CarouselContainer } from '../../styles/productStyle';
 
 const SliderData = [
-  'https://images.unsplash.com/photo-1546768292-fb12f6c92568?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-  'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80',
-  'https://images.unsplash.com/photo-1475189778702-5ec9941484ae?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1351&q=80',
-  'https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80'
+  'https://cdn.pixabay.com/photo/2017/05/23/22/36/vegetables-2338824_1280.jpg',
+  'https://cdn.pixabay.com/photo/2018/02/08/15/02/meat-3139641_1280.jpg',
+  'https://cdn.pixabay.com/photo/2017/06/04/16/17/prawns-2371440_1280.jpg',
+  'https://cdn.pixabay.com/photo/2016/12/29/10/45/mixed-1938302_1280.jpg'
 ];
 
 const ResponsiveCarousel = () => {
@@ -17,8 +17,7 @@ const ResponsiveCarousel = () => {
     showStatus: false,
     showIndicators: false,
     showThumbs: false,
-    swipeable: true,
-    dynamicHeight: true
+    swipeable: true
   };
 
   return (

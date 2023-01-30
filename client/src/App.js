@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { GlobalStyle } from './styles/globalStyle';
@@ -7,23 +7,58 @@ import Header from './components/Layout/Header';
 import Main from './components/Layout/Main';
 import Footer from './components/Layout/Footer';
 import ScrollToTop from './components/Layout/ScrollToTop';
+import { authAPI } from './api/customAxios';
 
-function App() {
+const App = () => {
   const location = useLocation();
+  const accessToken = localStorage.accessToken;
 
-  const [isLogin, setIsLogin] = useState(true);
+  const postAPI = async (el) => {
+    try {
+      await authAPI.post(
+        `/cart`,
+        JSON.stringify({ productId: el.productId, quantity: el.quantity })
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  // const token = localStorage.getItem('accessToken');
+  const checkToken = async () => {
+    try {
+      await authAPI.get('/user/login-status');
+    } catch (err) {
+      err.response.data.error.status === 401 && localStorage.clear();
+    }
+  };
 
-  // useEffect(() => {
-  //   setIsLogin(token ? true : false);
-  // }, [token]);
+  const getUserCart = async () => {
+    try {
+      const res = await authAPI.get('cart');
+      localStorage.cart = JSON.stringify(
+        res.data.data.map((el) => ({ ...el, check: true }))
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    if (accessToken !== undefined) {
+      if (localStorage.shop) {
+        JSON.parse(localStorage.shop).map((el) => postAPI(el));
+      }
+
+      checkToken();
+      getUserCart();
+    }
+  });
 
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
 
-      <Header location={location} isLogin={isLogin} />
+      <Header location={location} />
 
       <Main />
 
@@ -32,6 +67,6 @@ function App() {
       <Footer location={location} />
     </ThemeProvider>
   );
-}
+};
 
 export default App;

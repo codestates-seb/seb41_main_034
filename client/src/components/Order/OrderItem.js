@@ -14,36 +14,45 @@ import {
 } from '../../styles/orderStyle';
 import OrderCounter from './OrderCounter';
 import { ReactComponent as DeleteIcon } from '../../assets/icons/cancleIcon.svg';
+import { useDispatch } from 'react-redux';
+import { deleteCart, checkCart } from '../../store/orderSlice';
 
-const OrderItem = () => {
+const OrderItem = ({ cart }) => {
+  const dispatch = useDispatch();
+  const priceAmount = cart.price * cart.quantity;
+
   return (
     <OrderItemWrapper>
-      <CheckInput type={'checkbox'} />
-
+      <CheckInput
+        type={'checkbox'}
+        checked={cart.check}
+        onChange={() =>
+          dispatch(checkCart({ productId: cart.productId, check: !cart.check }))
+        }
+      />
       <OrderItemContainer>
         <OrderItemLeft>
           <OrderItemImage>
-            <Link>
-              <OrderItemImg
-                img={
-                  'https://thumbnail9.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/493405785878144-be8efa56-f85d-43e2-bbe2-79dcf26f6eac.jpg'
-                }
-              />
+            <Link to={`/product/${cart.productId}`}>
+              <OrderItemImg img={cart.imageUrl} />
             </Link>
           </OrderItemImage>
           <OrderItemName>
-            <Link>사과</Link>
+            <Link to={`/product/${cart.productId}`}>{cart.productName}</Link>
           </OrderItemName>
         </OrderItemLeft>
 
         <OrderItemRight>
-          <OrderCounter />
-          <OrderPrice>{`${(12000).toLocaleString('ko-KR')}`}원</OrderPrice>
+          <OrderCounter cart={cart} />
+          <OrderPrice>{priceAmount.toLocaleString('ko-KR')}원</OrderPrice>
         </OrderItemRight>
       </OrderItemContainer>
 
       <CartItemDelete>
-        <DeleteButton>
+        <DeleteButton
+          type="button"
+          onClick={() => dispatch(deleteCart({ productId: cart.productId }))}
+        >
           <DeleteIcon />
         </DeleteButton>
       </CartItemDelete>

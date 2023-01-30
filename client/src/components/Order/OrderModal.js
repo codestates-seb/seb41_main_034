@@ -1,3 +1,6 @@
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { addCart } from '../../store/orderSlice';
 import {
   OrderModalContainer,
   OrderReceipt,
@@ -7,31 +10,57 @@ import {
   ReceiptTitle,
   ReceiptPayment,
   CartButton,
-  OrderButton,
+  ProductOrderButton,
   ModalButtonContainer
 } from '../../styles/orderStyle';
-import OrderCounter from './OrderCounter';
+import ProductCounter from '../Product/ProductCounter';
 
-const OrderModal = ({ isOpenOrder }) => {
+const OrderModal = ({
+  isOpenOrder,
+  setIsOpenOrder,
+  count,
+  setCount,
+  product
+}) => {
+  const dispatch = useDispatch();
+
+  const onClickAddCart = (e) => {
+    e.preventDefault();
+
+    dispatch(
+      addCart({
+        productId: product.id,
+        imageUrl: product.imageUrls[0],
+        productName: product.name,
+        price: product.price,
+        quantity: count
+      })
+    );
+
+    setIsOpenOrder(false);
+  };
+
   return (
     <OrderModalContainer isOpenOrder={isOpenOrder}>
       <OrderReceipt>
         <ReceiptContainer>
-          <ReceiptAmount>사과</ReceiptAmount>
-          <OrderCounter />
+          <ReceiptAmount>{product.name}</ReceiptAmount>
+          <ProductCounter count={count} setCount={setCount} />
         </ReceiptContainer>
 
         <PaymentContainer>
           <ReceiptTitle>주문금액</ReceiptTitle>
           <ReceiptPayment>
-            {`${(12000).toLocaleString('ko-KR')}`}원
+            {(product.price * count).toLocaleString('ko-KR')}원
           </ReceiptPayment>
         </PaymentContainer>
       </OrderReceipt>
 
       <ModalButtonContainer>
-        <CartButton>장바구니 담기</CartButton>
-        <OrderButton to={'/order'}>주문하기</OrderButton>
+        <CartButton onClick={onClickAddCart}>장바구니 담기</CartButton>
+        <ProductOrderButton onClick={onClickAddCart}>
+          <Link to={'/order'}>주문하기</Link>
+        </ProductOrderButton>
       </ModalButtonContainer>
     </OrderModalContainer>
   );

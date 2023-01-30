@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   ButtonContainer,
   HeaderContainer,
@@ -25,15 +25,21 @@ import { ReactComponent as MyPageIcon } from '../../assets/icons/myPageIcon.svg'
 import Menu from '../Menu/Menu';
 import MobileMenu from '../Menu/MobileMenu';
 import ShoppingCart from '../Order/ShoppingCart';
+import { useSelector } from 'react-redux';
 
-const Header = ({ location, isLogin }) => {
+const Header = ({ location }) => {
+  const navigate = useNavigate();
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isOpenCart, setIsOpenCart] = useState(false);
+  const accessToken = localStorage.accessToken;
+  const cart = useSelector((state) => state.order.cart);
 
   const onClickLogout = () => {
     const isLogout = window.confirm('로그아웃 하시겠습니까?');
 
-    isLogout && localStorage.removeItem('accessToken');
+    isLogout && localStorage.clear();
+    isLogout && navigate('/');
+    isLogout && window.location.reload();
   };
 
   if (location.pathname === '/login' || location.pathname === '/signup') {
@@ -64,7 +70,7 @@ const Header = ({ location, isLogin }) => {
 
           <HeaderRight>
             <ButtonContainer>
-              {isLogin ? (
+              {accessToken !== undefined ? (
                 <>
                   <MyPageLink to={'/mypage'}>
                     <MyPageIcon />
@@ -81,9 +87,10 @@ const Header = ({ location, isLogin }) => {
                 type="button"
                 aria-label="장바구니 보기"
                 onClick={() => setIsOpenCart(!isOpenCart)}
+                isOpenCart={isOpenCart}
               >
                 <CartIcon />
-                <CartCount>2</CartCount>
+                {cart.length !== 0 && <CartCount>{cart.length}</CartCount>}
               </CartButton>
             </ButtonContainer>
           </HeaderRight>
@@ -102,11 +109,7 @@ const Header = ({ location, isLogin }) => {
 
       <ShoppingCart isOpenCart={isOpenCart} setIsOpenCart={setIsOpenCart} />
 
-      <MobileMenu
-        isLogin={isLogin}
-        isOpenMenu={isOpenMenu}
-        setIsOpenMenu={setIsOpenMenu}
-      />
+      <MobileMenu isOpenMenu={isOpenMenu} setIsOpenMenu={setIsOpenMenu} />
     </>
   );
 };

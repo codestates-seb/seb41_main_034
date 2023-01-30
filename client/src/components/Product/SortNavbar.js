@@ -1,23 +1,96 @@
 import {
   SortNavbarContainer,
   SortNavbarItem,
-  SortNavbarButton
+  SortNavbarButton,
+  ActiveSortButton
 } from '../../styles/productStyle';
 
-const SortNavbar = () => {
+const SortNavbar = ({ sort, setSort }) => {
   return (
     <SortNavbarContainer>
       <SortNavbarItem>
-        <SortNavbarButton>최신순</SortNavbarButton>
+        {sort === '' ? (
+          <ActiveSortButton
+            onClick={() => {
+              setSort('');
+              localStorage.sort = '';
+            }}
+          >
+            최신순
+          </ActiveSortButton>
+        ) : (
+          <SortNavbarButton
+            onClick={() => {
+              setSort('');
+              localStorage.sort = '';
+            }}
+          >
+            최신순
+          </SortNavbarButton>
+        )}
       </SortNavbarItem>
       <SortNavbarItem>
-        <SortNavbarButton>판매량순</SortNavbarButton>
+        {sort === 'sold,desc' ? (
+          <ActiveSortButton
+            onClick={() => {
+              setSort('sold,desc');
+              localStorage.sort = 'sold,desc';
+            }}
+          >
+            판매량순
+          </ActiveSortButton>
+        ) : (
+          <SortNavbarButton
+            onClick={() => {
+              setSort('sold,desc');
+              localStorage.sort = 'sold,desc';
+            }}
+          >
+            판매량순
+          </SortNavbarButton>
+        )}
       </SortNavbarItem>
       <SortNavbarItem>
-        <SortNavbarButton>낮은가격순</SortNavbarButton>
+        {sort === 'price,asc' ? (
+          <ActiveSortButton
+            onClick={() => {
+              setSort('price,asc');
+              localStorage.sort = 'price,asc';
+            }}
+          >
+            낮은가격순
+          </ActiveSortButton>
+        ) : (
+          <SortNavbarButton
+            onClick={() => {
+              setSort('price,asc');
+              localStorage.sort = 'price,asc';
+            }}
+          >
+            낮은가격순
+          </SortNavbarButton>
+        )}
       </SortNavbarItem>
       <SortNavbarItem>
-        <SortNavbarButton>높은가격순</SortNavbarButton>
+        {sort === 'price,desc' ? (
+          <ActiveSortButton
+            onClick={() => {
+              setSort('price,desc');
+              localStorage.sort = 'price,desc';
+            }}
+          >
+            높은가격순
+          </ActiveSortButton>
+        ) : (
+          <SortNavbarButton
+            onClick={() => {
+              setSort('price,desc');
+              localStorage.sort = 'price,desc';
+            }}
+          >
+            높은가격순
+          </SortNavbarButton>
+        )}
       </SortNavbarItem>
     </SortNavbarContainer>
   );

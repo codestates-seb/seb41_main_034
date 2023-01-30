@@ -3,44 +3,53 @@ import {
   ListHeader,
   RightContainer,
   LeftCotainer,
-  Text
+  Text,
+  TextWrapper,
+  EditDeleteContainer
 } from '../../styles/myPageStyle';
 import MyPageHeader from './MyPageHeader';
-import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg';
 import { useState, useEffect } from 'react';
-import { questionGetAPI } from '../../api/question';
 import Loading from '../Layout/Loading';
+import { authAPI } from '../../api/customAxios';
 
 const MyPageQuestionList = () => {
-  const [question, setQuestion] = useState(null);
+  const [question, setQuestion] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const API = async () => {
-      const data = await questionGetAPI();
-      setQuestion(data.data.content);
-      setIsLoading(true);
+    const QuestionAPI = async () => {
+      try {
+        const result = await authAPI.get(`/question/question-history`);
+        setQuestion(result.data.data.content.map((el) => el));
+      } catch (err) {
+        console.log(err);
+      }
     };
-    API();
-  }, []);
-
-  // console.log(question);
+    setIsLoading(true);
+    QuestionAPI();
+  }, [setQuestion]);
 
   return isLoading ? (
     <>
       <MyPageHeader title={'나의문의'} />
       <ListHeader>
         <LeftCotainer>
-          <Text>제목 / 상품명</Text>
+          <Text>상품명 / 내용</Text>
         </LeftCotainer>
+
         <RightContainer>
-          <Text>작성일</Text>
-          <Text>답변상태</Text>
-          <CancelIcon />
+          <TextWrapper>
+            <Text>작성일</Text>
+          </TextWrapper>
+          <TextWrapper>
+            <Text>답변상태</Text>
+          </TextWrapper>
+          <EditDeleteContainer />
         </RightContainer>
       </ListHeader>
+
       {question.map((e, idx) => (
-        <MyPageQuestionItem key={idx} question={e} />
+        <MyPageQuestionItem key={idx} question={e} setQuestion={setQuestion} />
       ))}
     </>
   ) : (

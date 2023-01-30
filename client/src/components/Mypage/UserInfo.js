@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import {
   UserInfoContainer,
-  InfoContainer,
   TextContainer,
   NameText,
   WellcomText,
@@ -9,36 +8,86 @@ import {
   EditButton,
   EditbuttonContainer,
   Name,
-  NameNext
+  NameNext,
+  BottomTextContainer,
+  TheOtherText,
+  BottomTextWrapper
 } from '../../styles/myPageStyle';
-import { useSelector } from 'react-redux';
+import { authAPI } from '../../api/customAxios';
 
 const UserInfo = () => {
-  const [token, setToken] = useState(null);
-  const Token = useSelector((state) => state.user.userId);
+  const [question, setQuestion] = useState(null);
+  const [userName, setUserName] = useState(null);
+  const [order, setOrder] = useState(null);
+  const [review, setReview] = useState(null);
+  const userId = localStorage.getItem('userId');
 
   useEffect(() => {
-    setToken(Token);
-  }, [Token, token]);
+    const UserAPI = async (userId) => {
+      try {
+        const result = await authAPI.get(`/user/${userId}`);
+        setUserName(result.data.data.displayName);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    const QuestionAPI = async () => {
+      try {
+        const result = await authAPI.get(`/question/question-history`);
+        setQuestion(result.data.data.totalElements);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    const OrderAPI = async () => {
+      try {
+        const result = await authAPI.get(`/order/order-history`);
+        setOrder(result.data.data.totalElements);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    const ReviewAPI = async () => {
+      try {
+        const result = await authAPI.get(`/review/review-history`);
+        setReview(result.data.data.totalElements);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    OrderAPI();
+    QuestionAPI();
+    UserAPI(userId);
+    ReviewAPI();
+  }, [userId]);
 
   return (
     <>
       <UserInfoContainer>
-        <InfoContainer>
-          <TextContainer>
-            <WellcomText>환영합니다 !</WellcomText>
-            <Name>
-              <NameText>홍길동</NameText>
-              <NameNext>님</NameNext>
-            </Name>
-          </TextContainer>
-          <OtherText>주소 : 대한민국</OtherText>
-          <OtherText>주문 수 : 0</OtherText>
-          <OtherText>문의 수 : 0</OtherText>
-          <OtherText>리뷰 수 : 0</OtherText>
-        </InfoContainer>
+        <TextContainer>
+          <WellcomText>환영합니다 !</WellcomText>
+          <Name>
+            <NameText>{userName}</NameText>
+            <NameNext>님</NameNext>
+          </Name>
+        </TextContainer>
+        <BottomTextWrapper>
+          <BottomTextContainer>
+            <OtherText>주문</OtherText>
+            <TheOtherText>{order}</TheOtherText>
+          </BottomTextContainer>
+          <BottomTextContainer>
+            <OtherText>후기</OtherText>
+            <TheOtherText>{review}</TheOtherText>
+          </BottomTextContainer>
+          <BottomTextContainer>
+            <OtherText>문의</OtherText>
+            <TheOtherText>{question}</TheOtherText>
+          </BottomTextContainer>
+        </BottomTextWrapper>
         <EditbuttonContainer>
-          <EditButton to={'/mypage/edit'}>회원정보수정</EditButton>
+          <EditButton to={'/mypage/confirmpw'}>회원정보수정</EditButton>
         </EditbuttonContainer>
       </UserInfoContainer>
     </>

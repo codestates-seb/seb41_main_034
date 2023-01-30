@@ -27,6 +27,7 @@ const CartButton = styled.button`
   border-radius: 100px;
   background-color: ${(props) => props.theme.primaryColor};
   opacity: 0.6;
+  z-index: 70;
 
   svg {
     position: relative;
@@ -155,6 +156,11 @@ const QuestionButton = styled.button`
   }
 `;
 
+const LoginText = styled.div`
+  font-size: 12px;
+  color: ${(props) => props.theme.primaryColor};
+`;
+
 const FlexContainer = styled.div`
   display: flex;
   width: 100%;
@@ -246,9 +252,8 @@ const ReviewModalContainer = styled.div`
   left: 50%;
   width: 100%;
   max-width: 425px;
-  padding: 24px 48px 48px 48px;
-  margin-top: 24px;
-  border-radius: 4px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
   background-color: ${(props) => props.theme.whiteColor};
   transition: transform 0.5s;
   transform: translate(-50%, -50%)
@@ -258,6 +263,28 @@ const ReviewModalContainer = styled.div`
   @media ${(props) => props.theme.mobile} {
     padding: 12px 24px 24px 24px;
   }
+`;
+
+const EditQuModal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: ${(props) => (props.isEdit ? 'block' : 'none')};
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 80;
+`;
+
+const EditReModal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: ${(props) => (props.isEditModal ? 'block' : 'none')};
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 80;
 `;
 
 const QuestionModalWrapper = styled.div`
@@ -272,7 +299,7 @@ const QuestionModalWrapper = styled.div`
 `;
 
 const QuestionModalContainer = styled.div`
-  padding: 36px;
+  padding: 12px 36px 36px 36px;
   border-radius: 4px;
   background-color: ${(props) => props.theme.whiteColor};
 
@@ -283,7 +310,7 @@ const QuestionModalContainer = styled.div`
 
 const MiddleText = styled.div`
   display: flex;
-  margin: 4px 0 48px 0;
+  margin: 24px 0 24px 0;
   justify-content: center;
   font-size: 28px;
   color: ${(props) => props.theme.primaryColor};
@@ -297,46 +324,46 @@ const LeftTextContainer = styled.div`
   display: flex;
   width: 100%;
   height: 50%;
-  justify-content: center;
+`;
+
+const SpaceDiv = styled.div`
+  width: 100%;
+  height: 30px;
 `;
 
 const LeftText = styled.label`
   width: 100%;
+  max-width: 60px;
   font-size: 16px;
+  margin-bottom: 12px;
+  color: ${(props) => props.theme.primaryColor};
 
   @media ${(props) => props.theme.mobile} {
     font-size: 12px;
   }
 `;
 
-const MiddleContainer = styled.div`
+const BottomText = styled.div`
   width: 100%;
-  margin: 20px 0px;
+  margin-bottom: 24px;
+  font-size: 12px;
+  color: ${(props) => props.theme.grayColor};
 `;
 
-const SmallInput = styled.input`
+const RightText = styled.div`
   width: 100%;
-  /* margin: 16px 0 32px 0; */
-  padding: 4px;
-  border: 1px solid ${(props) => props.theme.borderColor};
-  border-radius: 4px;
-  font-size: 12px;
+  font-size: 16px;
+`;
 
-  @media ${(props) => props.theme.mobile} {
-    margin: 12px 0 20px 0;
-    font-size: 8px;
-  }
-
-  &:focus {
-    border: 1px solid ${(props) => props.theme.borderColor};
-  }
+const MiddleContainer = styled.div`
+  width: 100%;
 `;
 
 const BigInput = styled.textarea`
   width: 100%;
   height: 200px;
-  padding: 4px 4px 4px 4px;
-  margin: 4px 0 24px 0;
+  margin: 16px 0 12px 0;
+  padding: 8px;
   border: 1px solid ${(props) => props.theme.borderColor};
   border-left: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
@@ -353,8 +380,11 @@ const BigInput = styled.textarea`
   }
 `;
 
-const CompletButton = styled.button`
+const CompletButton = styled.div`
+  display: grid;
+  justify-content: center;
   width: 100%;
+  margin-top: 24px;
   padding: 8px;
   background-color: ${(props) => props.theme.primaryColor};
   border-radius: 4px;
@@ -371,24 +401,16 @@ const CompletButton = styled.button`
   }
 `;
 
-const ModalView = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
+const ReviewWrapper = styled.div`
   width: 100%;
-  max-width: 435px;
-  background-color: ${(props) => props.theme.whiteColor};
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  transition: transform 0.5s;
-  transform: translate(-50%, -50%)
-    ${(props) => (props.isOpenQuestion ? 'translateY(0)' : 'translateY(-200%)')};
-  z-index: 98;
+  padding: 0 48px 48px 48px;
 `;
 
 const CancleImgContainer = styled.div`
   display: flex;
   justify-content: end;
+  width: 100%;
+  max-width: 435px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   background-color: rgba(0, 0, 0, 0.5);
@@ -398,13 +420,13 @@ const CancleImgContainer = styled.div`
     height: 30px;
     margin-bottom: 4px;
     fill: ${(props) => props.theme.grayColor};
-    background-color: rgba(0, 0, 0, 0, 0.5);
   }
 `;
 
 const ReviewNotice = styled.div`
   font-size: 12px;
   margin-bottom: 10px;
+  color: ${(props) => props.theme.grayColor};
 `;
 
 const ProductWrapper = styled.div`
@@ -531,9 +553,15 @@ const ProductNavbarList = styled.ol`
   }
 `;
 
-const NavbarItemName = styled.p`
+const NavbarItemName = styled.label`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
   font-size: 16px;
   transition: color 0.3s;
+  cursor: pointer;
 
   @media ${(props) => props.theme.mobile} {
     font-size: 14px;
@@ -546,7 +574,6 @@ const ProductNavbarItem = styled.li`
   align-items: center;
   width: 25%;
   height: 100%;
-  cursor: pointer;
 
   &:not(:last-child) {
     border-right: 1px solid ${(props) => props.theme.borderColor};
@@ -610,8 +637,6 @@ const ProductDetailTitle = styled.h3`
 const CarouselContainer = styled.div`
   position: relative;
   top: -63px;
-  border-radius: 4px;
-  overflow: hidden;
 
   .carousel.carousel-slider .control-arrow:hover {
     background: rgba(0, 0, 0, 0);
@@ -681,6 +706,10 @@ const SortNavbarButton = styled.button`
   }
 `;
 
+const ActiveSortButton = styled(SortNavbarButton)`
+  color: ${(props) => props.theme.primaryColor};
+`;
+
 const ReviewItemContainer = styled.li`
   padding: 16px;
 
@@ -691,7 +720,7 @@ const ReviewItemContainer = styled.li`
 
 const FirstInfo = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
   width: 100%;
 `;
 
@@ -702,7 +731,7 @@ const SecondInfo = styled.div`
 `;
 
 const ReviewProductName = styled.div`
-  margin-bottom: 24px;
+  margin: 0 24px 0 8px;
   font-size: 16px;
   font-weight: bold;
 `;
@@ -729,9 +758,11 @@ const Detail = styled.div`
 
 const Writer = styled.div`
   font-size: 16px;
+  margin-right: 8px;
 `;
 const Reviews = styled.div`
   font-size: 14px;
+  margin: 8px 12px 0 12px;
 `;
 
 const CreationDate = styled.div`
@@ -764,7 +795,83 @@ const CategoryTitle = styled.h2`
   }
 `;
 
+const EditQuModalView = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  max-width: 435px;
+  background-color: ${(props) => props.theme.whiteColor};
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  transition: transform 0.5s;
+  transform: translate(-50%, -50%)
+    ${(props) => (props.isEdit ? 'translateY(0)' : 'translateY(-200%)')};
+  z-index: 98;
+`;
+
+const EditReModalView = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  max-width: 435px;
+  background-color: ${(props) => props.theme.whiteColor};
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  transition: transform 0.5s;
+  transform: translate(-50%, -50%)
+    ${(props) => (props.isEditModal ? 'translateY(0)' : 'translateY(-200%)')};
+  z-index: 98;
+`;
+
+const ModalView = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  max-width: 435px;
+  background-color: ${(props) => props.theme.whiteColor};
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  transition: transform 0.5s;
+  transform: translate(-50%, -50%)
+    ${(props) => (props.isOpenQuestion ? 'translateY(0)' : 'translateY(-200%)')};
+  z-index: 98;
+`;
+
+const SmallInput = styled.input`
+  width: 100%;
+  margin: 16px 0 32px 0;
+  padding: 4px;
+  border: 1px solid ${(props) => props.theme.borderColor};
+  border-radius: 4px;
+  font-size: 12px;
+
+  @media ${(props) => props.theme.mobile} {
+    margin: 12px 0 20px 0;
+    font-size: 8px;
+  }
+
+  &:focus {
+    border: 1px solid ${(props) => props.theme.borderColor};
+  }
+`;
+
+const TabInput = styled.input`
+  width: 0;
+  height: 0;
+`;
+
+const ReviewFlexBox = styled.div`
+  width: 100%;
+  display: flex;
+`;
+
 export {
+  ActiveSortButton,
+  TabInput,
+  ModalView,
   CategoryHeader,
   CategoryTitle,
   Text,
@@ -824,9 +931,9 @@ export {
   AnswerBox,
   CompletButton,
   BigInput,
-  SmallInput,
   MiddleContainer,
   LeftText,
+  RightText,
   LeftTextContainer,
   MiddleText,
   CancleImgContainer,
@@ -836,5 +943,14 @@ export {
   ProductOrder,
   ProductWrapper,
   ProductButtonContainer,
-  ModalView
+  ReviewWrapper,
+  SpaceDiv,
+  BottomText,
+  SmallInput,
+  ReviewFlexBox,
+  LoginText,
+  EditQuModalView,
+  EditQuModal,
+  EditReModal,
+  EditReModalView
 };

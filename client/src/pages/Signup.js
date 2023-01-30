@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   SignWrapper,
   SignContainer,
@@ -19,9 +19,10 @@ import Address from '../components/Sign/Address';
 import Certification from '../components/Sign/Certification';
 import AddressModal from '../components/Sign/AddressModal';
 import { ReactComponent as LogoIcon } from '../assets/icons/foodmeet.svg';
-// import { signupAPI } from '../../api/signup';
+import { baseAPI } from '../api/customAxios';
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     id: '',
     password: '',
@@ -35,7 +36,8 @@ const Signup = () => {
     id: false,
     password: false,
     passwordConfirm: false,
-    name: false
+    name: false,
+    duplicateCheckId: false
   });
 
   const [isOpenPost, setIsOpenPost] = useState(false);
@@ -43,14 +45,20 @@ const Signup = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    // const body = JSON.stringify({
-    //   id: form.id,
-    //   password: form.password,
-    //   name: form.name,
-    //   address: `${form.address} ${form.addressDetail}`
-    // });
+    const body = JSON.stringify({
+      username: form.id,
+      password: form.password,
+      displayName: form.name,
+      address: `${form.address} ${form.addressDetail}`
+    });
 
-    // signupAPI(body);
+    try {
+      await baseAPI.post(`/user/signup`, body);
+      window.alert('회원가입 되셨습니다.');
+      navigate('/login');
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -105,6 +113,7 @@ const Signup = () => {
           valid.password &&
           valid.passwordConfirm &&
           valid.name &&
+          valid.duplicateCheckId &&
           form.addressDetail &&
           form.certification ? (
             <SignButton type="submit">가입하기</SignButton>

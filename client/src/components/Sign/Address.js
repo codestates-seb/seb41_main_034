@@ -6,7 +6,7 @@ import {
   AddressDetail
 } from '../../styles/signStyle';
 
-const Address = ({ form, setForm, isOpenPost, setIsOpenPost }) => {
+const Address = ({ form, setForm, setIsOpenPost }) => {
   const onChangeOpenPost = (e) => {
     e.preventDefault();
     setIsOpenPost(true);

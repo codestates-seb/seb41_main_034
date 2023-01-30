@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   MobileLink,
   MobileButtonContainer,
@@ -16,12 +16,17 @@ import { ReactComponent as LogoIcon } from '../../assets/icons/foodmeet.svg';
 import { ReactComponent as MyPageIcon } from '../../assets/icons/myPageIcon.svg';
 import { ReactComponent as DeleteIcon } from '../../assets/icons/cancleIcon.svg';
 
-const MobileMenu = ({ isLogin, isOpenMenu, setIsOpenMenu }) => {
+const MobileMenu = ({ isOpenMenu, setIsOpenMenu }) => {
+  const navigate = useNavigate();
+  const accessToken = localStorage.accessToken;
+
   const onClickLogout = () => {
     const isLogout = window.confirm('로그아웃 하시겠습니까?');
 
     isLogout && setIsOpenMenu(false);
-    isLogout && localStorage.removeItem('accessToken');
+    isLogout && localStorage.clear();
+    isLogout && navigate('/');
+    isLogout && window.location.reload();
   };
 
   return (
@@ -42,7 +47,7 @@ const MobileMenu = ({ isLogin, isOpenMenu, setIsOpenMenu }) => {
             </Link>
           </Logo>
           <MobileButtonContainer>
-            {isLogin ? (
+            {accessToken !== undefined ? (
               <>
                 <MobileMyPageLink
                   to={'/mypage'}
@@ -68,13 +73,21 @@ const MobileMenu = ({ isLogin, isOpenMenu, setIsOpenMenu }) => {
         </MobileMenuHeader>
 
         <MobileCategoryContainer>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((el, idx) => (
+          {['vegetable', 'fruit', 'nut', 'meat', 'seafood'].map((el, idx) => (
             <MobileCategoryButton
               to={`/products/${el}`}
               key={idx}
               onClick={() => setIsOpenMenu(false)}
             >
-              카테고리
+              {el === 'vegetable'
+                ? '채소'
+                : el === 'fruit'
+                ? '과일'
+                : el === 'nut'
+                ? '견과류'
+                : el === 'meat'
+                ? '육류'
+                : '해산물'}
             </MobileCategoryButton>
           ))}
         </MobileCategoryContainer>

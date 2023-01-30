@@ -170,6 +170,15 @@ const CartButton = styled.button`
   position: relative;
   margin-right: 8px;
 
+  svg {
+    g {
+      g {
+        stroke: ${(props) =>
+          props.isOpenCart ? props.theme.primaryColor : props.theme.blackColor};
+      }
+    }
+  }
+
   @media ${(props) => props.theme.desktop} {
     svg {
       &:hover {
@@ -207,9 +216,11 @@ const MyPageLink = styled(Link)`
     height: 24px;
   }
 
-  &:hover {
-    svg {
-      fill: ${(props) => props.theme.hoverColor};
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      svg {
+        fill: ${(props) => props.theme.hoverColor};
+      }
     }
   }
 
@@ -388,7 +399,7 @@ const ScrollToTopButton = styled.button`
   border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 100px;
   background-color: ${(props) => props.theme.whiteColor};
-  z-index: 80;
+  z-index: 60;
 
   svg {
     fill: ${(props) => props.theme.primaryColor};

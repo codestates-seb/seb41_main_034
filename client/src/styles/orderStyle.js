@@ -16,7 +16,7 @@ const CartContainer = styled.div`
   transform: translateY(-40%)
     ${(props) => (props.isOpenCart ? 'translateX(0)' : 'translateX(200%)')};
   overflow: hidden;
-  z-index: 97;
+  z-index: 80;
 
   @media ${(props) => props.theme.tablet} {
     right: 12px;
@@ -124,10 +124,7 @@ const CartItemContainer = styled.li`
   flex-direction: column;
   padding: 24px 12px;
   row-gap: 8px;
-
-  &:not(:last-child) {
-    border-bottom: 1px solid ${(props) => props.theme.borderColor};
-  }
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
 
   @media ${(props) => props.theme.tablet} {
     padding: 16px 12px;
@@ -309,10 +306,7 @@ const OrderItemWrapper = styled.li`
   align-items: center;
   padding: 24px;
   column-gap: 24px;
-
-  &:not(:last-child) {
-    border-bottom: 1px solid ${(props) => props.theme.borderColor};
-  }
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
 `;
 
 const OrderItemContainer = styled.div`
@@ -472,12 +466,11 @@ const OrderListContianer = styled.div`
 const OrderListHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 12px;
+  padding: 24px;
 `;
 
 const OrderList = styled.ul`
   border-top: 1px solid ${(props) => props.theme.grayColor};
-  border-bottom: 1px solid ${(props) => props.theme.grayColor};
 `;
 
 const OrderPaymentWrapper = styled.div`
@@ -496,12 +489,12 @@ const OrderPaymentWrapper = styled.div`
 `;
 
 const OrderPaymentContainer = styled.div`
-  position: sticky;
-  top: 168px;
+  position: relative;
+  top: 0;
 
-  @media ${(props) => props.theme.mobile} {
-    position: relative;
-    top: 0;
+  @media ${(props) => props.theme.desktop} {
+    position: sticky;
+    top: 192px;
   }
 `;
 
@@ -523,6 +516,18 @@ const ReceiptContainer = styled.div`
   &:not(:last-child) {
     margin-bottom: 20px;
   }
+`;
+
+const ShippingCotainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+`;
+
+const ShippingInfo = styled.strong`
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
 `;
 
 const PaymentContainer = styled(ReceiptContainer)`
@@ -558,6 +563,11 @@ const OrderButtonContainer = styled.div`
     display: flex;
     align-items: center;
     gap: 8px;
+
+    a {
+      display: block;
+      width: 100%;
+    }
   }
 `;
 
@@ -572,7 +582,7 @@ const ModalButtonContainer = styled.div`
   }
 `;
 
-const OrderButton = styled(Link)`
+const OrderDisabledButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -580,10 +590,17 @@ const OrderButton = styled(Link)`
   height: 40px;
   font-size: 18px;
   font-weight: 700;
+  border-radius: 4px;
+  color: ${(props) => props.theme.whiteColor};
+  background-color: ${(props) => props.theme.grayColor};
+  cursor: initial;
+`;
+
+const OrderButton = styled(OrderDisabledButton)`
   color: ${(props) => props.theme.whiteColor};
   background-color: ${(props) => props.theme.primaryColor};
   transition: background-color 0.5s;
-  border-radius: 4px;
+  cursor: pointer;
 
   @media ${(props) => props.theme.desktop} {
     &:hover {
@@ -613,7 +630,38 @@ const CartButton = styled(OrderButton)`
   }
 `;
 
-const MobileOrderButton = styled.button`
+const ProductOrderButton = styled.button`
+  width: 100%;
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    font-size: 18px;
+    font-weight: 700;
+    color: ${(props) => props.theme.whiteColor};
+    background-color: ${(props) => props.theme.primaryColor};
+    transition: background-color 0.5s;
+    border-radius: 4px;
+
+    @media ${(props) => props.theme.desktop} {
+      &:hover {
+        background-color: ${(props) => props.theme.hoverColor};
+      }
+    }
+
+    @media ${(props) => props.theme.tablet} {
+      font-size: 16px;
+    }
+
+    @media ${(props) => props.theme.mobile} {
+      font-size: 14px;
+    }
+  }
+`;
+
+const MobileDisabledButton = styled.button`
   position: sticky;
   bottom: 0px;
   display: flex;
@@ -625,13 +673,20 @@ const MobileOrderButton = styled.button`
   font-weight: 700;
   border-radius: 4px;
   color: ${(props) => props.theme.whiteColor};
-  background-color: ${(props) => props.theme.primaryColor};
-  transition: background-color 0.5s;
-  z-index: 99;
+  background-color: ${(props) => props.theme.grayColor};
+  z-index: 70;
+  cursor: initial;
 
   @media ${(props) => props.theme.desktop} {
     display: none;
   }
+`;
+
+const MobileOrderButton = styled(MobileDisabledButton)`
+  color: ${(props) => props.theme.whiteColor};
+  background-color: ${(props) => props.theme.primaryColor};
+  transition: background-color 0.5s;
+  cursor: pointer;
 `;
 
 const OrderModalContainer = styled.div`
@@ -652,7 +707,40 @@ const OrderModalContainer = styled.div`
   }
 `;
 
+const OrderAddressContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  padding: 10px 20px;
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
+`;
+
+const OrderAddress = styled.p`
+  font-size: 12px;
+`;
+
+const MyAddress = styled(Link)`
+  display: block;
+  font-size: 10px;
+  color: ${(props) => props.theme.grayColor};
+  transition: color 0.3s;
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      color: ${(props) => props.theme.hoverColor};
+    }
+  }
+`;
+
 export {
+  OrderAddressContainer,
+  OrderAddress,
+  MyAddress,
+  MobileDisabledButton,
+  OrderDisabledButton,
+  ShippingCotainer,
+  ShippingInfo,
   ModalButtonContainer,
   OrderModalContainer,
   OrderItemWrapper,
@@ -699,5 +787,6 @@ export {
   OrderButtonContainer,
   OrderButton,
   CartButton,
-  MobileOrderButton
+  MobileOrderButton,
+  ProductOrderButton
 };

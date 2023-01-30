@@ -7,20 +7,18 @@ import {
   ProductMainPrice
 } from '../../styles/productStyle';
 
-const ProductMain = () => {
+const ProductMain = ({ product }) => {
   return (
     <ProductMainContainer>
       <ProductMainImage>
-        <ProductMainImg
-          img={
-            'https://thumbnail9.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/493405785878144-be8efa56-f85d-43e2-bbe2-79dcf26f6eac.jpg'
-          }
-        />
+        <ProductMainImg img={product.imageUrls[0]} />
       </ProductMainImage>
 
       <Info>
-        <ProductMainName>사과</ProductMainName>
-        <ProductMainPrice>{(12000).toLocaleString('ko-KR')}원</ProductMainPrice>
+        <ProductMainName>{product.name}</ProductMainName>
+        <ProductMainPrice>
+          {(product.price || 0).toLocaleString('ko-KR')}원
+        </ProductMainPrice>
       </Info>
     </ProductMainContainer>
   );

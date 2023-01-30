@@ -32,7 +32,7 @@ const CatagoryContainer = styled.div`
 `;
 
 const CatagoryButton = styled(Link)`
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -51,7 +51,7 @@ const CatagoryButton = styled(Link)`
   }
 
   @media ${(props) => props.theme.tablet} {
-    font-size: 12px;
+    font-size: 14px;
   }
 `;
 
