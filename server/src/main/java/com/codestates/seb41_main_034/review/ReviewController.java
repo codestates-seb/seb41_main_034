@@ -15,13 +15,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Positive;
 import java.time.LocalDate;
-import java.util.List;
 
 @AllArgsConstructor
 @RestController
@@ -33,10 +31,9 @@ public class ReviewController {
 
     @PostMapping("/review")
     public ResponseEntity<Response<ReviewDto>> postReview(
-            @Valid @RequestPart("data-json") ReviewPostDto reviewPostDto,
-            @RequestPart(name = "images", required = false) List<MultipartFile> images
+            @Valid @RequestBody ReviewPostDto reviewPostDto
     ) {
-        return new ResponseEntity<>(Response.of(reviewFacade.createReview(reviewPostDto, images)), HttpStatus.CREATED);
+        return new ResponseEntity<>(Response.of(reviewFacade.createReview(reviewPostDto)), HttpStatus.CREATED);
     }
 
     @GetMapping("/review/{reviewId}")
@@ -66,11 +63,10 @@ public class ReviewController {
     @PatchMapping("/review/{reviewId}")
     public ResponseEntity<Response<ReviewDto>> patchReview(
             @Positive @PathVariable long reviewId,
-            @Valid @RequestPart("data-json") ReviewPatchDto reviewPatchDto,
-            @RequestPart(name = "images", required = false) List<MultipartFile> images
+            @Valid @RequestBody ReviewPatchDto reviewPatchDto
     ) {
         return new ResponseEntity<>(
-                Response.of(reviewFacade.updateReview(reviewId, reviewPatchDto, images)), HttpStatus.OK);
+                Response.of(reviewFacade.updateReview(reviewId, reviewPatchDto)), HttpStatus.OK);
     }
 
     @DeleteMapping("/review/{reviewId}")

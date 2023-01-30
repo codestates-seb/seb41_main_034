@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @Entity
-@Table(name = "orders")
+@Table(name = "orders", indexes = @Index(name = "idx_orders_created_by_created_at", columnList = "createdBy, createdAt"))
 public class Order extends Auditable {
 
     @Id

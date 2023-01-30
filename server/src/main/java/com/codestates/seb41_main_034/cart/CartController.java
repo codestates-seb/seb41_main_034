@@ -29,18 +29,18 @@ public class CartController {
 
     @GetMapping("/{cartItemId}")
     public ResponseEntity<Response<CartItemDto>> getCartItem(@Positive @PathVariable long cartItemId) {
-        return new ResponseEntity<>(Response.of(cartFacade.readCartItem(cartItemId)), HttpStatus.CREATED);
+        return new ResponseEntity<>(Response.of(cartFacade.readCartItem(cartItemId)), HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity<Response<List<CartItemDto>>> getCart() {
-        return new ResponseEntity<>(Response.of(cartFacade.readCart()), HttpStatus.CREATED);
+        return new ResponseEntity<>(Response.of(cartFacade.readCart()), HttpStatus.OK);
     }
 
     @PatchMapping("/{cartItemId}")
     public ResponseEntity<Response<CartItemDto>> patchCartItem(@Positive @PathVariable long cartItemId,
                                                                @Valid @RequestBody CartItemPatchDto patchDto) {
-        return new ResponseEntity<>(Response.of(cartFacade.updateCartItem(cartItemId, patchDto)), HttpStatus.CREATED);
+        return new ResponseEntity<>(Response.of(cartFacade.updateCartItem(cartItemId, patchDto)), HttpStatus.OK);
     }
 
     @DeleteMapping("/{cartItemId}")

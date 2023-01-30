@@ -103,12 +103,19 @@ public class UserService {
         user.setDeleted(true);
     }
 
+    public void checkPassword(String password) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new BusinessLogicException(ExceptionCode.USER_WRONG_PASSWORD);
+        }
+    }
+
     @Transactional(readOnly = true)
     public User findVerifiedUserById(int userId) {
         Optional<User> optionalUser = userRepository.findById(userId);
-        User foundUser = optionalUser.orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
 
-        return foundUser;
+        return optionalUser.orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
     }
 
     @Transactional(readOnly = true)

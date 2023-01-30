@@ -11,6 +11,10 @@ public class ReviewPostDto {
 
     @NotNull
     @Positive
+    private long orderId;
+
+    @NotNull
+    @Positive
     private int productId;
 
     @NotBlank

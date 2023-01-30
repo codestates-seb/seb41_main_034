@@ -27,10 +27,10 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query("select p from Product p where p.category = ?1 and p.isDeleted = false")
     Page<Product> findByCategory(ProductCategory category, Pageable pageable);
 
-    @Query("select p from Product p where p.name like ?1 and p.isDeleted = false")
+    @Query("select p from Product p where p.name like %?1% and p.isDeleted = false")
     Page<Product> findByNameLike(String q, Pageable pageable);
 
-    @Query("select p from Product p where p.category = ?1 and p.name like ?2 and p.isDeleted = false")
+    @Query("select p from Product p where p.category = ?1 and p.name like %?2% and p.isDeleted = false")
     Page<Product> findByCategoryAndNameLike(ProductCategory category, String q, Pageable pageable);
 
 }

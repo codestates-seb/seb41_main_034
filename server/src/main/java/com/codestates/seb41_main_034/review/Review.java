@@ -5,15 +5,21 @@ import com.codestates.seb41_main_034.common.auditing.entity.Auditable;
 import com.codestates.seb41_main_034.product.entity.Product;
 import com.codestates.seb41_main_034.review.dto.ReviewDto;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.Optional;
+import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
+@Table(indexes = {
+        @Index(name = "idx_review_product_id_order_id", columnList = "productId, orderId"),
+        @Index(name = "idx_review_created_by_created_at", columnList = "createdBy, createdAt")
+})
 public class Review extends Auditable {
 
     @Id
@@ -21,27 +27,33 @@ public class Review extends Auditable {
     private Long id;
 
     @Column(nullable = false)
+    private long orderId;
+
+    @Column(nullable = false)
     private int productId;
+
+    public Review(long orderId, int productId, String body) {
+        this.orderId = orderId;
+        this.productId = productId;
+        this.body = body;
+    }
 
     @Column(nullable = false)
     @Type(type = "text")
     private String body;
-    @Column(nullable = false)
-    @Type(type = "text")
-    private String imageUrls = "[]";
 
     public ReviewDto toDto(JsonListHelper helper, Product product, String createdByName) {
-        Optional<Product> optionalProduct = Optional.ofNullable(product);
-        String productName = optionalProduct.map(Product::getName).orElse(null);
-        String productImageUrl = optionalProduct.map(Product::getImageUrls).map(helper::jsonToList)
-                .map(urlList -> urlList.isEmpty() ? null : urlList.get(0)).orElse(null);
+        List<String> productImageUrlList = helper.jsonToList(product.getImageUrls());
+        String productImageUrl = productImageUrlList.isEmpty() ? null : productImageUrlList.get(0);
 
-        return new ReviewDto(id, productId, productName, productImageUrl, body, helper.jsonToList(imageUrls),
+        return new ReviewDto(id, productId, product.getName(), productImageUrl, body,
                 getCreatedBy(), createdByName, getModifiedBy(), getCreatedAt(), getModifiedAt());
     }
 
-    public ReviewDto toDto(JsonListHelper helper) {
-        return toDto(helper, null, null);
+    public ReviewDto toDto() {
+
+        return new ReviewDto(id, productId, null, null, body,
+                getCreatedBy(), null, getModifiedBy(), getCreatedAt(), getModifiedAt());
     }
 
 }
