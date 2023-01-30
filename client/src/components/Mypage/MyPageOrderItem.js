@@ -24,21 +24,14 @@ const MyPageOrderItem = ({
   price,
   quantity,
   recipient,
-  address
+  address,
+  orderId
 }) => {
   const [isOpenReview, setIsOpenReview] = useState(false);
 
   const handleReviewOpen = () => {
     setIsOpenReview(!isOpenReview);
   };
-
-  // const onRemove = () => {
-  //   if (window.confirm('해당 상품에 대한 주문목록을 삭제하시겠습니까?')) {
-  //     alert('삭제되었습니다');
-  //   } else {
-  //     alert('취소했습니다.');
-  //   }
-  // };
 
   return (
     <>
@@ -73,6 +66,8 @@ const MyPageOrderItem = ({
             후기 작성
           </ReviewButton>
           <ReviewModal
+            productId={productId}
+            orderId={orderId}
             isOpenReview={isOpenReview}
             setIsOpenReview={setIsOpenReview}
           />

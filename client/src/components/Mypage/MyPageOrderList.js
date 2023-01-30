@@ -61,6 +61,7 @@ const MyPageOrderList = () => {
                             orderState={el.status}
                             recipient={e.recipient}
                             address={e.address}
+                            orderId={e.id}
                           />
                         );
                       })}
