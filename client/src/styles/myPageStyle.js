@@ -792,7 +792,8 @@ const SelectTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 15%;
+  width: 100%;
+  max-width: 100px;
   font-size: 14px;
   font-weight: 700;
 
@@ -805,7 +806,8 @@ const AddressTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40%;
+  width: 100%;
+  max-width: 240px;
   font-size: 14px;
   font-weight: 700;
 
@@ -818,7 +820,8 @@ const RecipientTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30%;
+  width: 100%;
+  max-width: 150px;
   font-size: 14px;
   font-weight: 700;
 

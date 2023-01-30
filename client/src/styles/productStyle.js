@@ -352,7 +352,7 @@ const BottomText = styled.div`
 
 const RightText = styled.div`
   width: 100%;
-  max-width: 60px;
+  /* max-width: 150px; */
   font-size: 16px;
 `;
 
