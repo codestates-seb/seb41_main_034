@@ -14,8 +14,10 @@ import {
 import { useState } from 'react';
 import EditReviewModal from './EditReviewModal';
 import { authAPI } from '../../api/customAxios';
+import { useNavigate } from 'react-router-dom';
 
 const MyPageReview = ({ userReview }) => {
+  const navigate = useNavigate();
   const dater = new Date(userReview.createdAt).toLocaleDateString();
   const [isEditModal, setIsEditModal] = useState(false);
 
@@ -53,7 +55,12 @@ const MyPageReview = ({ userReview }) => {
     <>
       <ReviewListContainer>
         <MyPageReviewImage>
-          <ProductImg2 src={userReview.productImageUrl} alt="" />
+          <button
+            type="button"
+            onClick={() => navigate(`/product/${userReview.productId}`)}
+          >
+            <ProductImg2 src={userReview.productImageUrl} alt="" />
+          </button>
         </MyPageReviewImage>
 
         <ReviewRightContainer>

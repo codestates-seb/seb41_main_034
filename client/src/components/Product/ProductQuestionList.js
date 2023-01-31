@@ -8,7 +8,6 @@ import {
 } from '../../styles/productStyle';
 import ProductQuestionItem from './ProductQuestionItem';
 import { useState, useEffect } from 'react';
-import QuestionModal from './QuestionModal';
 import Loading from '../Layout/Loading';
 import { useNavigate, useParams } from 'react-router-dom';
 import { authAPI } from '../../api/customAxios';
@@ -64,16 +63,16 @@ const ProductQuestionList = () => {
         </ProductDetailHeader>
         <ReviewListContainer>
           {question.map((e, idx) => (
-            <ProductQuestionItem key={idx} question={e} />
+            <ProductQuestionItem
+              key={idx}
+              question={e}
+              params={params}
+              isOpenQuestion={isOpenQuestion}
+              setIsOpenQuestion={setIsOpenQuestion}
+            />
           ))}
         </ReviewListContainer>
       </ProductDetailContainer>
-
-      <QuestionModal
-        isOpenQuestion={isOpenQuestion}
-        setIsOpenQuestion={setIsOpenQuestion}
-        params={params}
-      />
     </>
   ) : (
     <Loading />

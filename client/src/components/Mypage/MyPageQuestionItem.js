@@ -13,8 +13,10 @@ import { useState, useEffect } from 'react';
 import Loading from '../Layout/Loading';
 import EditQuestionModal from './EditQuestionModal';
 import { authAPI } from '../../api/customAxios';
+import { useNavigate } from 'react-router-dom';
 
 const MyPageQuestionItem = ({ question, setQuestion }) => {
+  const navigate = useNavigate();
   const [itemQuestion, setItemQuestion] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [date, setDate] = useState(null);
@@ -55,7 +57,12 @@ const MyPageQuestionItem = ({ question, setQuestion }) => {
     <>
       <ListHeader2>
         <LeftCotainer2>
-          <ItemText>{itemQuestion.productName}</ItemText>
+          <ItemText
+            type="button"
+            onClick={() => navigate(`/product/${itemQuestion.productId}`)}
+          >
+            {itemQuestion.productName}
+          </ItemText>
           <ItemLinkText>{itemQuestion.body}</ItemLinkText>
         </LeftCotainer2>
 
@@ -70,13 +77,6 @@ const MyPageQuestionItem = ({ question, setQuestion }) => {
         </RightContainer2>
 
         <EditDeleteContainer>
-          <EditDeleteButton
-            type="button"
-            onClick={onEdit}
-            alt="문의수정 버튼입니다"
-          >
-            수정
-          </EditDeleteButton>
           <DeleteEditButton
             type="button"
             onClick={onRemove}
@@ -84,6 +84,13 @@ const MyPageQuestionItem = ({ question, setQuestion }) => {
           >
             삭제
           </DeleteEditButton>
+          <EditDeleteButton
+            type="button"
+            onClick={onEdit}
+            alt="문의수정 버튼입니다"
+          >
+            수정
+          </EditDeleteButton>
         </EditDeleteContainer>
       </ListHeader2>
 

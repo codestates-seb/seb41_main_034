@@ -24,12 +24,12 @@ const MyPageNav = () => {
 
       {currentPath === 'order' ? (
         <ActiveCatagoryBox to={'/mypage/order'}>
-          주문목록
+          주문내역
           <RightArrow />
         </ActiveCatagoryBox>
       ) : (
         <CatagoryBox to={'/mypage/order'}>
-          주문목록
+          주문내역
           <RightArrow />
         </CatagoryBox>
       )}

@@ -11,21 +11,21 @@ const Home = () => {
   const dispatch = useDispatch();
   const accessToken = localStorage.accessToken;
 
-  const getBestProducts = async () => {
-    try {
-      const res = await baseAPI.get('/product?size=12&sort=sold,desc');
-      setBest(res.data.data.content);
-      accessToken !== undefined &&
-        dispatch(myCart({ cart: JSON.parse(localStorage.cart || `[]`) }));
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
+    const getBestProducts = async () => {
+      try {
+        const res = await baseAPI.get('/product?size=12&sort=sold,desc');
+        setBest(res.data.data.content);
+        accessToken !== undefined &&
+          dispatch(myCart({ cart: JSON.parse(localStorage.cart || `[]`) }));
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
     getBestProducts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [best]);
+  }, []);
 
   return (
     <>

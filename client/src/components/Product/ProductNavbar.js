@@ -5,7 +5,7 @@ import {
   NavbarItemCount
 } from '../../styles/productStyle';
 
-const ProductNavbar = () => {
+const ProductNavbar = ({ product }) => {
   return (
     <ProductNavbarList>
       <ProductNavbarItem>
@@ -16,7 +16,7 @@ const ProductNavbar = () => {
       </ProductNavbarItem>
       <ProductNavbarItem>
         <NavbarItemName htmlFor="review">
-          후기 <NavbarItemCount>(0)</NavbarItemCount>
+          후기 <NavbarItemCount>({product.reviewed})</NavbarItemCount>
         </NavbarItemName>
       </ProductNavbarItem>
       <ProductNavbarItem>

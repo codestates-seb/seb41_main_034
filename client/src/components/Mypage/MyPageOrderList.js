@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import {
+  OrderContainer,
   OrderDateContainer,
   OrderDate,
   Receiver,
@@ -11,76 +12,43 @@ import { authAPI } from '../../api/customAxios';
 import Loading from '../Layout/Loading';
 
 const MyPageOrderList = () => {
-  const [viewList, setViewList] = useState(null);
+  const [orderList, setOrderList] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    init();
-  }, []);
-  useEffect(() => {}, [viewList]);
+    const getOrderList = async () => {
+      try {
+        const res = await authAPI.get(`/order/order-history`);
+        setOrderList(res.data.data.content);
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
-  const init = async () => {
-    try {
-      const result = await authAPI.get(`/order/order-history`);
-      let newDateDataObj = {};
-      await Promise.all(
-        result.data.data.content.map((e) => {
-          const yearMonthDay = e.createdAt.slice(0, 10);
-          if (newDateDataObj[`${yearMonthDay}`] === undefined) {
-            newDateDataObj[`${yearMonthDay}`] = [];
-            newDateDataObj[`${yearMonthDay}`].push(e);
-          } else {
-            newDateDataObj[`${yearMonthDay}`].push(e);
-          }
-          return false;
-        })
-      );
-      setViewList(newDateDataObj);
-    } catch (err) {}
-  };
+    getOrderList();
+  }, []);
 
   return (
     <>
-      <MyPageHeader title={'주문목록'} />
+      <MyPageHeader title={'주문내역'} />
 
-      {viewList != null ? (
-        <>
-          {Object.entries(viewList).map(([key, value]) => {
-            return (
-              <div key={key}>
-                <OrderDateContainer>
-                  {' '}
-                  <OrderDate>{key}</OrderDate>
-                  <Receiver>받는사람: {value[0].recipient}</Receiver>
-                  <ShippingAddress>배송지: {value[0].address}</ShippingAddress>
-                </OrderDateContainer>
-                {value.map((e) => {
-                  return (
-                    <div key={e.id}>
-                      {e.products.map((el, idx) => {
-                        return (
-                          <MyPageOrderItem
-                            key={idx}
-                            productId={el.productId}
-                            image={el.imageUrl}
-                            name={el.productName}
-                            price={el.price}
-                            quantity={el.quantity}
-                            orderState={el.status}
-                            recipient={e.recipient}
-                            address={e.address}
-                            orderId={e.id}
-                          />
-                        );
-                      })}
-                    </div>
-                  );
-                })}
-              </div>
-            );
-          })}
-        </>
-      ) : (
+      {loading ? (
         <Loading />
+      ) : (
+        orderList.map((el, idx) => (
+          <OrderContainer key={idx}>
+            <OrderDateContainer>
+              <OrderDate>{el.createdAt.substring(0, 10)}</OrderDate>
+              <ShippingAddress>배송지: {el.address}</ShippingAddress>
+              <Receiver>받는사람: {el.recipient}</Receiver>
+            </OrderDateContainer>
+
+            {el.products.map((ele, idex) => (
+              <MyPageOrderItem orderId={el.id} product={ele} key={idex} />
+            ))}
+          </OrderContainer>
+        ))
       )}
     </>
   );

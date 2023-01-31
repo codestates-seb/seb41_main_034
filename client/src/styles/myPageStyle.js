@@ -79,10 +79,8 @@ const LeftCotainer2 = styled.div`
   flex-grow: 1;
 `;
 
-const ItemLinkText = styled.button`
+const ItemLinkText = styled.div`
   font-size: 14px;
-  font-weight: bold;
-  margin-bottom: 4px;
 
   @media ${(props) => props.theme.tablet} {
     font-size: 12px;
@@ -93,9 +91,21 @@ const ItemLinkText = styled.button`
   }
 `;
 
-const ItemText = styled.div`
-  font-size: 10px;
+const ItemText = styled.button`
+  display: block;
+  font-size: 12px;
   margin-bottom: 4px;
+  transition: color 0.3s;
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      color: ${(props) => props.theme.hoverColor};
+    }
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 10px;
+  }
 `;
 
 const ItemText2 = styled(ItemText)`
@@ -108,6 +118,7 @@ const EditDeleteButton = styled.button`
   font-size: 10px;
   color: ${(props) => props.theme.whiteColor};
   background-color: ${(props) => props.theme.primaryColor};
+  transition: background-color 0.5s;
 
   @media ${(props) => props.theme.desktop} {
     &:hover {
@@ -125,6 +136,7 @@ const DeleteEditButton = styled(EditDeleteButton)`
   border: 1px solid ${(props) => props.theme.borderColor};
   color: ${(props) => props.theme.blackColor};
   background-color: ${(props) => props.theme.whiteColor};
+  transition: color 0.3s, background-color 0.5s;
 
   @media ${(props) => props.theme.desktop} {
     &:hover {
@@ -538,7 +550,6 @@ const UserOutButton = styled.button`
 const OrderDateContainer = styled.div`
   display: flex;
   align-items: flex-end;
-  font-weight: bold;
   padding: 12px 0;
   border-bottom: 1px solid ${(props) => props.theme.grayColor};
 `;
@@ -547,6 +558,7 @@ const OrderDate = styled.div`
   flex-shrink: 0;
   margin-right: 24px;
   font-size: 20px;
+  font-weight: 700;
   color: ${(props) => props.theme.grayColor};
 
   @media ${(props) => props.theme.mobile} {
@@ -560,7 +572,7 @@ const OrderListContainer = styled.div`
   align-items: center;
   width: 100%;
   padding: 24px;
-  border-top: 1px solid ${(props) => props.theme.borderColor};
+  border-bottom: 1px solid ${(props) => props.theme.borderColor};
 
   @media ${(props) => props.theme.tablet} {
     width: 100%;
@@ -584,6 +596,14 @@ const LeftContent = styled.div`
     height: 100%;
   }
 
+  &:hover {
+    img {
+      @media ${(props) => props.theme.desktop} {
+        transform: scale(1.1);
+      }
+    }
+  }
+
   @media ${(props) => props.theme.mobile} {
     width: 64px;
     height: 64px;
@@ -593,6 +613,7 @@ const LeftContent = styled.div`
 const ProductImg = styled.img`
   width: 100%;
   height: 100%;
+  transition: transform 0.3s;
 `;
 
 const CenterContent = styled.div`
@@ -626,26 +647,22 @@ const TextWrapper = styled.div`
 const ProductName = styled.div`
   margin-bottom: 4px;
   font-size: 16px;
-  font-weight: bold;
+  transition: color 0.3s;
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      color: ${(props) => props.theme.hoverColor};
+    }
+  }
 
   @media ${(props) => props.theme.mobile} {
-    font-size: 8px;
+    font-size: 10px;
   }
 `;
 
 const OrderListPrice = styled.div`
   margin-bottom: 4px;
   font-size: 16px;
-
-  @media ${(props) => props.theme.mobile} {
-    font-size: 8px;
-  }
-`;
-
-const Receiver = styled.div`
-  flex-shrink: 0;
-  margin-right: 12px;
-  font-size: 14px;
   color: ${(props) => props.theme.grayColor};
 
   @media ${(props) => props.theme.mobile} {
@@ -653,18 +670,27 @@ const Receiver = styled.div`
   }
 `;
 
-const OrderQuantity = styled.div`
-  margin-bottom: 4px;
-  font-size: 16px;
+const Receiver = styled.div`
+  font-size: 12px;
 
   @media ${(props) => props.theme.mobile} {
-    font-size: 8px;
+    font-size: 10px;
+  }
+`;
+
+const OrderQuantity = styled.div`
+  font-size: 16px;
+  color: ${(props) => props.theme.grayColor};
+
+  @media ${(props) => props.theme.mobile} {
+    font-size: 10px;
   }
 `;
 
 const ShippingAddress = styled.div`
-  font-size: 14px;
-  color: ${(props) => props.theme.grayColor};
+  font-size: 12px;
+  margin-right: 12px;
+  font-weight: 700;
 
   @media ${(props) => props.theme.mobile} {
     font-size: 10px;
@@ -865,12 +891,18 @@ const EditIconContainer = styled.div`
 `;
 
 const EditButton2 = styled.button`
-  display: block;
   padding: 6px 12px;
   font-size: 12px;
   border-radius: 4px;
   background-color: ${(props) => props.theme.primaryColor};
   color: ${(props) => props.theme.whiteColor};
+  transition: background-color 0.5s;
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      background-color: ${(props) => props.theme.hoverColor};
+    }
+  }
 
   @media ${(props) => props.theme.mobile} {
     padding: 6px 16px;
@@ -886,17 +918,21 @@ const AddressButtonContainer = styled.div`
 `;
 
 const AddressButton = styled.button`
-  width: 130px;
-  padding: 5px 0px;
-  font-size: 12px;
-  border: 1px solid;
+  padding: 6px 12px;
   border-radius: 4px;
+  font-size: 12px;
+  color: ${(props) => props.theme.whiteColor};
   background-color: ${(props) => props.theme.primaryColor};
-  color: white;
+  transition: background-color 0.5s;
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      background-color: ${(props) => props.theme.hoverColor};
+    }
+  }
 
   @media ${(props) => props.theme.mobile} {
-    font-size: 12px;
-    width: 100px;
+    font-size: 10px;
   }
 `;
 
@@ -1150,19 +1186,21 @@ const ReviewListContainer = styled.div`
   }
 `;
 const ReviewButton = styled.button`
-  width: 100%;
-  max-width: 100px;
-  height: 100%;
-  padding: 8px 4px 8px 4px;
+  padding: 8px 4px;
   font-size: 12px;
   border-radius: 4px;
   background-color: ${(props) => props.theme.primaryColor};
   color: ${(props) => props.theme.whiteColor};
+  transition: background-color 0.5s;
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      background-color: ${(props) => props.theme.hoverColor};
+    }
+  }
 
   @media ${(props) => props.theme.mobile} {
-    max-width: 60px;
-    padding: 4px 0;
-    font-size: 8px;
+    font-size: 10px;
   }
 `;
 
@@ -1173,6 +1211,20 @@ const MyPageReviewImage = styled.div`
   border-radius: 4px;
   overflow: hidden;
 
+  button {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      img {
+        transform: scale(1.1);
+      }
+    }
+  }
+
   @media ${(props) => props.theme.mobile} {
     width: 64px;
     height: 64px;
@@ -1182,6 +1234,7 @@ const MyPageReviewImage = styled.div`
 const ProductImg2 = styled.img`
   width: 100%;
   height: 100%;
+  transition: transform 0.3s;
 `;
 
 const MyPageReviewContent = styled.div`
@@ -1192,7 +1245,7 @@ const MyPageReviewContent = styled.div`
   font-size: 20px;
 `;
 
-const MyPageReviewContentTopButton = styled.button`
+const MyPageReviewContentTopButton = styled.div`
   display: flex;
   width: 100%;
   height: 30%;
@@ -1248,29 +1301,32 @@ const CancleImgContainer3 = styled.div`
 `;
 
 const MyReviewDeleteButton = styled.button`
-  padding: 2px 8px;
+  padding: 6px 12px;
   border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 4px;
   color: ${(props) => props.theme.primaryColor};
-  font-size: 10px;
+  font-size: 12px;
+  transition: color 0.3s, background-color 0.5s;
 
   @media ${(props) => props.theme.desktop} {
     &:hover {
+      color: ${(props) => props.theme.whiteColor};
       background-color: ${(props) => props.theme.hoverColor};
     }
   }
 
   @media ${(props) => props.theme.mobile} {
-    padding: 4px;
+    font-size: 10px;
   }
 `;
 
 const MyReviewEditButton = styled.button`
-  padding: 4px 8px;
+  padding: 6px 12px;
   border-radius: 4px;
   background-color: ${(props) => props.theme.primaryColor};
   color: ${(props) => props.theme.whiteColor};
-  font-size: 10px;
+  font-size: 12px;
+  transition: background-color 0.5s;
 
   @media ${(props) => props.theme.desktop} {
     &:hover {
@@ -1279,7 +1335,7 @@ const MyReviewEditButton = styled.button`
   }
 
   @media ${(props) => props.theme.mobile} {
-    padding: 4px;
+    font-size: 10px;
   }
 `;
 
@@ -1424,7 +1480,12 @@ const ReviewRightContainer = styled.div`
   flex-grow: 1;
 `;
 
+const OrderContainer = styled.div`
+  margin-top: 48px;
+`;
+
 export {
+  OrderContainer,
   ItemText2,
   DeleteEditButton,
   ActiveCatagoryBox,
