@@ -69,7 +69,7 @@ const Product = () => {
           <ProductWrapper>
             <ProductContent>
               <ProductMain product={product} />
-              <ProductNavbar />
+              <ProductNavbar product={product} />
               <ProductInfo product={product} />
               <ProductDetail product={product} />
               <ProductReviewList />
