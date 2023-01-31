@@ -17,8 +17,10 @@ import {
 } from '../styles/orderStyle';
 import { authAPI } from '../api/customAxios';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Order = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const accessToken = localStorage.accessToken;
   const userId = localStorage.userId;
@@ -76,8 +78,10 @@ const Order = () => {
       },
       (rsp) => {
         if (rsp.success) {
-          alert('결제완료');
           orderAPI();
+          window.confirm(
+            '결제가 완료되었습니다. 주문내역을 확인하시겠습니까?'
+          ) && navigate('/mypage/order');
         } else {
           alert(rsp.error_msg);
         }
