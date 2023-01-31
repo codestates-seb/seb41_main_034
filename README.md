@@ -2,13 +2,23 @@
 
 <br/>
 
-## 🍎 배포 사이트
-[푸드밋](http://ec2-3-34-193-217.ap-northeast-2.compute.amazonaws.com/)
+## 🍎 [푸드밋](http://ec2-3-34-193-217.ap-northeast-2.compute.amazonaws.com/)
+
+<br/>
+
+![image](https://user-images.githubusercontent.com/106383277/215764055-2fe3c8ba-e18c-4f94-8079-f822bfad2e04.gif)
+
 
 <br/>
 
 ## 🎬 프로젝트 기간  
 <h3>2023.01.03(화) - 2023.02.03(금)</h3>
+
+[Notion](https://www.notion.so/codestates/162211fc097f4085b91e201d77a1e15f)
+
+<br/>
+
+[사용자 요구사항 정의서](https://www.notion.so/codestates/24ee5ad4d5624df18e37459e3ea10a13), [화면정의서](https://www.figma.com/file/yZxTrEQpoG3pml0fhz2nCo/SEB_Main_034?node-id=5%3A1972&t=cDJrffIGy27GVShN-1), [테이블 명세서](https://www.notion.so/codestates/ERD-0604dba3e9e7436b91163c8ec26a2d7f) , [API명세서](https://www.notion.so/codestates/API-41cbd20ff34e4b0b8775b85785053c37)
 
 <br/>
 
@@ -34,3 +44,24 @@
 
 <img src="https://img.shields.io/badge/java-F24E1E?style=for-the-badge&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/SPRING DATA JPA-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> <img src="https://img.shields.io/badge/spring boot-6DB33F?style=for-the-badge&logo=spring boot&logoColor=white"> <img src="https://img.shields.io/badge/spring security-6DB33F?style=for-the-badge&logo=spring security&logoColor=white"> <img src="https://img.shields.io/badge/JWT-d63aff?style=for-the-badge&logo=JSONWebTokens&logoColor=black"> <img src="https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white"> <img src="https://img.shields.io/badge/h2-004088?style=for-the-badge&logo=h2&logoColor=white">  
 <img src="https://img.shields.io/badge/diagram-F08705?style=for-the-badge&logo=diagrams.net&logoColor=white"> <img src="https://img.shields.io/badge/amazon ec2-FF9900?style=for-the-badge&logo=amazon ec2&logoColor=white"> <img src="https://img.shields.io/badge/OpenJDK-blue?style=for-the-badge&logo=OpenJDK&logoColor=white"> <img src="https://img.shields.io/badge/NGINX-009639?style=for-the-badge&logo=NGINX&logoColor=white"> <img src="https://img.shields.io/badge/Podman-892CA0?style=for-the-badge&logo=Podman&logoColor=white"> <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=white">
+
+<br/>
+
+## 🗒 커밋메세지 컨벤션
+
+| 타입 | 설명 |
+| --- | --- |
+| feat | 새로운 기능 추가 |
+| fix | 버그 수정 |
+| docs | 문서 수정 |
+| style | 코드 formatting, 세미콜론(;) 누락, 코드 변경이 없는 경우 |
+| refactor | 코드 리팩터링 |
+| test | 테스트 코드, 리팩터링 테스트 코드 추가(프로덕션 코드 변경 X) |
+| design | CSS 등 사용자 UI 디자인 변경 |
+| comment | 필요한 주석 추가 및 변경 |
+| rename | 파일 혹은 폴더명을 수정하거나 옮기는 작업만인 경우 |
+| remove | 파일을 삭제하는 작업만 수행한 경우 |
+| misc | merge 충돌해결 |
+| chore | 빌드 업무 수정, 패키지 매니저 수정(프로덕션 코드 변경 X), 이미지 파일 업로드, 커밋 타입 중 해당 사항이 없을 때  |
+
+<br/>
