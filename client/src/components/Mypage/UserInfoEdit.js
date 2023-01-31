@@ -15,10 +15,11 @@ import {
 import { useState } from 'react';
 import MyPageHeader from './MyPageHeader';
 import { authAPI } from '../../api/customAxios';
+import { useNavigate } from 'react-router-dom';
 
 const UserInfoEdit = () => {
   const [name, setName] = useState('');
-  const [password] = useState('');
+  const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPW, setConfirmPW] = useState('');
   const [isName, setIsName] = useState(false);
@@ -31,6 +32,7 @@ const UserInfoEdit = () => {
     newPwConfirm: false
   });
   const userId = localStorage.getItem('userId');
+  const navigate = useNavigate();
 
   const onEditComplete = () => {
     if (window.confirm('회원정보를 변경하시겠습니까?')) {
@@ -39,6 +41,7 @@ const UserInfoEdit = () => {
         oldPassword: password,
         newPassword: confirmPW
       };
+      console.log(body);
 
       const EditAPI = async (userId, body) => {
         try {
@@ -50,6 +53,7 @@ const UserInfoEdit = () => {
 
       EditAPI(userId, body);
       alert('변경되었습니다');
+      navigate('/mypage/');
     } else {
       alert('취소되었습니다.');
     }
@@ -66,6 +70,7 @@ const UserInfoEdit = () => {
       };
       DeleteAPI(userId);
       alert('탈퇴되었습니다');
+      navigate('/mypage/  ');
     } else {
       alert('취소되었습니다.');
     }
@@ -73,16 +78,18 @@ const UserInfoEdit = () => {
 
   const VaildId = (e) => {
     const currentId = e.target.value;
-    const idRegExp = /^(?=.*[a-zA-z])(?=.*[0-9]).{6,20}$/;
     setName(currentId);
 
-    idRegExp.test(currentId)
-      ? setVaild({ ...vaild, name: true }, setIsName(true))
-      : setVaild({ ...vaild, name: false }, setIsName(false));
+    if (currentId.length >= 1) {
+      setVaild({ ...vaild, name: true }, setIsName(true));
+    } else {
+      setVaild({ ...vaild, name: false }, setIsName(false));
+    }
   };
 
   const VaildPW = (e) => {
     const currentPW = e.target.value;
+    setPassword(currentPW);
     if (currentPW.length >= 1) {
       setVaild({ ...vaild, pw: true });
     } else {
@@ -134,13 +141,7 @@ const UserInfoEdit = () => {
               />
             </PasswordContainer>
           </EditCotainer>
-          {isName ? (
-            <ConfirmMessage />
-          ) : (
-            <ConfirmMessage>
-              영문, 숫자를 포함한 6~20자를 입력하세요.
-            </ConfirmMessage>
-          )}
+          {isName ? <ConfirmMessage /> : <ConfirmMessage></ConfirmMessage>}
           <EditCotainer>
             <RightBox>
               <PasswordContainer>
