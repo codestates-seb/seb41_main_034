@@ -12,6 +12,7 @@ import {
   MyPageContent
 } from '../styles/myPageStyle';
 import UserInfoConfirmPW from '../components/MyPage/UserInfoConfirmPW';
+import NotFound from './NotFound';
 
 const MyPage = () => {
   return (
@@ -29,6 +30,8 @@ const MyPage = () => {
           <Route path="/order" element={<MyPageOrderList />} />
           <Route path="/review" element={<MyPageReviewList />} />
           <Route path="/question" element={<MyPageQuestionList />} />
+          <Route path="*" element={<NotFound />} />
+          <Route path="*/*" element={<NotFound />} />
         </Routes>
       </MyPageContent>
     </MyPageContainer>

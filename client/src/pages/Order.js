@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { allCheckCart, deleteCheckCart } from '../store/orderSlice';
-import { useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import OrderItem from '../components/Order/OrderItem';
 import OrderPayment from '../components/Order/OrderPayment';
 import {
@@ -18,6 +18,7 @@ import {
 } from '../styles/orderStyle';
 import { authAPI } from '../api/customAxios';
 import { useEffect } from 'react';
+import NotFound from './NotFound';
 
 const Order = () => {
   const navigate = useNavigate();
@@ -94,58 +95,64 @@ const Order = () => {
   }, [accessToken]);
 
   return (
-    <OrderContainer>
-      <OrderListContianer>
-        <OrderListHeader>
-          <CheckBox>
-            <CheckInput
-              type={'checkbox'}
-              id="checkAll"
-              checked={
-                cart.filter((el) => el.check === true)[0] === undefined
-                  ? false
-                  : true
+    <>
+      <OrderContainer>
+        <OrderListContianer>
+          <OrderListHeader>
+            <CheckBox>
+              <CheckInput
+                type={'checkbox'}
+                id="checkAll"
+                checked={
+                  cart.filter((el) => el.check === true)[0] === undefined
+                    ? false
+                    : true
+                }
+                onChange={() => dispatch(allCheckCart())}
+              />
+              <CheckLabel htmlFor="checkAll">모두선택</CheckLabel>
+            </CheckBox>
+            <CheckDelete
+              type={'button'}
+              onClick={() =>
+                dispatch(
+                  deleteCheckCart({
+                    product: cart.filter((el) => el.check === true)
+                  })
+                )
               }
-              onChange={() => dispatch(allCheckCart())}
-            />
-            <CheckLabel htmlFor="checkAll">모두선택</CheckLabel>
-          </CheckBox>
-          <CheckDelete
-            type={'button'}
-            onClick={() =>
-              dispatch(
-                deleteCheckCart({
-                  product: cart.filter((el) => el.check === true)
-                })
-              )
-            }
-          >
-            선택삭제
-          </CheckDelete>
-        </OrderListHeader>
-        <OrderList>
-          {cart.map((el, idx) => (
-            <OrderItem cart={el} key={idx} />
-          ))}
-        </OrderList>
-      </OrderListContianer>
+            >
+              선택삭제
+            </CheckDelete>
+          </OrderListHeader>
+          <OrderList>
+            {cart.map((el, idx) => (
+              <OrderItem cart={el} key={idx} />
+            ))}
+          </OrderList>
+        </OrderListContianer>
 
-      <OrderPayment
-        onClickOrder={onClickOrder}
-        shippingFee={shippingFee}
-        setShoppingFee={setShoppingFee}
-      />
+        <OrderPayment
+          onClickOrder={onClickOrder}
+          shippingFee={shippingFee}
+          setShoppingFee={setShoppingFee}
+        />
 
-      {accessToken ? (
-        <MobileOrderButton type="button" onClick={onClickOrder}>
-          결제하기
-        </MobileOrderButton>
-      ) : (
-        <MobileDisabledButton type="button" disabled>
-          로그인 후 결제가능
-        </MobileDisabledButton>
-      )}
-    </OrderContainer>
+        {accessToken ? (
+          <MobileOrderButton type="button" onClick={onClickOrder}>
+            결제하기
+          </MobileOrderButton>
+        ) : (
+          <MobileDisabledButton type="button" disabled>
+            로그인 후 결제가능
+          </MobileDisabledButton>
+        )}
+      </OrderContainer>
+
+      <Routes>
+        <Route path="*/*" element={<NotFound />} />
+      </Routes>
+    </>
   );
 };
 

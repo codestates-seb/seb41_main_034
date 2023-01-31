@@ -20,6 +20,8 @@ import { ReactComponent as DeleteIcon } from '../assets/icons/cancleIcon.svg';
 import { baseAPI } from '../api/customAxios';
 import { useEffect } from 'react';
 import Loading from '../components/Layout/Loading';
+import { Route, Routes } from 'react-router-dom';
+import NotFound from './NotFound';
 
 const Product = () => {
   const productId = decodeURI(window.location.pathname).substring(9);
@@ -92,6 +94,10 @@ const Product = () => {
           </ProductWrapper>
         </>
       )}
+
+      <Routes>
+        <Route path="*/*" element={<NotFound />} />
+      </Routes>
     </>
   );
 };
