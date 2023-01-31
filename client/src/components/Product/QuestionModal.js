@@ -17,7 +17,12 @@ import { ReactComponent as CancelIcon } from '../../assets/icons/cancleIcon.svg'
 import { useState } from 'react';
 import { authAPI } from '../../api/customAxios';
 
-const QuestionModal = ({ isOpenQuestion, setIsOpenQuestion, params }) => {
+const QuestionModal = ({
+  isOpenQuestion,
+  setIsOpenQuestion,
+  params,
+  question
+}) => {
   const [content, setContent] = useState('');
 
   const handleQuestionClose = () => {
@@ -58,11 +63,11 @@ const QuestionModal = ({ isOpenQuestion, setIsOpenQuestion, params }) => {
           <MiddleText>문의작성</MiddleText>
           <LeftTextContainer>
             <LeftText htmlFor="ItemName">작성자</LeftText>
-            <RightText>홍길동</RightText>
+            <RightText>{question.createByName}</RightText>
           </LeftTextContainer>
           <LeftTextContainer>
             <LeftText htmlFor="ItemName">상품명</LeftText>
-            <RightText>사과</RightText>
+            <RightText>{question.productName}</RightText>
           </LeftTextContainer>
           <SpaceDiv />
           <LeftTextContainer>

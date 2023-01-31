@@ -643,10 +643,8 @@ const OrderListPrice = styled.div`
 `;
 
 const Receiver = styled.div`
-  flex-shrink: 0;
-  margin-right: 12px;
-  font-size: 14px;
-  color: ${(props) => props.theme.grayColor};
+  margin-bottom: 4px;
+  font-size: 12px;
 
   @media ${(props) => props.theme.mobile} {
     font-size: 10px;
@@ -663,8 +661,8 @@ const OrderQuantity = styled.div`
 `;
 
 const ShippingAddress = styled.div`
-  font-size: 14px;
-  color: ${(props) => props.theme.grayColor};
+  margin-bottom: 4px;
+  font-size: 12px;
 
   @media ${(props) => props.theme.mobile} {
     font-size: 10px;
