@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { allCheckCart, deleteCheckCart } from '../store/orderSlice';
-import { useNavigate } from 'react-router-dom';
 import OrderItem from '../components/Order/OrderItem';
 import OrderPayment from '../components/Order/OrderPayment';
 import {
@@ -20,7 +19,6 @@ import { authAPI } from '../api/customAxios';
 import { useEffect } from 'react';
 
 const Order = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const accessToken = localStorage.accessToken;
   const userId = localStorage.userId;
@@ -80,7 +78,6 @@ const Order = () => {
         if (rsp.success) {
           alert('결제완료');
           orderAPI();
-          navigate('/mypage/order');
         } else {
           alert(rsp.error_msg);
         }
