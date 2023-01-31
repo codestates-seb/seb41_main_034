@@ -1,3 +1,17 @@
+![header](https://capsule-render.vercel.app/api?type=soft&color=F03E3E&height=150&section=header&text=푸드밋&fontSize=70&fontColor=ffffff&animation=twinkling)
+
+<br/>
+
+## 🍎 배포 사이트
+[푸드밋](http://ec2-3-34-193-217.ap-northeast-2.compute.amazonaws.com/)
+
+<br/>
+
+## 🎬 프로젝트 기간  
+<h3>2023.01.03(화) - 2023.02.03(금)</h3>
+
+<br/>
+
 ## 👨‍👨‍👧‍👧 팀원
 
 |Frontend (팀장)|Frontend|Frontend|
