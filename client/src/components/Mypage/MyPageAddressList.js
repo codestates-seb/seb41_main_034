@@ -40,9 +40,9 @@ const MyPageAddressList = () => {
           <RecipientTitle>받는사람</RecipientTitle>
           <EditIconContainer />
         </Addressheader>
-        {address.map((el, idx) => {
-          return <MyPageAddress key={idx} el={el} />;
-        })}
+        {address.map((el, idx) => (
+          <MyPageAddress key={idx} el={el} />
+        ))}
       </MyAddressContainer>
       <AddressButtonContainer>
         <AddressButton onClick={() => setAddModal(true)}>

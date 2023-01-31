@@ -14,16 +14,7 @@ import { useState } from 'react';
 import ReviewModal from './ReviewModal';
 import { Link } from 'react-router-dom';
 
-const MyPageOrderItem = ({
-  productId,
-  image,
-  name,
-  price,
-  quantity,
-  recipient,
-  address,
-  orderId
-}) => {
+const MyPageOrderItem = ({ product, orderId }) => {
   const [isOpenReview, setIsOpenReview] = useState(false);
 
   const handleReviewOpen = () => {
@@ -34,17 +25,17 @@ const MyPageOrderItem = ({
     <>
       <OrderListContainer>
         <LeftContent>
-          <Link to={`/product/${productId}`}>
-            <ProductImg src={image} alt="" />
+          <Link to={`/product/${product.productId}`}>
+            <ProductImg src={product.imageUrl} alt="" />
           </Link>
         </LeftContent>
 
         <CenterContent>
-          <Link to={`/product/${productId}`}>
-            <ProductName>{name}</ProductName>
+          <Link to={`/product/${product.productId}`}>
+            <ProductName>{product.productName}</ProductName>
           </Link>
-          <OrderListPrice>{price}원 </OrderListPrice>
-          <OrderQuantity>{quantity}개</OrderQuantity>
+          <OrderListPrice>{product.price * product.quantity}원 </OrderListPrice>
+          <OrderQuantity>{product.quantity}개</OrderQuantity>
         </CenterContent>
 
         <RightContent>
@@ -56,7 +47,7 @@ const MyPageOrderItem = ({
             후기 작성
           </ReviewButton>
           <ReviewModal
-            productId={productId}
+            productId={product.productId}
             orderId={orderId}
             isOpenReview={isOpenReview}
             setIsOpenReview={setIsOpenReview}
