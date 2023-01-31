@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { allCheckCart, deleteCheckCart } from '../store/orderSlice';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import OrderItem from '../components/Order/OrderItem';
 import OrderPayment from '../components/Order/OrderPayment';
 import {
@@ -18,7 +18,6 @@ import {
 } from '../styles/orderStyle';
 import { authAPI } from '../api/customAxios';
 import { useEffect } from 'react';
-import NotFound from './NotFound';
 
 const Order = () => {
   const navigate = useNavigate();
@@ -148,10 +147,6 @@ const Order = () => {
           </MobileDisabledButton>
         )}
       </OrderContainer>
-
-      <Routes>
-        <Route path="*/*" element={<NotFound />} />
-      </Routes>
     </>
   );
 };

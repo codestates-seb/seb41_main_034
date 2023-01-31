@@ -9,8 +9,6 @@ import { useState } from 'react';
 import { baseAPI } from '../api/customAxios';
 import { useEffect } from 'react';
 import Loading from '../components/Layout/Loading';
-import { Route, Routes } from 'react-router-dom';
-import NotFound from './NotFound';
 
 const Products = () => {
   const category = decodeURI(window.location.pathname).substring(10);
@@ -75,10 +73,6 @@ const Products = () => {
           </ProductList>
         </>
       )}
-
-      <Routes>
-        <Route path="*/*" element={<NotFound />} />
-      </Routes>
     </>
   );
 };
