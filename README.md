@@ -1,12 +1,12 @@
 ## 👨‍👨‍👧‍👧 팀원
 
-|Frontend|Frontend|Frontend|
+|Frontend (팀장)|Frontend|Frontend|
 | :---: | :---: | :---: |
 |[김동훈](https://github.com/kimdong-hun)|[김응찬](https://github.com/ChanEungKim)|[최은하](https://github.com/choieunhwa)|
 
-|Backend (팀장)|Backend|Backend|
-| :---: | :---: | :---: |
-|[김지민](https://github.com/Jimin Kim)|[박우진](https://github.com/GGOOPARK)|[동대겸](https://github.com/DoubleD)| [허준](https://github.com/aaaaaajun)|
+|Backend (부팀장)|Backend|Backend|Backend|
+| :---: | :---: | :---: | :---: |
+|[김지민](https://github.com/jmkim0)|[박우진](https://github.com/GGOOPARK)|[동대겸](https://github.com/DoubleD)| [허준](https://github.com/aaaaaajun)|
 
 <br/>
 
