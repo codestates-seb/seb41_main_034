@@ -694,7 +694,7 @@ const OrderListPrice = styled.div`
 
 const Receiver = styled.div`
   margin-bottom: 4px;
-  font-size: 16px;
+  font-size: 12px;
 
   @media ${(props) => props.theme.mobile} {
     font-size: 8px;
@@ -712,7 +712,7 @@ const OrderQuantity = styled.div`
 
 const ShippingAddress = styled.div`
   margin-bottom: 4px;
-  font-size: 16px;
+  font-size: 12px;
 
   @media ${(props) => props.theme.mobile} {
     font-size: 8px;
