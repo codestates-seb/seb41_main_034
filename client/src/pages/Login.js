@@ -15,7 +15,7 @@ import {
   SignButton
 } from '../styles/signStyle';
 import { ReactComponent as LogoIcon } from '../assets/icons/foodmeet.svg';
-import { baseAPI } from '../api/customAxios';
+import { authAPI, baseAPI } from '../api/customAxios';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -23,6 +23,24 @@ const Login = () => {
     id: '',
     password: ''
   });
+
+  const postCart = async () => {
+    try {
+      if (localStorage.shop) {
+        JSON.parse(localStorage.shop).map(
+          async (el) =>
+            await authAPI.post(
+              `/cart`,
+              JSON.stringify({ productId: el.productId, quantity: el.quantity })
+            )
+        );
+      }
+      navigate('/');
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -37,7 +55,6 @@ const Login = () => {
       localStorage.accessToken = `${res.headers.authorization}`;
       localStorage.userId = JSON.stringify(res.data.data.id);
       localStorage.shop = localStorage.cart || `[]`;
-      navigate('/');
       window.location.reload();
     } catch (err) {
       console.log(err);
@@ -47,6 +64,8 @@ const Login = () => {
 
   useEffect(() => {
     localStorage.removeItem('sort');
+    localStorage.accessToken !== undefined && postCart();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
