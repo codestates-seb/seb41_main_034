@@ -11,18 +11,6 @@ import { authAPI } from './api/customAxios';
 
 const App = () => {
   const location = useLocation();
-  const accessToken = localStorage.accessToken;
-
-  const postAPI = async (el) => {
-    try {
-      await authAPI.post(
-        `/cart`,
-        JSON.stringify({ productId: el.productId, quantity: el.quantity })
-      );
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const checkToken = async () => {
     try {
@@ -44,11 +32,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    if (accessToken !== undefined) {
-      if (localStorage.shop) {
-        JSON.parse(localStorage.shop).map((el) => postAPI(el));
-      }
-
+    if (localStorage.accessToken !== undefined) {
       checkToken();
       getUserCart();
     }
