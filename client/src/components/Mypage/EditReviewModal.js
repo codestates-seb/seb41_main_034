@@ -38,12 +38,13 @@ const EditReviewModal = ({ isEditModal, setIsEditModal, userReview }) => {
       <EditReModal
         isEditModal={isEditModal}
         onClick={() => setIsEditModal(false)}
-      />
-
-      <EditReModalView isEditModal={isEditModal}>
+      >
         <CancleImgContainer>
           <CancelIcon onClick={() => setIsEditModal(false)} />
         </CancleImgContainer>
+      </EditReModal>
+
+      <EditReModalView isEditModal={isEditModal}>
         <QuestionModalContainer>
           <MiddleText>후기수정</MiddleText>
           <LeftTextContainer>

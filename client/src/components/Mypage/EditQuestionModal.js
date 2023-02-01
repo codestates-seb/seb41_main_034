@@ -34,12 +34,13 @@ const EditQuestionModal = ({ isEdit, setIsEdit, itemQuestion }) => {
 
   return (
     <>
-      <EditQuModal onClick={() => setIsEdit(false)} isEdit={isEdit} />
-
-      <EditQuModalView isEdit={isEdit}>
+      <EditQuModal onClick={() => setIsEdit(false)} isEdit={isEdit}>
         <CancleImgContainer>
           <CancelIcon onClick={() => setIsEdit(false)} />
         </CancleImgContainer>
+      </EditQuModal>
+
+      <EditQuModalView isEdit={isEdit}>
         <QuestionModalContainer>
           <MiddleText>문의수정</MiddleText>
           <LeftTextContainer>

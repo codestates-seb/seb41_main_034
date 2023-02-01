@@ -406,20 +406,16 @@ const ReviewWrapper = styled.div`
   padding: 0 48px 48px 48px;
 `;
 
-const CancleImgContainer = styled.div`
-  display: flex;
-  justify-content: end;
-  width: 100%;
-  max-width: 435px;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  background-color: rgba(0, 0, 0, 0.5);
+const CancleImgContainer = styled.button`
+  position: absolute;
+  top: 15%;
+  left: 90%;
+  background-color: rgba(0, 0, 0, 0);
 
   svg {
-    width: 40px;
-    height: 30px;
-    margin-bottom: 4px;
-    fill: ${(props) => props.theme.grayColor};
+    width: 16px;
+    height: 16px;
+    fill: ${(props) => props.theme.whiteColor};
   }
 `;
 

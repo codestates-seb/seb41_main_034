@@ -407,7 +407,51 @@ const ScrollToTopButton = styled.button`
   }
 `;
 
+const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 48px;
+`;
+
+const PageButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
+  margin: 0 8px;
+`;
+
+const PageButton = styled.button`
+  padding: 6px 10px;
+  border: 1px solid ${(props) => props.theme.borderColor};
+  border-radius: 4px;
+  font-size: 14px;
+  color: ${(props) => props.theme.blackColor};
+  background-color: ${(props) => props.theme.whiteColor};
+  transition: color 0.3s, background-color 0.5s;
+
+  &[disabled] {
+    color: ${(props) => props.theme.grayColor};
+  }
+
+  &[aria-current] {
+    font-weight: 700;
+    color: ${(props) => props.theme.whiteColor};
+    background-color: ${(props) => props.theme.primaryColor};
+  }
+
+  @media ${(props) => props.theme.desktop} {
+    &:hover {
+      color: ${(props) => props.theme.whiteColor};
+      background-color: ${(props) => props.theme.hoverColor};
+    }
+  }
+`;
+
 export {
+  PageButtonContainer,
+  PageButton,
+  PaginationContainer,
   ScrollToTopButton,
   MainWrapper,
   MainContainer,

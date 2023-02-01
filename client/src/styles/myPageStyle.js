@@ -1353,6 +1353,8 @@ const MyPageContainer = styled.div`
 `;
 
 const MyPageNavbar = styled.nav`
+  position: sticky;
+  top: 120px;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
@@ -1361,6 +1363,7 @@ const MyPageNavbar = styled.nav`
   max-width: 928px;
 
   @media ${(props) => props.theme.desktop} {
+    top: 180px;
     max-width: 240px;
   }
 `;
