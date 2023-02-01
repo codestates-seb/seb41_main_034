@@ -10,13 +10,12 @@ import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
-@Getter
 @Setter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class DateAuditable {
-
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -25,7 +24,17 @@ public abstract class DateAuditable {
     @Column(nullable = false)
     private LocalDateTime modifiedAt;
 
+    @Getter
     @Column(nullable = false)
     private boolean isDeleted = false;
 
+    public LocalDateTime getCreatedAt() {
+        return createdAt.atZone(ZoneId.systemDefault())
+                .withZoneSameInstant(ZoneId.of("Asia/Seoul")).toLocalDateTime();
+    }
+
+    public LocalDateTime getModifiedAt() {
+        return modifiedAt.atZone(ZoneId.systemDefault())
+                .withZoneSameInstant(ZoneId.of("Asia/Seoul")).toLocalDateTime();
+    }
 }
