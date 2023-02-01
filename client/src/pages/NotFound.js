@@ -1,6 +1,11 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 
 const NotFound = () => {
+  useEffect(() => {
+    localStorage.removeItem('sort');
+  }, []);
+
   return (
     <NotFoundContainer>
       <NotFoundTitle>404</NotFoundTitle>

@@ -55,6 +55,10 @@ const Products = () => {
     getProducts(category, sort);
   }, [category, sort]);
 
+  useEffect(() => {
+    setSort('');
+  }, [category]);
+
   return (
     <>
       {loading ? (

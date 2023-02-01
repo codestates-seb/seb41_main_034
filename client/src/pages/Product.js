@@ -42,6 +42,10 @@ const Product = () => {
     getProduct(productId);
   }, [productId]);
 
+  useEffect(() => {
+    localStorage.removeItem('sort');
+  }, []);
+
   return (
     <>
       {loading ? (

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   SignWrapper,
@@ -60,6 +60,10 @@ const Signup = () => {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    localStorage.removeItem('sort');
+  }, []);
 
   return (
     <>
