@@ -12,6 +12,7 @@ import Loading from '../components/Layout/Loading';
 
 const Products = () => {
   const category = decodeURI(window.location.pathname).substring(10);
+  const categoryDb = localStorage.category;
   const [categoryName, setCategoryName] = useState('');
   const [sort, setSort] = useState(localStorage.sort || '');
   const [products, setProducts] = useState([]);
@@ -51,13 +52,19 @@ const Products = () => {
   };
 
   useEffect(() => {
+    localStorage.category = `${category}`;
     checkCategory(category);
     getProducts(category, sort);
   }, [category, sort]);
 
   useEffect(() => {
-    setSort('');
-  }, [category]);
+    if (category !== categoryDb) {
+      setSort('');
+      localStorage.sort = '';
+    }
+  }, [category, categoryDb]);
+
+  console.log(category);
 
   return (
     <>
