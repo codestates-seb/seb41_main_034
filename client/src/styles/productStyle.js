@@ -27,7 +27,7 @@ const CartButton = styled.button`
   border-radius: 100px;
   background-color: ${(props) => props.theme.primaryColor};
   opacity: 0.6;
-  z-index: 70;
+  z-index: 50;
 
   svg {
     position: relative;
