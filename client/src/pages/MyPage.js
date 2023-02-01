@@ -13,8 +13,13 @@ import {
 } from '../styles/myPageStyle';
 import UserInfoConfirmPW from '../components/MyPage/UserInfoConfirmPW';
 import NotFound from './NotFound';
+import { useEffect } from 'react';
 
 const MyPage = () => {
+  useEffect(() => {
+    localStorage.removeItem('sort');
+  }, []);
+
   return (
     <MyPageContainer>
       <MyPageNavbar>

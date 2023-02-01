@@ -39,12 +39,13 @@ const ReviewModal = ({ isOpenReview, setIsOpenReview, productId, orderId }) => {
       <ReviewModalWrapper
         onClick={handleReviewClose}
         isOpenReview={isOpenReview}
-      />
-
-      <ReviewModalContainer isOpenReview={isOpenReview}>
+      >
         <CancleImgContainer>
           <CancelIcon onClick={handleReviewClose} />
         </CancleImgContainer>
+      </ReviewModalWrapper>
+
+      <ReviewModalContainer isOpenReview={isOpenReview}>
         <ReviewWrapper>
           <MiddleText>후기작성</MiddleText>
           <MiddleContainer>

@@ -61,7 +61,7 @@ const EditAddressModal = ({ editModal, setEditModal, el }) => {
       }
     };
     EditAPI(el.id, body);
-    alert('주소가 변경되었습니다.');
+    alert('수정되었습니다.');
   };
 
   const BaseAddressEdit = () => {

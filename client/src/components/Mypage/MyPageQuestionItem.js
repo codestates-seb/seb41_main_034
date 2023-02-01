@@ -15,25 +15,22 @@ import EditQuestionModal from './EditQuestionModal';
 import { authAPI } from '../../api/customAxios';
 import { useNavigate } from 'react-router-dom';
 
-const MyPageQuestionItem = ({ question, setQuestion }) => {
+const MyPageQuestionItem = ({ question }) => {
   const navigate = useNavigate();
   const [itemQuestion, setItemQuestion] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [date, setDate] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
 
-  const onRemove = () => {
+  const onRemove = async () => {
     if (window.confirm('해당 상품에 대한 문의를 삭제하시겠습니까?')) {
-      const DeleteAPI = async (questionId) => {
-        try {
-          await authAPI.delete(`/question/${questionId}`);
-        } catch (error) {
-          console.log(error);
-        }
-      };
-      DeleteAPI(question.id);
-      window.location.reload();
-      alert('삭제되었습니다');
+      try {
+        await authAPI.delete(`/question/${question.id}`);
+        alert('삭제되었습니다.');
+        window.location.reload();
+      } catch (error) {
+        alert(error.response.data.error.message);
+      }
     } else {
       alert('취소했습니다.');
     }

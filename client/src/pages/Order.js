@@ -94,6 +94,10 @@ const Order = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken]);
 
+  useEffect(() => {
+    localStorage.removeItem('sort');
+  }, []);
+
   return (
     <>
       <OrderContainer>

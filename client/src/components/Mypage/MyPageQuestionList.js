@@ -11,23 +11,27 @@ import MyPageHeader from './MyPageHeader';
 import { useState, useEffect } from 'react';
 import Loading from '../Layout/Loading';
 import { authAPI } from '../../api/customAxios';
+import Pagination from '../Layout/Pagination';
 
 const MyPageQuestionList = () => {
-  const [question, setQuestion] = useState([]);
+  const [question, setQuestion] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     const QuestionAPI = async () => {
       try {
-        const result = await authAPI.get(`/question/question-history`);
-        setQuestion(result.data.data.content.map((el) => el));
+        const result = await authAPI.get(
+          `/question/question-history?page=${page}&size=10`
+        );
+        setQuestion(result.data.data);
+        setIsLoading(true);
       } catch (err) {
         console.log(err);
       }
     };
-    setIsLoading(true);
     QuestionAPI();
-  }, [setQuestion]);
+  }, [setQuestion, page]);
 
   return isLoading ? (
     <>
@@ -48,9 +52,11 @@ const MyPageQuestionList = () => {
         </RightContainer>
       </ListHeader>
 
-      {question.map((e, idx) => (
-        <MyPageQuestionItem key={idx} question={e} setQuestion={setQuestion} />
+      {question.content.map((el, idx) => (
+        <MyPageQuestionItem key={idx} question={el} />
       ))}
+
+      <Pagination total={question.totalPages} page={page} setPage={setPage} />
     </>
   ) : (
     <Loading />

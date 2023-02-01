@@ -14,7 +14,6 @@ import {
 
 const ProductReviewItem = ({ review }) => {
   const date = new Date(review.createdAt).toLocaleDateString();
-  console.log(review);
 
   return (
     <ReviewItemContainer>

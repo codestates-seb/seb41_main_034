@@ -12,6 +12,8 @@ const Home = () => {
   const accessToken = localStorage.accessToken;
 
   useEffect(() => {
+    localStorage.removeItem('sort');
+
     const getBestProducts = async () => {
       try {
         const res = await baseAPI.get('/product?size=12&sort=sold,desc');
