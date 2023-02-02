@@ -2,7 +2,7 @@
 
 <br/>
 
-## 🍎 [푸드밋](http://ec2-3-34-193-217.ap-northeast-2.compute.amazonaws.com/)
+## 🍎 [푸드밋(식자재온라인쇼핑몰)](http://ec2-3-34-193-217.ap-northeast-2.compute.amazonaws.com/)
 
 <br/>
 
