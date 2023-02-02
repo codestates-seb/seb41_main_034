@@ -5,7 +5,7 @@ import {
   ActiveSortButton
 } from '../../styles/productStyle';
 
-const SortNavbar = ({ sort, setSort }) => {
+const SortNavbar = ({ sort, setSort, setPage }) => {
   return (
     <SortNavbarContainer>
       <SortNavbarItem>
@@ -14,6 +14,7 @@ const SortNavbar = ({ sort, setSort }) => {
             onClick={() => {
               setSort('');
               localStorage.sort = '';
+              setPage(0);
             }}
           >
             최신순
@@ -23,6 +24,7 @@ const SortNavbar = ({ sort, setSort }) => {
             onClick={() => {
               setSort('');
               localStorage.sort = '';
+              setPage(0);
             }}
           >
             최신순
@@ -35,6 +37,7 @@ const SortNavbar = ({ sort, setSort }) => {
             onClick={() => {
               setSort('sold,desc');
               localStorage.sort = 'sold,desc';
+              setPage(0);
             }}
           >
             판매량순
@@ -44,6 +47,7 @@ const SortNavbar = ({ sort, setSort }) => {
             onClick={() => {
               setSort('sold,desc');
               localStorage.sort = 'sold,desc';
+              setPage(0);
             }}
           >
             판매량순
@@ -56,6 +60,7 @@ const SortNavbar = ({ sort, setSort }) => {
             onClick={() => {
               setSort('price,asc');
               localStorage.sort = 'price,asc';
+              setPage(0);
             }}
           >
             낮은가격순
@@ -65,6 +70,7 @@ const SortNavbar = ({ sort, setSort }) => {
             onClick={() => {
               setSort('price,asc');
               localStorage.sort = 'price,asc';
+              setPage(0);
             }}
           >
             낮은가격순
@@ -77,6 +83,7 @@ const SortNavbar = ({ sort, setSort }) => {
             onClick={() => {
               setSort('price,desc');
               localStorage.sort = 'price,desc';
+              setPage(0);
             }}
           >
             높은가격순
@@ -86,6 +93,7 @@ const SortNavbar = ({ sort, setSort }) => {
             onClick={() => {
               setSort('price,desc');
               localStorage.sort = 'price,desc';
+              setPage(0);
             }}
           >
             높은가격순

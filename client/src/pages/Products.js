@@ -76,7 +76,7 @@ const Products = () => {
         <>
           <CategoryHeader>
             <CategoryTitle>{categoryName}</CategoryTitle>
-            <SortNavbar sort={sort} setSort={setSort} />
+            <SortNavbar sort={sort} setSort={setSort} setPage={setPage} />
           </CategoryHeader>
 
           <ProductList>
