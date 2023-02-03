@@ -9,7 +9,10 @@ const Pagination = ({ total, page, setPage }) => {
     <PaginationContainer>
       <PageButton
         type="button"
-        onClick={() => setPage(page - 1)}
+        onClick={() => {
+          setPage(page - 1);
+          window.scrollTo(0, 0);
+        }}
         disabled={page === 0}
       >
         &lt;
@@ -20,7 +23,10 @@ const Pagination = ({ total, page, setPage }) => {
           .map((el, idx) => (
             <PageButton
               key={idx}
-              onClick={() => setPage(idx)}
+              onClick={() => {
+                setPage(idx);
+                window.scrollTo(0, 0);
+              }}
               aria-current={page === idx ? 'page' : null}
             >
               {idx + 1}
@@ -29,7 +35,10 @@ const Pagination = ({ total, page, setPage }) => {
       </PageButtonContainer>
       <PageButton
         type="button"
-        onClick={() => setPage(page + 1)}
+        onClick={() => {
+          setPage(page + 1);
+          window.scrollTo(0, 0);
+        }}
         disabled={page === total - 1}
       >
         &gt;

@@ -26,7 +26,7 @@ const CartContainer = styled.div`
 
   @media ${(props) => props.theme.mobile} {
     right: 4px;
-    width: 200px;
+    width: 180px;
     height: 460px;
   }
 `;
