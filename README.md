@@ -1,7 +1,3 @@
-![header](https://capsule-render.vercel.app/api?type=soft&color=F03E3E&height=150&section=header&text=푸드밋&fontSize=70&fontColor=ffffff&animation=twinkling)
-
-<br/>
-
 ## 🍎 [푸드밋(식자재온라인쇼핑몰)](http://ec2-3-34-193-217.ap-northeast-2.compute.amazonaws.com/)
 
 <br/>
