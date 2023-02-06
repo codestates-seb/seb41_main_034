@@ -1,4 +1,5 @@
 ## 🍎 [푸드밋(식자재온라인쇼핑몰)](http://ec2-3-34-193-217.ap-northeast-2.compute.amazonaws.com/)
+### [푸드밋 스크린샷(서버가 꺼져있을 경우)](https://www.notion.so/codestates/79f6954f63034d97ae6d3e73889eb85a?v=ee28a91267584c708630415e383cec7d)
 
 <br/>
 
