@@ -1,5 +1,5 @@
 ## 🍎 [푸드밋(식자재온라인쇼핑몰)](http://ec2-3-34-193-217.ap-northeast-2.compute.amazonaws.com/)
-### [푸드밋 스크린샷(서버가 꺼져있을 경우)](https://www.notion.so/codestates/79f6954f63034d97ae6d3e73889eb85a?v=ee28a91267584c708630415e383cec7d)
+### [서비스 스크린샷](https://www.notion.so/codestates/79f6954f63034d97ae6d3e73889eb85a?v=ee28a91267584c708630415e383cec7d)
 
 <br/>
 
@@ -13,9 +13,7 @@
 
 [Notion](https://www.notion.so/codestates/162211fc097f4085b91e201d77a1e15f)
 
-<br/>
-
-[사용자 요구사항 정의서](https://www.notion.so/codestates/24ee5ad4d5624df18e37459e3ea10a13), [화면정의서](https://www.figma.com/file/yZxTrEQpoG3pml0fhz2nCo/SEB_Main_034?node-id=5%3A1972&t=cDJrffIGy27GVShN-1), [테이블 명세서](https://www.notion.so/codestates/ERD-0604dba3e9e7436b91163c8ec26a2d7f) , [API명세서](https://www.notion.so/codestates/API-41cbd20ff34e4b0b8775b85785053c37)
+[사용자 요구사항 정의서](https://www.notion.so/codestates/24ee5ad4d5624df18e37459e3ea10a13), [화면정의서](https://www.figma.com/file/yZxTrEQpoG3pml0fhz2nCo/SEB_Main_034?node-id=5%3A1972&t=cDJrffIGy27GVShN-1), [테이블명세서](https://www.notion.so/codestates/ERD-0604dba3e9e7436b91163c8ec26a2d7f) , [API명세서](https://www.notion.so/codestates/API-41cbd20ff34e4b0b8775b85785053c37)
 
 <br/>
 
