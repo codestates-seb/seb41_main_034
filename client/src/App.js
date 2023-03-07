@@ -36,7 +36,7 @@ const App = () => {
       checkToken();
       getUserCart();
     }
-  });
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
