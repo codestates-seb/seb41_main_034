@@ -1,4 +1,4 @@
-## 🍎 푸드밋(식자재 온라인쇼핑몰)
+## 푸드밋
 ### 📸 [서비스 스크린샷](https://www.notion.so/codestates/79f6954f63034d97ae6d3e73889eb85a?v=ee28a91267584c708630415e383cec7d)
 
 <br/>
